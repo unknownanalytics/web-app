@@ -13,4 +13,38 @@
   .plan-footer {
 
   }
+  .plan-price {
+    .plan-price-amount {
+      display: flex;
+      font-size: 24px;
+    }
+    .plan-price-currency {
+      font-size: 16px;
+    }
+  }
+}
+
+#features_navbar {
+  .box {
+    padding: 0;
+    left: -45%;
+    position: relative;
+    top: 14px;
+  }
+  .features-navbar-body {
+    height: 281px;
+    width: 589px;
+    .features-items {
+      .feature-item {
+      }
+    }
+  }
+  .features-navbar-footer {
+    background: #bac5f4;
+    height: 120px;
+
+  }
+  .features-navbar-body, .features-navbar-footer {
+    padding: 20px 20px;
+  }
 }
