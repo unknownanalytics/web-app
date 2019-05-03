@@ -1,51 +1,78 @@
-<section id="pricing">
-  <div class="container">
-    <h1>Pricing</h1>
-    <div class="columns">
+<section id="pricing" class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Pricing</h1>
+      <div class="columns">
+        <div class="column ">
+          <div class="box essentials">
+            <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => '#bac5f4'} %>
+            <h4 class="subtitle plan-header">Essentials</h4>
+            <div class="plan-price">
+              <span class="plan-price-currency">$</span><span class="plan-price-amount">6.99</span>
+              <div class="duration">/mo</div>
+            </div>
+            <div class="plan-items">
+              <div class="plan-item">100 K views</div>
+              <div class="plan-item">5 domains</div>
+              <div class="plan-item">6 months Storage</div>
+              <div class="plan-item">5 admins</div>
+              <div class="plan-item">Real time interactions (10 sessions max)</div>
+            </div>
+            <div class="plan-footer">
+              <button class="button is-fullwidth call-action"><%= t('Free trial') %></button>
+            </div>
+          </div>
 
-      <div class="column">
-        <h4 class="plan-header">Pro</h4>
-        <div class="plan-price">
-          <span class="plan-price-amount"><span class="plan-price-currency">$</span>6.99</span>/mo
         </div>
-        <div class="plan-items">
-          <div class="plan-item">Unlimited domains</div>
-          <div class="plan-item">6 months Storage</div>
-          <div class="plan-item">Export data</div>
-          <div class="plan-item">5 admins</div>
-          <div class="plan-item">Real time (100 sessions max)</div>
-          <div class="plan-item">-</div>
-        </div>
-        <div class="plan-footer">
-          <button class="button is-fullwidth" disabled="disabled">Current plan</button>
-        </div>
-      </div>
 
-      <div class="column is-warning">
-        <div class="plan-header">Pro ++</div>
-        <div class="plan-price"><span class="plan-price-amount"><span class="plan-price-currency">$</span>12</span>/month
+        <div class="column">
+          <div class="box deeper">
+            <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => '#209cee'} %>
+            <h4 class="plan-header font-size-32">Pro ++</h4>
+            <div class="plan-price">
+              <span class="plan-price-currency">$</span><span class="plan-price-amount">12</span>
+              <div class="duration">/mo</div>
+            </div>
+            <div class="plan-items">
+              <div class="plan-item">300 K views</div>
+              <div class="plan-item">10 domains</div>
+              <div class="plan-item">1 year storage ( + data Export as csv, pdf )</div>
+              <div class="plan-item">10 admins</div>
+              <div class="plan-item">Real time interactions (30 sessions max)</div>
+            </div>
+            <div class="plan-footer">
+              <button class="button is-fullwidth call-action"><%= t('Free trial') %></button>
+            </div>
+          </div>
+
         </div>
-        <div class="plan-items">
-          <div class="plan-item">20GB Storage</div>
-          <div class="plan-item">Unlimlited domain Domains</div>
-          <div class="plan-item">1TB Bandwidth</div>
-          <div class="plan-item">-</div>
-        </div>
-        <div class="plan-footer">
-          <button class="button is-fullwidth">Choose</button>
-        </div>
-      </div>
 
 
-      <div class="column is-danger">
-        <div class="plan-header">Custom</div>
-        <div class="plan-price"><span class="plan-price-amount"><span class="plan-price-currency">$</span>100</span>/month
-        </div>
-        <div class="plan-footer">
-          <button class="button is-fullwidth">contact us</button>
+        <div class="column is-danger">
+          <div class="box custom">
+            <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => 'red'} %>
+            <h4 class="subtitle plan-header">Custom</h4>
+            <div class="plan-items">
+
+            </div>
+            <div class="plan-footer">
+              <button class="button is-fullwidth call-action"><%= t('Contact us ') %></button>
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
+
+  <svg xmlns="http://www.w3.org/2000/svg"
+       viewBox="0 0 1000 1000">
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:rgb(72,179,255);stop-opacity:1"/>
+    </linearGradient>
+    <circle r="180" cy="22%" cx="70%" stroke="none"
+            fill="url(#grad1)"/>
+
+  </svg>
 </section>

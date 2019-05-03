@@ -1,25 +1,57 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "colors";
+
 #pricing {
-  .column {
-    //box-shadow: 0 9px 21px hsla(0, 0%, 0%, .2);
-    border: solid 2px #bababa;
-    margin: 12px;
+  .box {
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    &.essentials {
+      box-shadow: 0 2px 3px rgba(186, 198, 242, 0.27), 0 0 0 1px rgba(186, 198, 242, 0.26);
+      .call-action {
+        background-color: $blueligth;
+      }
+    }
+
+    &.deeper {
+      box-shadow: 0 2px 3px rgba(32, 156, 238, 0.27), 0 0 0 1px rgba(32, 156, 238, 0.26);
+      .call-action {
+        background-color: $primary;
+      }
+    }
+
+    svg {
+      position: absolute;
+      right: -10px;
+      top: -9px;
+      width: 40px;
+      height: 40px;
+      /* background: red; */
+    }
+
   }
   .plan-header {
 
   }
   .plan-footer {
-
+    margin: 20px;
   }
   .plan-price {
+    display: flex;
+    justify-content: center;
+    color: $bluegrey;
+    font-weight: 500;
     .plan-price-amount {
-      display: flex;
       font-size: 24px;
     }
     .plan-price-currency {
       font-size: 16px;
+    }
+    .duration {
+      display: flex;
+      align-items: center;
     }
   }
 }
@@ -46,5 +78,140 @@
   }
   .features-navbar-body, .features-navbar-footer {
     padding: 20px 20px;
+  }
+}
+
+#news_letter {
+  width: 100%;
+  height: 324px;
+  padding: 30px;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 42%;
+    background-image: url("/assets/map.svg");
+  }
+  .title {
+    font-weight: 600;
+    margin-bottom: 11px;
+  }
+  input {
+    max-width: 304px;
+    top: 22px;
+    box-shadow: none;
+    border: solid 1px $blueligth;
+  }
+}
+
+footer {
+  padding-bottom: 0 !important;
+}
+
+#features_container {
+  position: relative;
+  overflow: hidden;
+  background-image: url("/assets/stats_bg_2.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right;
+  .buttons {
+    margin-top: 40px;
+    .button {
+    }
+  }
+  .box {
+    padding: .5rem .5rem 1rem;
+    h1 {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: .5rem;
+      display: flex;
+      align-items: center;
+      color: white;
+      .icon {
+        margin: 5px 5px 5px 0;
+      }
+    }
+    polyline {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: dash 3s linear forwards;
+    }
+
+    @keyframes dash {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+  #box_3 {
+    #hero_events_chart circle {
+      -webkit-transition: all 1s ease-in-out;
+      -moz-transition: all 1s ease-in-out;
+      transition: all 1s ease-in-out;
+    }
+  }
+
+  #box_1, #box_3, #box_2 {
+    background: $blueligth;
+  }
+
+  #box_2 {
+    #map {
+      height: 173px;
+      text-align: center;
+      overflow: hidden;
+      left: -.5rem;
+      position: relative;
+      background: white;
+      width: inherit;
+      right: -5.5rem;
+      top: 15px;
+      border-bottom-left-radius: 6px;;
+      border-bottom-right-radius: 6px;;
+      svg {
+        transform: translateX(-5px);
+        zoom: 0.16;
+        margin: auto;
+      }
+    }
+  }
+  @media (min-width: 768px) {
+    //CSS
+    #box_1 {
+      position: absolute;
+      top: -140px;
+      right: 120px;
+    }
+    #box_3 {
+      position: absolute;
+      top: 60px;
+      right: 120px;
+    }
+    #box_2 {
+      top: -51px;
+      position: absolute;
+      right: -86px;
+    }
+    #box_1, #box_2, #box_3 {
+      width: 320px;
+
+    }
+  }
+  .title {
+    font-weight: 700;
+  }
+  .subtitle {
+    color: hsl(201, 23%, 34%);
+    margin-top: 15px;
+    font-weight: 400;
+    font-size: 18px;
   }
 }

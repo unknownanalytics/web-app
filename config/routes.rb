@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'dashboard' => 'dashboard#index'
   get 'welcome/index'
   devise_for :users, path: 'accounts'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
