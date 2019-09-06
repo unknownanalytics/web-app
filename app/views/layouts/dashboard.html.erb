@@ -1,0 +1,175 @@
+<% content_for :custom_assets do %>
+  <%= stylesheet_link_tag 'dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+  <%= javascript_include_tag 'dashboard', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<%= extends :application do %>
+  <%= render "includes/header" %>
+
+  <div class="container">
+
+    <div class="section">
+      <div class="columns">
+        <aside class="column is-2">
+          <nav class="menu">
+
+            <% unless current_domain.nil? %>
+              <%= current_domain.name %>
+              <hr/>
+
+              <p class="menu-label">
+                <%= t('dashboard.menu.analytics') %>
+              </p>
+              <ul class="menu-list">
+                <li>
+                  <%= link_to(dashboard_path, class: current_menu_item_class?(dashboard_path)) do %>
+                    <%= t('dashboard.menu.overview') %>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(dashboard_stats_pages_path, class: current_menu_item_class?(dashboard_stats_pages_path)) do %>
+                    <%= t('dashboard.menu.pages_views') %>
+                  <% end %>
+                </li>
+                <!--<li>
+                 <%= link_to(dashboard_stats_events_path, class: current_menu_item_class?(dashboard_stats_events_path)) do %>
+                    <%= t('dashboard.menu.events') %>
+                  <% end %>
+                </li>-->
+                <li>
+                  <% if current_domain.domain_setting.track_geo %>
+                    <%= link_to(dashboard_stats_geo_path, class: current_menu_item_class?(dashboard_stats_geo_path)) do %>
+                      <%= t('dashboard.menu.geo_scattering') %>
+                    <% end %>
+                  <% else %>
+                    <span class="tag tag-warning"> <%= t('dashboard.menu.geo_scattering') %> <small>(disabled)</small></span>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(dashboard_stats_heatmap_path, class: current_menu_item_class?(dashboard_stats_heatmap_path)) do %>
+                    <%= t('dashboard.menu.heatmap') %>
+                  <% end %>
+                </li>
+                <li>
+                  <%= link_to(dashboard_stats_export_path) do %>
+                    <%= t('dashboard.menu.export') %>
+                  <% end %>
+                </li>
+              <li>
+                <span class="tag tag-warning"> <%= t('dashboard.menu.events') %> <small>(disabled)</small></span>
+              </li>
+            <% end %>
+            </ul>
+            <% unless current_domain.nil? %>
+              <p class="menu-label">
+                <%= t('dashboard.menu.domain_settings') %>
+              </p>
+              <ul class="menu-list">
+                <li>
+
+
+                  <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
+                    <%= t('dashboard.menu.configuration') %>
+                  <% end -%>
+
+                  <%= link_to(dashboard_domain_api_keys_path(current_domain)) do %>
+                    <%= t('dashboard.menu.api_keys') %>
+                  <% end -%>
+                </li>
+
+                <li>
+                  <a class=""><%= t('dashboard.menu.team_settings') %> </a>
+                  <ul>
+                    <li>
+                      <%= link_to(dashboard_team_domain_path(current_domain)) do %>
+                        <%= t('dashboard.menu.members') %>
+                      <% end %>
+                    </li>
+                    <%= link_to(new_dashboard_team_domain_path(current_domain)) do %>
+                      <%= t('dashboard.menu.add_member') %>
+                    <% end %>
+
+                    <%= link_to(sent_invitations_dashboard_team_domain_path(current_domain)) do %>
+                      <%= t('dashboard.menu.sent_invitations') %>
+                    <% end %>
+
+                    <%= link_to(received_invitations_dashboard_team_domain_path(current_domain)) do %>
+                      <%= t('dashboard.menu.recieved_invitations') %>
+                    <% end %>
+                  </ul>
+                </li>
+              </ul>
+
+              <hr/>
+              <%= form_tag('/dashboard/set-current-domain') do %>
+                <label>
+                  <%= t('Change domain') %></label>
+                <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id)) %>
+                <%= submit_tag t('Select') %>
+                <%= link_to dashboard_domains_path do %>
+                  <span><%= t('Create') %></span>
+                <% end %>
+              <% end -%>
+              <hr/>
+            <% end %>
+            <p class="menu-label">
+              <%= t('dashboard.menu.account_settings') %>
+            </p>
+            <ul class="menu-list">
+              <li>
+                <%= link_to(subscription_path, class: current_menu_item_class?(subscription_path)) do %>
+                  <%= t('dashboard.menu.rate_usage') %>
+                <% end %>
+              <li><a><%= t('dashboard.menu.advanced') %></a></li>
+            </ul>
+          </nav>
+        </aside>
+        <div class="column is-10">
+          <div class="is-12">
+            <% if current_domain.nil? %>
+
+              <span class="title">Select or create a domain</span>
+              <!-- TODO -->
+              <% if @my_domains.size > 0 %>
+                <%= form_tag('/dashboard/set-current-domain') do %>
+                  <div class="field">
+                    <div class="control">
+                      <div class="select">
+                        <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id), {include_blank: t('None')}) %>
+                      </div>
+                    </div>
+                  </div>
+                  <%= submit_tag t('Select', class: 'button is-link') %>
+                <% end -%>
+              <% end -%>
+              <div>
+                <%= link_to(dashboard_domains_path, nil, {class: 'is-link'}) do %>
+                  <span><%= t('domain.create') %></span>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+          <%= yield %>
+
+          <%= render 'dashboard/vue-templates/index' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/underscore@1.9.1/underscore.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+  <% if current_domain.present? %>
+    <script>
+        //  window.addEventListener('load', function () {
+        document.addEventListener("turbolinks:load", function (event) {
+            let path = (new URL(event.data.url)).pathname;
+            if (App.Routes[path]) {
+                App.Routes[path]();
+            }
+        })
+    </script>
+  <% end %>
+
+<% end %>

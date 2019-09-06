@@ -1,0 +1,38 @@
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="subtitle" href="<%= root_path %>">
+        <strong>Toor&nbsp;<span class="tag is-danger">Beta</span> </strong>
+      </a>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <%= render 'includes/header/developers_dropdown_navbar' %>
+      </div>
+      <div class="navbar-item">
+        <%= render 'includes/header/features_dropdown_navbar' %>
+      </div>
+      <div class="navbar-item">
+        <a class="title is-6" href="#pricing">
+          <%= t('Pricing') %>
+        </a>
+      </div>
+      <div class="navbar-item">
+        <div class="buttons">
+          <%= link_to(new_user_registration_path, class: "button is-primary") do %>
+            <strong> <%= t('Sign up') %></strong>
+          <% end %>
+          <%= link_to(new_user_session_path, class: "button is-light") do %>
+            <strong> <%= t('Log in') %></strong>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

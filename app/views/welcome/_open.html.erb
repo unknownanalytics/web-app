@@ -1,0 +1,41 @@
+<div class="section">
+  <div class="container">
+
+    <%= ENV['APP_NAME'] %> is an <b>Open Startup™</b>, which means it operates fully transparent and shares its
+    metrics, including
+    revenue, users and traffic.
+    <h1 class="subtitle">Data encryption</h1>
+    <h1 class="subtitle">Hostings </h1>
+    <h1 class="subtitle">Data storage </h1>
+    <h1 class="subtitle">Metrics</h1>
+    <nav class="level">
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading"><%= t('open_statup.users') %></p>
+          <p class="title"><%= User.count %></p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading"><%= t('open_startups.revenue') %></p>
+          <p class="title"><%= User.count %></p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <p class="heading"><%= t('open_startups.domains_serverd') %></p>
+          <p class="title"><%= Domain.count %></p>
+        </div>
+      </div>
+      <div class="level-item has-text-centered">
+        <div>
+          <div>
+            <p class="heading"><%= t('open_startups.domains_serverd') %></p>
+            <p class="title"><%= Domain.count %></p>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+</div>

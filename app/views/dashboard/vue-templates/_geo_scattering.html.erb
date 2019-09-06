@@ -1,0 +1,22 @@
+<script type="text/x-template" id="app_dashboard_geo_scattering_template">
+  <div>
+    <p>
+      Geo partition
+
+      <select>
+        <option selected="selected">Daily</option>
+        <option>Weekly</option>
+        <option>Monthly</option>
+      </select>
+
+      <%= link_to(dashboard_views_path, {class: 'is-pulled-right'}) do %>
+        details
+      <% end %>
+
+    </p>
+    <div>
+      <%= render 'includes/map_world.svg' %>
+    </div>
+  </div>
+</script>
+

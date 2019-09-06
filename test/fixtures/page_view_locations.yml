@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  country_iso_2: MyString
+  coutry_iso_3: MyString
+  city_name: MyString
+  uuid: MyString
+  lat: 
+  long: 
+  country: MyString
+
+two:
+  country_iso_2: MyString
+  coutry_iso_3: MyString
+  city_name: MyString
+  uuid: MyString
+  lat: 
+  long: 
+  country: MyString

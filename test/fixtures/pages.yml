@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  url: MyString
+  full_url: MyString
+  path: MyString
+  host: MyString
+  query: MyString
+  page_views_count: 1
+  domain: 
+
+two:
+  url: MyString
+  full_url: MyString
+  path: MyString
+  host: MyString
+  query: MyString
+  page_views_count: 1
+  domain: 

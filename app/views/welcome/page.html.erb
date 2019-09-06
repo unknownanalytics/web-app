@@ -1,0 +1,9 @@
+<% content_for :custom_assets do %>
+  <%= stylesheet_link_tag 'welcome', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'welcome', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<%= render 'includes/header_out' %>
+<%= render @page %>
+<%= render "welcome/home/footer" %>
+

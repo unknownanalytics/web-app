@@ -1,0 +1,45 @@
+// Place all the styles related to the Dashboard controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "colors";
+@mixin small-tag {
+  small {
+    .tag {
+      font-size: 8px !important;
+    }
+  }
+}
+#dashboard_navbar {
+  border-bottom: 3px solid hsla(227, 38%, 84%, 0.26);
+}
+
+#overview_global_view_container {
+  .box {
+    color: white;
+    background: $bluegrey;
+    .heading {
+      font-weight: bold;
+      letter-spacing: 2px;
+      @include small-tag;
+    }
+    .title {
+      color: white;
+    }
+
+  }
+}
+#overview_container {
+  .panel-heading {
+    @include small-tag;
+    align-items: center;
+    font-size: 18px !important;
+    select{
+      border-radius: 3px;
+      border : solid 1px $bluegrey  ;
+    }
+    a {
+      font-size: 14px !important;
+    }
+  }
+
+}

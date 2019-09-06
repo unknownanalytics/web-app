@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  metadata: 
+  page: 
+  os: MyString
+  browser: MyString
+  is_mobile: false
+  is_tablet: false
+  is_desktop: false
+  width_resolution: 1
+  height_resolution: 1
+  query: MyString
+
+two:
+  metadata: 
+  page: 
+  os: MyString
+  browser: MyString
+  is_mobile: false
+  is_tablet: false
+  is_desktop: false
+  width_resolution: 1
+  height_resolution: 1
+  query: MyString

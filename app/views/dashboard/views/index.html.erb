@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Dashboard Views</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dashboard_views.each do |dashboard_view| %>
+      <tr>
+        <td><%= link_to 'Show', dashboard_view %></td>
+        <td><%= link_to 'Edit', edit_dashboard_view_path(dashboard_view) %></td>
+        <td><%= link_to 'Destroy', dashboard_view, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dashboard View', new_dashboard_view_path %>

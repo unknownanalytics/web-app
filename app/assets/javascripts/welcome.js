@@ -2,10 +2,18 @@
 //# All this logic will automatically be available in application.js.
 //# You can use CoffeeScript in this file: http://coffeescript.org/
 document.addEventListener("DOMContentLoaded", function () {
-    var dropdown = document.querySelector('.dropdown');
-    dropdown.addEventListener('click', function (event) {
-        event.stopPropagation();
-        dropdown.classList.toggle('is-active');
+    var dropdowns = document.querySelectorAll('.header-dropdown');
+    let closeAll = function () {
+        dropdowns.forEach(entry => {
+            entry.classList.remove('is-active');
+        })
+    };
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', function (event) {
+            closeAll();
+            event.stopPropagation();
+            event.currentTarget.classList.toggle('is-active');
+        });
     });
     // animate events box
     let chart = Rails.$('#hero_events_chart')[0];
@@ -22,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // animate events box
-    let map = Rails.$('#map')[0];
+    let map = Rails.$('#map_hero')[0];
     let paths = map.querySelectorAll('path');
     let index = null;
     setInterval(function () {
@@ -34,4 +42,14 @@ document.addEventListener("DOMContentLoaded", function () {
         paths[index].style.fill = "red"; //Set stroke colour
         paths[index].style.zoom = 10; //Set stroke colour
     }, 1000);
+
+    // animate canvas
+    var canvas = document.querySelector('#welcome_demo_heatmap_mobile canvas');
+    if (canvas) {
+        alert('exists');
+    }
+
+    App.Charts.squares('features_heatmap');
+    App.Charts.bubble('features_views', [1, 2, 1, 2, 4, 2, 5, 2, 4, 2, 1, 6, 5]);
+
 });

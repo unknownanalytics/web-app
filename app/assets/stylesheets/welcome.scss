@@ -11,14 +11,20 @@
     &.essentials {
       box-shadow: 0 2px 3px rgba(186, 198, 242, 0.27), 0 0 0 1px rgba(186, 198, 242, 0.26);
       .call-action {
-        background-color: $blueligth;
+        background-color: $bluesky;
       }
     }
 
     &.deeper {
       box-shadow: 0 2px 3px rgba(32, 156, 238, 0.27), 0 0 0 1px rgba(32, 156, 238, 0.26);
+      margin-left: -35px;
+      position: relative;
+      z-index: 1;
+      margin-right: -40px;
+      top: -32px;
+      height: 380px;
       .call-action {
-        background-color: $primary;
+        background-color: white;
       }
     }
 
@@ -54,20 +60,46 @@
       align-items: center;
     }
   }
+  .features {
+    &.features-entry {
+      text-align: center;
+    }
+    & > div {
+      height: 50px;
+      padding: 4px;
+      font-weight: bold;
+
+      &.check {
+        color: green;
+        font-size: 18px;
+      }
+    }
+  }
 }
 
-#features_navbar {
+.header-dropdown {
+  ::before {
+
+  }
   .box {
     padding: 0;
     left: -45%;
     position: relative;
     top: 14px;
+    &::after {
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid black;
+    }
   }
   .features-navbar-body {
     height: 281px;
     width: 589px;
     .features-items {
       .feature-item {
+
       }
     }
   }
@@ -85,6 +117,7 @@
   width: 100%;
   height: 324px;
   padding: 30px;
+  position: relative;
   &:before {
     content: "";
     position: absolute;
@@ -106,7 +139,7 @@
     max-width: 304px;
     top: 22px;
     box-shadow: none;
-    border: solid 1px $blueligth;
+    border: solid 1px $bluesky;
   }
 }
 
@@ -114,7 +147,7 @@ footer {
   padding-bottom: 0 !important;
 }
 
-#features_container {
+#hero_container {
   position: relative;
   overflow: hidden;
   background-image: url("/assets/stats_bg_2.svg");
@@ -160,7 +193,7 @@ footer {
   }
 
   #box_1, #box_3, #box_2 {
-    background: $blueligth;
+    background: $bluesky;
   }
 
   #box_2 {
@@ -173,13 +206,15 @@ footer {
       background: white;
       width: inherit;
       right: -5.5rem;
-      top: 15px;
+      top: 5px;
       border-bottom-left-radius: 6px;;
       border-bottom-right-radius: 6px;;
       svg {
         transform: translateX(-5px);
         zoom: 0.16;
         margin: auto;
+        // firefox
+        -moz-transform: scale(0.15) translate(-282%, -290%);
       }
     }
   }
@@ -198,7 +233,8 @@ footer {
     #box_2 {
       top: -51px;
       position: absolute;
-      right: -86px;
+      right: -30px;
+      height: 228px;
     }
     #box_1, #box_2, #box_3 {
       width: 320px;
@@ -214,4 +250,90 @@ footer {
     font-weight: 400;
     font-size: 18px;
   }
+}
+
+.app-warning {
+  height: 200px;
+  padding: 10px 0;
+  align-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin: auto;
+}
+
+#features_container {
+  position: relative;
+  background-image: linear-gradient(#3763ff, $primary);
+
+  .box {
+    box-shadow: 0 3rem 3rem -1rem rgba(10, 10, 10, .2);
+    max-width: 520px;
+    padding: 3rem;
+    position: relative;
+    .tag {
+      position: absolute;
+      top: .5rem;
+      left: -8px;
+      background: $bluesky;
+      color: white;
+    }
+  }
+}
+
+svg {
+  #board {
+    .line-chart {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: line-chart-dash 5s linear forwards;
+    }
+
+    @keyframes line-chart-dash {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+}
+
+footer.footer {
+  background: ghostwhite;
+  color: black;
+  .columns {
+    z-index: 1;
+  }
+
+  a, h4 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+  .made-in-tunisia {
+    background: url("/assets/Flag_of_Tunisia.svg");
+    width: 32px;
+    height: 24px;
+    background-size: 32px 24px;
+    border: none;
+    top: 6px;
+    left: 2px;
+    display: inline-block;
+    position: relative;
+    border-radius: 4px;
+  }
+}
+
+.heatmap-image {
+  margin: auto;
+  border: solid 1px;
+  filter: blur(2px);
+}
+
+.heatmap-mobile {
+  width: 384px;
+  height: auto;
+}
+
+.heatmap-desktop {
+  width: 384px;
+  height: auto;
 }

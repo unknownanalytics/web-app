@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  admin: one
+  domain: one
+  validated: false
+  sender: one
+  validated_at: 2019-07-22 22:41:45
+
+two:
+  admin: two
+  domain: two
+  validated: false
+  sender: two
+  validated_at: 2019-07-22 22:41:45

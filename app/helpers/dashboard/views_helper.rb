@@ -1,0 +1,2 @@
+module Dashboard::ViewsHelper
+end

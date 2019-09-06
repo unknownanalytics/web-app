@@ -1,0 +1,41 @@
+<%= form_with(model: [:dashboard, domain], local: true) do |form| %>
+  <% if domain.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(domain.errors.count, "error") %> prohibited this domain from being saved:</h2>
+
+      <ul>
+        <% domain.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Domain name</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <p class="control">
+          <%= form.text_field(:name, {class: "input"}) %>
+        </p>
+        <p class="help">
+          <%= t('Domain_name_text_helper_https://exemple.com') %>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="field is-horizontal">
+    <div class="actions">
+      <div class="field is-grouped">
+        <div class="control">
+          <%= form.submit domain.new_record? ? t('create') : t('Update'), :class => "button" %>
+        </div>
+        <div class="control">
+          <button class="button is-text">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

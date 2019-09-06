@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+  Create: "Créer"
+  Select: "Select"
+  Change: "Update"
+  Update: "Update"
