@@ -78,6 +78,8 @@ GEM
     duktape (2.0.1.0)
     erubi (1.8.0)
     execjs (2.7.0)
+    faker (2.2.2)
+      i18n (~> 1.6.0)
     ffi (1.10.0-x86-mingw32)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -108,6 +110,8 @@ GEM
     pg (1.1.4-x86-mingw32)
     puma (3.12.1)
     rack (2.0.7)
+    rack-mini-profiler (1.0.2)
+      rack (>= 1.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.3)
@@ -201,9 +205,11 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   duktape
+  faker
   jbuilder (~> 2.5)
   pg (>= 0.18, < 2.0)
   puma (~> 3.11)
+  rack-mini-profiler
   rails (~> 5.2.1)
   redis (~> 4.0)
   sass-rails (~> 5.0)
@@ -218,4 +224,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.15.3
+   2.0.2

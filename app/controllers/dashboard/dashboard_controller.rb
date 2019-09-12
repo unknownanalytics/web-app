@@ -2,7 +2,6 @@ class Dashboard::DashboardController < ApplicationController
   layout 'dashboard'
   # OR use a helper
   before_action :load_domains
-  helper_method :current_domain
 
   "" "
   Set user session domain
@@ -32,17 +31,14 @@ class Dashboard::DashboardController < ApplicationController
   def verify_current_user_own_domain
     unless current_user && current_domain && current_domain.user_id == current_user.id
       respond_to do |format|
-        format.html { render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found }
-        format.xml  { head :not_found }
-        format.any  { head :not_found }
+        format.html {render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found}
+        format.xml {head :not_found}
+        format.any {head :not_found}
       end
     end
   end
 
   private
 
-  def current_domain
-    @current_domain ||= Domain.find(session[:domain_id]) if session[:domain_id]
-  end
 
 end

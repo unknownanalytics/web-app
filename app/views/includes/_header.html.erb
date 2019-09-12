@@ -2,7 +2,9 @@
   <div class="container">
     <div class="navbar-menu">
       <div class="navbar-start">
-        <input class="input is-rounded" type="text" placeholder="Rounded input">
+        <form id="navbar_header_form">
+          <input class="input is-rounded" type="text" placeholder="Rounded input">
+        </form>
       </div>
     </div>
     <div class="navbar-end">
@@ -13,7 +15,7 @@
       </a>
 
 
-      <%= link_to('/documentation',  class: "navbar-item") do %>
+      <%= link_to('/documentation', class: "navbar-item") do %>
         Documentation
       <% end %>
 

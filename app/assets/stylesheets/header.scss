@@ -1,3 +1,15 @@
 .header-link {
   color: #bac5f4;
 }
+
+
+#navbar_header_form {
+  padding: 8px 20px;
+
+  input {
+    min-width: 350px;
+    border: solid 1px #d4d4e5;
+    box-shadow: none;
+    border-radius: 4px;
+  }
+}

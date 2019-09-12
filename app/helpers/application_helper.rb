@@ -18,4 +18,9 @@ module ApplicationHelper
     return 'is-active' if request.path == test_path
     ''
   end
+
+  def current_domain
+    @current_domain ||= Domain.find(session[:domain_id]) if session[:domain_id]
+  end
+
 end

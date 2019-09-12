@@ -1,8 +1,8 @@
 class CreatePageViewLocations < ActiveRecord::Migration[5.2]
   def change
     create_table :page_view_locations do |t|
-      t.string :country_iso_2
-      t.string :country_iso_3
+      t.string :country_iso_2, :limit => 2
+      t.string :country_iso_3, :limit => 3
       t.string :city_name
       t.string :uuid
       t.float :lat

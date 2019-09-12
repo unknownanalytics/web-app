@@ -1,0 +1,39 @@
+<script type="text/x-template" id="app_dashboard_pages_views_template">
+  <div>
+    <div class="panel">
+      <div class="panel-heading">
+        Pages : {{stats.pagesCount}}
+        <input placeholder="search page" id="autocomplete"/>
+        <div class="is-pulled-right">
+          <select>
+            <option selected="selected">Daily</option>
+            <option>Weekly</option>
+            <option>Monthly</option>
+          </select>
+        </div>
+
+        <div class="is-pulled-right">
+          <select>
+            <option selected="selected">Referals</option>
+            <option>Pages</option>
+            <option>Devices</option>
+            <option>Geo</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="panel-block">
+        <div class="columns">
+          <div class="column">
+            <canvas id="canvas_views_stats" width="400" height="250"></canvas>
+          </div>
+          <div class="column is-one-third">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+

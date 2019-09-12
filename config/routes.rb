@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
   devise_for :users, path: 'accounts'
+  # TODO remove this
+  get 'api/geo/test' => 'api/geo#test'
 
   authenticate :user do
     namespace :dashboard do
-      get '/' => 'overview#index'
+      get '/' => 'stats#index'
       get '/notify' => 'overview#notify'
 
       get 'account/plan'
@@ -13,14 +15,10 @@ Rails.application.routes.draw do
 
       # stats for current domain
       scope :stats, as: 'stats' do
-        get '/summary' => 'stats#summary'
-        get '/pages' => 'stats#pages'
-        get '/devices' => 'stats#devices'
-        get '/events' => 'stats#overview'
-        get '/geo' => 'stats#overview'
-        get '/heatmap' => 'stats#overview'
-        get '/export' => 'stats#overview'
         get '/' => 'stats#overview'
+        %w(summary pages devices events geo heatmap export).each do |route|
+          get "/#{route}" => "stats##{route}"
+        end
       end
 
       # views, TODO, delete this
@@ -47,13 +45,24 @@ Rails.application.routes.draw do
       end
     end
 
+    namespace :api do
+      get '/summary' => 'summary#index'
+      get '/pages' => 'pages#index'
+      get '/pages/details' => 'pages#details'
+      get '/devices' => 'devices#index'
+      get '/events' => 'events#index'
+      get '/geo' => 'geo#index'
+      get '/heatmap' => 'heatmap#index'
+      get '/export' => 'export#index'
+    end
+
     get '/subscription' => 'dashboard/subscription#index'
   end
 
   get "/:page" => "welcome#pages", :as => 'public_pages'
 
   authenticated :user do
-    root 'dashboard/overview#index'
+    root 'dashboard/stats#index'
   end
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
