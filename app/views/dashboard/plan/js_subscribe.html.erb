@@ -1,0 +1,154 @@
+<script src="https://js.stripe.com/v3/"></script>
+<input id="cardholder-name" type="text">
+<!-- placeholder for Elements -->
+<div id="card-element"></div>
+<button id="card-button" data-secret="<%= @intent.client_secret %>">Submit Payment</button>
+<p>
+  I authorise [your business name] to send instructions to the financial institution that issued my card to take payments from my card account in accordance with the terms of my agreement with you.
+</p>
+<style type="text/css">
+
+  /**
+* The CSS shown here will not be introduced in the Quickstart guide, but shows
+* how you can use CSS to style your Element's container.
+*/
+  .StripeElement {
+    box-sizing: border-box;
+
+    height: 40px;
+
+    padding: 10px 12px;
+
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+
+  .StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
+</style>
+<script>
+    var stripe = Stripe('pk_test_cMTLlwjxiQYaJl9VaQ7K7Uy100Kw0GeFmw');
+
+    var elements = stripe.elements();
+    var cardElement = elements.create('card');
+    cardElement.mount('#card-element');
+    var cardholderName = document.getElementById('cardholder-name');
+    var cardButton = document.getElementById('card-button');
+    var clientSecret = cardButton.dataset.secret;
+
+    cardButton.addEventListener('click', function(ev) {
+        stripe.handleCardPayment(
+            clientSecret, cardElement, {
+                payment_method_data: {
+                    billing_details: {name: cardholderName.value}
+                }
+            }
+        ).then(function(result) {
+            if (result.error) {
+                // Display error.message in your UI.
+            } else {
+                // The payment has succeeded. Display a success message.
+            }
+        });
+    });
+</script>
+
+<script src="https://js.stripe.com/v3/"></script>
+<%= form_tag(dashboard_account_plan_confirm_subscribe_path, method: :post) do -%>
+  <div id="card-element" %>
+  </div>
+  <div id="card-errors"></div>
+<% end %>
+<style type="text/css">
+
+  /**
+* The CSS shown here will not be introduced in the Quickstart guide, but shows
+* how you can use CSS to style your Element's container.
+*/
+  .StripeElement {
+    box-sizing: border-box;
+
+    height: 40px;
+
+    padding: 10px 12px;
+
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: white;
+
+    box-shadow: 0 1px 3px 0 #e6ebf1;
+    -webkit-transition: box-shadow 150ms ease;
+    transition: box-shadow 150ms ease;
+  }
+
+  .StripeElement--focus {
+    box-shadow: 0 1px 3px 0 #cfd7df;
+  }
+
+  .StripeElement--invalid {
+    border-color: #fa755a;
+  }
+
+  .StripeElement--webkit-autofill {
+    background-color: #fefde5 !important;
+  }
+</style>
+<script>
+    var stripe = Stripe('pk_test_cMTLlwjxiQYaJl9VaQ7K7Uy100Kw0GeFmw');
+
+    var elements = stripe.elements();
+    // Custom styling can be passed to options when creating an Element.
+    var style = {
+        base: {
+            // Add your base input styles here. For example:
+            fontSize: '16px',
+            color: "#32325d",
+        }
+    };
+
+    // Create an instance of the card Element.
+    var card = elements.create('card', {style: style});
+
+    // Add an instance of the card Element into the `card-element` <div>.
+    card.mount('#card-element');
+    //
+    card.addEventListener('change', function (event) {
+        var displayError = document.getElementById('card-errors');
+        if (event.error) {
+            displayError.textContent = event.error.message;
+        } else {
+            displayError.textContent = '';
+        }
+    });
+    /*
+    cardButton.addEventListener('click', function (ev) {
+        stripe.handleCardPayment(
+            clientSecret, cardElement, {
+                payment_method_data: {
+                    billing_details: {name: cardholderName.value}
+                }
+            }
+        ).then(function (result) {
+            if (result.error) {
+                // Display error.message in your UI.
+            } else {
+                // The payment has succeeded. Display a success message.
+            }
+        });
+    });
+    */
+</script>

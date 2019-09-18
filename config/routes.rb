@@ -1,14 +1,19 @@
 Rails.application.routes.draw do
   devise_for :users, path: 'accounts'
   # TODO remove this
-  get 'api/geo/test' => 'api/geo#test'
+  post 'billing/webhook' => 'billings/webhook'
+
 
   authenticate :user do
     namespace :dashboard do
       get '/' => 'stats#index'
       get '/notify' => 'overview#notify'
 
-      get 'account/plan'
+      get 'account/plan/current' => 'plan#current_plan'
+      get 'account/plan/current/upgrade' => 'plan#upgrade'
+      get 'account/plan/current/confirm-upgrade' => 'plan#upgrade'
+      get 'account/plan/subscribe' => 'plan#subscribe'
+      post 'account/plan/confirm-subscribe' => 'plan#confirm_subscribe'
 
       # change current domain
       post '/set-current-domain' => 'dashboard#set_current_domain'

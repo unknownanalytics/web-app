@@ -1,0 +1,25 @@
+<script src="https://js.stripe.com/v3/"></script>
+<p>
+  You selected the <%= @plan_name %>
+<h1>Note : </h1>
+I authorise UnknownAnalytics via Stripe to send instructions to the financial institution that issued my card to take
+payments from my card account in accordance with the terms of my agreement with you.
+</p>
+<button id="submit">Submit</button>
+
+<script>
+    document.getElementById("submit").addEventListener('click', function () {
+
+        var stripe = Stripe('pk_test_cMTLlwjxiQYaJl9VaQ7K7Uy100Kw0GeFmw');
+        stripe.redirectToCheckout({
+            // Make the id field from the Checkout Session creation API response
+            // available to this file, so you can provide it as parameter here
+            // instead of the {{CHECKOUT_SESSION_ID}} placeholder.
+            sessionId: "<%= @checkout_session_id %>"
+        }).then(function (result) {
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer
+            // using `result.error.message`.
+        });
+    })
+</script>

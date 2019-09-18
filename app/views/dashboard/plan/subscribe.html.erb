@@ -1,0 +1,7 @@
+<%= form_tag(dashboard_account_plan_confirm_subscribe_path, :method => 'post' ) do -%>
+  <%= radio_button_tag(:plan, "plan_FnVRW7C78ZUB5U") %>
+  <%= label_tag(:plan_plan_FnVRW7C78ZUB5U, "Essential plan") %>
+  <%= radio_button_tag(:plan, "corporate") %>
+  <%= label_tag(:plan_corporate, "Corporate plan") %>
+  <%= submit_tag("validate") %>
+<% end %>

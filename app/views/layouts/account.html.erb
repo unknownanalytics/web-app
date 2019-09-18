@@ -1,0 +1,15 @@
+<% content_for :custom_assets do %>
+  <%= stylesheet_link_tag 'dashboard', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+  <%= javascript_include_tag 'dashboard', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
+<%= extends :application do %>
+  <%= render "includes/header" %>
+
+  <div class="container">
+
+    <%= yield %>
+  </div>
+
+<% end %>

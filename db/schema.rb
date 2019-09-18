@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_06_073410) do
+ActiveRecord::Schema.define(version: 2019_09_18_073732) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,6 +110,28 @@ ActiveRecord::Schema.define(version: 2019_09_06_073410) do
     t.index ["url"], name: "index_pages_on_url"
   end
 
+  create_table "stripe_customers", force: :cascade do |t|
+    t.string "stripe_customer_id"
+    t.bigint "account_id"
+    t.string "plan"
+    t.jsonb "meta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_stripe_customers_on_account_id", unique: true
+    t.index ["stripe_customer_id"], name: "index_stripe_customers_on_stripe_customer_id", unique: true
+  end
+
+  create_table "stripe_subscriptions", force: :cascade do |t|
+    t.string "subscription_id"
+    t.bigint "stripe_customer_id"
+    t.bigint "stripe_subscription_id"
+    t.jsonb "meta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stripe_customer_id"], name: "index_stripe_subscriptions_on_stripe_customer_id"
+    t.index ["stripe_subscription_id"], name: "index_stripe_subscriptions_on_stripe_subscription_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -129,6 +151,7 @@ ActiveRecord::Schema.define(version: 2019_09_06_073410) do
     t.datetime "locked_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_admin", default: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -145,4 +168,7 @@ ActiveRecord::Schema.define(version: 2019_09_06_073410) do
   add_foreign_key "page_view_locations", "pages"
   add_foreign_key "page_views", "pages"
   add_foreign_key "pages", "domains"
+  add_foreign_key "stripe_customers", "users", column: "account_id"
+  add_foreign_key "stripe_subscriptions", "stripe_customers"
+  add_foreign_key "stripe_subscriptions", "stripe_subscriptions"
 end

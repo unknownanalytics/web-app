@@ -23,4 +23,8 @@ module ApplicationHelper
     @current_domain ||= Domain.find(session[:domain_id]) if session[:domain_id]
   end
 
+  def current_plan
+
+  end
+
 end

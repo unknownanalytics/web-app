@@ -38,6 +38,10 @@ gem 'bootsnap', '= 1.4.1', require: false
 
 gem 'whenever', require: false
 
+gem 'rails_admin', '~> 2.0'
+
+gem 'stripe'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
