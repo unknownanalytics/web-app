@@ -23,8 +23,9 @@ module ApplicationHelper
     @current_domain ||= Domain.find(session[:domain_id]) if session[:domain_id]
   end
 
-  def current_plan
 
+  def current_plan
+    @current_plan ||= StripeSubscriptionHistory.find_by_stripe_customer_id(StripeCustomer.find_by_account_id(current_user.id))
   end
 
 end

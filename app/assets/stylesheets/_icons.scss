@@ -1,21 +1,12 @@
 @import "colors";
-
-@import "colors";
 // https://tympanus.net/codrops/2015/07/16/styling-svg-use-content-css/
 svg.icon {
   width: 24px;
   height: 24px;
-  padding: 2px;
-  fill: red;
-  use {
-    fill: $bluegrey;
-    color: white;
-    svg path {
-      all: inherit;
-    }
-    &.accent {
-      fill: blue;
-      color: red;
-    }
+  --primary: #{$primary-icon};
+  --secondary: #{$secondary-icon};
+  .alt {
+    --primary: red;
+    --secondary: #6F213F;
   }
 }

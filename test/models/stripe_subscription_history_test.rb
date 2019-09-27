@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StripeSubscriptionTest < ActiveSupport::TestCase
+class StripeSubscriptionHistoryTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

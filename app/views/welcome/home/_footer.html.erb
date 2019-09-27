@@ -1,45 +1,49 @@
 <footer class="footer">
   <div class="container">
     <div class="columns">
-      <div class="column content is-small">
-        <h1>Social </h1>
-        <h4>Blog</h4>
-        <a>Twitter</a><br/>
-        <a>linkedin</a><br/>
-        <a>Github</a><br/>
-        <h4>Contact</h4>
-      </div>
-      <div class="column content is-small">
-
-        <h1>Features</h1>
-        <h4>* Page views</h4>
-        <h4>* Geo partitpion</h4>
-        <h4>* Heat map</h4>
-        <h4>* Data export </h4>
-        <h4>* Realtime notification</h4>
+      <div class="column content">
+        <h2>Features</h2>
+        <a class="is-link">Page views</a><br/>
+        <a class="is-link">Geo partitpion</a><br/>
+        <a class="is-link">Heat map</a><br/>
+        <a class="is-link">Data export </a><br/>
+        <a class="is-link">Events</a><br/>
+        <a class="is-link">Realtime notification</a><br/>
 
       </div>
-      <div class="column content is-small">
-        <h1>Resources</h1>
-        <h4>Getting started</h4>
-        <h4>User guides</h4>
-        <h4>FAQ</h4>
-        <h4>Api</h4>
-        <h4><%= link_to t("Open source"), public_pages_path(:page => 'open-source') %></h4>
+      <div class="column content">
+        <h2>Resources</h2>
+        <a class="is-link">Getting started</a><br/>
+        <a class="is-link">User guides</a><br/>
+        <a class="is-link">FAQ</a><br/>
+        <a class="is-link">Api</a><br/>
+        <a class="is-link"><%= link_to t("Open source"), public_pages_path(:page => 'open-source') %></a><br/>
       </div>
 
-      <div class="column content is-small">
-        <h1>Leagal </h1>
-        <a>Cookie Policy</a><br/>
-        <a>Privacy Policy</a>
-        <h1>About us</h1>
-        <h1>Values</h1>
+
+      <div class="column content">
+        <h2>Legal </h2>
+        <a class="is-link">Cookie Policy</a><br/>
+        <a class="is-link">Privacy Policy</a><br/>
+        <%= link_to('About us', '/team') %><br/>
+        <a class="is-link">Values</a><br/>
+        <a class="is-link">Open startup</a>
+      </div>
+
+
+      <div class="column content">
+        <h2>Social </h2>
+        <a class="is-link">Blog</a><br/>
+        <a class="is-link">Twitter</a><br/>
+        <a class="is-link">Linkedin</a><br/>
+        <a class="is-link">Github</a><br/>
+        <a class="is-link">Contact</a><br/>
       </div>
     </div>
     <hr/>
 
     <div id="news_letter" class="has-text-centered">
-      <h4 class="title is-6">Join our newsletter</h4>
+      <a class="title is-6">Join our newsletter</a><br/>
       <p>Sign up for our newsletter to get news revies each week.</p>
       <input type="text" class="input">
     </div>

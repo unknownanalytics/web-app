@@ -1,5 +1,18 @@
-form#new_user {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+
+.devise-container {
+  text-align: center;
+  form {
+    max-width: 300px;
+    margin: auto;
+    text-align: left;
+    br {
+      display: none;
+    }
+    input {
+      width: 280px;
+      height: 32px;
+      border: solid 1px #b1c1f2;
+      border-radius: 3px;
+    }
+  }
 }

@@ -1,10 +1,9 @@
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
-      <a class="subtitle" href="<%= root_path %>">
-        <strong>Toor&nbsp;<span class="tag is-danger">Beta</span> </strong>
+      <a class="navbar-item" href="<%= root_path %>">
+        <%= render "includes/_logo" %>
       </a>
-
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -25,7 +24,7 @@
       </div>
       <div class="navbar-item">
         <div class="buttons">
-          <%= link_to(new_user_registration_path, class: "button is-primary") do %>
+          <%= link_to(new_user_registration_path, class: "button is-primary register-button") do %>
             <strong> <%= t('Sign up') %></strong>
           <% end %>
           <%= link_to(new_user_session_path, class: "button is-light") do %>

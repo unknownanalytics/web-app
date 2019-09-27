@@ -2,26 +2,40 @@
   <div class="container">
     <div class="navbar-menu">
       <div class="navbar-start">
-        <form id="navbar_header_form">
-          <input class="input is-rounded" type="text" placeholder="Rounded input">
+        <a class="navbar-item" href="<%= root_path %>">
+          <%= render "includes/logo" %>
+        </a>
+        <form id="navbar_header_form" class="navbar-item">
+          <div class="control has-icons-left has-icons-right">
+            <input class="input" type="email" placeholder="Search ">
+            <span class="icon is-left">
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-search'} %>
+  </span>
+          </div>
         </form>
       </div>
     </div>
     <div class="navbar-end">
-      <a class="navbar-item">
+      <div class="navbar-item">
         <% if current_domain.present? %>
           <span class="tag  is-info"><%= current_domain.name %></span>
         <% end %>
-      </a>
+      </div>
 
 
       <%= link_to('/documentation', class: "navbar-item") do %>
         Documentation
       <% end %>
-
+      <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-link">
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-notification'} %>
+        </div>
+        <div class="navbar-dropdown">
+        </div>
+      </div>
       <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">
-          ***
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cog'} %>
         </a>
 
         <div class="navbar-dropdown">

@@ -1,5 +1,9 @@
 App.Charts = {
     /**
+     *
+     */
+    _defaultGradient: ['#ffbe88', '#ffa4bc'],
+    /**
      * Store contexts gradients
      */
     __declaredCtxGradients: {},
@@ -30,6 +34,19 @@ App.Charts = {
     _createSVG(properties) {
         properties = Object.assign({}, {'width': "100%", 'height': "25%"}, properties || {})
         return App.Charts._createElementNS('svg', properties);
+    },
+    /**
+     *
+     * @param svg
+     * @param colors
+     * @private
+     */
+    _setSVGGradient(svg, colors) {
+        let gradientID = 'gradient_' + Date.now();
+        let defs = App.Charts._createElementNS('defs');
+        defs.appendChild(App.Charts._createGrandient(gradientID, colors));
+        svg.appendChild(defs);
+        return gradientID;
     },
     /**
      *
@@ -133,10 +150,8 @@ App.Charts = {
             var animStart = 0;
             // set height
             svg.setAttributeNS(null, 'viewBox', `0 0 ${domClientWidth} ${dom.clientHeight}`);
-            var gradientID = 'gradient_' + Date.now();
-            var defs = createNS('defs');
-            defs.appendChild(App.Charts._createGrandient(gradientID, ['#ffbe88', '#ffa4bc']));
-            svg.appendChild(defs);
+            // gradient
+            let gradientID = App.Charts._setSVGGradient(svg, ['#ffbe88', '#ffa4bc']);
             var i = 0, j = 0, square;
             let counter = 0;
             for (i; i < options.x; i++) {
@@ -174,7 +189,8 @@ App.Charts = {
     /**
      *
      * @param dom
-     * @param args
+     * @param data
+     * @param options
      */
     bubble(dom, data, options) {
         dom = typeof (dom) === 'string' ? document.getElementById(dom) : dom;
@@ -187,6 +203,8 @@ App.Charts = {
             var svg = App.Charts._createSVG();
             svg.setAttributeNS(null, 'viewBox', '0 0 300 75');
             dom.appendChild(svg);
+            // gradient
+            let gradientID = App.Charts._setSVGGradient(svg, options.colors || App.Charts._defaultGradient);
 
             //
             let width = options.width || 300 /*svg.getBoundingClientRect().width*/;
@@ -204,7 +222,7 @@ App.Charts = {
                         'r': r,
                         'cx': ((i + 1 / 2) * spaceBetween),
                         'cy': -200,
-                        'fill': 'blue',
+                        'fill': 'url(#' + gradientID + ')',
                     });
                     day.appendChild(createNS('animate', {
                         'attributeName': 'cy',
@@ -217,6 +235,62 @@ App.Charts = {
                     svg.appendChild(day);
                 }
                 animStartX++;
+            }
+        }
+    },
+    /**
+     *
+     * @param dom
+     * @param data
+     */
+    bars(dom, data, options) {
+        dom = typeof (dom) === 'string' ? document.getElementById(dom) : dom;
+        if (dom) {
+            options = options || {};
+            if (!(data && (typeof (data) === typeof ([])) || data.length)) {
+                return;
+            }
+            // short
+            let createNS = App.Charts._createElementNS;
+            let svg = App.Charts._createSVG();
+            svg.setAttributeNS(null, 'viewBox', '0 0 300 75');
+            dom.appendChild(svg);
+
+            let group = createNS('g', {
+                'transform': 'scale(1,-1) translate(0,-67)'
+            });
+            svg.appendChild(group);
+            // gradient
+            let gradientID = App.Charts._setSVGGradient(svg, options.colors || App.Charts._defaultGradient);
+            // find max y
+            let max = Math.max.apply(this, data);
+            //
+            let width = options.width || 300 /*svg.getBoundingClientRect().width*/;
+            let height = options.height || 75 /*svg.getBoundingClientRect().width*/;
+            height -= 12;
+            let entries = data.length;
+            let spaceBetween = width / entries;
+            let i = 0, animStart, bar;
+            for (i; i < entries; i++) {
+                animStart = 0;
+                bar = createNS('rect', {
+                    'x': (i * spaceBetween),
+                    'y': 0,
+                    'fill': 'url(#' + gradientID + ')',
+                    'rx': 2,
+                    'ry': 2,
+                    'height': 0,
+                    'width': 5
+                });
+                bar.appendChild(createNS('animate', {
+                    'attributeName': 'height',
+                    'begin': (animStart++ * .03) + 's',
+                    'from': '0',
+                    'to': height * data[i] / max,
+                    'dur': '0.5s',
+                    'fill': "freeze"
+                }));
+                group.appendChild(bar);
             }
         }
     }

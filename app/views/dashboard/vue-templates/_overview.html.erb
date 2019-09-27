@@ -3,7 +3,7 @@
     overflow: hidden;
   }
 
-  #overview_map_content_container  #map_world_svg {
+  #overview_map_content_container #map_world_svg {
     stroke-linejoin: round;
     stroke: #000;
     fill: none;
@@ -41,7 +41,7 @@
           <div class="title">
             <span>{{stats.viewsCount}}</span>
             <div class="is-pulled-right">
-              <%= render :partial => 'includes/icon', :locals => {:link => 'icon-target', :cssClass => 'accent'} %>
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-target', :cssClass => 'accent'} %>
             </div>
 
           </div>
@@ -55,6 +55,16 @@
           </div>
         </div>
       </div>
+
+      <div class="column">
+        <div class="box">
+          <div class="heading"><%= t('Campaigns') %>
+          </div>
+          <div class="title">
+            <span>-</span>
+          </div>
+        </div>
+      </div>
       <div class="column">
         <div class="box">
           <div class="heading"><%= t('Events') %>
@@ -65,30 +75,22 @@
           </div>
         </div>
       </div>
-      <div class="column">
-        <div class="box">
-          <div class="heading"><%= t('Issues') %>
-            <small><span class="tag is-bold is-warning"><%= t('Soon') %></span></small>
-          </div>
-          <div class="title">
-            <span>-</span>
-          </div>
-        </div>
-      </div>
+
     </div>
 
     <div class="columns is-multiline">
       <div class="column is-6" id="overview_page_views_content_container">
         <div class="panel">
           <p class="panel-heading">
-            Page views
-
+            <%= t('Page views') %>
             <select id="overview_view_period" @change="onChangePeriodTopPagesViews($event)">
-              <option value="month"><%= t('Today') %> <%= Date.today.strftime("%B, %Y") %></option>
-              <option value="week"><%= t('This week') %> :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
+              <option value="week"><%= t('This week') %>
+                :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
                 - <%= Date.today.strftime("%d %B") %></option>
-              <option selected="selected" value="day"><%= t('This month') %>
+              <option  selected="selected" value="month"><%= t('This month') %>
                 :  <%= Date.today.strftime("%B") %></option>
+
+              <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
             </select>
 
             <%= link_to(dashboard_views_path, {class: 'is-pulled-right'}) do %>
@@ -107,11 +109,13 @@
             Devices
 
             <select id="overview_view_period" @change="onChangePeriodDevicesViews($event)">
-              <option value="month"><%= t('Today') %> <%= Date.today.strftime("%B, %Y") %></option>
-              <option value="week"><%= t('This week') %> :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
+              <option value="week"><%= t('This week') %>
+                :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
                 - <%= Date.today.strftime("%d %B") %></option>
-              <option selected="selected" value="day"><%= t('This month') %>
+              <option selected="selected"  value="month"><%= t('This month') %>
                 :  <%= Date.today.strftime("%B") %></option>
+
+              <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
             </select>
 
             <%= link_to(dashboard_views_path, {class: 'is-pulled-right'}) do %>

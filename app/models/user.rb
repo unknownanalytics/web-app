@@ -17,8 +17,7 @@ class User < ApplicationRecord
            :class_name => "AdminsDomain"
 
 
-
-  ## admins of domains
+  ## admins of domain
   has_many :admins_domains
 
   has_many :domains,

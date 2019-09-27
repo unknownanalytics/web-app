@@ -10,10 +10,8 @@
       </ul>
     </div>
   <% end %>
-  <div class="field is-horizontal">
-    <div class="field-label is-normal">
-      <label class="label"><%= t('Alias') %></label>
-    </div>
+  <div class="field">
+    <label class="label"><%= t('Alias') %></label>
     <div class="field-body">
       <div class="field">
         <p class="control">
@@ -25,13 +23,9 @@
       </div>
     </div>
   </div>
-  <div class="field is-horizontal">
-    <div class="actions">
-      <div class="field is-grouped">
-        <div class="control">
-          <%= form.submit %>
-        </div>
-      </div>
+  <div class="field is-grouped">
+    <div class="control">
+      <%= form.submit({class: 'button'}) %>
     </div>
   </div>
 <% end %>

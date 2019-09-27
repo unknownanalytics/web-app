@@ -10,9 +10,7 @@
     min-height: 320px;
     &.essentials {
       box-shadow: 0 2px 3px rgba(186, 198, 242, 0.27), 0 0 0 1px rgba(186, 198, 242, 0.26);
-      .call-action {
-        background-color: $bluesky;
-      }
+
     }
 
     &.deeper {
@@ -23,9 +21,6 @@
       margin-right: -40px;
       top: -32px;
       height: 380px;
-      .call-action {
-        background-color: white;
-      }
     }
 
     svg {
@@ -115,8 +110,7 @@
 
 #news_letter {
   width: 100%;
-  height: 324px;
-  padding: 30px;
+  height: 200px;
   position: relative;
   &:before {
     content: "";
@@ -126,7 +120,7 @@
     width: 100%;
     height: 100%;
     opacity: 0.3;
-    background-position: center;
+    background-position: center -13px;
     background-repeat: no-repeat;
     background-size: 42%;
     background-image: url("/assets/map.svg");
@@ -143,14 +137,20 @@
   }
 }
 
+.welcome-map-dots {
+  position: absolute;
+  top: -90%;
+  opacity: .2;
+  left: 24%;
+}
+
 footer {
   padding-bottom: 0 !important;
 }
 
 #hero_container {
   position: relative;
-  overflow: hidden;
-  background-image: url("/assets/stats_bg_2.svg");
+  overflow: initial;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: right;
@@ -167,20 +167,8 @@ footer {
       margin-bottom: .5rem;
       display: flex;
       align-items: center;
-      color: white;
       .icon {
         margin: 5px 5px 5px 0;
-      }
-    }
-    polyline {
-      stroke-dasharray: 1000;
-      stroke-dashoffset: 1000;
-      animation: dash 3s linear forwards;
-    }
-
-    @keyframes dash {
-      to {
-        stroke-dashoffset: 0;
       }
     }
   }
@@ -192,52 +180,46 @@ footer {
     }
   }
 
-  #box_1, #box_3, #box_2 {
-    background: $bluesky;
+  #box_1, #box_3, #box_2, #box_4, #box_5 {
+    background: white;
   }
 
-  #box_2 {
-    #map {
-      height: 173px;
-      text-align: center;
-      overflow: hidden;
-      left: -.5rem;
-      position: relative;
-      background: white;
-      width: inherit;
-      right: -5.5rem;
-      top: 5px;
-      border-bottom-left-radius: 6px;;
-      border-bottom-right-radius: 6px;;
-      svg {
-        transform: translateX(-5px);
-        zoom: 0.16;
-        margin: auto;
-        // firefox
-        -moz-transform: scale(0.15) translate(-282%, -290%);
-      }
-    }
-  }
   @media (min-width: 768px) {
+    #box_1, #box_2, #box_3, #box_4, #box_5 {
+      position: absolute;
+      //width: 320px;
+    }
+    #box_4, #box_3, #box_1 {
+      width: 340px
+    }
     //CSS
     #box_1 {
-      position: absolute;
-      top: -140px;
-      right: 120px;
+      top: -100px;
+      right: 281px;
+      z-index: 1;
+    }
+
+    //CSS
+    #box_4 {
+      top: -72px;
+      right: 20px;
+      z-index: 2;
     }
     #box_3 {
-      position: absolute;
       top: 60px;
       right: 120px;
+      z-index: 2;
     }
     #box_2 {
-      top: -51px;
-      position: absolute;
-      right: -30px;
-      height: 228px;
+      top: 63px;
+      right: -37px;
+      height: 155px;
+      z-index: 3;
     }
-    #box_1, #box_2, #box_3 {
-      width: 320px;
+    #box_5 {
+      right: 420px;
+      z-index: 1;
+      top: 23px;
 
     }
   }
@@ -252,47 +234,49 @@ footer {
   }
 }
 
-.app-warning {
-  height: 200px;
-  padding: 10px 0;
+#app_warning {
+  padding: 4rem 0;
   align-content: center;
   display: flex;
   align-items: center;
   flex-direction: row;
   margin: auto;
-}
-
-#features_container {
-  position: relative;
-  background-image: linear-gradient(#3763ff, $primary);
-
-  .box {
-    box-shadow: 0 3rem 3rem -1rem rgba(10, 10, 10, .2);
-    max-width: 520px;
-    padding: 3rem;
-    position: relative;
-    .tag {
-      position: absolute;
-      top: .5rem;
-      left: -8px;
-      background: $bluesky;
-      color: white;
+  .icon-boxed {
+    .icon {
+      width: 100px;
+      height: 100px;
+      --primary: #000000;
+      --secondary: white;
     }
   }
 }
 
-svg {
-  #board {
-    .line-chart {
-      stroke-dasharray: 1000;
-      stroke-dashoffset: 1000;
-      animation: line-chart-dash 5s linear forwards;
-    }
+#app_warning, #features_container {
+  .column {
+    padding: 20px;
+    margin: 20px;
+    text-align: center;
+    figcaption {
+      p {
+        line-height: 2;
+        padding: 10px 16px 6px;
+        font-size: 14px;
+        font-weight: 500;
 
-    @keyframes line-chart-dash {
-      to {
-        stroke-dashoffset: 0;
       }
+    }
+  }
+}
+
+#features_container {
+
+  .icon-boxed {
+    .icon {
+      width: 100px;
+      height: 100px;
+
+      --primary: #{$primary-start-gradient};
+      --secondary: #{$primary-end-gradient};
     }
   }
 }
@@ -303,10 +287,10 @@ footer.footer {
   .columns {
     z-index: 1;
   }
-
-  a, h4 {
-    font-size: 1rem;
-    font-weight: 600;
+  a {
+    font-size: .9rem;
+    font-weight: 500;
+    color: #535050;
   }
   .made-in-tunisia {
     background: url("/assets/Flag_of_Tunisia.svg");
@@ -322,18 +306,34 @@ footer.footer {
   }
 }
 
-.heatmap-image {
+blockquote {
+  quotes: "“" "”" "‘" "’";
+  font-style: italic;
+  padding: .5em;
+  border-left: 5px solid #ffffff;
   margin: auto;
-  border: solid 1px;
-  filter: blur(2px);
+  width: max-content;
+  &:before {
+    content: open-quote;
+  }
+  &:after {
+    content: close-quote;
+  }
 }
 
-.heatmap-mobile {
-  width: 384px;
-  height: auto;
+#product {
+  .tabs:not(:last-child) {
+    margin-bottom: 0;
+  }
+
+  .tab-content {
+    display: none;
+  }
+  .tab-content.is-active {
+    display: block;
+  }
 }
 
-.heatmap-desktop {
-  width: 384px;
-  height: auto;
+.register-button {
+  background: linear-gradient(45deg, $primary-start-gradient, $primary-end-gradient);
 }

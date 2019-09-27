@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_18_073732) do
+ActiveRecord::Schema.define(version: 2019_09_19_080612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -111,25 +111,39 @@ ActiveRecord::Schema.define(version: 2019_09_18_073732) do
   end
 
   create_table "stripe_customers", force: :cascade do |t|
-    t.string "stripe_customer_id"
-    t.bigint "account_id"
-    t.string "plan"
+    t.string "stripe_customer_id", null: false
+    t.bigint "account_id", null: false
+    t.string "plan", null: false
     t.jsonb "meta"
+    t.datetime "plan_ends_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_stripe_customers_on_account_id", unique: true
     t.index ["stripe_customer_id"], name: "index_stripe_customers_on_stripe_customer_id", unique: true
   end
 
-  create_table "stripe_subscriptions", force: :cascade do |t|
-    t.string "subscription_id"
+  create_table "stripe_subscription_histories", force: :cascade do |t|
+    t.string "subscription_stripe_id", null: false
+    t.bigint "subscription_plan_id_id", null: false
     t.bigint "stripe_customer_id"
-    t.bigint "stripe_subscription_id"
+    t.datetime "started_at", null: false
+    t.datetime "ends_at", null: false
+    t.string "plan_id"
     t.jsonb "meta"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["stripe_customer_id"], name: "index_stripe_subscriptions_on_stripe_customer_id"
-    t.index ["stripe_subscription_id"], name: "index_stripe_subscriptions_on_stripe_subscription_id"
+    t.index ["stripe_customer_id"], name: "index_stripe_subscription_histories_on_stripe_customer_id"
+    t.index ["subscription_plan_id_id"], name: "index_stripe_subscription_histories_on_subscription_plan_id_id"
+  end
+
+  create_table "subscription_plans", force: :cascade do |t|
+    t.string "stripe_plan_id", null: false
+    t.string "name", null: false
+    t.string "description", null: false
+    t.boolean "is_active", default: false
+    t.float "monthly_price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -169,6 +183,5 @@ ActiveRecord::Schema.define(version: 2019_09_18_073732) do
   add_foreign_key "page_views", "pages"
   add_foreign_key "pages", "domains"
   add_foreign_key "stripe_customers", "users", column: "account_id"
-  add_foreign_key "stripe_subscriptions", "stripe_customers"
-  add_foreign_key "stripe_subscriptions", "stripe_subscriptions"
+  add_foreign_key "stripe_subscription_histories", "stripe_customers"
 end

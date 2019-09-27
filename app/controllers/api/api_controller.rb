@@ -13,7 +13,7 @@ class Api::ApiController < ApplicationController
       stop = params[:start].to_s
     end
 
-    if interval == 'day'
+    if interval == 'today'
       start = stop - back.days
     elsif interval === 'week'
       start = stop - back.week
@@ -21,6 +21,8 @@ class Api::ApiController < ApplicationController
       # monthly
       start = stop - back.month
     end
+
+
     start..stop
   end
 

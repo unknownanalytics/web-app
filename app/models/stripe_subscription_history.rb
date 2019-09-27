@@ -1,0 +1,2 @@
+class StripeSubscriptionHistory < ApplicationRecord
+end

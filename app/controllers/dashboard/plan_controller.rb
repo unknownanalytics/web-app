@@ -2,7 +2,7 @@ module Dashboard
   class PlanController < Dashboard::DashboardController
 
     layout 'account'
-    before_action :set_api_key
+
 
     def subscribe
 
@@ -35,18 +35,11 @@ module Dashboard
                       }],
               trial_period_days: 30
           },
-          success_url: "https://85fa80ae.ngrok.io/billing/webhook",
-          cancel_url: "https://85fa80ae.ngrok.io/billing/webhook",
+          success_url: "#{ENV['host']}/billing/success",
+          cancel_url: "#{ENV['host']}/billing/cancel",
       )
 
       @checkout_session_id = stripe_session[:id]
     end
-
-    private
-
-    def set_api_key
-      Stripe.api_key = 'sk_test_KhHgc2X0Vyvw9L9Mj2R2aDDu00o2MA5d1U'
-    end
-
   end
 end
