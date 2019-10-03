@@ -18,7 +18,7 @@ class ApiKey < ApplicationRecord
   private
 
   def set_public_key
-    self.public_key = SecureRandom.urlsafe_base64
+    self.public_key = 'ua_' + SecureRandom.urlsafe_base64
   end
 
 
