@@ -1,23 +1,39 @@
 <p id="notice"><%= notice %></p>
+<h1><%= current_domain.name %> <%= t('admins') %>
 
-<h1><%= current_domain.name %> Admins </h1>
-
-<table>
+  <%= link_to(new_dashboard_team_domain_path(current_domain), class: 'is-pulled-right button is-primary') do %>
+    <%= t('dashboard.menu.add_member') %>
+  <% end %>
+  <% if @waiting_count > 0 %>
+    <%= link_to(sent_invitations_dashboard_team_domain_path(current_domain), class: 'is-pulled-right') do %>
+      <%= @waiting_count %> <%= t('dashboard.menu.sent_invitations') %>
+    <% end %>
+  <% end %>
+</h1>
+<table class="table is-fullwidth">
   <thead>
   <tr>
-    <th colspan="3"></th>
+    <th><%= t('Email') %></th>
+    <th>  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-dots-horizontal'} %></th>
   </tr>
   </thead>
-
   <tbody>
-  <% @admins.each do |admin| %>
+  <tr>
+    <td><%= current_domain.user.email %></td>
+    <td>
+      owner
+    </td>
+  </tr>
+  <% @user_admins.each do |user| %>
     <tr>
-      <%= admin.email %>
+      <td><%= user.email %></td>
+      <td>
+        <%= link_to(delete_member_dashboard_team_domain_path(current_domain, user), method: :delete, data: {confirm: 'Are you sure?'}, class: 'action') do %>
+          <%= t('Destroy') %>
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-trash'} %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
   </tbody>
 </table>
-
-<br>
-
-<!--< link_to 'New Dashboard Api Key', new_dashboard_api_key_path %>-->

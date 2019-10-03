@@ -1,5 +1,5 @@
 module Dashboard
-  class OverviewController < Dashboard::DashboardController
+  class NotificationsController < Dashboard::DashboardController
 
     def index
     end

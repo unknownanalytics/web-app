@@ -1,8 +1,7 @@
 module Dashboard
   class DomainsController < Dashboard::DashboardController
-    before_action :verify_current_domain_selected
     before_action :verify_current_domain_selected, except: [:index, :new, :create]
-    before_action :verify_current_user_own_domain, except: [:index, :new, :create]
+    before_action :verify_current_user_own_current_domain, except: [:index, :new, :create]
 
 
     # GET /domains
@@ -15,9 +14,7 @@ module Dashboard
     # GET /settings
     def settings
       @domain_setting = DomainSetting.where(domain_id: current_domain.id).first_or_create
-      if request.get?
-
-      else
+      unless request.get?
         @domain_setting.update(domain_setting_params)
       end
     end

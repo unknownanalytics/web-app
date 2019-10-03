@@ -115,7 +115,6 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                     if (this.DevicesViewsChart) {
                         this.DevicesViewsChart.destroy();
                     }
-                    console.log(keys.map(key => (data[key] / data.total) * 100));
                     this.DevicesViewsChart = new Chart(ctx, {
                         type: 'pie',
                         data: {

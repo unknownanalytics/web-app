@@ -2,8 +2,15 @@
   <%= stylesheet_link_tag 'welcome', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'welcome', 'data-turbolinks-track': 'reload' %>
 <% end %>
+<% cache('includes/header_out') do %>
+  <%= render 'includes/header_out' %>
+<% end %>
 
-<%= render 'includes/header_out' %>
-<%= render @page %>
-<%= render "welcome/home/footer" %>
+<% cache(@page) do %>
+  <%= render @page %>
+<% end %>
+
+<% cache("welcome/home/footer") do %>
+  <%= render "welcome/home/footer" %>
+<% end %>
 

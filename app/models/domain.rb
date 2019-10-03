@@ -10,13 +10,15 @@ class Domain < ApplicationRecord
 
   has_many :api_keys
 
+
   has_many :admins_domains
   has_many :admins, through: :admins_domains
 
 
-  has_many :pages
-  has_many :page_views, through: :pages
 
+  has_many :pages
+
+  has_many :page_views, through: :pages
 
   has_many :page_view_locations, through: :pages
 

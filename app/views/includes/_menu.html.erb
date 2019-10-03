@@ -2,21 +2,31 @@
 
   <% unless current_domain.nil? %>
     <%= current_domain.name %>
+    <% if current_domain.domain_setting.origins.nil? && current_user.own_domain(current_domain) %>
+      <br/>
+      <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
+        <span class="has-text-danger">Configure origins !</span>
+      <% end %>
+    <% end %>
     <hr/>
-
     <p class="menu-label">
       <%= t('dashboard.menu.analytics') %>
     </p>
     <ul class="menu-list">
       <li>
         <%= link_to(dashboard_path, class: current_menu_item_class?(dashboard_path)) do %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-dashboard'} %>
+          <% cache('icon-dashboard') do %>
+            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-dashboard'} %>
+          <% end -%>
           <%= t('dashboard.menu.overview') %>
         <% end %>
       </li>
       <li>
+
         <%= link_to(dashboard_stats_pages_path, class: current_menu_item_class?(dashboard_stats_pages_path)) do %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-monitor'} %>
+          <% cache('icon-monitor') do %>
+            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-monitor'} %>
+          <% end -%>
           <%= t('dashboard.menu.pages_views') %>
         <% end %>
       </li>
@@ -26,7 +36,9 @@
       <li>
         <% if current_domain.domain_setting.track_geo %>
           <%= link_to(dashboard_stats_geo_path, class: current_menu_item_class?(dashboard_stats_geo_path)) do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-globe'} %>
+            <% cache('icon-globe') do %>
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-globe'} %>
+            <% end -%>
             <%= t('dashboard.menu.geo_scattering') %>
           <% end %>
         <% else %>
@@ -36,13 +48,17 @@
       </li>
       <li>
         <%= link_to(dashboard_stats_heatmap_path, class: current_menu_item_class?(dashboard_stats_heatmap_path)) do %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-thermostat-full'} %>
+          <% cache('icon-thermostat-full') do %>
+            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-thermostat-full'} %>
+          <% end -%>
           <%= t('dashboard.menu.heatmap') %>
         <% end %>
       </li>
       <li>
         <%= link_to(dashboard_stats_export_path) do %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cloud-download'} %>
+          <% cache('icon-cloud-download') do %>
+            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cloud-download'} %>
+          <% end -%>
           <%= t('dashboard.menu.export') %>
         <% end %>
       </li>
@@ -53,82 +69,107 @@
         <span class="tag tag-warning"> <%= t('dashboard.menu.events') %>
           <small>(soon)</small></span>
       </li>
+    </ul>
   <% end %>
-  </ul>
+
   <% unless current_domain.nil? %>
+    <% if current_user.own_domain(current_domain) %>
+      <p class="menu-label">
+        <%= t('dashboard.menu.domain_settings') %>
+      </p>
+      <ul class="menu-list">
+        <li>
+          <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
+            <% cache('icon-cog') do %>
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cog'} %>
+            <% end -%>
+            <%= t('dashboard.menu.configuration') %>
+          <% end -%>
+
+          <%= link_to(dashboard_domain_api_keys_path(current_domain), class: current_menu_item_class?(dashboard_domain_api_keys_path(current_domain))) do %>
+
+            <% cache('icon-key') do %>
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-key'} %>
+            <% end -%>
+            <%= t('dashboard.menu.api_keys') %>
+          <% end -%>
+        </li>
+
+        <li>
+          <p class="menu-label"><%= t('dashboard.menu.team_settings') %> </p>
+
+          <ul class="menu-list">
+            <li>
+              <%= link_to(dashboard_team_domain_path(current_domain), class: current_menu_item_class?(dashboard_team_domain_path(current_domain))) do %>
+                <% cache('icon-user-group') do %>
+                  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user-group'} %>
+                <% end %>
+                <%= t('dashboard.menu.members') %>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to(new_dashboard_team_domain_path(current_domain), class: current_menu_item_class?(new_dashboard_team_domain_path(current_domain))) do %>
+                <% cache('icon-user-add') do %>
+                  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user-add'} %>
+                <% end %>
+                <%= t('dashboard.menu.add_member') %>
+              <% end %>
+            </li>
+            <li>
+
+              <%= link_to(sent_invitations_dashboard_team_domain_path(current_domain), class: current_menu_item_class?(sent_invitations_dashboard_team_domain_path(current_domain))) do %>
+                <% cache('icon-external-window') do %>
+                  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+                <% end %>
+                <%= t('dashboard.menu.sent_invitations') %>
+              <% end %>
+            </li>
+          </ul>
+        </li>
+    <% end %>
+    </ul>
     <p class="menu-label">
-      <%= t('dashboard.menu.domain_settings') %>
+      <%= t('dashboard.menu.domains') %>
     </p>
-    <ul class="menu-list">
+    <ul>
       <li>
-
-
-        <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cog'} %>
-
-          <%= t('dashboard.menu.configuration') %>
+        <%= form_tag('/dashboard/set-current-domain') do %>
+          <label><%= t('Change domain') %></label>
+          <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id)) %>
+          <%= submit_tag t('Select') %>
+          <%= link_to(new_dashboard_domain_path, class: 'inline-menu-button') do %>
+            <%= t('Create') %>
+          <% end %>
         <% end -%>
-
-        <%= link_to(dashboard_domain_api_keys_path(current_domain), class: current_menu_item_class?(dashboard_domain_api_keys_path(current_domain))) do %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-key'} %>
-          <%= t('dashboard.menu.api_keys') %>
-        <% end -%>
-      </li>
-      <li>
-        <p class="menu-label"><%= t('dashboard.menu.team_settings') %> </p>
-
-        <ul class="menu-list">
-          <li>
-            <%= link_to(dashboard_team_domain_path(current_domain)) do %>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user-group'} %>
-              <%= t('dashboard.menu.members') %>
-            <% end %>
-          </li>
-          <%= link_to(new_dashboard_team_domain_path(current_domain)) do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user-add'} %>
-            <%= t('dashboard.menu.add_member') %>
-          <% end %>
-
-          <%= link_to(sent_invitations_dashboard_team_domain_path(current_domain)) do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
-            <%= t('dashboard.menu.sent_invitations') %>
-          <% end %>
-
-          <%= link_to(received_invitations_dashboard_team_domain_path(current_domain)) do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-box'} %>
-            <%= t('dashboard.menu.recieved_invitations') %>
-          <% end %>
-        </ul>
       </li>
     </ul>
-
-
-    <hr/>
-    <%= form_tag('/dashboard/set-current-domain') do %>
-      <label>
-        <%= t('Change domain') %></label>
-      <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id)) %>
-      <%= submit_tag t('Select') %>
-      <%= link_to dashboard_domains_path do %>
-        <span><%= t('Create') %></span>
-      <% end %>
-    <% end -%>
-    <hr/>
+  <% end %>
+  <p class="menu-label">
+    <%= t('dashboard.menu.Teams') %>
+  </p>
+  <%= link_to(dashboard_domains_received_invitations_path, class: current_menu_item_class?(dashboard_domains_received_invitations_path)) do %>
+    <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+    <%= t('dashboard.menu.invitations') %>
+    <% if admin_received_invitations_count > 0 %>
+      (<%= admin_received_invitations_count %>)
+    <% end %>
   <% end %>
   <p class="menu-label">
     <%= t('dashboard.menu.account_settings') %>
   </p>
+  <small class="font-size-tiny"><%= current_user.email %></small>
   <ul class="menu-list">
     <li>
       <%= link_to(subscription_path, class: current_menu_item_class?(subscription_path)) do %>
         <%= t('dashboard.menu.rate_usage') %>
       <% end %>
     <li><a><%= t('dashboard.menu.advanced') %></a></li>
-    <% if current_plan.nil? %>
-      <%= link_to("Subscribe", dashboard_account_plan_subscribe_url) %>
-    <% else %>
-      <li>10 days to ends</li>
-    <% end %>
-
+    <li>
+      <% if current_plan.nil? %>
+        <%= link_to("Subscribe", dashboard_account_plan_subscribe_url) %>
+      <% else %>
+        10 days to ends
+      <% end %>
+    </li>
   </ul>
 </nav>

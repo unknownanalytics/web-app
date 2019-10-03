@@ -1,8 +1,8 @@
 module Dashboard
   class ApiKeysController < Dashboard::DashboardController
-    before_action :set_dashboard_api_key, only: [:show, :edit, :update, :destroy]
     before_action :verify_current_domain_selected
-    before_action :verify_current_user_own_domain
+    before_action :verify_current_user_own_current_domain
+    before_action :set_dashboard_api_key, only: [:show, :edit, :update, :destroy]
 
     # GET /dashboard/api_keys
     # GET /dashboard/api_keys.json

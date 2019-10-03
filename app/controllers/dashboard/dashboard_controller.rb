@@ -10,6 +10,7 @@ class Dashboard::DashboardController < ApplicationController
 
   def load_domains
     @my_domains = current_user.own_domains.where.not(:name => blank?).all
+    @my_domains = @my_domains + current_user.domains
   end
 
   ## select a domain from my list
@@ -33,9 +34,22 @@ class Dashboard::DashboardController < ApplicationController
     end
   end
 
-  def verify_current_user_own_domain
+  # Only owner
+  def verify_current_user_own_current_domain
     ## Add domain
-    unless current_user && current_domain && current_domain.user_id == current_user.id
+    unless current_user && current_domain && current_user.own_domain(current_domain)
+      respond_to do |format|
+        format.html {render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found}
+        format.xml {head :not_found}
+        format.any {head :not_found}
+      end
+    end
+  end
+
+  # Only owner
+  def verify_current_user_is_domain_for_domain
+    ## Add domain
+    unless current_user && current_domain && current_user.own_domain(current_domain)
       respond_to do |format|
         format.html {render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found}
         format.xml {head :not_found}

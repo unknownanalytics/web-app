@@ -40,7 +40,9 @@
             <% end %>
           </div>
           <%= yield %>
-          <%= render 'dashboard/vue-templates/index' %>
+          <% cache('dashboard/vue-templates/index') do %>
+            <%= render 'dashboard/vue-templates/index' %>
+          <% end %>
         </div>
       </div>
     </div>

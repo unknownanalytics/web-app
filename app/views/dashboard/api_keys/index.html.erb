@@ -1,12 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= t('Create a new api key for ') %> <%= current_domain.name %> </h1>
+<h1><%= t('Create a new api key for ') %> <%= current_domain.name %>
+
+</h1>
 
 <%= render 'form', api_key: @api_key %>
 
 <h1><%= current_domain.name %> Api Keys</h1>
 
-<table class="table">
+<table class="table is-fullwidth">
   <thead>
   <tr>
     <th><%= t('alias') %></th>

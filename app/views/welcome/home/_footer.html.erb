@@ -14,7 +14,7 @@
       <div class="column content">
         <h2>Resources</h2>
         <a class="is-link">Getting started</a><br/>
-        <a class="is-link">User guides</a><br/>
+        <a class="is-link"><%= link_to t("User guides"), public_pages_path(:page => 'user-guide') %></a><br/>
         <a class="is-link">FAQ</a><br/>
         <a class="is-link">Api</a><br/>
         <a class="is-link"><%= link_to t("Open source"), public_pages_path(:page => 'open-source') %></a><br/>
@@ -24,7 +24,7 @@
       <div class="column content">
         <h2>Legal </h2>
         <a class="is-link">Cookie Policy</a><br/>
-        <a class="is-link">Privacy Policy</a><br/>
+        <a class="is-link"><%= link_to t("Privacy Policy"), public_pages_path(:page => 'privacy-policy') %></a></a><br/>
         <%= link_to('About us', '/team') %><br/>
         <a class="is-link">Values</a><br/>
         <a class="is-link">Open startup</a>

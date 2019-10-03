@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Invitations not confirmed yet sent for <%= current_domain.name %>  Admins </h1>
+
+<table class="table is-fullwidth">
+  <thead>
+  <tr>
+    <th><%= t('Admin') %></th>
+    <th>  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-dots-horizontal'} %></th>
+  </tr>
+  </thead>
+
+  <tbody>
+
+  <% @invitations.each do |invitation| %>
+    <tr>
+      <td>
+        <%= invitation.admin.email %>
+      </td>
+      <td>
+        <%= link_to(delete_member_dashboard_team_domain_path(current_domain, invitation.admin), method: :delete, data: {confirm: 'Are you sure?'}, class: 'action') do %>
+          <%= t('Destroy') %>
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-trash'} %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+
+  </tbody>
+</table>

@@ -21,7 +21,7 @@
           <%= form.text_field(:name, {class: "input"}) %>
         </p>
         <p class="help">
-          <%= t('Domain_name_text_helper_https://exemple.com') %>
+          <%= t('domain.form.placeholder') %>
         </p>
       </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="actions">
       <div class="field is-grouped">
         <div class="control">
-          <%= form.submit domain.new_record? ? t('create') : t('Update'), :class => "button" %>
+          <%= form.submit domain.new_record? ? t('Create') : t('Update'), :class => "button is-primary" %>
         </div>
         <div class="control">
           <button class="button is-text">Cancel</button>
