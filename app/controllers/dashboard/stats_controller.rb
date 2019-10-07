@@ -31,6 +31,10 @@ module Dashboard
 
     end
 
+    def export
+
+    end
+
     private
 
     def check_format

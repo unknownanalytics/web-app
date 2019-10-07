@@ -55,7 +55,7 @@
         <% end %>
       </li>
       <li>
-        <%= link_to(dashboard_stats_export_path) do %>
+        <%= link_to(dashboard_stats_export_path, class: current_menu_item_class?(dashboard_stats_export_path)) do %>
           <% cache('icon-cloud-download') do %>
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cloud-download'} %>
           <% end -%>
@@ -94,40 +94,47 @@
             <%= t('dashboard.menu.api_keys') %>
           <% end -%>
         </li>
+      </ul>
 
+      <p class="menu-label  collapse-button">
+        <%= t('dashboard.menu.team_settings') %>
+        <% cache('icon-up-down') do %>
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svgClass => "icon-up"} %>
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svgClass => "icon-down"} %>
+        <% end %>
+      </p>
+
+      <ul class="menu-list collapsible-list">
         <li>
-          <p class="menu-label"><%= t('dashboard.menu.team_settings') %> </p>
-
-          <ul class="menu-list">
-            <li>
-              <%= link_to(dashboard_team_domain_path(current_domain), class: current_menu_item_class?(dashboard_team_domain_path(current_domain))) do %>
-                <% cache('icon-user-group') do %>
-                  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user-group'} %>
-                <% end %>
-                <%= t('dashboard.menu.members') %>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to(new_dashboard_team_domain_path(current_domain), class: current_menu_item_class?(new_dashboard_team_domain_path(current_domain))) do %>
-                <% cache('icon-user-add') do %>
-                  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user-add'} %>
-                <% end %>
-                <%= t('dashboard.menu.add_member') %>
-              <% end %>
-            </li>
-            <li>
-
-              <%= link_to(sent_invitations_dashboard_team_domain_path(current_domain), class: current_menu_item_class?(sent_invitations_dashboard_team_domain_path(current_domain))) do %>
-                <% cache('icon-external-window') do %>
-                  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
-                <% end %>
-                <%= t('dashboard.menu.sent_invitations') %>
-              <% end %>
-            </li>
-          </ul>
+          <%= link_to(dashboard_team_domain_path(current_domain), class: current_menu_item_class?(dashboard_team_domain_path(current_domain))) do %>
+            <% cache('icon-user-group') do %>
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user-group'} %>
+            <% end %>
+            <%= t('dashboard.menu.members') %>
+          <% end %>
         </li>
+        <li>
+          <%= link_to(new_dashboard_team_domain_path(current_domain), class: current_menu_item_class?(new_dashboard_team_domain_path(current_domain))) do %>
+            <% cache('icon-user-add') do %>
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user-add'} %>
+            <% end %>
+            <%= t('dashboard.menu.add_member') %>
+          <% end %>
+        </li>
+        <li>
+
+          <%= link_to(sent_invitations_dashboard_team_domain_path(current_domain), class: current_menu_item_class?(sent_invitations_dashboard_team_domain_path(current_domain))) do %>
+            <% cache('icon-external-window') do %>
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+            <% end %>
+            <%= t('dashboard.menu.sent_invitations') %>
+          <% end %>
+        </li>
+      </ul>
     <% end %>
-    </ul>
+
+
+
     <p class="menu-label">
       <%= t('dashboard.menu.domains') %>
     </p>
@@ -138,27 +145,36 @@
           <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id)) %>
           <%= submit_tag t('Select') %>
           <%= link_to(new_dashboard_domain_path, class: 'inline-menu-button') do %>
-            <%= t('Create') %>
+            +
           <% end %>
         <% end -%>
       </li>
     </ul>
   <% end %>
+
+  <hr/>
   <p class="menu-label">
-    <%= t('dashboard.menu.Teams') %>
+    <%= t('dashboard.menu.Other_Teams') %>
   </p>
   <%= link_to(dashboard_domains_received_invitations_path, class: current_menu_item_class?(dashboard_domains_received_invitations_path)) do %>
-    <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+    <% cache('icon-external-window') do %>
+      <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+    <% end %>
     <%= t('dashboard.menu.invitations') %>
     <% if admin_received_invitations_count > 0 %>
       (<%= admin_received_invitations_count %>)
     <% end %>
   <% end %>
-  <p class="menu-label">
+  <hr/>
+  <p class="menu-label collapse-button">
     <%= t('dashboard.menu.account_settings') %>
+    <% cache('icon-up-down') do %>
+      <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svgClass => "icon-up"} %>
+      <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svgClass => "icon-down"} %>
+    <% end %>
   </p>
-  <small class="font-size-tiny"><%= current_user.email %></small>
-  <ul class="menu-list">
+
+  <ul class="menu-list collapsible-list">
     <li>
       <%= link_to(subscription_path, class: current_menu_item_class?(subscription_path)) do %>
         <%= t('dashboard.menu.rate_usage') %>
@@ -172,4 +188,7 @@
       <% end %>
     </li>
   </ul>
+  <span>
+    <small class="font-size-tiny"><%= current_user.email %></small>
+  </span>
 </nav>

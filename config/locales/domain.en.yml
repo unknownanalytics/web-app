@@ -42,4 +42,6 @@ en:
         sent: an invitation has just been sent to
         input_place_holder : Email admin account
     form:
-      placeholder: "Domain_name_text_helper_https://exemple.com"
+      placeholder: "Domain name: Not this is not the origin, origins will be configured later once created"
+  domains:
+    settings_origins_placeholder: "Allowed origins"

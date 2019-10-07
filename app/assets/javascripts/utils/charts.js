@@ -130,6 +130,22 @@ App.Charts = {
     },
     /**
      *
+     * @param value
+     * @param colorsRange
+     * @param options
+     * @private
+     */
+    getGradientImage(value, colorsRange, options) {
+        let key = JSON.stringify(colorsRange);
+        let storedCtxGradients = App.Charts.__declaredCtxGradients;
+        if (!storedCtxGradients[key]) {
+            storedCtxGradients[key] = App.Charts._createCanvasGradient(String(Date.now), colorsRange);
+        }
+        let ctx = storedCtxGradients[key];
+        return ctx.toDataURL("image/png");
+    },
+    /**
+     *
      * @param dom
      * @param options
      */

@@ -1,5 +1,52 @@
-.header-link {
-  color: #bac5f4;
+$blue: #A5B3BB;
+.navbar-link {
+  color: $blue;
+  &.top-header-notifications {
+    padding-right: .75rem !important;
+    &::after {
+      display: none !important;
+    }
+    svg.icon {
+      --primary: #e3dfdb;
+      --secondary: #7a7a7a;
+    }
+
+    &.has-notifications {
+      // http://www.javascriptkit.com/dhtmltutors/css3-animation-swing.shtml
+      @-webkit-keyframes swinging {
+        0% {
+          -webkit-transform: rotate(10deg);
+        }
+        50% {
+          -webkit-transform: rotate(-5deg)
+        }
+        100% {
+          -webkit-transform: rotate(10deg);
+        }
+      }
+      @keyframes swinging {
+        0% {
+          transform: rotate(10deg);
+        }
+        50% {
+          transform: rotate(-5deg)
+        }
+        100% {
+          transform: rotate(10deg);
+        }
+      }
+      svg.icon {
+        -webkit-transform-origin: 50% 0;
+        transform-origin: 50% 0;
+        -webkit-animation: swinging .5s ease-in-out forwards infinite;
+        animation: swinging .5s ease-in-out forwards infinite;
+        --secondary: red;
+      }
+    }
+  }
+  &:not(.is-arrowless)::after {
+    border-color: #A5B3BB !important;
+  }
 }
 
 #navbar_header_form {

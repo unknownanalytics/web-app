@@ -1,7 +1,75 @@
+.menu-list a.is-active {
+  background-color: transparent;
+  color: white;
+}
+
 .inline-menu-button {
-  padding: 2px;
-  font-size: 0.7rem;
-  display: inline-block !important;
-  border-radius: 2px;
-  border: solid 1px;
+  font-size: 19px;
+  padding: 2px !important;
+  position: relative;
+  top: 2px;
+  width: 29px;
+  text-align: center;
+  border: solid 1.5px;
+  font-weight: bold;
+  border-radius: 4px;
+  justify-content: center;
+  display: inline-flex !important;
+  align-items: center;
+}
+
+.collapse-button {
+  position: relative;
+  cursor: pointer;
+  .icon {
+    position: relative;
+    top: 9px;
+    left: 2px;
+  }
+  .icon-down {
+    display: none;
+  }
+  .icon-up {
+    display: inline-block;
+  }
+  &.is-opened {
+    .icon-down {
+      display: inline-block;
+    }
+    .icon-up {
+      display: none;
+    }
+  }
+}
+
+.collapsible-list {
+  max-height: 0;
+  overflow: hidden;
+  &.is-opened {
+    max-height: 500px;
+    transition: max-height 0.25s ease-in;
+  }
+}
+
+nav.menu {
+  .menu-label {
+    color: #111111;
+    font-weight: 600;
+  }
+  li {
+    a {
+      display: flex;
+      align-items: center;
+      padding-left: 5px;
+      .icon {
+        margin-right: 3px;
+      }
+      &.is-active {
+        .icon {
+          --primary: white;
+          --secondary: rgba(171, 179, 190, 0.93);
+        }
+      }
+    }
+  }
 }

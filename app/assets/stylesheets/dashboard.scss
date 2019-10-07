@@ -36,10 +36,6 @@
     @include small-tag;
     align-items: center;
     font-size: 18px !important;
-    select {
-      border-radius: 3px;
-      border: solid 1px $bluegrey;
-    }
     a {
       font-size: 14px !important;
     }
@@ -47,25 +43,8 @@
 
 }
 
-nav.menu {
-  .menu-label {
-    color: #111111;
-    font-weight: 600;
-  }
-  li {
-    a {
-      display: flex;
-      align-items: center;
-      padding-left: 5px;
-      .icon {
-        margin-right: 3px;
-      }
-      &.is-active {
-        .icon {
-          --primary: white;
-          --secondary: rgba(171, 179, 190, 0.93);
-        }
-      }
-    }
+.app_footer {
+  .app_version {
+    padding-left: 1.5rem;
   }
 }

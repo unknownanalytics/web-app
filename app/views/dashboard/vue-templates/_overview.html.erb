@@ -87,7 +87,7 @@
               <option value="week"><%= t('This week') %>
                 :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
                 - <%= Date.today.strftime("%d %B") %></option>
-              <option  selected="selected" value="month"><%= t('This month') %>
+              <option selected="selected" value="month"><%= t('This month') %>
                 :  <%= Date.today.strftime("%B") %></option>
 
               <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
@@ -112,7 +112,7 @@
               <option value="week"><%= t('This week') %>
                 :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
                 - <%= Date.today.strftime("%d %B") %></option>
-              <option selected="selected"  value="month"><%= t('This month') %>
+              <option selected="selected" value="month"><%= t('This month') %>
                 :  <%= Date.today.strftime("%B") %></option>
 
               <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
@@ -133,10 +133,14 @@
           <p class="panel-heading">
             Geo partition
 
-            <select>
-              <option selected="selected">Daily</option>
-              <option>Weekly</option>
-              <option>Monthly</option>
+            <select @change="onChangePeriodLocationViews($event)">
+              <option value="week"><%= t('This week') %>
+                :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
+                - <%= Date.today.strftime("%d %B") %></option>
+              <option selected="selected" value="month"><%= t('This month') %>
+                :  <%= Date.today.strftime("%B") %></option>
+
+              <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
             </select>
 
             <%= link_to(dashboard_views_path, {class: 'is-pulled-right'}) do %>
@@ -147,7 +151,7 @@
           <div class="panel-block">
             <div id="map">
               <%= render 'includes/map_world.svg' %>
-              <%= render 'includes/gradient.line' %>
+              <%= render :partial => 'includes/gradient.line', :locals => {:colors => %w(blue cyan green yellow red)} %>
             </div>
           </div>
         </div>

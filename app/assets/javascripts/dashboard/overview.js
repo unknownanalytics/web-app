@@ -12,16 +12,9 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                             }).bind(this)
                     }
                 );
-                mapView({
-                    max: 400,
-                    entries: {
-                        'TN': 200,
-                        'IT': 100,
-                        'FR': 12
-                    }
-                });
                 //
                 this.onChangePeriodTopPagesViews();
+                this.onChangePeriodLocationViews();
                 this.onChangePeriodDevicesViews();
             },
             data: function () {
@@ -57,6 +50,20 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                     }, {
                         success: (function (response) {
                             this.updateDevicesViews(response)
+                        }).bind(this)
+                    })
+                },
+
+                /**
+                 * Devices view
+                 * @param event
+                 */
+                onChangePeriodLocationViews(event) {
+                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_GEO_DETAILS, {
+                        interval: (event && event.target) ? event.target.value : null
+                    }, {
+                        success: (function (response) {
+                            this.updateMapView(response)
                         }).bind(this)
                     })
                 },
@@ -141,7 +148,35 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                             },
                         }
                     });
+                },
+
+                /**
+                 * Map
+                 */
+                updateMapView(response) {
+                    // And for a doughnut chart
+                    if (response) {
+                        let data = response.data;
+                        let info = data.info;
+                        let dataByCountries = _.groupBy(info, 'iso');
+                        let max = _.max(_.map(info, e => e.c));
+                        let countries = App.Helpers.getSVGCountriesCodes();
+                        var gradientColors = 'blue,cyan,green,yellow,red'.split(',');
+                        var dom;
+                        countries.forEach(function (code) {
+                            dom = document.querySelector('#' + code);
+                            if (dom) {
+                                let c = dataByCountries[code][0].c;
+                                dom.style.fill = dataByCountries[code] ? App.Charts.getGradient(c / max, gradientColors) : 'white';
+                                dom.$ukC = c;
+                                dom.addEventListener('mouseover', () => {
+                                    console.log(this.$ukC)
+                                });
+                            }
+                        })
+                    }
                 }
+
             }
 
         }
@@ -217,26 +252,3 @@ function canvasEvents() {
     }
 }
 
-
-/**
- * Map
- */
-function mapView(data) {
-    // And for a doughnut chart
-    if (data) {
-        var max = data.max;
-        var entries = data.entries;
-        var countries = App.Helpers.getSVGCountriesCodes();
-        var gradientColors = 'blue,cyan,green,yellow,red'.split(',');
-        var dom;
-        countries.forEach(function (code) {
-            dom = document.querySelector('#' + code);
-            if (dom) {
-                dom.style.fill = entries[code] ? App.Charts.getGradient(entries[code] / max, gradientColors) : 'gray';
-                if (entries[code]) {
-                    console.log(App.Charts.getGradient(entries[code] / max, gradientColors));
-                }
-            }
-        })
-    }
-}

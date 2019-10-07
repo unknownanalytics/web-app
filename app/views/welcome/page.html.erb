@@ -1,13 +1,18 @@
-<% content_for :custom_assets do %>
+<% content_for :custom_css_assets do %>
   <%= stylesheet_link_tag 'welcome', media: 'all', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_include_tag 'welcome', 'data-turbolinks-track': 'reload' %>
 <% end %>
+
 <% cache('includes/header_out') do %>
   <%= render 'includes/header_out' %>
 <% end %>
 
 <% cache(@page) do %>
   <%= render @page %>
+<% end %>
+
+
+<% content_for :custom_js_assets do %>
+  <%= javascript_include_tag 'welcome', 'data-turbolinks-track': 'reload' %>
 <% end %>
 
 <% cache("welcome/home/footer") do %>

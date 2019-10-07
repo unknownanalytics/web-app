@@ -13,14 +13,18 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
   <link rel="manifest" href="/assets/site.webmanifest">
 
-  <%= yield :custom_assets %>
+  <%= yield :custom_css_assets %>
 </head>
 
 <body>
-<%= render 'includes/icons' %>
+<% cache('includes/icons') do %>
+  <%= render 'includes/icons' %>
+<% end %>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
 
 <%= yield %>
+
+<%= yield :custom_js_assets %>
 </body>
 </html>

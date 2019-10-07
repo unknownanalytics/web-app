@@ -58,7 +58,7 @@ class Api::PagesController < Api::ApiController
 
   def details
     r = PageView
-            .where(:created_at => 15.days.ago.in_time_zone(Time.zone)..Time.zone.now)
+            .where(:created_at => 6.month.ago.in_time_zone(Time.zone)..Time.zone.now)
             .select('Count(page_views.id), page_views.utm_source,  pages.id as page_id, pages.full_url')
             .group('pages.id', :page_id)
             .group('page_views.utm_source', :utm_source)
