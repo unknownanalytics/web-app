@@ -14,6 +14,10 @@ module ApplicationHelper
     render file: layout
   end
 
+  def default_page_title
+    ENV['DEFAULT_PAGE_TITLE'] || 'Unk analytics'
+  end
+
   def current_menu_item_class?(test_path)
     return 'is-active' if request.path == test_path
     ''

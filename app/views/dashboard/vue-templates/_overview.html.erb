@@ -142,7 +142,7 @@
 
               <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
             </select>
-            <% if current_domain.domain_setting.track_geo %>
+            <% if current_domain && current_domain.domain_setting.track_geo %>
           <%= link_to(dashboard_stats_geo_path, {class: 'is-pulled-right'}) do %>
               <%= t('details') %>
             <% end %>

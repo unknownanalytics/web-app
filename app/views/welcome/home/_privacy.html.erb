@@ -1,6 +1,3 @@
-
-
-
 <section class="is-danger hero has-text-centered" id="app_warning">
   <div class="container">
     <article class=""><h1 class="title"> Why we do not track users ? </h1></article>
@@ -11,8 +8,8 @@
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-no-store'} %>
           </div>
           <figcaption><h3>Business Model</h3>
-            <p>Do you receive jobs from end-clients in verticals that you currently don't serve? No problem, leverage
-              your preferred partners for those jobs and focus on what you do best!</p></figcaption>
+            <p>We DO NOT gather any information from your costumer and our business model rely on our clients
+              subscripton. </p></figcaption>
         </figure>
       </div>
       <div class="column">
@@ -21,8 +18,8 @@
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-security'} %>
           </div>
           <figcaption><h3>Partnership</h3>
-            <p>Are you supporting high volume MSP programs? Leverage preferred partners to fill jobs faster and
-              improve your scorecards.</p></figcaption>
+            <p>We DO NOT have any partnerships with organizations that use your or your customers' data.</p>
+          </figcaption>
         </figure>
       </div>
       <div class="column">
@@ -30,9 +27,13 @@
           <div class="icon-boxed">
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-security-important'} %>
           </div>
-          <figcaption><h3>My data</h3>
-            <p>Do you have the opportunity to become the MSP on some of your end client accounts? Leverage Gustav's
-              technology and a network of preferred partners to drive new business.</p></figcaption>
+          <figcaption>
+            <h3>Where's my Data ? </h3>
+            <p>
+              all data collected for analysis is stored in
+              <a href="https://www.ovhcloud.com/en/about-us/infrastructure-software/">OVH</a> data centres, our europea
+              leader cloud provider that guarantees data protection and reliability.
+            </p>
         </figure>
       </div>
     </div>
@@ -40,8 +41,7 @@
 
     </div>
     <blockquote>
-      If the service is free, then you are the product (or may your clients), for that, our service is
-      not free
+      In the analytics business, if you're not paying for the product, you or your customer are the product.
     </blockquote>
     <%= link_to('Learn More about security ', '/security ') %>
 

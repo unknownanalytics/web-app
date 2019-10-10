@@ -18,3 +18,22 @@ a.action {
   display: flex;
   align-items: center;
 }
+
+.is-relative {
+  position: relative;
+}
+
+.code {
+  background-color: #211999;
+  padding: 0 3px;
+  border-radius: 2px;
+  color: white;
+  font-size: .8rem;
+  font-family: monospace;
+  .attr-name {
+    color : #00b89c;
+  }
+  .attr-value {
+    color : #d9aa40;
+  }
+}
