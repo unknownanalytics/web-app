@@ -166,12 +166,14 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                         countries.forEach(function (code) {
                             dom = document.querySelector('#' + code);
                             if (dom) {
-                                let c = dataByCountries[code][0].c;
-                                dom.style.fill = dataByCountries[code] ? App.Charts.getGradient(c / max, gradientColors) : 'white';
-                                dom.$ukC = c;
-                                dom.addEventListener('mouseover', () => {
-                                    console.log(this.$ukC)
-                                });
+                                let c = dataByCountries[code] && dataByCountries[code][0].c;
+                                if (c) {
+                                    dom.style.fill = dataByCountries[code] ? App.Charts.getGradient(c / max, gradientColors) : 'white';
+                                    dom.$ukC = c;
+                                    dom.addEventListener('mouseover', () => {
+                                        console.log(this.$ukC)
+                                    });
+                                }
                             }
                         })
                     }

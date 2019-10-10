@@ -31,10 +31,6 @@ Rails.application.routes.draw do
         end
       end
 
-      # views, TODO, delete this
-
-      resources :views
-
       # domains resources
       resources :domains do
         member do
@@ -56,8 +52,10 @@ Rails.application.routes.draw do
 
     namespace :api do
       get '/summary' => 'summary#index'
+      # page
       get '/pages' => 'pages#index'
-      get '/pages/details' => 'pages#details'
+      get '/pages/summary' => 'pages#summary'
+      get '/pages/details' => 'pages#views_details'
       get '/devices' => 'devices#index'
       get '/events' => 'events#index'
       get '/geo' => 'geo#index'

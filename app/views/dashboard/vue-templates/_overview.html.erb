@@ -93,8 +93,8 @@
               <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
             </select>
 
-            <%= link_to(dashboard_views_path, {class: 'is-pulled-right'}) do %>
-              details
+            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right'}) do %>
+              <%= t('details') %>
             <% end %>
 
           </p>
@@ -106,7 +106,7 @@
       <div class="column is-6" id="overview_devices_content_container">
         <div class="panel">
           <p class="panel-heading">
-            Devices
+            <%= t('Devices') %>
 
             <select id="overview_view_period" @change="onChangePeriodDevicesViews($event)">
               <option value="week"><%= t('This week') %>
@@ -118,8 +118,8 @@
               <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
             </select>
 
-            <%= link_to(dashboard_views_path, {class: 'is-pulled-right'}) do %>
-              details
+            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right'}) do %>
+              <%= t('details') %>
             <% end %>
 
           </p>
@@ -131,7 +131,7 @@
       <div class="column is-6" id="overview_map_content_container">
         <div class="panel">
           <p class="panel-heading">
-            Geo partition
+            <%= t('Geo partition') %>
 
             <select @change="onChangePeriodLocationViews($event)">
               <option value="week"><%= t('This week') %>
@@ -142,9 +142,13 @@
 
               <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
             </select>
-
-            <%= link_to(dashboard_views_path, {class: 'is-pulled-right'}) do %>
-              details
+            <% if current_domain.domain_setting.track_geo %>
+          <%= link_to(dashboard_stats_geo_path, {class: 'is-pulled-right'}) do %>
+              <%= t('details') %>
+            <% end %>
+            <% else %>
+              <span class="tag tag-warning"> <%= t('dashboard.menu.geo_scattering') %>
+                <small>(disabled)</small></span>
             <% end %>
 
           </p>
@@ -159,7 +163,7 @@
       <div class="column is-6" id="overview_events_content_container">
         <div class="panel">
           <p class="panel-heading">
-            Events <span class="tag is-bold is-warning"><%= t('Soon') %></span>
+            <%= t('Events') %> <span class="tag is-bold is-warning"><%= t('Soon') %></span>
 
             <!-- <select>
               <option selected="selected">Daily</option>
@@ -167,7 +171,7 @@
               <option>Monthly</option>
             </select>
 
-            <%= link_to(dashboard_views_path, {class: 'is-pulled-right'}) do %>
+            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right'}) do %>
               details
             <% end %>-->
 

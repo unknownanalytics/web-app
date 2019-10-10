@@ -1,39 +1,66 @@
-<style>
+<script src="https://cdn.jsdelivr.net/npm/echarts@4.1.0/dist/echarts.js" async></script>
 
-</style>
 <script type="text/x-template" id="app_dashboard_pages_views_template">
   <div>
-    <div class="panel">
-      <div class="panel-heading">
-        Pages : {{stats.pagesCount}}
-        <input placeholder="search page" id="autocomplete"/>
+    <div class="is-fullwidth">
+      <div>
+        Pages : {{axes.pages.length}}
+
+        <!--<input id="slider2" type="range" min="100" max="500" step="50" value="100"/>-->
+
+
         <div class="is-pulled-right">
-          <select>
-            <option selected="selected">Daily</option>
-            <option>Weekly</option>
-            <option>Monthly</option>
+          <input placeholder="utms" @change="changeFilterUtm($event)" id="autocomplete"/>
+          <li v-for="utm in axes.utms">
+            {{ utm.utm_source }}
+          </li>
+        </div>
+
+        <div class="is-pulled-right">
+          <select @change="changeFilterBrowser($event)">
+            <option></option>
+            <option v-for="browser in axes.browsers">
+              {{ browser.browser }}
+            </option>
           </select>
         </div>
 
         <div class="is-pulled-right">
-          <select>
-            <option selected="selected">Referals</option>
-            <option>Pages</option>
-            <option>Devices</option>
-            <option>Geo</option>
-          </select>
+          <input placeholder="origins" @change="changeFilterBrowser($event)" id="autocomplete"/>
+          <li v-for="origin in axes.origins">
+            {{ origin.origin }}
+          </li>
         </div>
 
       </div>
 
-      <div class="panel-block">
-        <div class="columns">
-          <div class="column">
-            <canvas id="canvas_views_stats" width="400" height="250"></canvas>
-          </div>
-          <div class="column is-one-third">
+      <div class="columns is-fullwidth">
+        <div id="main_chart" style="width: 100%;height:400px;min-width:1000px"></div>
+      </div>
 
-          </div>
+      <div class="columns is-fullwidth">
+        <div id="main_months_chart" style="width: 100%;height:400px;min-width:1000px"></div>
+      </div>
+      <div class="column is-one-third">
+        <div>
+          <input placeholder="pages" @change="changeFilterPath($event)" id="autocomplete"/>
+          <li v-for="page in axes.pages">
+            {{ page.full_url }}
+          </li>
+        </div>
+      </div>
+      <div class="columns is-fullwidth has-text-centered">
+        <div class="column">
+          <label>Utms</label>
+          <canvas id="canvas_pages_utms"></canvas>
+        </div>
+        <div class="column">
+          <label>Origins</label>
+          <canvas id="canvas_pages_origins"></canvas>
+        </div>
+        <div class="column">
+          <label>Browsers</label>
+          <canvas id="canvas_pages_browsers"></canvas>
         </div>
       </div>
     </div>

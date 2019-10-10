@@ -1,6 +1,7 @@
 <script type="text/x-template" id="app_dashboard_geo_scattering_template">
-  <div>
-    <p>
+
+  <div class="panel">
+    <div class="panel-heading">
       Geo partition
 
       <select @change="onChangePeriodLocationViews($event)">
@@ -13,11 +14,24 @@
         <option value="today"><%= t('today') %> <%= Date.today.strftime("%d, %B, %Y") %></option>
       </select>
 
-      <%= link_to(dashboard_views_path, {class: 'is-pulled-right'}) do %>
-        details
-      <% end %>
 
-    </p>
+      <div class="is-pulled-right">
+        <select>
+          <option selected="selected">Daily</option>
+          <option>Weekly</option>
+          <option>Monthly</option>
+        </select>
+      </div>
+
+      <div class="is-pulled-right">
+        <select>
+          <option selected="selected">Referals</option>
+          <option>Pages</option>
+          <option>Devices</option>
+          <option>Geo</option>
+        </select>
+      </div>
+    </div>
     <div>
       <%= render 'includes/map_world.svg' %>
     </div>

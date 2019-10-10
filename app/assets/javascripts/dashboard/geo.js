@@ -20,8 +20,28 @@ App.Routes['/dashboard/stats/geo'] = function () {
         methods: {
             init() {
                 this.svg = document.getElementById('map_world_svg');
+                this.adjustSVGSize();
             },
             attachActions() {
+
+            },
+            /**
+             * adjust the svg size
+             */
+            adjustSVGSize() {
+                let vp = App.Helpers.getViewPort();
+                let viewBox, width;
+                if (vp.w > 1280) {
+                    viewBox = '500 0 900 1000';
+                    width = '100%';
+                }
+                else {
+                    viewBox = '500 0 900 1150';
+                    width = 900;
+                    console.log('min')
+                }
+                this.svg.setAttribute('viewBox', viewBox);
+                this.svg.setAttribute('width', width);
 
             },
             /**

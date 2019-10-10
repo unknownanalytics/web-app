@@ -31,8 +31,16 @@
   }
 }
 
+.panel-heading {
+  border: none;
+  background: none;
+  border-radius: 0;
+}
+
 #overview_container {
   .panel-heading {
+    background-color: none;
+    border: none;
     @include small-tag;
     align-items: center;
     font-size: 18px !important;
@@ -41,10 +49,4 @@
     }
   }
 
-}
-
-.app_footer {
-  .app_version {
-    padding-left: 1.5rem;
-  }
 }

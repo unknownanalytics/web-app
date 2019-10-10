@@ -1,23 +1,36 @@
-<footer class="app_footer">
-  <div class="columns">
-    <div class="column app_version">
-      <span>Unk Analytics <%= ENV['APP_VERSION'] || 'Beta' %></span> /
-      <span>Build <%= ENV['BUILD_VERSION'] || 'Beta' %></span>
-    </div>
+<style>
+  .app_footer {
+    margin-top: auto;
+    margin-bottom: 16px;
+  }
 
-    <div class="column has-text-centered">
-      <span translate="">Unk Analytics © 2019 Squares</span>
-    </div>
-    <div class="column has-text-right">
-      <ul>
-        <li>
-          <a>Support</a>
-          ·
-          <a>Help</a>
-          ·
-          <a>Feedback</a>
-        </li>
-      </ul>
+  .app_version {
+    padding-left: 1.5rem;
+  }
+</style>
+<footer class="app_footer">
+  <div class="container">
+
+    <div class="columns">
+      <div class="column app_version">
+        <span>Unk Analytics <%= ENV['APP_VERSION'] || 'Beta' %></span> /
+        <span>Build <%= ENV['BUILD_VERSION'] || 'Beta' %></span>
+      </div>
+
+      <div class="column has-text-centered">
+        <span translate="">Unk Analytics © 2019 Squares</span>
+      </div>
+      <div class="column has-text-right">
+        <ul>
+          <li>
+            <a>Support</a>
+            ·
+            <a>Help</a>
+            ·
+            <a>Feedback</a>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </footer>

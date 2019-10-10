@@ -147,9 +147,10 @@ App.Charts = {
     /**
      *
      * @param dom
+     * @param data , [[1, value], [2, value] ...... ]
      * @param options
      */
-    squares(dom, options) {
+    squares(dom, data, options) {
         options = options || {animate: true, y: 7, x: 5, stop: null, values: []};
         dom = typeof (dom) === 'string' ? document.getElementById(dom) : dom;
         if (dom) {
@@ -158,11 +159,11 @@ App.Charts = {
             let domClientWidth = dom.clientWidth;
             svg.setAttributeNS(null, 'width', "100%");
             svg.setAttributeNS(null, 'height', "100%");
-            //<g transform="scale(1,-1) translate(0,-67)" id="vue-bars-1-path">
             dom.appendChild(svg);
             var paddingX = 3;
-            var squareUnit = Math.min(domClientWidth / options.x, 23) - paddingX;
+            var squareUnit = Math.min(domClientWidth / options.x, 40) - paddingX;
             var squareSpace = squareUnit + paddingX;
+            console.log(squareUnit);
             var animStart = 0;
             // set height
             svg.setAttributeNS(null, 'viewBox', `0 0 ${domClientWidth} ${dom.clientHeight}`);
