@@ -91,4 +91,20 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.action_mailer.default_url_options = {:host => "http://staging.unknownanalytics.com"}
+
+
+  smtp_uri = URI(ENV['UNK_ANA_SMTP_URI'])
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+      address: smtp_uri.host,
+      port: smtp_uri.port,
+      authentication: ENV['UNK_ANA_SMTP_AUTH_METHOD'],
+      user_name: CGI.unescape(smtp_uri.user),
+      password: CGI.unescape(smtp_uri.password),
+      enable_starttls_auto: true
+  }
+
 end

@@ -122,7 +122,7 @@
     background-position: center -13px;
     background-repeat: no-repeat;
     background-size: 28%;
-    background-image: url("/assets/map.svg");
+    background-image: url(asset-path('map.svg'));
   }
   .title {
     font-weight: 600;
@@ -293,7 +293,7 @@ footer {
       color: #535050;
     }
     .made-in-tunisia {
-      background: url("/assets/Flag_of_Tunisia.svg");
+      background: url(asset-path('Flag_of_Tunisia.svg'));
       width: 32px;
       height: 24px;
       background-size: 32px 24px;

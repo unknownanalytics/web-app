@@ -31,16 +31,19 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # use mailcatcher
-  config.action_mailer.default_url_options = {:host => "localhost", :port => 3001}
+  config.action_mailer.default_url_options = {:host => "localhost", :port => ENV['UNK_ANA_PORT'] || 3001}
+
+
+  smtp_uri = URI(ENV['UNK_ANA_SMTP_URI'])
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-      :user_name => '503f1572e42bbe',
-      :password => 'fbaf02940da2c5',
-      :address => 'smtp.mailtrap.io',
-      :domain => 'smtp.mailtrap.io',
-      :port => '2525',
-      :authentication => :cram_md5
+      address: smtp_uri.host,
+      port: smtp_uri.port,
+      authentication: ENV['UNK_ANA_SMTP_AUTH_METHOD'],
+      user_name: CGI.unescape(smtp_uri.user),
+      password: CGI.unescape(smtp_uri.password),
+      enable_starttls_auto: true
   }
 
   # Don't care if the mailer can't send.

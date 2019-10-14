@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  after_create :send_new_user_mail
+  after_create :new_account_message
   # Include default devise modules. Others available are:
   #  and , :timeoutable :omniauthable
   devise :database_authenticatable, :registerable,

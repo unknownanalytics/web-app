@@ -21,8 +21,9 @@ RUN bundle install --jobs 20 --retry 5 --without development test
 # Adding project files
 COPY . .
 
-# get the database url from docker image building
+# Set all necessary keys for the db:migrate tasks
 ARG UNK_ANA_DATABASE_URI
+ARG UNK_ANA_SMTP_URI
 ARG RAILS_ENV
 
 # Set env
