@@ -3,16 +3,19 @@
     <div class="container">
       <h1 class="title">Configuration </h1>
       <div>
-        <h1>1- Configure domain</h1>
-        <h1>2- Set up allowed origin</h1>
-        <h1>3- Create an api key </h1>
-        <h1>4- Include the js script</h1>
+        <h1 class="subtitle">In unknown dashboard</h1>
+        <h2>1- Configure domain</h2>
+        <h2>2- Set up allowed origins</h2>
+        <h2>3- Create an api key </h2>
+        <br/>
+        <h1 class="subtitle"> In your application (web site)</h1>
+        <h2>4- Include the js script</h2>
         <span class="code">&lt;script <span class="attr-name">src</span>="<span class="attr-value">https://cdn.unknownAnalytics.com/ping.js</span>"&gt;&lt;/script&gt;</span>
-        if you are using a
-        <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP"><span class="code">Content-Security-Policy</span></a>,
-        you can download the js file and serve it from your own serve
+        <br/>* If you apply a
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP"><span class="code">Content-Security-Policy</span></a> constraints,
+        you can download the js file and serve it from your own server.
         <h1>4- Init the client app instance </h1>
-        <span class="code">unknown('ys4SCznNV00piV007n4AuA');</span>
+        <span class="code"><span class="attr-value">unknown</span>(&lt;your_api_key&gt;);</span>
       </div>
     </div>
   </div>

@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['UNK_ANA_DATABASE_URI'] %>
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -57,8 +57,14 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['UNK_ANA_DATABASE_URI'] %>
 
+
+
+
+staging:
+  <<: *default
+  url: <%= ENV['UNK_ANA_DATABASE_URI'] %>
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -71,7 +77,7 @@ test:
 # On Heroku and other platform providers, you may have a full connection URL
 # available as an environment variable. For example:
 #
-#   DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
+#   UNK_ANA_DATABASE_URI="postgres://myuser:mypass@localhost/somedatabase"
 #
 # You can use this database configuration with:
 #
@@ -80,4 +86,4 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  url: <%= ENV['UNK_ANA_DATABASE_URI'] %>

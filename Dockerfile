@@ -3,6 +3,7 @@ FROM ruby:2.3.3
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 # Set an environment variable where the Rails app is installed to inside of Docker image
 ENV RAILS_ROOT /var/www/unk-web-app
+
 RUN mkdir -p $RAILS_ROOT
 # Set working directory
 WORKDIR $RAILS_ROOT
@@ -16,16 +17,21 @@ COPY Gemfile.lock Gemfile.lock
 ENV BUNDLER_VERSION 2.0.2
 #set the version in Gemfile
 # RUN bundle install --jobs 20 --retry 5 --without development test
-RUN bundle install --jobs 20 --retry 5
+RUN bundle install --jobs 20 --retry 5 --without development test
 # Adding project files
 COPY . .
 
+# get the database url from docker image building
+ARG UNK_ANA_DATABASE_URI
+ARG RAILS_ENV
+
+# Set env
 ENV DOCKER 1
-ARG DATABASE_URL
 
 
-#RUN bundle exec rake RAILS_ENV=production  assets:precompile
 RUN bundle exec rake db:migrate
+
+RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
 

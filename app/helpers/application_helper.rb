@@ -15,7 +15,7 @@ module ApplicationHelper
   end
 
   def default_page_title
-    ENV['DEFAULT_PAGE_TITLE'] || 'Unk analytics'
+    ENV['UNK_ANA_DEFAULT_PAGE_TITLE'] || 'Unknown Analytics'
   end
 
   def current_menu_item_class?(test_path)

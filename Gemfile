@@ -38,7 +38,7 @@ gem 'bootsnap', '= 1.4.1', require: false
 
 gem 'whenever', require: false
 
-gem 'rails_admin', '~> 2.0'
+#gem 'rails_admin', '~> 2.0'
 
 gem 'stripe'
 

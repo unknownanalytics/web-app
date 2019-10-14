@@ -11,6 +11,7 @@ class WelcomeController < ApplicationController
   private
 
   def valid_page?
+    @page = @page.gsub(/-/, '_')
     File.exist?(Pathname.new(Rails.root + "app/views/welcome/_#{@page}.html.erb"))
   end
 end

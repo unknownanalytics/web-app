@@ -1,7 +1,7 @@
 class BillingController < ActionController::Base
 
   # Using Sinatra
-  post '/webhook' do
+  def webhook
     payload = request.body.read
     event = nil
 

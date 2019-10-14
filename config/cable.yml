@@ -1,21 +1,19 @@
 development:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://127.0.0.1:6379/1" } %>
-  channel_prefix: track-web_development
+  url: <%= ENV.fetch("UNK_ANA_REDIS_URI") { "redis://127.0.0.1:6379/1" } %>
+  channel_prefix: <%= ENV.fetch("UNK_ANA_REDIS_CHANNEL_PREFIX")  { "unknown_analytics_development" } %>
 
 test:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://127.0.0.1:6379/1" } %>
-  channel_prefix: track-web_test
+  url: <%= ENV.fetch("UNK_ANA_REDIS_URI") { "redis://127.0.0.1:6379/1" } %>
+  channel_prefix:  <%= ENV.fetch("UNK_ANA_REDIS_CHANNEL_PREFIX")  { "unknown_analytics_test" } %>
 
 staging:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://127.0.0.1:6379/1" } %>
-  channel_prefix: track-web_staging
-
-
+  url: <%= ENV.fetch("UNK_ANA_REDIS_URI") { "redis://127.0.0.1:6379/1" } %>
+  channel_prefix:  <%= ENV.fetch("UNK_ANA_REDIS_CHANNEL_PREFIX")  { "unknown_analytics_staging" } %>
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDIS_URL") { "redis://127.0.0.1:6379/1" } %>
-  channel_prefix: track-web_production
+  url: <%= ENV.fetch("UNK_ANA_REDIS_URI") { "redis://127.0.0.1:6379/1" } %>
+  channel_prefix: <%= ENV.fetch("UNK_ANA_REDIS_CHANNEL_PREFIX")  { "unknown_analytics_staging" } %>

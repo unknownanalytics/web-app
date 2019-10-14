@@ -5,7 +5,7 @@ Rails 5.2.3
 
 *** SET env vars : 
 
-DATABASE_URL=postgres://postgres:root@localhost/track-web_development
+UNK_ANA_DATABASE_URI=postgres://postgres:root@localhost/track-web_development
 
 
 # README
