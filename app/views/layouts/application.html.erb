@@ -14,10 +14,10 @@
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
 
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-  <link rel="manifest" href="/assets/site.webmanifest">
+  <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('apple-touch-icon.png') %>">
+  <link rel="icon" type="image/png" sizes="32x32" href="<%= asset_path('favicon-32x32.png') %>">
+  <link rel="icon" type="image/png" sizes="16x16" href="<%= asset_path('favicon-16x16.png') %>">
+  <link rel="manifest" href="<%= asset_path('site.webmanifest') %>">
 
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; script-src 'unsafe-eval' 'self' https://cdn.jsdelivr.net  ;">
 

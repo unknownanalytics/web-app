@@ -31,7 +31,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # use mailcatcher
-  config.action_mailer.default_url_options = {:host => "localhost", :port => ENV['UNK_ANA_PORT'] || 3001}
+  config.action_mailer.default_url_options = {:host => "localhost", :port => ENV['UNK_ANA_PORT'] || 3002}
 
 
   smtp_uri = URI(ENV['UNK_ANA_SMTP_URI'])
