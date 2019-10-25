@@ -6,11 +6,11 @@ Rails.application.configure do
 
   puts "############################"
   puts "############################"
-  puts "#{ENV["UNK_ANA_SECRET_KEY_BASE"]}"
+  puts "#{ENV['UNK_ANA_SECRET_KEY_BASE']}"
   puts "############################"
   puts "############################"
 
-  config.secret_key_base = ENV["UNK_ANA_SECRET_KEY_BASE"]
+  config.secret_key_base = ENV['UNK_ANA_SECRET_KEY_BASE']
 
 
   # Eager load code on boot. This eager loads most of Rails and
