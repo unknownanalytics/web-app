@@ -1,5 +1,6 @@
 class WebNotificationsChannel < ApplicationCable::Channel
   def subscribed
-    stream_for "#{ENV['UNK_ANA_WEB_NOTIFICATION_CHANNEL']}:#{current_user.id}"
+    stream_for "4"
+    #stream_for "#{current_user.id}"
   end
 end

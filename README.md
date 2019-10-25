@@ -56,7 +56,6 @@ docker run \n
 --env UNK_ANA_APP_HOST=<app_host> \n
 --env UNK_ANA_DEFAULT_PAGE_TITLE=<default_page_title> \n
 --env UNK_ANA_REDIS_CHANNEL_PREFIX=<redis_channel_prefix> \n
---env UNK_ANA_WEB_NOTIFICATION_CHANNEL=<web_redis_notification> \n
 --env RAILS_ENV=<environement> \n
 unk-rails-app:latest 
 ```
