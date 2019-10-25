@@ -4,11 +4,6 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
-  puts "############################"
-  puts "############################"
-  puts "#{ENV['UNK_ANA_SECRET_KEY_BASE']}"
-  puts "############################"
-  puts "############################"
 
   config.secret_key_base = ENV['UNK_ANA_SECRET_KEY_BASE']
 

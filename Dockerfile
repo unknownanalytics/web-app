@@ -24,8 +24,9 @@ COPY . .
 # Set all necessary keys for the db:migrate tasks
 ARG UNK_ANA_DATABASE_URI
 ARG UNK_ANA_SMTP_URI
-ARG RAILS_ENV
+ARG UNK_ANA_SECRET_KEY_BASE
 
+ARG RAILS_ENV
 # Set env
 ENV DOCKER 1
 
