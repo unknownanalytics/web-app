@@ -100,7 +100,25 @@ App.Helpers = {
         // Usage
         return buildArray(startDate, endDate);
 
+    },
+    getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+    },
+    /**
+     *
+     * @param link
+     */
+    disableLink(link) {
+        // 1. Add isDisabled class to parent span
+        link.parentElement.classList.add('is-disabled');
+        // 2. Store href so we can add it later
+        link.setAttribute('data-href', link.href);
+        // 3. Remove href
+        link.href = '';
+        // 4. Set aria-disabled to 'true'
+        link.setAttribute('aria-disabled', 'true');
     }
-
 
 };

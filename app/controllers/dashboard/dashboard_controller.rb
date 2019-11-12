@@ -10,7 +10,8 @@ class Dashboard::DashboardController < ApplicationController
 
   def load_domains
     @my_domains = current_user.own_domains.where.not(:name => blank?).all
-    @my_domains = @my_domains + current_user.domains
+    confirmed_domains =  current_user.domains.joins(:admins_domains).where(:admins_domains => { :validated => true })
+    @my_domains = @my_domains + confirmed_domains
   end
 
   ## select a domain from my list

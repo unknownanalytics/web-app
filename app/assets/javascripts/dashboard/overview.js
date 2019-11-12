@@ -3,19 +3,32 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
             el: document.getElementsByTagName('main')[0],
             template: '#app_dashboard_overview_template',
             mounted() {
-                canvasEvents();
-                App.Api.get(App.API_ROUTES.DASHBOARD_OVERVIEW, {},
-                    {
-                        success:
-                            (function (response) {
-                                this.stats = response.data;
-                            }).bind(this)
-                    }
-                );
                 //
-                this.onChangePeriodTopPagesViews();
-                this.onChangePeriodLocationViews();
-                this.onChangePeriodDevicesViews();
+                let domainMeta = document.head.querySelector("[name~=app-domain][content]");
+                if (domainMeta) {
+                    canvasEvents();
+                    App.Api.get(App.API_ROUTES.DASHBOARD_OVERVIEW, {},
+                        {
+                            success:
+                                (function (response) {
+                                    this.stats = response.data;
+                                }).bind(this)
+                        }
+                    );
+                    //
+                    this.onChangePeriodTopPagesViews();
+                    this.onChangePeriodLocationViews();
+                    this.onChangePeriodDevicesViews();
+                }
+                else {
+                    this.stats = {
+                        viewsCount: 'no data',
+                        sessionsCount: 'no data',
+                        eventsCount: 'no data',
+                        issuesCount: 'no data'
+                    };
+                    this.$el.classList.add('no-data');
+                }
             },
             data: function () {
                 return {

@@ -47,13 +47,22 @@
         <% end %>
       </li>
       <li>
-        <%= link_to(dashboard_stats_heatmap_path, class: current_menu_item_class?(dashboard_stats_heatmap_path)) do %>
+        <%= link_to(dashboard_stats_heatmaps_path, class: current_menu_item_class?(dashboard_stats_heatmaps_path)) do %>
           <% cache('icon-thermostat-full') do %>
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-thermostat-full'} %>
           <% end -%>
-          <%= t('dashboard.menu.heatmap') %>
+          <%= t('dashboard.menu.heatmaps') %>
         <% end %>
       </li>
+      <li>
+        <%= link_to(dashboard_stats_events_path, class: current_menu_item_class?(dashboard_stats_events_path)) do %>
+          <% cache('icon-volume-up') do %>
+            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-volume-up'} %>
+          <% end -%>
+          <%= t('dashboard.menu.events') %>
+        <% end %>
+      </li>
+
       <li>
         <%= link_to(dashboard_stats_export_path, class: current_menu_item_class?(dashboard_stats_export_path)) do %>
           <% cache('icon-cloud-download') do %>
@@ -62,13 +71,17 @@
           <%= t('dashboard.menu.export') %>
         <% end %>
       </li>
-      <!--<%= link_to(dashboard_stats_events_path, class: current_menu_item_class?(dashboard_stats_events_path)) do %>
-        <%= t('dashboard.menu.events') %>
-      <% end %>-->
+
       <li>
-        <span class="tag tag-warning"> <%= t('dashboard.menu.events') %>
-          <small>(soon)</small></span>
+        <%= link_to(dashboard_stats_events_path, class: current_menu_item_class?(dashboard_stats_events_path), id: 'dashboard_stats_session_recording_path') do %>
+          <% cache('icon-videocam') do %>
+            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-videocam'} %>
+          <% end -%>
+          <%= t('dashboard.menu.sessions') %>
+          <div class="tag tag-danger">soon</div>
+        <% end %>
       </li>
+
     </ul>
   <% end %>
 
@@ -154,9 +167,9 @@
 
   <hr/>
   <p class="menu-label">
-    <%= t('dashboard.menu.Other_Teams') %>
+    <%= t('dashboard.menu.Other_Domains') %>
   </p>
-  <%= link_to(dashboard_domains_received_invitations_path, class: current_menu_item_class?(dashboard_domains_received_invitations_path)) do %>
+  <%= link_to(dashboard_domains_received_invitations_path, class: 'icon-container ' + current_menu_item_class?(dashboard_domains_received_invitations_path)) do %>
     <% cache('icon-external-window') do %>
       <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
     <% end %>

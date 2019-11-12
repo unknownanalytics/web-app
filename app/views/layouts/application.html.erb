@@ -1,9 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+
   <title>
     <%= content_for?(:page_title) ? yield(:page_title) : default_page_title %>
   </title>
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; script-src 'unsafe-eval' 'self' https://cdn.jsdelivr.net  ;">
+
+  <% unless current_domain.nil? %>
+    <meta name="app-domain" content="<%= current_domain.id %>">
+  <% end %>
+
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
@@ -19,23 +27,10 @@
   <link rel="icon" type="image/png" sizes="16x16" href="<%= asset_path('favicon-16x16.png') %>">
   <link rel="manifest" href="<%= asset_path('site.webmanifest') %>">
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self'; script-src 'unsafe-eval' 'self' https://cdn.jsdelivr.net  ;">
-
-
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
 </head>
-
 <body>
-
-<p class="notice">
-  Disclaimer :<br/>
-  - This version is for beta test purpose only.<br/>
-  - This is an early beta release, please note some services are not yet implemented neither functional.<br/>
-  - All services are free, the subscription module is not yet configured.<br/>
-  - Emails module is not yet implemented. Some service may not works<br/>
-  - All data, information may be lost or removed at any time without any further notice<br/>
-</p>
-
 
 <% cache('includes/icons') do %>
   <%= render 'includes/icons' %>

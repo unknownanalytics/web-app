@@ -5,8 +5,8 @@
 
 <% content_for :custom_js_assets do %>
   <%= javascript_include_tag 'dashboard', 'data-turbolinks-track': 'reload' %>
-
 <% end %>
+
 <style>
   body {
     display: flex;
@@ -28,25 +28,26 @@
           <div class="is-12 main-container">
             <% if current_domain.nil? %>
 
-              <span class="title">Select or create a domain</span>
-              <!-- TODO -->
+              <h1 class="title is-4">Select or create a new domain</h1>
+
               <% if @my_domains.size > 0 %>
                 <%= form_tag('/dashboard/set-current-domain') do %>
-                  <div class="field">
+                  <div class="field is-grouped">
+                    <div class="control select">
+                      <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id), {include_blank: "#{t("domains.select_from_your_domains")} #{@my_domains.size} domains"}) %>
+                    </div>
                     <div class="control">
-                      <div class="select">
-                        <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id), {include_blank: t('None')}) %>
-                      </div>
+                      <%= submit_tag t('Select', class: 'button is-link'), {:class => 'button default'} %>
+                    </div>
+
+                    <div class="control">
+                      <%= link_to(dashboard_domains_path, {:class => 'is-light is-link'}) do %>
+                        <span><%= t('domain.create_new_domain') %></span>
+                      <% end %>
                     </div>
                   </div>
-                  <%= submit_tag t('Select', class: 'button is-link') %>
                 <% end -%>
               <% end -%>
-              <div>
-                <%= link_to(dashboard_domains_path, nil, {class: 'is-link'}) do %>
-                  <span><%= t('domain.create') %></span>
-                <% end %>
-              </div>
             <% end %>
 
 
@@ -65,13 +66,14 @@
 
 
   </div>
+
+  <%= render "includes/footer_logged_in" %>
+
   <!-- TODO, serve this from our cdn -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/underscore@1.9.1/underscore.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/echarts@4.1.0/dist/echarts.js" async></script>
 
-
-  <%= render "includes/footer_logged_in" %>
 
 <% end %>

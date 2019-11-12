@@ -26,7 +26,7 @@ Rails.application.routes.draw do
       # stats for current domain
       scope :stats, as: 'stats' do
         get '/' => 'stats#overview'
-        %w(summary pages devices events geo heatmap export).each do |route|
+        %w(summary pages devices events geo heatmaps export).each do |route|
           get "/#{route}" => "stats##{route}"
         end
       end
@@ -59,7 +59,7 @@ Rails.application.routes.draw do
       get '/devices' => 'devices#index'
       get '/events' => 'events#index'
       get '/geo' => 'geo#index'
-      get '/heatmap' => 'heatmap#index'
+      get '/heatmaps' => 'heatmaps#index'
       get '/export' => 'export#index'
     end
 

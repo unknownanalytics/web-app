@@ -157,16 +157,17 @@ App.Charts = {
             var createNS = App.Charts._createElementNS;
             let svg = createNS('svg');
             let domClientWidth = dom.clientWidth;
-            svg.setAttributeNS(null, 'width', "100%");
-            svg.setAttributeNS(null, 'height', "100%");
+
             dom.appendChild(svg);
+
             var paddingX = 3;
-            var squareUnit = Math.min(domClientWidth / options.x, 40) - paddingX;
+            var squareUnit = options.size || Math.min(domClientWidth / options.x, 40) - paddingX;
             var squareSpace = squareUnit + paddingX;
-            console.log(squareUnit);
             var animStart = 0;
+            let width = squareSpace * options.x;
+            let height = squareSpace * options.y;
             // set height
-            svg.setAttributeNS(null, 'viewBox', `0 0 ${domClientWidth} ${dom.clientHeight}`);
+            svg.setAttributeNS(null, 'viewBox', `0 0 ${width} ${height}`);
             // gradient
             let gradientID = App.Charts._setSVGGradient(svg, ['#ffbe88', '#ffa4bc']);
             var i = 0, j = 0, square;
@@ -194,11 +195,14 @@ App.Charts = {
                     svg.appendChild(square);
                 }
             }
-            if (options.values && options.values.length) {
+            if (data && data.length) {
                 for (i = 0; i < options.values.length; j++) {
 
                 }
             }
+
+            svg.setAttributeNS(null, 'width', width + "px");
+            svg.setAttributeNS(null, 'height', height + "px");
         }
     },
 

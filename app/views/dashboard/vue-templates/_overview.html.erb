@@ -1,4 +1,5 @@
 <style>
+
   #overview_map_content_container > .panel {
     overflow: hidden;
   }
@@ -18,8 +19,7 @@
     <div class="level">
       <div class="level-left">
         <div class="level-item">
-          <div class="title">Overview
-
+          <div class="title is-4">Overview
           </div>
         </div>
       </div>
@@ -35,10 +35,10 @@
     <div class="columns is-multiline" id="overview_global_view_container" v-cloak>
       <div class="column">
         <div class="box">
-          <div class="heading">
+          <div class="heading has-text-weight-semibold">
             <%= t('Pages Views') %>
           </div>
-          <div class="title">
+          <div class="title is-5  has-text-weight-normal">
             <span>{{stats.viewsCount}}</span>
             <div class="is-pulled-right">
               <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-target', :cssClass => 'accent'} %>
@@ -49,32 +49,32 @@
       </div>
       <div class="column">
         <div class="box">
-          <div class="heading"><%= t('Referral') %></div>
-          <div class="title">
+          <div class="heading has-text-weight-semibold"><%= t('Referral') %></div>
+          <div class="title is-5  has-text-weight-normal">
             <span>{{stats.sessionsCount}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box">
+          <div class="heading has-text-weight-semibold"><%= t('Events') %>
+          </div>
+          <div class="title is-5  has-text-weight-normal">
+            <span>{{stats.eventsCount}}</span>
           </div>
         </div>
       </div>
 
       <div class="column">
         <div class="box">
-          <div class="heading"><%= t('Campaigns') %>
+          <div class="heading has-text-weight-semibold"><%= t('Campaigns') %>
           </div>
-          <div class="title">
+          <div class="title is-5  has-text-weight-normal">
             <span>-</span>
           </div>
         </div>
       </div>
-      <div class="column">
-        <div class="box">
-          <div class="heading"><%= t('Events') %>
-            <small><span class="tag is-bold is-warning"><%= t('Soon') %></span></small>
-          </div>
-          <div class="title">
-            <span>-</span>
-          </div>
-        </div>
-      </div>
+
 
     </div>
 
@@ -83,17 +83,14 @@
         <div class="panel">
           <p class="panel-heading">
             <%= t('Page views') %>
-            <select id="overview_view_period" @change="onChangePeriodTopPagesViews($event)">
-              <option value="week"><%= t('This week') %>
-                :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
-                - <%= Date.today.strftime("%d %B") %></option>
-              <option selected="selected" value="month"><%= t('This month') %>
-                :  <%= Date.today.strftime("%B") %></option>
 
-              <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
-            </select>
+            <%= render :partial => 'includes/select_period', :locals => {:event => 'onChangePeriodTopPagesViews($event)'} %>
 
-            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right'}) do %>
+
+            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right icon-container'}) do %>
+              <% cache('icon-external-window') do %>
+                <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+              <% end %>
               <%= t('details') %>
             <% end %>
 
@@ -108,17 +105,14 @@
           <p class="panel-heading">
             <%= t('Devices') %>
 
-            <select id="overview_view_period" @change="onChangePeriodDevicesViews($event)">
-              <option value="week"><%= t('This week') %>
-                :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
-                - <%= Date.today.strftime("%d %B") %></option>
-              <option selected="selected" value="month"><%= t('This month') %>
-                :  <%= Date.today.strftime("%B") %></option>
+            <%= render :partial => 'includes/select_period', :locals => {:event => 'onChangePeriodDevicesViews($event)'} %>
 
-              <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
-            </select>
 
-            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right'}) do %>
+
+            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right  icon-container'}) do %>
+              <% cache('icon-external-window') do %>
+                <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+              <% end %>
               <%= t('details') %>
             <% end %>
 
@@ -133,19 +127,16 @@
           <p class="panel-heading">
             <%= t('Geo partition') %>
 
-            <select @change="onChangePeriodLocationViews($event)">
-              <option value="week"><%= t('This week') %>
-                :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
-                - <%= Date.today.strftime("%d %B") %></option>
-              <option selected="selected" value="month"><%= t('This month') %>
-                :  <%= Date.today.strftime("%B") %></option>
+            <%= render :partial => 'includes/select_period', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
 
-              <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
-            </select>
+
             <% if current_domain && current_domain.domain_setting.track_geo %>
-          <%= link_to(dashboard_stats_geo_path, {class: 'is-pulled-right'}) do %>
-              <%= t('details') %>
-            <% end %>
+              <%= link_to(dashboard_stats_geo_path, {class: 'is-pulled-right  icon-container'}) do %>
+                <% cache('icon-external-window') do %>
+                  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+                <% end %>
+                <%= t('details') %>
+              <% end %>
             <% else %>
               <span class="tag tag-warning"> <%= t('dashboard.menu.geo_scattering') %>
                 <small>(disabled)</small></span>
@@ -163,23 +154,19 @@
       <div class="column is-6" id="overview_events_content_container">
         <div class="panel">
           <p class="panel-heading">
-            <%= t('Events') %> <span class="tag is-bold is-warning"><%= t('Soon') %></span>
+            <%= t('Events') %>
 
-            <!-- <select>
-              <option selected="selected">Daily</option>
-              <option>Weekly</option>
-              <option>Monthly</option>
-            </select>
-
-            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right'}) do %>
-              details
-            <% end %>-->
-
+            <%= render :partial => 'includes/select_period', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
+            <%= link_to(dashboard_stats_geo_path, {class: 'is-pulled-right  icon-container'}) do %>
+              <% cache('icon-external-window') do %>
+                <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+              <% end %>
+              <%= t('details') %>
+            <% end %>
           </p>
-          <!-- <div class="panel-block">
-             <canvas id="canvas_events" width="400" height="250"></canvas>
-           </div>
-           -->
+          <div class="panel-block">
+            <canvas id="canvas_events" width="400" height="250"></canvas>
+          </div>
         </div>
       </div>
 

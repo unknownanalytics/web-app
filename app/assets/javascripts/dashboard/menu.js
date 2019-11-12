@@ -1,4 +1,4 @@
-(() => {
+(function () {
 
     const IS_OPENED = 'is-opened';
 
@@ -25,4 +25,8 @@
         item = items.item(i);
         attachCollapse(item);
     }
+
+
+    //
+    App.Helpers.disableLink(document.getElementById('dashboard_stats_session_recording_path'));
 })();

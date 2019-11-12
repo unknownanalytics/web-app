@@ -52,6 +52,8 @@ App.Routes['/dashboard/stats/pages'] = function () {
 
                 this.drawCampaings();
 
+                this.drawMonths();
+
                 this.axes = data;
             },
             /**
@@ -220,6 +222,16 @@ App.Routes['/dashboard/stats/pages'] = function () {
                     option.series[dataItem[0]].data.push([dataItem[1], dataItem[2]]);
                 });
                 myChart.setOption(option);
+            },
+            drawMonths() {
+                let container = document.getElementById('months');
+                let child;
+                for (let i = 0; i < 6; i++) {
+                    child = document.createElement('div');
+                    child.classList.add('month-entry');
+                    container.append(child);
+                    App.Charts.squares(child, [], {animate: false, x: 6, y: 7, stop: 31, size: 25});
+                }
             }
 
         }

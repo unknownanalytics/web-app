@@ -46,7 +46,7 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   config.action_cable.url = ENV['UNK_ANA_CABLE_URL']
-  config.action_cable.allowed_request_origins = ['http://unknownAnalytics.com', 'http://staging.unknownAnalytics.com', /http:\/\/unknownAnalytics.*/, /http:\/\/staging.unknownAnalytics.*/, /http:\/\/localhost.*/]
+  config.action_cable.allowed_request_origins = ['http://unknownAnalytics.com',  /http:\/\/unknownAnalytics.*/,  /http:\/\/localhost.*/]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true

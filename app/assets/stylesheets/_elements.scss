@@ -1,0 +1,31 @@
+@import "colors";
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  &a {
+    * {
+      text-decoration: underline;
+      color: $secondary-icon;
+    }
+  }
+}
+
+.tab-content {
+  display: none;
+  &.is-active {
+    display: block;
+  }
+}
+
+.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+a[aria-disabled="true"] {
+  color: currentColor;
+  display: inline-block; /* For IE11/ MS Edge bug */
+  pointer-events: none;
+  text-decoration: none;
+}

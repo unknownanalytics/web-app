@@ -27,7 +27,7 @@ module Dashboard
 
     end
 
-    def heatmap
+    def heatmaps
 
     end
 

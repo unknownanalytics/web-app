@@ -45,3 +45,5 @@ en:
       placeholder: "Domain name: Not this is not the origin, origins will be configured later once created"
   domains:
     settings_origins_placeholder: "Allowed origins"
+    create_new_domain: "Create a new domain"
+    select_from_your_domains: "Select from"
