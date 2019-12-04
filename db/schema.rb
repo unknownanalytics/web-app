@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_04_143649) do
+ActiveRecord::Schema.define(version: 2019_11_12_082339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,35 @@ ActiveRecord::Schema.define(version: 2019_10_04_143649) do
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_domains_on_name"
     t.index ["user_id"], name: "index_domains_on_user_id"
+  end
+
+  create_table "errors", force: :cascade do |t|
+    t.bigint "page_id", null: false
+    t.jsonb "metadata"
+    t.string "user_agent"
+    t.string "os"
+    t.string "browser"
+    t.boolean "is_mobile", default: false
+    t.boolean "is_tablet", default: false
+    t.boolean "is_desktop", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_errors_on_page_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "page_id", null: false
+    t.jsonb "metadata"
+    t.string "user_agent"
+    t.string "os"
+    t.string "browser"
+    t.boolean "is_mobile", default: false
+    t.boolean "is_tablet", default: false
+    t.boolean "is_desktop", default: false
+    t.integer "sequence_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_events_on_page_id"
   end
 
   create_table "page_view_locations", force: :cascade do |t|
@@ -180,6 +209,8 @@ ActiveRecord::Schema.define(version: 2019_10_04_143649) do
   add_foreign_key "api_keys", "users"
   add_foreign_key "domain_settings", "domains"
   add_foreign_key "domains", "users"
+  add_foreign_key "errors", "pages"
+  add_foreign_key "events", "pages"
   add_foreign_key "page_view_locations", "pages"
   add_foreign_key "page_views", "pages"
   add_foreign_key "pages", "domains"

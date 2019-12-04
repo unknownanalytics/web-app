@@ -2,6 +2,8 @@
 //# All this logic will automatically be available in application.js.
 //# You can use CoffeeScript in this file: http://coffeescript.org/
 //= require_directory ./dashboard
+// require vuejs
+//= require_directory ./components
 document.addEventListener("turbolinks:load", function (event) {
     let path = (new URL(event.data.url)).pathname;
     if (App.Routes[path]) {

@@ -33,8 +33,12 @@ Rails.application.configure do
   # use mailcatcher
   config.action_mailer.default_url_options = {:host => "localhost", :port => ENV['UNK_ANA_PORT'] || 3002}
 
+  if ENV.key?('UNK_ANA_SMTP_URI')
+    smtp_uri = URI(ENV['UNK_ANA_SMTP_URI'])
+  else
+    smtp_uri = URI('smtp://fake:fake@fake:90')
+  end
 
-  smtp_uri = URI(ENV['UNK_ANA_SMTP_URI'])
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {

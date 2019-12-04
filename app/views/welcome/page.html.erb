@@ -7,9 +7,8 @@
 <% end %>
 
 <% cache(@page) do %>
-
+  <%= render @page %>
 <% end %>
-<%= render @page %>
 
 
 <% content_for :custom_js_assets do %>

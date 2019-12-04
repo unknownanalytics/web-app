@@ -64,6 +64,15 @@
       </li>
 
       <li>
+        <%= link_to(dashboard_stats_errors_path, class: current_menu_item_class?(dashboard_stats_errors_path)) do %>
+          <% cache('icon-bug') do %>
+            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-bug'} %>
+          <% end -%>
+          <%= t('dashboard.menu.errors') %>
+        <% end %>
+      </li>
+
+      <li>
         <%= link_to(dashboard_stats_export_path, class: current_menu_item_class?(dashboard_stats_export_path)) do %>
           <% cache('icon-cloud-download') do %>
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cloud-download'} %>

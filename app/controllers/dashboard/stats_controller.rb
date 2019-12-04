@@ -35,6 +35,10 @@ module Dashboard
 
     end
 
+    def errors
+
+    end
+
     private
 
     def check_format

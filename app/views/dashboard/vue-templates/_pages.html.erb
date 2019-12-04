@@ -1,52 +1,66 @@
 <script type="text/x-template" id="app_dashboard_pages_views_template">
   <div>
-    <div class="is-fullwidth">
+    <div>
       <div>
-        Pages : {{axes.pages.length}}
+        <div class="columns" id="page_filter_menu">
+          <div class="column is-one-quarter">
+            <div>
+              <app-v-typehead :list="axes.pages"
+                              :displayProperty="'full_url'"
+                              v-on:seleced="changeFilterPath($event)"
+                              placeholder="Select pages">
+              </app-v-typehead>
+            </div>
+          </div>
+          <div class="column is-one-quarter">
+            <select @change="changeFilterUtm($event)">
+              <option></option>
+              <option v-for="utm in axes.utms">
+                {{ utm.utm_source }}
+              </option>
+            </select>
+          </div>
 
-        <!--<input id="slider2" type="range" min="100" max="500" step="50" value="100"/>-->
+          <div class="column is-one-quarter">
+            <select @change="changeFilterBrowser($event)">
+              <option></option>
+              <option v-for="browser in axes.browsers">
+                {{ browser.browser }}
+              </option>
+            </select>
+          </div>
 
+          <div class=" column is-one-quarter">
+            <select @change="changeFilterBrowser($event)">
+              <option>origins</option>
+              <option v-for="origin in axes.origins">
+                {{ origin.origin }}
+              </option>
+            </select>
+          </div>
 
-        <div class="is-pulled-right">
-          <input placeholder="utms" @change="changeFilterUtm($event)" id="autocomplete"/>
-          <li v-for="utm in axes.utms">
-            {{ utm.utm_source }}
-          </li>
         </div>
-
-        <div class="is-pulled-right">
-          <select @change="changeFilterBrowser($event)">
-            <option></option>
-            <option v-for="browser in axes.browsers">
-              {{ browser.browser }}
-            </option>
-          </select>
-        </div>
-
-        <div class="is-pulled-right">
-          <input placeholder="origins" @change="changeFilterBrowser($event)" id="autocomplete"/>
-          <li v-for="origin in axes.origins">
-            {{ origin.origin }}
-          </li>
-        </div>
-
       </div>
 
-      <div class="columns is-fullwidth">
+      <div class="is-fullwidth">
+        <h4 class="is-size-5">Last 6 months</h4>
         <div id="main_chart" style="width: 100%;height:400px;min-width:1000px"></div>
       </div>
 
-      <div class="columns is-fullwidth">
+      <div class="is-fullwidth">
+        <h4 class="is-size-5">Weeks
+          <select>
+            <option>Weeks</option>
+            <%= (Date.today.months_ago(6).strftime("%U").to_i..Date.today.strftime("%U").to_i).to_a.each do |week| %>
+              <option value="<%= week %>">
+                <%= week %>
+              </option>
+            <% end %>
+          </select>
+        </h4>
         <div id="main_months_chart" style="width: 100%;height:400px;min-width:1000px"></div>
       </div>
-      <div class="column is-one-third">
-        <div>
-          <input placeholder="pages" @change="changeFilterPath($event)" id="autocomplete"/>
-          <li v-for="page in axes.pages">
-            {{ page.full_url }}
-          </li>
-        </div>
-      </div>
+
       <div class="columns is-fullwidth has-text-centered">
         <div class="column">
           <label>Utms</label>
@@ -61,7 +75,8 @@
           <canvas id="canvas_pages_browsers"></canvas>
         </div>
       </div>
-      Heatmpas ***
+
+      Heatmpas last 6 months
       <div id="months">
 
       </div>
