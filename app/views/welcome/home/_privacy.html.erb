@@ -1,13 +1,13 @@
-<section class="is-danger hero has-text-centered" id="app_warning">
+<section class="is-danger hero" id="app_warning">
   <div class="container">
-    <article class=""><h1 class="title"> Why we do not track users ? </h1></article>
+    <article class=""><h1 class="title"> Why we do not track your users ? </h1></article>
     <div class="columns">
       <div class="column">
         <figure>
           <div class="icon-boxed">
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-no-store'} %>
           </div>
-          <figcaption><h3>Business Model</h3>
+          <figcaption><h3><%= t('welcome.how_we_make_money') %></h3>
             <p>We DO NOT gather any information from your costumer and our business model rely on our clients
               subscriptions. </p></figcaption>
         </figure>
@@ -17,8 +17,8 @@
           <div class="icon-boxed">
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-security'} %>
           </div>
-          <figcaption><h3>Partnership</h3>
-            <p>We DO NOT have any partnerships with organizations that may use yours or your customers' data.</p>
+          <figcaption><h3>No partnership</h3>
+            <p>We DO NOT have any partnerships with organizations that may use your or your customers' data.</p>
           </figcaption>
         </figure>
       </div>

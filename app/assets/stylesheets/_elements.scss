@@ -11,12 +11,6 @@
   }
 }
 
-.tab-content {
-  display: none;
-  &.is-active {
-    display: block;
-  }
-}
 
 .is-disabled {
   cursor: not-allowed;

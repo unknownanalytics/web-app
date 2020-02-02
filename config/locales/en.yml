@@ -37,3 +37,11 @@ en:
   Change: "Update"
   Update: "Update"
   Back to list: List
+  welcome:
+    hero: "Website analytiacs without harming your customer privacy"
+    how_we_make_money: "How we make money ?"
+    start_free_trial: "Start free trial"
+    watch_demo: "Watch demo"
+    contact_us: "Contact us"
+    need_custom_plan: "Startup, ONG, need custom plan ?"
+

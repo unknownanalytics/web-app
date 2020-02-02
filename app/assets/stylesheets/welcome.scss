@@ -196,6 +196,9 @@ footer {
       top: -100px;
       right: 281px;
       z-index: 1;
+      @media screen and (max-width: 1280px) {
+        right: 255px;
+      }
     }
 
     //CSS
@@ -219,6 +222,10 @@ footer {
       right: 420px;
       z-index: 1;
       top: 23px;
+      @media screen and (max-width: 1280px) {
+        right: 389px;
+        top: 31px;
+      }
 
     }
   }
@@ -268,14 +275,19 @@ footer {
 }
 
 #features_container {
+  figure {
+    color: #80808c;
+    letter-spacing: 1px;
+    font-weight: 500;
+    line-height: 3px;
 
+  }
   .icon-boxed {
     .icon {
-      width: 100px;
-      height: 100px;
-
-      --primary: #{$primary-start-gradient};
-      --secondary: #{$primary-end-gradient};
+      width: 60px;
+      height: 60px;
+      --primary: indianred;
+      --secondary: #060606;
     }
   }
 }
@@ -326,15 +338,59 @@ blockquote {
   .tabs:not(:last-child) {
     margin-bottom: 0;
   }
+  .tabs {
+    li {
+      a {
+        border-bottom: none;
+      }
+      &.is-active {
+        display: flex;
+        a {
+          color: indianred;
+        }
+        box-shadow: inset 0 -0.35em 0 0 indianred;
+      }
+    }
+  }
 
   .tab-content {
     display: none;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 1080px;
+    padding: 3rem;
+
+    .block-image {
+      max-width: 520px;
+      height: 600px;
+      display: flex;
+    }
+    .block-feature {
+      max-height: 198px;
+      max-width: 520px;
+      font-size: 25px;
+      line-height: 40px;
+      letter-spacing: 1px;
+      font-weight: 400;
+      margin: 0 30px;
+    }
   }
   .tab-content.is-active {
-    display: block;
+    display: flex;
   }
 }
 
 .register-button {
   background: linear-gradient(45deg, $primary-start-gradient, $primary-end-gradient);
+}
+
+.product-heatmap {
+
+}
+
+.feature-heatmap {
+  width: 250px;
+  height: auto;
 }

@@ -26,8 +26,8 @@
   <link rel="icon" type="image/png" sizes="32x32" href="<%= asset_path('favicon-32x32.png') %>">
   <link rel="icon" type="image/png" sizes="16x16" href="<%= asset_path('favicon-16x16.png') %>">
   <link rel="manifest" href="<%= asset_path('site.webmanifest') %>">
-
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
 
 </head>
 <body>
@@ -36,6 +36,7 @@
   <%= render 'includes/icons' %>
 <% end %>
 <p class="notice"><%= notice %></p>
+<p class="success"><%= flash[:success] %></p>
 <p class="alert"><%= alert %></p>
 
 <%= yield %>

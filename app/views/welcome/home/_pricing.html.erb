@@ -9,7 +9,7 @@
         <div class="column ">
           <div class="box essentials">
             <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => '#bac5f4'} %>
-            <h4 class="subtitle has-text-centered">Essentials</h4>
+            <h4 class="subtitle has-text-centered">Essential plan</h4>
             <div class="plan-price">
               <span class="plan-price-currency">$</span><span class="plan-price-amount">6.99</span>
               <div class="duration">/mo</div>
@@ -21,7 +21,15 @@
               <div class="plan-item">6 months Storage</div>
             </div>
             <div class="plan-footer">
-              <button class="is-link is-fullwidth button"><%= t('Free trial') %></button>
+              <% if Rails.env.development? %>
+                <button class="is-link is-fullwidth button">
+                  <%= t('Free trial') %>
+                </button>
+              <% else %>
+                <%= link_to(contact_us_path, class: "button is-light") do %>
+                  <strong> <%= t('welcome.contact_us') %></strong>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
@@ -29,7 +37,7 @@
         <div class="column">
           <div class="box deeper">
             <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => 'red'} %>
-            <h4 class="subtitle has-text-centered">Business</h4>
+            <h4 class="subtitle has-text-centered">Business plan</h4>
             <div class="plan-price">
               <span class="plan-price-currency">$</span><span class="plan-price-amount">12</span>
               <div class="duration">/mo</div>
@@ -42,7 +50,15 @@
               <div class="plan-item">Real time interactions</div>
             </div>
             <div class="plan-footer">
-              <a class="is-link is-fullwidth button"><%= t('Free trial') %></a>
+              <% if Rails.env.development? %>
+                <button class="is-link is-fullwidth button">
+                  <%= t('Free trial') %>
+                </button>
+              <% else %>
+                <%= link_to(contact_us_path, class: "button is-light") do %>
+                  <strong> <%= t('welcome.contact_us') %></strong>
+                <% end %>
+              <% end %>
             </div>
           </div>
 
@@ -101,7 +117,8 @@
 
           <div>&#215;</div>
           <div>
-            <small>30 min *</small><br/>
+            <small>30 min *</small>
+            <br/>
             <small>up to 5 simultaneous sessions</small>
           </div>
           <div>8/5</div>
@@ -129,7 +146,8 @@
 
           <div class="check">&#10004;</div>
           <div>
-            <small>90 min *</small><br/>
+            <small>90 min *</small>
+            <br/>
             <small>up to 15 simultaneous sessions</small>
           </div>
 
@@ -138,12 +156,19 @@
         </div>
       </div>
       <p class="control has-text-centered">
-        <a href="https://www.patreon.com/jgthms" class="button is-link is-warning reg" target="_blank">
-          ONG or Startup 50% cut off
-        </a>
-        <a href="https://www.patreon.com/jgthms" class="button is-link is-info is-bold" target="_blank">
-          Need Custom features , let's talk
-        </a>
+        <% if Rails.env.development? %>
+          <a href="https://www.patreon.com/jgthms" class="button is-link is-warning reg" target="_blank">
+            ONG Startup 50% cut off
+          </a>
+          <a href="https://www.patreon.com/jgthms" class="button is-link is-info is-bold" target="_blank">
+            Need Custom features , let's talk
+          </a>
+        <% else %>
+          <%= link_to(contact_us_path, class: "button is-light") do %>
+            <strong> <%= t('welcome.need_custom_plan') %></strong>
+          <% end %>
+        <% end %>
+
       </p>
     </div>
   </div>

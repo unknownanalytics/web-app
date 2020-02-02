@@ -4,23 +4,30 @@
       <div class="columns is-desktop">
         <div class="column">
           <h1 class="title">
-            <%= t('Website analytics without harm your customer privacy') %>
+            <%= t('welcome.hero') %>
           </h1>
           <p class="subtitle">
             <%= t('Get clean, in depth analytics in anonymous mode') %>
           </p>
           <div class="buttons">
             <div>
-              <%= link_to(new_user_session_path, class: "button  is-primary is-rounded is-link register-button") do %>
-                <strong> <%= t('Start free trial') %></strong>
-              <% end %>
-              <%= link_to('#demo', class: "button is-rounded") do %>
-                <strong> <%= t('Watch demo') %></strong>
+              <% if Rails.env.development? %>
+                <%= link_to(new_user_session_path, class: "button  is-primary is-rounded is-link register-button") do %>
+                  <strong> <%= t('welcome.start_free_trial') %></strong>
+                <% end %>
+                <%= link_to('#demo', class: "button is-rounded") do %>
+                  <strong> <%= t('welcome.watch_demo') %></strong>
+                  <br/>
+                <% end %>
+
                 <br/>
+                <small>no credit card required</small>
+              <% else %>
+                <%= link_to(contact_us_path, class: "button is-light") do %>
+                  <strong> <%= t('welcome.contact_us') %></strong>
+                <% end %>
               <% end %>
 
-              <br/>
-              <small>no credit card required</small>
             </div>
           </div>
         </div>

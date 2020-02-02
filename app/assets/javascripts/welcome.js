@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     App.Charts.bubble('hero_campaigns', [1, 2, 1, 2, 4, 2, 5, 2, 4, 2, 1, 6, 5]);
 
     let tabsWithContent = (function () {
-        let tabs = document.querySelectorAll('#demo li');
+        let tabs = document.querySelectorAll('#product li');
         let tabsContent = document.querySelectorAll('.tab-content');
 
         let deactvateAllTabs = function () {

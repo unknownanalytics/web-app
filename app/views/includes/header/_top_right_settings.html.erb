@@ -1,0 +1,33 @@
+<div class="navbar-item has-dropdown is-hoverable">
+  <a class="navbar-link">
+    <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cog'} %>
+  </a>
+
+  <div class="navbar-dropdown">
+
+    <a class="navbar-item">
+      Profile
+    </a>
+    <a class="navbar-item">
+      Settings
+    </a>
+    <hr class="navbar-divider">
+    <a class="navbar-item">
+      About
+    </a>
+    <a class="navbar-item">
+      Jobs
+    </a>
+    <a class="navbar-item">
+      Contact
+    </a>
+    <hr class="navbar-divider">
+    <a class="navbar-item">
+      Report an issue
+    </a>
+    <%= link_to(destroy_user_session_path, method: :delete, class: "navbar-item") do %>
+      Sign out
+    <% end %>
+
+  </div>
+</div>

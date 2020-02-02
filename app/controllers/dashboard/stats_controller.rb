@@ -27,6 +27,10 @@ module Dashboard
 
     end
 
+    def events
+
+    end
+
     def heatmaps
 
     end
