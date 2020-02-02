@@ -12,16 +12,22 @@
           <div class="buttons">
             <div>
               <% if Rails.env.development? %>
-                <%= link_to(new_user_session_path, class: "button  is-primary is-rounded is-link register-button") do %>
-                  <strong> <%= t('welcome.start_free_trial') %></strong>
-                <% end %>
-                <%= link_to('#demo', class: "button is-rounded") do %>
-                  <strong> <%= t('welcome.watch_demo') %></strong>
-                  <br/>
-                <% end %>
+                <% if ENV["UNK_APP_IS_BILLABLE"] %>
+                  <%= link_to(new_user_session_path, class: "button  is-primary is-rounded is-link register-button") do %>
+                    <strong> <%= t('welcome.start_free_trial') %></strong>
+                  <% end %>
+                  <%= link_to('#demo', class: "button is-rounded") do %>
+                    <strong> <%= t('welcome.watch_demo') %></strong>
+                    <br/>
+                  <% end %>
 
-                <br/>
-                <small>no credit card required</small>
+                  <br/>
+                  <small>no credit card required</small>
+                <% else %>
+                  <%= link_to(new_user_session_path, class: "button  is-primary is-rounded is-link register-button") do %>
+                    <strong> <%= t('welcome.free_in_beta_version') %></strong>
+                  <% end %>
+                <% end %>
               <% else %>
                 <%= link_to(contact_us_path, class: "button is-light") do %>
                   <strong> <%= t('welcome.contact_us') %></strong>

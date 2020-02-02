@@ -4,13 +4,8 @@
     height: 104px;
     margin: 10px;
     --primary: indianred;
-    right: -41px;
     top: 4px;
     position: relative;
-  }
-
-  #plugins .card-icon {
-
   }
 </style>
 <section class="section is-medium" id="plugins">
@@ -25,8 +20,8 @@
       <div class="columns">
         <div class="column is-one-third">
           <div class="feature-card is-bordered has-text-centered revealOnScroll delay-1" data-animation="fadeInLeft">
-            <div class="card-title">
-              <h4>E commerce</h4>
+            <div>
+              <span class="shadow-text-bottom">E commerce</span>
             </div>
             <div class="card-icon">
               <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-shopping-cart'} %>
@@ -34,15 +29,13 @@
             <div class="card-text">
               <p>Expend your e-shop analysis with custom details and metrics</p>
             </div>
-            <div class="card-action">
-              <a href="#" class="button btn-align-md accent-btn raised">Free Trial</a>
-            </div>
+
           </div>
         </div>
         <div class="column">
           <div class="feature-card is-bordered has-text-centered revealOnScroll delay-2" data-animation="fadeInLeft">
-            <div class="card-title">
-              <h4>Custom formatting</h4>
+            <div>
+              <span class="shadow-text-bottom">Custom formatting</span>
             </div>
             <div class="card-icon">
               <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-tune'} %>
@@ -50,15 +43,13 @@
             <div class="card-text">
               <p>Customise your exported data so you cas explore it at your own way </p>
             </div>
-            <div class="card-action">
-              <a href="#" class="button btn-align-md secondary-btn raised">Get Started</a>
-            </div>
+
           </div>
         </div>
         <div class="column">
           <div class="feature-card is-bordered has-text-centered revealOnScroll delay-3" data-animation="fadeInLeft">
-            <div class="card-title">
-              <h4>Plugins</h4>
+            <div>
+              <span class="shadow-text-bottom">Plugins</span>
             </div>
             <div class="card-icon">
               <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-brick'} %>
@@ -66,9 +57,7 @@
             <div class="card-text">
               <p>Plug your data with external data points (cloud, dumps ...) </p>
             </div>
-            <div class="card-action">
-              <a href="#" class="button btn-align-md primary-btn raised">Get Started</a>
-            </div>
+
           </div>
         </div>
       </div>

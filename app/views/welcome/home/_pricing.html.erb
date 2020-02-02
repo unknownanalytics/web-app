@@ -9,9 +9,35 @@
         <div class="column ">
           <div class="box essentials">
             <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => '#bac5f4'} %>
-            <h4 class="subtitle has-text-centered">Essential plan</h4>
+            <div>
+              <span class="shadow-text-bottom">Free in beta </span>
+            </div>
             <div class="plan-price">
-              <span class="plan-price-currency">$</span><span class="plan-price-amount">6.99</span>
+              <span class="plan-price-currency">$</span><span class="plan-price-amount">0</span>
+              <div class="duration">/mo</div>
+            </div>
+            <div class="plan-items">
+              <div class="plan-item">200K page views</div>
+              <div class="plan-item">3 domains</div>
+              <div class="plan-item">3 admins</div>
+              <div class="plan-item">6 months Storage</div>
+            </div>
+            <div class="plan-footer has-text-centered">
+              <%= link_to(new_user_session_path, class: "button  is-primary is-rounded is-link") do %>
+                <strong> <%= t('welcome.start_now') %></strong>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="column disabled">
+          <div class="box essentials">
+            <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => '#bac5f4'} %>
+            <div>
+              <span class="shadow-text-bottom"> Essential plan</span>
+            </div>
+            <div class="plan-price">
+              <span class="plan-price-currency">$</span><span class="plan-price-amount">8</span>
               <div class="duration">/mo</div>
             </div>
             <div class="plan-items">
@@ -34,20 +60,23 @@
           </div>
         </div>
 
-        <div class="column">
-          <div class="box deeper">
+        <div class="column disabled">
+          <div class="box deeper ">
             <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => 'red'} %>
-            <h4 class="subtitle has-text-centered">Business plan</h4>
+            <div class="subtitle">
+              <span class="shadow-text-bottom">Business plan</span>
+            </div>
             <div class="plan-price">
-              <span class="plan-price-currency">$</span><span class="plan-price-amount">12</span>
+              <span class="plan-price-currency">$</span><span class="plan-price-amount">13</span>
               <div class="duration">/mo</div>
             </div>
             <div class="plan-items">
               <div class="plan-item">500K views</div>
               <div class="plan-item">10 domains</div>
-              <div class="plan-item">10 admins</div>
+              <div class="plan-item">5 admins</div>
               <div class="plan-item">1 year storage</div>
-              <div class="plan-item">Real time interactions</div>
+              <div class="plan-item">Real time notifications</div>
+              <div class="plan-item">Export PDF</div>
             </div>
             <div class="plan-footer">
               <% if Rails.env.development? %>
@@ -74,17 +103,20 @@
             <small>(views, devices, utms & campaigns, referrals and more)</small>
             <br/>
           </div>
-          <div>Geo analytics *</div>
+          <div>Geo analytics</div>
           <div>Admins</div>
           <div>Domains</div>
           <div>Charts</div>
           <div>Heatmaps *</div>
-          <div>Data Export & reports</div>
+          <div>Reports</div>
+          <div>
+            <div class="tag is-danger">API</div>
+          </div>
 
           <div>Data retention
           </div>
 
-          <div>Bug reporting
+          <div>Bug reporting *
           </div>
 
           <div>Real time Notifications *
@@ -92,13 +124,12 @@
           </div>
 
 
-          <div>Session recording *
+          <div>Realtime screen view **
             <div class="tag tag-danger">soon</div>
           </div>
-          <div>Support</div>
+          <div>Support (h/days in weeks)</div>
         </div>
-
-        <div class="column features features-entry">
+        <div class="column features features-entry ">
           <div>up to 200K views (all domains)</div>
           <div class="check">&#10004;</div>
           <div class="check">&#10004;</div>
@@ -111,19 +142,43 @@
             <div class="tag"> HTML</div>
             <div class="tag">PDF *</div>
           </div>
+
+          <div class="check">&#10004;</div>
           <div>6 months</div>
           <div>&#215;</div>
 
 
           <div>&#215;</div>
           <div>
-            <small>30 min *</small>
-            <br/>
-            <small>up to 5 simultaneous sessions</small>
+            <small>&#215;</small>
+          </div>
+          <div>2/5</div>
+        </div>
+        <div class="column features features-entry disabled">
+          <div>up to 200K views (all domains)</div>
+          <div class="check">&#10004;</div>
+          <div class="check">&#10004;</div>
+          <div>3</div>
+          <div>3</div>
+          <div class="check">&#10004;</div>
+
+          <div class="check">&#10004;</div>
+          <div>
+            <div class="tag"> HTML</div>
+            <div class="tag">PDF *</div>
+          </div>
+          <div>&#215;</div>
+          <div>6 months</div>
+          <div>&#215;</div>
+
+
+          <div>&#215;</div>
+          <div>
+            <small>30 min up to 5 simultaneous sessions</small>
           </div>
           <div>8/5</div>
         </div>
-        <div class="column features features-entry">
+        <div class="column features features-entry disabled">
           <div>up to 500K views (all domains) *</div>
           <div class="check">&#10004;</div>
           <div class="check">&#10004;</div>
@@ -136,23 +191,29 @@
           <div>
             <div class="tag"> HTML</div>
             <div class="tag">PDF *</div>
-            <div class="tag is-danger">API</div>
             <div class="tag">XSLT</div>
             <div class="tag">EMAIL</div>
           </div>
+          <div class="check">&#10004;</div>
           <div>1 year</div>
           <div class="check">&#10004;</div>
 
 
           <div class="check">&#10004;</div>
           <div>
-            <small>90 min *</small>
-            <br/>
-            <small>up to 15 simultaneous sessions</small>
+            <small>1h min up to 10 simultaneous sessions</small>
           </div>
 
-          <div>8/7</div>
+          <div>8/5</div>
 
+        </div>
+      </div>
+
+      <div>
+        <div>* This is in progress feature and not yet released. please contact us if you need more information about
+          our progress
+        </div>
+        <div>** This is in planned feature to be developed. Anonymous screen navigation will be displayed in real time
         </div>
       </div>
       <p class="control has-text-centered">

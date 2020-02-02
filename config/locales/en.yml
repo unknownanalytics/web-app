@@ -33,7 +33,7 @@ en:
   hello: "Hello world"
   Create: "Créer"
   Select: "Select"
-  Select.from.domains : "Select from "
+  Select.from.domains: "Select from "
   Change: "Update"
   Update: "Update"
   Back to list: List
@@ -44,4 +44,6 @@ en:
     watch_demo: "Watch demo"
     contact_us: "Contact us"
     need_custom_plan: "Startup, ONG, need custom plan ?"
+    free_in_beta_version: "Enjoy the Beta version for free"
+    start_now: "Start now"
 

@@ -1,5 +1,5 @@
 <div id="contact_us">
-  <%= flash[:contact_error] %>
+  <span><%= flash[:contact_error] %></span>
   <div class="container">
     <h3 class="title"><%= t('welcome.contact_us') %></h3>
     <%= form_tag(contact_us_path, local: true) do %>

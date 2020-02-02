@@ -8,8 +8,7 @@ RUN mkdir -p $RAILS_ROOT
 # Set working directory
 WORKDIR $RAILS_ROOT
 # Setting env up
-#ENV RAILS_ENV='production'
-#ENV RACK_ENV='production'
+
 # Adding gems
 COPY Gemfile Gemfile
 COPY Gemfile.lock Gemfile.lock
@@ -26,6 +25,7 @@ ARG UNK_ANA_DATABASE_URI
 ARG UNK_ANA_SMTP_URI
 ARG UNK_ANA_SECRET_KEY_BASE
 ARG RAILS_ENV
+ARG UNK_APP_IS_BILLABLE
 # Set env
 ENV DOCKER 1
 
