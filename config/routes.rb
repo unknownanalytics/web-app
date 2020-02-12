@@ -1,13 +1,17 @@
 Rails.application.routes.draw do
 
   post '/contact_us' => 'welcome#contact_us'
-  get "/:page" => "welcome#pages", :as => 'public_pages'
 
+  ### Internal routes for apps communications
+  namespace :hooks do
+    post '/screenshot' => 'heatmaps#screenshot'
+  end
 
   devise_for :users, path: 'accounts'
+
   if ENV["UNK_APP_IS_BILLABLE"]
     # TODO remove this
-    post 'billing/webhook' => 'billings/webhook'
+    post '/billing/webhook' => 'billings/webhook'
   end
 
   authenticate :user do
@@ -81,5 +85,7 @@ Rails.application.routes.draw do
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#pages'
+
+  get "/:page" => "welcome#pages", :as => 'public_pages'
 
 end

@@ -39,14 +39,13 @@
                     <div class="control">
                       <%= submit_tag t('Select', class: 'button is-link'), {:class => 'button default'} %>
                     </div>
-
-                    <div class="control">
-                      <%= link_to(dashboard_domains_path, {:class => 'is-light is-link'}) do %>
-                        <span><%= t('domain.create_new_domain') %></span>
-                      <% end %>
-                    </div>
                   </div>
                 <% end -%>
+                <div class="control">
+                  <%= link_to(dashboard_domains_path, {:class => 'is-light is-link'}) do %>
+                    <span><%= t('domain.create_new_domain') %></span>
+                  <% end %>
+                </div>
               <% end -%>
             <% end %>
 

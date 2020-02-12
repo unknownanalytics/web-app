@@ -1,0 +1,98 @@
+version: "3.3"
+
+services:
+  ## main app backend
+  backend:
+    image: unk-rails-backend-staging:latest
+    volumes:
+    - ${MEDIA_PATH_ENV}:/data/
+    networks:
+      main:
+        aliases:
+        - backend
+    depends_on:
+    - redis
+    ports:
+    - "3001:3000"
+    environment:
+    - RAILS_ENV=staging
+    - PORT=${APP_PORT}
+    - UNK_ANA_APP_NAME=UnknownAnalytics-staging
+    - UNK_ANA_REDIS_URI=${REDIS_URI}
+    - UNK_ANA_DATABASE_URI=${DATABASE_URI}
+    - UNK_ANA_STRIPE_API_KEY=${STRIPE_API_KEY}
+    - UNK_ANA_APP_HOST=${APP_HOST}
+    - UNK_ANA_DEFAULT_PAGE_TITLE=todo
+    - UNK_ANA_REDIS_CHANNEL_PREFIX=todo
+    - UNK_ANA_WEB_NOTIFICATION_CHANNEL=todo
+    - UNK_ANA_SMTP_URI=${SMTP_URI}
+    - UNK_ANA_SMTP_AUTH_METHOD=${SMTP_AUTH_METHOD}
+    - UNK_ANA_CABLE_URL=${APP_CABLE_URL}
+    - UNK_ANA_SCREENSHOT_SECRET_KEY=${UNK_ANA_SCREENSHOT_SECRET_KEY}
+    - UNK_ANA_SECRET_KEY_BASE=${UNK_ANA_SECRET_KEY_BASE}
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+  ## Api application
+  api:
+    image: unk-go-api:latest
+    environment:
+    - UNK_ANA_REDIS_URI=${REDIS_URI}
+    - UNK_ANA_DATABASE_URI=${DATABASE_URI}
+    - UNK_ANA_SCREEN_SHOT_HOST=${SCREEN_SHOT_HOST}
+    - UNK_ANA_TRACK_CHANNEL_NAME=${TRACK_CHANNEL_NAME}
+    - UNK_ANA_BUCKET_TOKEN_KEY=todo
+    - UNK_ANA_SCREENSHOT_SECRET_KEY=${SCREEN_SHOT_SECRET_KEY}
+    ports:
+    - "8001:8000"
+  ## Screen shot application
+  screenshot:
+    image:unk-node-screenshot-staging:latest
+    environment:
+    - UNK_ANA_REDIS_URI=${REDIS_URI}
+    - UNK_ANA_ENVIRONMENT=${SCREEN_SHOT_HOST}
+    - UNK_ANA_SCREENSHOT_SECRET_KEY=${SCREEN_SHOT_SECRET_KEY}
+    - PORT=${TRACK_CHANNEL_NAME}
+    networks:
+      main:
+        aliases:
+        - unk-screenshot
+    ports:
+    - "5001:5000"
+  ## redis
+  redis:
+    image: redis:alpine
+    networks:
+      main:
+        aliases:
+        - redisdb
+    ports:
+    - "6378:6379"
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  sidekiq:
+    depends_on:
+    - 'redis'
+    build: .
+    command: sidekiq -C config/sidekiq.yml.erb
+    volumes:
+    - '.:/app'
+    env_file:
+    - '.env'
+
+  visualizer:
+    image: dockersamples/visualizer
+    ports:
+    - 8081:8080
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+    - "constraint=node.role==manager"
+networks:
+  main:

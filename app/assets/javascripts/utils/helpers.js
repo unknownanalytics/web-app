@@ -111,14 +111,16 @@ App.Helpers = {
      * @param link
      */
     disableLink(link) {
-        // 1. Add isDisabled class to parent span
-        link.parentElement.classList.add('is-disabled');
-        // 2. Store href so we can add it later
-        link.setAttribute('data-href', link.href);
-        // 3. Remove href
-        link.href = '';
-        // 4. Set aria-disabled to 'true'
-        link.setAttribute('aria-disabled', 'true');
+        if (link && link.parentElement) {
+            // 1. Add isDisabled class to parent span
+            link.parentElement.classList.add('is-disabled');
+            // 2. Store href so we can add it later
+            link.setAttribute('data-href', link.href);
+            // 3. Remove href
+            link.href = '';
+            // 4. Set aria-disabled to 'true'
+            link.setAttribute('aria-disabled', 'true');
+        }
     }
 
 };

@@ -1,6 +1,12 @@
 class Api::ApiController < ApplicationController
   include ApplicationHelper
 
+
+  def reply_json(r, status = 200)
+    render :json => {
+        data: r
+    }, status: status
+  end
   protected
 
   def get_date_range
@@ -26,9 +32,4 @@ class Api::ApiController < ApplicationController
     start..stop
   end
 
-  def reply_json(r)
-    render :json => {
-        data: r
-    }
-  end
 end

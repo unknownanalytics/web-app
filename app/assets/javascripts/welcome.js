@@ -1,7 +1,7 @@
 //# Place all the behaviors and hooks related to the matching controller here.
 //# All this logic will automatically be available in application.js.
 //# You can use CoffeeScript in this file: http://coffeescript.org/
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("turbolinks:load", function (event) {
     var dropdowns = document.querySelectorAll('.header-dropdown');
     let closeAll = function () {
         dropdowns.forEach(entry => {

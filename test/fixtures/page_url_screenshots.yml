@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  page_id: 
+  screenshot_location: MyString
+  screenshot_path: MyString
+  thumbnail_location: MyString
+  thumnail_path: MyString
+  heat_location: MyString
+  heat_path: MyString
+
+two:
+  page_id: 
+  screenshot_location: MyString
+  screenshot_path: MyString
+  thumbnail_location: MyString
+  thumnail_path: MyString
+  heat_location: MyString
+  heat_path: MyString

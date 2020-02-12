@@ -8,9 +8,9 @@
       <div class="field">
         <label class="label">Allowed origins</label>
         <div class="control">
-          <%= text_field('domain_setting', "origins", {class: "input", placeholder: t("domains.settings_origins_placeholder")}) %>
-
+          <%= text_field(:domain_setting, :origins, {class: "input", placeholder: t("domains.settings_origins_placeholder")}) %>
         </div>
+        <label class="help">The list of allowed origins separated by comma <code>,</code>. Example domain-1,domain-2</label>
       </div>
     </div>
   </div>
@@ -19,12 +19,12 @@
 
   <div class="columns">
     <div class="column is-one-quarter">
-      <h1><%= t('domains.origins') %></h1>
+      <h1><%= t('domains.domain_settings.track_geo') %></h1>
       <p class="content">Description #todo</p>
     </div>
     <div class="column">
       <div class="field">
-        <label class="label">Allowed origins</label>
+        <label class="label">Tracking geo</label>
         <div class="control">
           <%= check_box('domain_setting', "track_geo", {checked: @domain_setting.track_geo}) %>
           Track geo

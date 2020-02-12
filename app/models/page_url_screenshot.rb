@@ -1,0 +1,2 @@
+class PageUrlScreenshot < ApplicationRecord
+end

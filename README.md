@@ -47,15 +47,15 @@ Things you may want to cover:
 
 ##### 4- run the docker image (create container)
 ```
-docker run \n
--p 3000:3000 \n
---env UNK_ANA_REDIS_URI=<redis_uri>  \n
---env UNK_ANA_DATABASE_URI=<database_uri> \n
---env UNK_ANA_APP_NAME=UnknownAnalytics
---env UNK_ANA_STRIPE_API_KEY=<stripe_key> \n
---env UNK_ANA_APP_HOST=<app_host> \n
---env UNK_ANA_DEFAULT_PAGE_TITLE=<default_page_title> \n
---env UNK_ANA_REDIS_CHANNEL_PREFIX=<redis_channel_prefix> \n
---env RAILS_ENV=<environement> \n
-unk-rails-app:latest 
+docker run \
+-p 3003:3000 \
+--env UNK_ANA_REDIS_URI=redis://host.docker.internal  \
+--env UNK_ANA_DATABASE_URI=postgres://postgres:root@host.docker.internal/unk_ana_staging \
+--env UNK_ANA_APP_NAME=Unk an \
+--env UNK_ANA_STRIPE_API_KEY=TODO \
+--env UNK_ANA_APP_HOST=localhost:3002 \
+--env UNK_ANA_DEFAULT_PAGE_TITLE=Unk analytics \
+--env UNK_ANA_REDIS_CHANNEL_PREFIX=staging \
+--env RAILS_ENV=staging \
+unk-rails-backend-staging:latest 
 ```

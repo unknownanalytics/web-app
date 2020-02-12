@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_31_082152) do
+ActiveRecord::Schema.define(version: 2020_02_06_082328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,6 +95,21 @@ ActiveRecord::Schema.define(version: 2020_01_31_082152) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["page_id"], name: "index_events_on_page_id"
+  end
+
+  create_table "page_url_screenshots", force: :cascade do |t|
+    t.bigint "page_id"
+    t.string "screenshot_location"
+    t.string "screenshot_path"
+    t.string "thumbnail_location"
+    t.string "thumbnail_path"
+    t.string "heat_location"
+    t.string "heat_path"
+    t.string "resolution"
+    t.string "storage_type", default: "LOCAL"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_page_url_screenshots_on_page_id"
   end
 
   create_table "page_view_locations", force: :cascade do |t|

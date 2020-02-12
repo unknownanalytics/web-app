@@ -1,0 +1,38 @@
+version: "3.3"
+
+services:
+  ## main app backend
+  backend:
+    image: unk-rails-backend-production:latest
+    volumes:
+    - ${MEDIA_PATH_ENV}:/data/prod/
+    depends_on:
+    - redis
+    ports:
+    - "3000:3000"
+    environment:
+    - RAILS_ENV=production
+    - PORT=3000
+    - UNK_ANA_APP_NAME=Unknown Analytics
+  ## Api application
+  api:
+    ports:
+    - "8000:8000"
+  ## Screen shot application
+  screenshot:
+    image: unk-node-screenshot:latest
+    ports:
+    - "5000:5000"
+  ## redis
+  redis:
+    ports:
+    - "6379:6379"
+
+  visualizer:
+    image: dockersamples/visualizer
+    ports:
+    - 8080:8080
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+    - "constraint=node.role==manager"

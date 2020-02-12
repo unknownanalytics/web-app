@@ -10,7 +10,7 @@ class Dashboard::DashboardController < ApplicationController
 
   def load_domains
     @my_domains = current_user.own_domains.where.not(:name => blank?).all
-    confirmed_domains =  current_user.domains.joins(:admins_domains).where(:admins_domains => { :validated => true })
+    confirmed_domains = current_user.domains.joins(:admins_domains).where(:admins_domains => {:validated => true})
     @my_domains = @my_domains + confirmed_domains
   end
 
@@ -24,7 +24,7 @@ class Dashboard::DashboardController < ApplicationController
       redirect_to dashboard_path, :notice => "Please select a domain"
     else
       session[:domain_id] = domain.id
-      redirect_to dashboard_path, :notice => "Changed to doamin name #{domain.name}"
+      redirect_to dashboard_path, :notice => "Changed to domain name #{domain.name}"
     end
   end
 

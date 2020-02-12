@@ -2,7 +2,6 @@ class Api::PagesController < Api::ApiController
 
   def index
     period_range = get_date_range
-
     pages = Page
                 .joins(:domain)
                 .where(:domains => {:id => current_domain.id})

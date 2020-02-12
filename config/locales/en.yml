@@ -31,14 +31,14 @@
 
 en:
   hello: "Hello world"
-  Create: "Créer"
+  Create: "Create"
   Select: "Select"
   Select.from.domains: "Select from "
   Change: "Update"
   Update: "Update"
   Back to list: List
   welcome:
-    hero: "Website analytiacs without harming your customer privacy"
+    hero: "Essential website analytics without harming your customer privacy"
     how_we_make_money: "How we make money ?"
     start_free_trial: "Start free trial"
     watch_demo: "Watch demo"
@@ -46,4 +46,8 @@ en:
     need_custom_plan: "Startup, ONG, need custom plan ?"
     free_in_beta_version: "Enjoy the Beta version for free"
     start_now: "Start now"
+    hero_subtitle: "Get clean, in depth analytics in anonymous mode"
+  domains:
+    domain_settings:
+      track_geo: "Track geo"
 

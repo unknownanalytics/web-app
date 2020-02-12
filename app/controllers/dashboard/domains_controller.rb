@@ -87,7 +87,7 @@ module Dashboard
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def domain_setting_params
-      params.fetch(:domain_setting, {}).permit([:track_geo, :domains])
+      params.fetch(:domain_setting, {}).permit([:track_geo, :origins])
     end
   end
 end
