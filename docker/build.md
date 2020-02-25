@@ -40,7 +40,7 @@
 
 
 ```
- docker run -p 3005:3000 -e UNK_ANA_REDIS_URI=redis://host.docker.internal  -e UNK_ANA_DATABASE_URI=postgres://postgre s:root@host.docker.internal/unk_ana_staging -e UNK_ANA_APP_NAME="Unk an" -e UNK_ANA_STRIPE_API_KEY=TODO -e UNK_ANA_APP_ HOST=http://localhost:3002 -e UNK_ANA_DEFAULT_PAGE_TITLE="Unk analytics" -e UNK_ANA_REDIS_CHANNEL_PREFIX=staging -e RAI LS_ENV=staging -e UNK_ANA_SMTP_URI=smtp://apikey:<Replace_it>@ smtp.sendgrid.net:587  unk-rails-backend-staging:latest
+ docker run -p 3005:3000 -e UNK_ANA_REDIS_URI=redis://host.docker.internal  -e UNK_ANA_DATABASE_URI=postgres://postgre s:root@host.docker.internal/unk_ana_staging -e UNK_ANA_APP_NAME="Unk an" -e UNK_ANA_STRIPE_API_KEY=TODO -e UNK_ANA_APP_ HOST=http://localhost:3002 -e UNK_ANA_DEFAULT_PAGE_TITLE="Unk analytics" -e UNK_ANA_REDIS_CHANNEL_PREFIX=staging -e RAI LS_ENV=staging -e UNK_ANA_SMTP_URI=smtp://apikey:<Replace_it>@smtp.sendgrid.net:587  unk-rails-backend-staging:latest
 ```
 
 
