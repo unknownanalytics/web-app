@@ -5,12 +5,12 @@ map $http_upgrade $connection_upgrade {
 
 
 upstream rails_app {
-   server localhost:3001;
+   server localhost:3000;
 }
 
 server {
         listen 80;
-        server_name www.staging.unknownanalytics.com staging.unknownanalytics.com;
+        server_name www.unknownanalytics.com unknownanalytics.com;
 
 
 
@@ -32,7 +32,7 @@ server {
 
         # serve static (compiled) assets directly if they exist (for rails production)
         location ~ ^/(assets|images|javascripts|stylesheets|swfs|system)/   {
-                root /var/www/unk-ana-assets_staging;
+                root /var/www/unk-ana-assets_production;
                 try_files $uri @rails ;
                 access_log off;
                 gzip_static on;       # to serve pre-gzipped version
