@@ -1,6 +1,6 @@
-class CreateEvents < ActiveRecord::Migration[5.2]
+class CreatePageEvents < ActiveRecord::Migration[5.2]
   def change
-    create_table :events do |t|
+    create_table :page_events do |t|
       t.references :page, foreign_key: true, null: false, index: true
       t.jsonb :metadata
       t.string :user_agent

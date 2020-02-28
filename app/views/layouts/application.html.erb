@@ -31,7 +31,16 @@
 
 </head>
 <body>
+<div class="has-text-centered" style="color: red">
+  Thank you for visiting our website, you are viewing a pre-alpha version of Unknown Analytics, the majority of our services are not yet working. Our beta service will be available on June 2020, please do not hesitate to
+  <div>
+    <%= link_to( public_pages_path(:page => 'contact')) do %>
+      Contact us for any request
+    <% end %>
 
+  </div>
+
+</div>
 <% cache('includes/icons') do %>
   <%= render 'includes/icons' %>
 <% end %>

@@ -43,11 +43,15 @@ ENV UNK_APP_IS_BILLABLE false
 # Set env
 ENV DOCKER 1
 
+COPY docker-entrypoint.sh /
+
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 RUN bundle exec rake db:migrate
 
 RUN bundle exec rake assets:precompile
 
 EXPOSE 3000
+
 
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]

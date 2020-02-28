@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_06_082328) do
+ActiveRecord::Schema.define(version: 2020_02_28_073225) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_082328) do
     t.datetime "updated_at", null: false
     t.string "alias"
     t.string "private_key"
+    t.boolean "is_test", default: false
     t.index ["domain_id"], name: "index_apikeys_on_domain_id"
     t.index ["public_key"], name: "index_apikeys_on_value"
     t.index ["user_id"], name: "index_apikeys_on_user_id"
@@ -68,7 +69,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_082328) do
     t.index ["user_id"], name: "index_domains_on_user_id"
   end
 
-  create_table "errors", force: :cascade do |t|
+  create_table "page_errors", id: :bigint, default: -> { "nextval('errors_id_seq'::regclass)" }, force: :cascade do |t|
     t.bigint "page_id", null: false
     t.jsonb "metadata"
     t.string "user_agent"
@@ -79,10 +80,11 @@ ActiveRecord::Schema.define(version: 2020_02_06_082328) do
     t.boolean "is_desktop", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_test", default: false
     t.index ["page_id"], name: "index_errors_on_page_id"
   end
 
-  create_table "events", force: :cascade do |t|
+  create_table "page_events", id: :bigint, default: -> { "nextval('events_id_seq'::regclass)" }, force: :cascade do |t|
     t.bigint "page_id", null: false
     t.jsonb "metadata"
     t.string "user_agent"
@@ -94,6 +96,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_082328) do
     t.integer "sequence_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_test", default: false
     t.index ["page_id"], name: "index_events_on_page_id"
   end
 
@@ -122,6 +125,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_082328) do
     t.bigint "page_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_test", default: false
     t.index ["page_id"], name: "index_page_view_locations_on_page_id"
   end
 
@@ -144,6 +148,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_082328) do
     t.string "utm_content"
     t.string "utm_term"
     t.string "origin"
+    t.boolean "is_test", default: false
     t.index ["page_id"], name: "index_page_views_on_page_id"
   end
 
@@ -158,6 +163,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_082328) do
     t.bigint "domain_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_test", default: false
     t.index ["domain_id"], name: "index_pages_on_domain_id"
     t.index ["url"], name: "index_pages_on_url"
   end
@@ -231,8 +237,8 @@ ActiveRecord::Schema.define(version: 2020_02_06_082328) do
   add_foreign_key "api_keys", "users"
   add_foreign_key "domain_settings", "domains"
   add_foreign_key "domains", "users"
-  add_foreign_key "errors", "pages"
-  add_foreign_key "events", "pages"
+  add_foreign_key "page_errors", "pages"
+  add_foreign_key "page_events", "pages"
   add_foreign_key "page_view_locations", "pages"
   add_foreign_key "page_views", "pages"
   add_foreign_key "pages", "domains"
