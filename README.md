@@ -1,4 +1,12 @@
+This is the web app module for [unknownanalytics](unknownanalytics.com/)
 
+# Global architecture 
+
+![Kiku](docs/assets/full-arch.png)
+
+# Web app module 
+
+![Kiku](docs/assets/web-app-arch-module.png)
 
 
 # Getting startred 
