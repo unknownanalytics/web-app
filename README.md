@@ -1,7 +1,10 @@
+
+
+
 # Getting startred 
 
-ruby-2.3.3
-Rails 5.2.3
+ruby-2.6.6
+Rails 6.0.2
 
 *** SET env vars : 
 
@@ -43,22 +46,33 @@ Things you may want to cover:
 ##### 3- Configure nginx 
 
 ##### 4- build docker image
-`docker build --build-arg UNK_ANA_DATABASE_URI=<database_uri> --build-arg RAILS_ENV=<environement> -t unk-rails-app .`
-
+``` 
+ docker build \
+  -t <you_image_name>  <path/to/web/app/.>  \
+  --build-arg UNK_ANA_DATABASE_URI=postgres://<db_user:db_pass@127.0.0.1/db_name> \
+  --build-arg RAILS_ENV=production  \
+  --build-arg UNK_ANA_SMTP_URI=<smtp://smtp_uri> 
+```
 ##### 4- run the docker image (create container)
 ```
 docker run \
 -p 3003:3000 \
---env UNK_ANA_REDIS_URI=redis://host.docker.internal  \
---env UNK_ANA_DATABASE_URI=postgres://postgres:root@host.docker.internal/unk_ana_staging \
---env UNK_ANA_APP_NAME=Unk an \
---env UNK_ANA_STRIPE_API_KEY=TODO \
---env UNK_ANA_APP_HOST=localhost:3002 \
---env UNK_ANA_DEFAULT_PAGE_TITLE=Unk analytics \
---env UNK_ANA_REDIS_CHANNEL_PREFIX=staging \
---env RAILS_ENV=staging \
-unk-rails-backend-staging:latest 
+--env UNK_ANA_REDIS_URI=redis://127.0.0.1:6379 \
+--env UNK_ANA_REDIS_CHANNEL_PREFIX=unknown_analytics_staging \
+--env UNK_ANA_DATABASE_URI=postgres://<db_user:db_pass@127.0.0.1/db_name> \
+--env UNK_ANA_APP_NAME="Unknown Analytics" \
+--env UNK_ANA_STRIPE_API_KEY='<your_stripe_key>' \
+--env UNK_ANA_APP_HOST=<your_app.host.com> \
+--env UNK_ANA_DEFAULT_PAGE_TITLE="Unknown Analytics" \
+--env RAILS_ENV=<your_env> \
+--env UNK_ANA_SMTP_URI=<smtp_uri> \
+--env UNK_ANA_SMTP_AUTH_METHOD=plain \
+--env PORT=3000 \
+--env UNK_ANA_CABLE_URL=<youdomain.com/cable/> \
+--env UNK_ANA_SECRET_KEY_BASE=<your_secret_key_base> \ 
+<you_image_name>:latest 
 ```
 
-```
+#### Serve assets with nginx 
+`docker cp $id_container:/var/www/unk-web-app/public/assets /var/www/unk-ana-assets_staging/assets` 
 

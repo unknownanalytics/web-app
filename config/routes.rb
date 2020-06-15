@@ -84,7 +84,7 @@ Rails.application.routes.draw do
 
 
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root 'welcome#pages'
+  root 'welcome#pages', as: 'home_path'
 
   get "/:page" => "welcome#pages", :as => 'public_pages'
 
