@@ -10,13 +10,23 @@ Simple analytics to protect user privacy and get only essentials metrics.
 ![Kiku](docs/assets/web-app-arch-module.png)
 
 
-# Other modules 
+## Dependencies 
 
+[Hub api](https://gitlab.com/unknown-inc/hub) : Hub collector, this is the module that collect clients events via an api 
+
+[Screenshot & heatmap module](https://gitlab.com/unknown-inc/screenshot-heatmap-app/) : The app that generate screenshot and heatmaps
+
+[Client SDK](https://gitlab.com/unknown-inc/web-sdk-client/-/blob/develop/src/utils.js) : The client js sdk
+
+[Tools ans tests](https://gitlab.com/unknown-inc/tools/) : optional, this is a tool to test the api and other tips
+
+## ecosystem 
 
 * Ruby version
 
-    ruby-2.6.6
-    Rails 6.0.2
+    - ruby-2.6.6 
+    - Rails 6.0.2
+    - pg
 
 * Configuration
 
@@ -32,9 +42,10 @@ Simple analytics to protect user privacy and get only essentials metrics.
  run `(bundle exec ) db migrate` 
 
 * Services (job queues, cache servers, search engines, etc.)
- # TODO 
 
+ > TODO 
 
+### set up env variables
 
 Below the list of env variables that should be set in order to run the app 
 
@@ -60,9 +71,7 @@ Below the list of env variables that should be set in order to run the app
 `UNK_ANA_SECRET_KEY_BASE=<your_secret>` // A key to communicate the app with the [screenshot and heatmap](https://gitlab.com/unknown-inc/screenshot-app) module
 
 
-
-
-### Deployment instructions 
+### Deployment instructions on docker 
 
 ### Configure nginx
 
