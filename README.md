@@ -54,33 +54,32 @@ Below the list of env variables that should be set in order to run the app
 `UNK_ANA_APP_NAME=<App name>` // will be displayed in title and emails
 `UNK_ANA_DEFAULT_PAGE_TITLE=<your browser app title>` // will be displayed in title and emails
  
-`UNK_ANA_STRIPE_API_KEY=<stripe_key>`  // this is not mandatory, you can keep it empty for now
+`UNK_ANA_STRIPE_API_KEY=<stripe_key>`  // this is not mandatory, you can keep it empty for now, used to 
 
 `UNK_ANA_APP_HOST=<your_app_host>` // you host 
 
-`UNK_ANA_REDIS_URI=redis://127.0.0.1:6379` // Redis uri
+`UNK_ANA_REDIS_URI=redis://<host>:<port>` // Redis uri
 
-`UNK_ANA_REDIS_CHANNEL_PREFIX=channel_prefix` // Redis channel prefix. This is useful because when we use the same redis db for multiples purposes, we need to separate app channels from other channels.
+`UNK_ANA_REDIS_CHANNEL_PREFIX=<channel_prefix>` // Redis channel prefix. This is useful because when we use the same redis db for multiples purposes, we need to separate app channels from other channels.
 
-`UNK_ANA_SMTP_URI=smtp://<user>:<pass>@host` // SMTP uri
+`UNK_ANA_SMTP_URI=smtp://<user>:<pass>@<host>` // SMTP uri
 
 `UNK_ANA_SMTP_AUTH_METHOD=<smtp_method>` // cram_md5 or plain ..	
 
 `UNK_ANA_SCREENSHOT_SECRET_KEY=<your_secret>` // secret_12345_change_me	
 
-`UNK_ANA_SECRET_KEY_BASE=<your_secret>` // A key to communicate the app with the [screenshot and heatmap](https://gitlab.com/unknown-inc/screenshot-app) module
+`UNK_ANA_SECRET_KEY_BASE=<your_secret>` // A key to communicate with the [screenshot and heatmap](https://gitlab.com/unknown-inc/screenshot-app) module.
 
-
-### Deployment instructions on docker 
 
 ### Configure nginx
 
-See ngnix folder to copy configuration files, for now, only staging and production are ready  
+See ngnix folder to copy configuration files, for now, only staging and production are ready. 
 
+### Deployment instructions on docker 
 
 ### Docker 
-
 See Dockerfile for more details about internal components 
+
 ##### Build image
 Note, that for building image we only need the minimum of env variables. 
 
@@ -92,7 +91,7 @@ Note, that for building image we only need the minimum of env variables.
   --build-arg UNK_ANA_SMTP_URI=<smtp://smtp_uri> 
 ```
 
-##### Run or create o container
+##### Run or create a container
 
 ```
 docker run \
