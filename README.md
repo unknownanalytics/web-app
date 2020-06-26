@@ -1,59 +1,80 @@
 This is the web app module for [unknownanalytics](unknownanalytics.com/)
+Simple analytics to protect user privacy and get only essentials metrics.
 
 # Global architecture 
 
 ![Kiku](docs/assets/full-arch.png)
 
-# Web app module 
+# Web app module  (current repo)
 
 ![Kiku](docs/assets/web-app-arch-module.png)
 
 
-# Getting startred 
+# Other modules 
 
-ruby-2.6.6
-Rails 6.0.2
-
-*** SET env vars : 
-
-UNK_ANA_DATABASE_URI=postgres://postgres:root@localhost/track-web_development
-
-
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
 
 * Ruby version
 
-* System dependencies
+    ruby-2.6.6
+    Rails 6.0.2
 
 * Configuration
 
+    `bundle install`
+
 * Database creation
+
+ Create your database 
+ 
 
 * Database initialization
 
-* How to run the test suite
+ run `(bundle exec ) db migrate` 
 
 * Services (job queues, cache servers, search engines, etc.)
+ # TODO 
 
-* Deployment instructions
 
-* ...
+
+Below the list of env variables that should be set in order to run the app 
+
+`UNK_ANA_DATABASE_URI=postgres://<user>:<pass>@<host>/<db_name>` // Postgres db uri 
+
+`UNK_ANA_APP_NAME=<App name>` // will be displayed in title and emails
+`UNK_ANA_DEFAULT_PAGE_TITLE=<your browser app title>` // will be displayed in title and emails
+ 
+`UNK_ANA_STRIPE_API_KEY=<stripe_key>`  // this is not mandatory, you can keep it empty for now
+
+`UNK_ANA_APP_HOST=<your_app_host>` // you host 
+
+`UNK_ANA_REDIS_URI=redis://127.0.0.1:6379` // Redis uri
+
+`UNK_ANA_REDIS_CHANNEL_PREFIX=channel_prefix` // Redis channel prefix. This is useful because when we use the same redis db for multiples purposes, we need to separate app channels from other channels.
+
+`UNK_ANA_SMTP_URI=smtp://<user>:<pass>@host` // SMTP uri
+
+`UNK_ANA_SMTP_AUTH_METHOD=<smtp_method>` // cram_md5 or plain ..	
+
+`UNK_ANA_SCREENSHOT_SECRET_KEY=<your_secret>` // secret_12345_change_me	
+
+`UNK_ANA_SECRET_KEY_BASE=<your_secret>` // A key to communicate the app with the [screenshot and heatmap](https://gitlab.com/unknown-inc/screenshot-app) module
+
+
 
 
 ### Deployment instructions 
 
-##### 1- Install postgres
+### Configure nginx
 
-##### 2- PULL version from `git@gitlab.com:unknown-inc/web-app.git`
+See ngnix folder to copy configuration files, for now, only staging and production are ready  
 
-##### 3- Configure nginx 
 
-##### 4- build docker image
+### Docker 
+
+See Dockerfile for more details about internal components 
+##### Build image
+Note, that for building image we only need the minimum of env variables. 
+
 ``` 
  docker build \
   -t <you_image_name>  <path/to/web/app/.>  \
@@ -61,10 +82,13 @@ Things you may want to cover:
   --build-arg RAILS_ENV=production  \
   --build-arg UNK_ANA_SMTP_URI=<smtp://smtp_uri> 
 ```
-##### 4- run the docker image (create container)
+
+##### Run or create o container
+
 ```
 docker run \
 -p 3003:3000 \
+--network=host
 --env UNK_ANA_REDIS_URI=redis://127.0.0.1:6379 \
 --env UNK_ANA_REDIS_CHANNEL_PREFIX=unknown_analytics_staging \
 --env UNK_ANA_DATABASE_URI=postgres://<db_user:db_pass@127.0.0.1/db_name> \
@@ -81,6 +105,17 @@ docker run \
 <you_image_name>:latest 
 ```
 
-#### Serve assets with nginx 
+###  Usage of `--network="host"`
+
+In order to access to database, redis and other services on host server, we need to run docker with `--network="host"`. It allows to get access to host outside docker.
+**We don't rely on docker for database storage, so we use database server instead of docker images**
+
+#### Docker on windows
+
+Note that localhost address of docker on window is `redis://host.docker.internal`
+
+#### Copy assets to nginx, 
+Once the container is up and running, you should copy the latest generated assets from docker. In production/staging mode, rails does not serve static file.
+It's always suitable to serve it using nginx or any other static, dedicated server
 `docker cp $id_container:/var/www/unk-web-app/public/assets /var/www/unk-ana-assets_staging/assets` 
 
