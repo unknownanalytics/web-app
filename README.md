@@ -123,7 +123,8 @@ In order to access to database, redis and other services on host server, we need
 Note that localhost address of docker on window is `redis://host.docker.internal`
 
 #### Copy assets to nginx, 
-Once the container is up and running, you should copy the latest generated assets from docker. In production/staging mode, rails does not serve static file.
-It's always suitable to serve it using nginx or any other static, dedicated server
+Once the container is up and running, you should copy the latest generated assets from docker. In production/staging mode, rails does not serve static files (unless you enable it).
+It's always suitable to serve it using nginx or any other static, dedicated server.
+
 `docker cp $id_container:/var/www/unk-web-app/public/assets /var/www/unk-ana-assets_staging/assets` 
 
