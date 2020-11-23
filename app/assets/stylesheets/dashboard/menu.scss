@@ -66,6 +66,11 @@ nav.menu {
   }
   li {
     a {
+      .tag {
+        margin-left: 10px;
+        padding: 2px;
+        line-height: 1;
+      }
       display: flex;
       align-items: center;
       padding-left: 5px;

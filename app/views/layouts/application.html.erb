@@ -31,9 +31,11 @@
   <link rel="manifest" href="<%= asset_path('site.webmanifest') %>">
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
+  <style>
 
+  </style>
 </head>
-<body>
+<body class="is-flex is-flex is-full-height">
 <% cache('includes/icons') do %>
   <%= render 'includes/icons' %>
 <% end %>

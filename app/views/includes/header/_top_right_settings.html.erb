@@ -12,19 +12,17 @@
       Settings
     </a>
     <hr class="navbar-divider">
-    <a class="navbar-item">
-      About
-    </a>
-    <a class="navbar-item">
-      Jobs
-    </a>
-    <a class="navbar-item">
-      Contact
-    </a>
+
+    <%= link_to('/contact?subject=support', class: "navbar-item") do %>
+      <%= t('Contact') %>
+    <% end %>
+    <%= link_to('/contact?subject=support', class: "navbar-item") do %>
+      <%= t('Support') %>
+    <% end %>
+    <%= link_to('/company/about', class: "navbar-item") do %>
+      <%= t('About') %>
+    <% end %>
     <hr class="navbar-divider">
-    <a class="navbar-item">
-      Report an issue
-    </a>
     <%= link_to(destroy_user_session_path, method: :delete, class: "navbar-item") do %>
       Sign out
     <% end %>
