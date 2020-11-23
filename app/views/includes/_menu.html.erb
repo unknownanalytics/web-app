@@ -51,7 +51,7 @@
           <% cache('icon-thermostat-full') do %>
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-thermostat-full'} %>
           <% end -%>
-          <%= t('dashboard.menu.heatmaps') %>
+          <%= t('dashboard.menu.heatmaps') %> <div class="tag tag-danger">soon</div>
         <% end %>
       </li>
       <li>
@@ -59,7 +59,7 @@
           <% cache('icon-volume-up') do %>
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-volume-up'} %>
           <% end -%>
-          <%= t('dashboard.menu.events') %>
+          <%= t('dashboard.menu.events') %> <div class="tag tag-danger">soon</div>
         <% end %>
       </li>
 
@@ -68,7 +68,7 @@
           <% cache('icon-bug') do %>
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-bug'} %>
           <% end -%>
-          <%= t('dashboard.menu.errors') %>
+          <%= t('dashboard.menu.errors') %> <div class="tag tag-danger">soon</div>
         <% end %>
       </li>
 

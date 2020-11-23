@@ -29,11 +29,17 @@
       <div class="column has-text-right">
         <ul>
           <li>
-            <a>Support</a>
+            <%= link_to('contact?subject=support') do %>
+               <%= t('Support') %>
+            <% end %>
             ·
-            <a>Help</a>
+            <%= link_to('contact?subject=help') do %>
+               <%= t('Help') %>
+            <% end %>
             ·
-            <a>Feedback</a>
+            <%= link_to('contact?subject=feedback') do %>
+              <%= t('Feedback') %>
+            <% end %>
           </li>
         </ul>
       </div>

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  post '/contact_us' => 'welcome#contact_us'
 
   ### Internal routes for apps communications
   namespace :hooks do
@@ -81,10 +80,18 @@ Rails.application.routes.draw do
   authenticated :user do
     root 'dashboard/stats#index'
   end
-
-
-# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#pages', as: 'home_path'
+
+
+
+  post '/contact' => 'contact#contact_us'
+  get '/contact/' => 'contact#index'
+
+
+  ## track main path
+  get 'track' => 'api#track'
+
 
   get "/:page" => "welcome#pages", :as => 'public_pages'
 
