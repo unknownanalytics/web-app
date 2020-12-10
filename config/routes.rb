@@ -89,6 +89,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     post 'ping' => 'ping#ping'
+    namespace :ext do
+      namespace :v1 do
+        get 'views' => 'views#index'
+      end
+    end
   end
   ## track main path
 
