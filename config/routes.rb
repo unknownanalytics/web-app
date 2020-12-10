@@ -88,7 +88,7 @@ Rails.application.routes.draw do
   get '/contact/' => 'contact#index'
 
   namespace :api do
-    post 'track' => 'track#track'
+    post 'ping' => 'ping#ping'
   end
   ## track main path
 

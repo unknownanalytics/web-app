@@ -1,4 +1,4 @@
-class Api::TrackController < Api::ApiController
+class Api::HitController < Api::ApiController
   before_action :check_api_key
   before_action :check_and_set_domain
   protect_from_forgery unless: -> {request.format.json?}
