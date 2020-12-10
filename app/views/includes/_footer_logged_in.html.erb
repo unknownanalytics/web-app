@@ -16,15 +16,15 @@
 </style>
 <footer class="app_footer">
   <div class="container">
-
+    <hr/>
     <div class="columns">
       <div class="column app_version">
-        <span>unknown Analytics <%= ENV['APP_VERSION'] || 'Beta' %></span> /
-        <span>Build <%= ENV['BUILD_VERSION'] || 'Beta' %></span>
+        <span>Unknown Analytics <%= ENV['APP_VERSION'] || 'Beta' %></span> /
+        <span class="is-size-7">Build <%= ENV['BUILD_VERSION'] || 'Beta' %></span>
       </div>
 
       <div class="column has-text-centered copy">
-        <span translate="">unknown Analytics © 2019 - <small> <a href="https://www.380squares.xyz">380Squares</a></small> </span>
+        <span translate="">© <%= Date.today.strftime("%Y") %> unknown Analytics - <small> <a href="https://www.380squares.xyz">380Squares</a></small> </span>
       </div>
       <div class="column has-text-right">
         <ul>
@@ -34,7 +34,7 @@
             <% end %>
             ·
             <%= link_to('/contact?subject=help') do %>
-               <%= t('Help') %>
+              <%= t('Help') %>
             <% end %>
             ·
             <%= link_to('/contact?subject=feedback') do %>

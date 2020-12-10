@@ -2,252 +2,278 @@
   <div class="hero-body">
     <div class="container">
       <h1 class="title">Pricing</h1>
-      <div class="columns">
-        <div class="column">
-
-        </div>
-        <div class="column ">
-          <div class="box essentials">
-            <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => '#bac5f4'} %>
-            <div>
-              <span class="shadow-text-bottom">Free in beta </span>
-            </div>
-            <div class="plan-price">
-              <span class="plan-price-currency">$</span><span class="plan-price-amount">0</span>
-              <div class="duration">/mo</div>
-            </div>
-            <div class="plan-items">
-              <div class="plan-item">200K page views</div>
-              <div class="plan-item">3 domains</div>
-              <div class="plan-item">3 admins</div>
-              <div class="plan-item">6 months Storage</div>
-            </div>
-            <div class="plan-footer has-text-centered">
-              <%= link_to(new_user_session_path, class: "button  is-primary is-rounded is-link") do %>
-                <strong> <%= t('welcome.start_now') %></strong>
-              <% end %>
-            </div>
-          </div>
-        </div>
-
-        <div class="column disabled">
-          <div class="box essentials">
-            <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => '#bac5f4'} %>
-            <div>
-              <span class="shadow-text-bottom"> Essential plan</span>
-            </div>
-            <div class="plan-price">
-              <span class="plan-price-currency">$</span><span class="plan-price-amount">8</span>
-              <div class="duration">/mo</div>
-            </div>
-            <div class="plan-items">
-              <div class="plan-item">200K page views</div>
-              <div class="plan-item">3 domains</div>
-              <div class="plan-item">3 admins</div>
-              <div class="plan-item">6 months Storage</div>
-            </div>
-            <div class="plan-footer">
-              <% if Rails.env.development? %>
-                <button class="is-link is-fullwidth button">
-                  <%= t('Free trial') %>
-                </button>
-              <% else %>
-                <%= link_to(contact_us_path, class: "button is-light") do %>
-                  <strong> <%= t('welcome.contact_us') %></strong>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-
-        <div class="column disabled">
-          <div class="box deeper ">
-            <%= render :partial => '/includes/svg_dynamic_circle', :locals => {:color => 'red'} %>
-            <div class="subtitle">
-              <span class="shadow-text-bottom">Business plan</span>
-            </div>
-            <div class="plan-price">
-              <span class="plan-price-currency">$</span><span class="plan-price-amount">13</span>
-              <div class="duration">/mo</div>
-            </div>
-            <div class="plan-items">
-              <div class="plan-item">500K views</div>
-              <div class="plan-item">10 domains</div>
-              <div class="plan-item">5 admins</div>
-              <div class="plan-item">1 year storage</div>
-              <div class="plan-item">Real time notifications</div>
-              <div class="plan-item">Export PDF</div>
-            </div>
-            <div class="plan-footer">
-              <% if Rails.env.development? %>
-                <button class="is-link is-fullwidth button">
-                  <%= t('Free trial') %>
-                </button>
-              <% else %>
-                <%= link_to(contact_us_path, class: "button is-light") do %>
-                  <strong> <%= t('welcome.contact_us') %></strong>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <div class="columns">
-        <div class="column features">
-          <div>Features</div>
-          <div>Page analytics
-            <small>(views, devices, utms & campaigns, referrals and more)</small>
+      <table class="table table-bordered is-striped is-fullwidth">
+        <thead>
+        <tr>
+          <th>
+            <div>Features</div>
+          </th>
+          <th>
+            <div class="has-text-weight-bold is-size-3">Essential</div>
+            <div class="has-text-danger">8€/month</div>
+            <p class="p-2">
+              100k page views <br/>
+              3 domains <br/>
+              6 months data retention <br/>
+            </p>
+          </th>
+          <th>
+            <div class="has-text-weight-bold  is-size-3">Plus</div>
+            <div class="has-text-danger">12€/month</div>
+            <p class="p-2">
+              200k views <br/>
+              8 domains <br/>
+              12 months data retention <br/>
+            </p>
+          </th>
+          <th>
+            <div class="has-text-danger">Enterprise</div>
             <br/>
-          </div>
-          <div>Geo analytics</div>
-          <div>Admins</div>
-          <div>Domains</div>
-          <div>Charts</div>
-          <div>Heatmaps *</div>
-          <div>Reports</div>
-          <div>
-            <div class="tag is-danger">API</div>
-          </div>
 
+            <p class="p-2">
+              Unlimited views <br/>
+              Unlimited domains <br/>
+              Unlimited data retention <br/>
+            </p>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <div>Page analytics <br/>
+              <small>(views, devices, utm campaigns, referrals)</small>
+              <br/>
+            </div>
+          </td>
+          <td>
+            <div class="check">&#10004;</div>
+          </td>
+          <td>
 
+            <div class="check">&#10004;</div>
+          </td>
+          <td>
+            <div class="check">&#10004;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Geo analytics</div>
+          </td>
+          <td>
+            <div class="check">&#10004;</div>
+          </td>
+          <td>
+            <div class="check">&#10004;</div>
+          </td>
+          <td>
+            <div class="check">&#10004;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Performance</div>
+          </td>
+          <td>
+            <div class="check">&#10004;</div>
+          </td>
+          <td>
 
-          <div>Data retention
-          </div>
+            <div class="check">&#10004;</div>
+          </td>
+          <td>
 
-          <div>Bug reporting *
-          </div>
+            <div class="check">&#10004;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Domains</div>
+          </td>
+          <td>
+            3 domains
+          </td>
+          <td>
+            8 domains
+          </td>
+          <td>
+            Unlimited
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Reports</div>
+          </td>
+          <td>
+            1 / day
+          </td>
+          <td>
+            3 / day
+          </td>
+          <td>
+            Unlimited
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Data retention</div>
+          </td>
+          <td>
+            6 months
+          </td>
+          <td>
+            12 months
+          </td>
+          <td>
+            Unlimited
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Api</div>
+          </td>
+          <td>
+            1k call
+          </td>
+          <td>
+            3k call
+          </td>
+          <td>
+            Unlimited
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Support (h/days in week)</div>
+          </td>
+          <td>
+            4/5
+          </td>
+          <td>
+            8/5
+          </td>
+          <td>
+            12/6
+          </td>
+        </tr>
+        <tr>
+          <td colspan="4">
+            <div class="has-text-weight-bold">Roadmap</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Heatmaps *</div>
+          </td>
+          <td>
 
-          <div>Real time Notifications *
-            <div class="tag">experimental</div>
-          </div>
+          </td>
+          <td>
 
+          </td>
+          <td>
 
-          <div>Realtime screen view **
-            <div class="tag tag-danger">soon</div>
-          </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Event (click, hover, navigation) *</div>
+          </td>
+          <td>
 
-          <div>Sandbox
-          </div>
+          </td>
+          <td>
 
+          </td>
+          <td>
 
-          <div>Sandbox Data retention
-          </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Bugs reporting *</div>
+          </td>
+          <td>
 
+          </td>
+          <td>
 
-          <div>Support (h/days in weeks)</div>
-        </div>
-        <div class="column features features-entry ">
-          <div>up to 200K views (all domains)</div>
-          <div class="check">&#10004;</div>
-          <div class="check">&#10004;</div>
-          <div>3</div>
-          <div>3</div>
-          <div class="check">&#10004;</div>
+          </td>
+          <td>
 
-          <div class="check">&#10004;</div>
-          <div>
-            <div class="tag"> HTML</div>
-            <div class="tag">PDF *</div>
-          </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Real time Notifications *</div>
+          </td>
+          <td>
 
-          <div class="check">&#10004;</div>
-          <div>6 months</div>
-          <div>&#215;</div>
+          </td>
+          <td>
 
+          </td>
+          <td>
 
-          <div>&#215;</div>
-          <div>
-            <small>&#215;</small>
-          </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Screen view *</div>
+          </td>
+          <td>
 
-          <div>2K views</div>
-          <div>1 month</div>
-          <div>2/5</div>
-        </div>
-        <div class="column features features-entry disabled">
-          <div>up to 200K views (all domains)</div>
-          <div class="check">&#10004;</div>
-          <div class="check">&#10004;</div>
-          <div>3</div>
-          <div>3</div>
-          <div class="check">&#10004;</div>
+          </td>
+          <td>
 
-          <div class="check">&#10004;</div>
-          <div>
-            <div class="tag"> HTML</div>
-            <div class="tag">PDF *</div>
-          </div>
-          <div>&#215;</div>
-          <div>6 months</div>
-          <div>&#215;</div>
+          </td>
+          <td>
 
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Sandbox *</div>
+          </td>
+          <td>
 
-          <div>&#215;</div>
-          <div>
-            <small>30 min up to 5 simultaneous sessions</small>
-          </div>
-          <div>2K views</div>
-          <div>1 month</div>
-          <div>8/5</div>
-        </div>
-        <div class="column features features-entry disabled">
-          <div>up to 500K views (all domains) *</div>
-          <div class="check">&#10004;</div>
-          <div class="check">&#10004;</div>
-          <div>5</div>
-          <div>10</div>
+          </td>
+          <td>
 
-          <div class="check">&#10004;</div>
+          </td>
+          <td>
 
-          <div class="check">&#10004;</div>
-          <div>
-            <div class="tag"> HTML</div>
-            <div class="tag">PDF *</div>
-            <div class="tag">XSLT</div>
-            <div class="tag">EMAIL</div>
-          </div>
-          <div class="check">&#10004;</div>
-          <div>1 year</div>
-          <div class="check">&#10004;</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div>Sandbox Data retention</div>
+          </td>
+          <td>
 
+          </td>
+          <td>
 
-          <div class="check">&#10004;</div>
-          <div>
-            <small>1h min up to 10 simultaneous sessions</small>
-          </div>
-          <div>2K views</div>
-          <div>1 month</div>
+          </td>
+          <td>
 
-          <div>8/5</div>
-
-        </div>
-      </div>
-
+          </td>
+        </tr>
+        </tbody>
+      </table>
       <div>
         <div>* This is in progress feature and not yet released. please contact us if you need more information about
           our progress
         </div>
-        <div>** This is in planned feature to be developed. Anonymous screen navigation will be displayed in real time
-        </div>
       </div>
-      <p class="control has-text-centered">
-        <% if Rails.env.development? %>
-          <a href="https://www.patreon.com/jgthms" class="button is-link is-warning reg" target="_blank">
-            ONG Startup 50% cut off
-          </a>
-          <a href="https://www.patreon.com/jgthms" class="button is-link is-info is-bold" target="_blank">
-            Need Custom features , let's talk
-          </a>
-        <% else %>
-          <%= link_to(contact_us_path, class: "button is-light") do %>
-            <strong> <%= t('welcome.need_custom_plan') %></strong>
-          <% end %>
+      <p class="control has-text-centered pt-5">
+        <%= link_to(contact_path, class: "button is-link is-info is-bold") do %>
+          ONG Startup 50% cut off
         <% end %>
-
+        <%= link_to(contact_path, class: "button is-link is-info is-bold") do %>
+          Need Custom features , let's talk
+        <% end %>
       </p>
     </div>
   </div>

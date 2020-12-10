@@ -1,5 +1,35 @@
 .typehead {
-  .active {
-    background-color: #00b89c;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  .typehead-list, input {
+    padding-left: 4px;
+  }
+  input {
+    border: solid 1px #d4d4e5;
+    box-shadow: none;
+    border-radius: 4px;
+  }
+  .typehead-list {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-top: 0 rgb(204, 204, 204);
+    border-radius: 0 0 3px 3px;
+    top: 18px;
+    position: absolute;
+    background: white;
+    z-index: 1;
+    list-style: none;
+    .entry {
+      padding: 2px 0;
+      margin: 5px 0;
+    }
+    .match {
+      color: maroon;
+      font-weight: bold;
+    }
+    .active {
+      font-weight: bold;
+    }
   }
 }

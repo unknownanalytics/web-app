@@ -7,6 +7,7 @@ class Api::ApiController < ApplicationController
         data: r
     }, status: status
   end
+
   protected
 
   def get_date_range

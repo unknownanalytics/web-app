@@ -34,11 +34,11 @@ module Dashboard
       respond_to do |format|
         if @api_key.save
           format.html {redirect_to dashboard_domain_api_keys_path(current_domain.id), notice: 'Api key was successfully created.'}
-          format.json {render :show, status: :created, location: @dashboard_api_key}
+          format.json {render :show, status: :created, location: @api_key}
         else
           @api_keys = current_domain.api_keys
           format.html {render :index}
-          format.json {render json: @dashboard_api_key.errors, status: :unprocessable_entity}
+          format.json {render json: @api_key.errors, status: :unprocessable_entity}
         end
       end
     end
@@ -47,12 +47,12 @@ module Dashboard
     # PATCH/PUT /dashboard/api_keys/1.json
     def update
       respond_to do |format|
-        if @dashboard_api_key.update(dashboard_api_key_params)
-          format.html {redirect_to @dashboard_api_key, notice: 'Api key was successfully updated.'}
-          format.json {render :show, status: :ok, location: @dashboard_api_key}
+        if @api_key.update(dashboard_api_key_params)
+          format.html {redirect_to @api_key, notice: 'Api key was successfully updated.'}
+          format.json {render :show, status: :ok, location: @api_key}
         else
           format.html {render :edit}
-          format.json {render json: @dashboard_api_key.errors, status: :unprocessable_entity}
+          format.json {render json: @api_key.errors, status: :unprocessable_entity}
         end
       end
     end
@@ -60,9 +60,9 @@ module Dashboard
     # DELETE /dashboard/api_keys/1
     # DELETE /dashboard/api_keys/1.json
     def destroy
-      @dashboard_api_key.destroy
+      @api_key.destroy
       respond_to do |format|
-        format.html {redirect_to dashboard_api_keys_url, notice: 'Api key was successfully destroyed.'}
+        format.html {redirect_to dashboard_url, notice: 'Api key was successfully destroyed.'}
         format.json {head :no_content}
       end
     end

@@ -11,14 +11,17 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                         {
                             success:
                                 (function (response) {
-                                    this.stats = response.data;
+                                    this.stats = response.data.stats;
+                                    this.overview = response.data.overview;
+                                    this.updateMapView();
                                 }).bind(this)
                         }
                     );
                     //
                     this.onChangePeriodTopPagesViews();
-                    this.onChangePeriodLocationViews();
                     this.onChangePeriodDevicesViews();
+                    this.updateHeatmap();
+
                 }
                 else {
                     this.stats = {
@@ -37,6 +40,12 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                         sessionsCount: 0,
                         eventsCount: 0,
                         issuesCount: 0
+                    },
+                    overview: {
+                        devices: [],
+                        geo: [],
+                        heatmaps: [],
+                        utms: []
                     }
                 }
             },
@@ -46,7 +55,7 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                  * @param event
                  */
                 onChangePeriodTopPagesViews(event) {
-                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES, {interval: (event && event.target) ? event.target.value : null}, {
+                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS, {interval: (event && event.target) ? event.target.value : null}, {
                         success: (function (response) {
                             this.updateTopPagesViews(response)
                         }).bind(this)
@@ -63,20 +72,6 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                     }, {
                         success: (function (response) {
                             this.updateDevicesViews(response)
-                        }).bind(this)
-                    })
-                },
-
-                /**
-                 * Devices view
-                 * @param event
-                 */
-                onChangePeriodLocationViews(event) {
-                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_GEO_DETAILS, {
-                        interval: (event && event.target) ? event.target.value : null
-                    }, {
-                        success: (function (response) {
-                            this.updateMapView(response)
                         }).bind(this)
                     })
                 },
@@ -166,29 +161,41 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 /**
                  * Map
                  */
-                updateMapView(response) {
+                updateMapView() {
                     // And for a doughnut chart
-                    if (response) {
-                        let data = response.data;
-                        let info = data.info;
-                        let dataByCountries = _.groupBy(info, 'iso');
-                        let max = _.max(_.map(info, e => e.c));
+                    let map = document.getElementById('map');
+                    if (map) {
+                        // check if
+                        let data = this.overview.geo;
+                        // get max code
+                        let max = _.max(_.map(data, e => e.c));
+                        let countByCountries = _.groupBy(data, 'iso');
                         let countries = App.Helpers.getSVGCountriesCodes();
-                        var gradientColors = 'blue,cyan,green,yellow,red'.split(',');
-                        var dom;
+                        let gradientColors = JSON.parse(map.dataset['gradientColor']);
+                        let countrySvgShape;
                         countries.forEach(function (code) {
-                            dom = document.querySelector('#' + code);
-                            if (dom) {
-                                let c = dataByCountries[code] && dataByCountries[code][0].c;
+                            countrySvgShape = map.querySelector('#' + code);
+                            if (countrySvgShape) {
+                                let c = countByCountries[code] && countByCountries[code][0].c;
                                 if (c) {
-                                    dom.style.fill = dataByCountries[code] ? App.Charts.getGradient(c / max, gradientColors) : 'white';
-                                    dom.$ukC = c;
-                                    dom.addEventListener('mouseover', () => {
+                                    countrySvgShape.style.fill = c ? App.Charts.getGradient(c / max, gradientColors) : 'white';
+                                    countrySvgShape.$ukC = c;
+                                    countrySvgShape.addEventListener('mouseover', () => {
                                         console.log(this.$ukC)
                                     });
                                 }
                             }
                         })
+                    }
+                },
+                updateHeatmap() {
+                    let container = document.getElementById('months');
+                    let child;
+                    for (let i = 0; i < 6; i++) {
+                        child = document.createElement('div');
+                        child.classList.add('month-entry');
+                        container.append(child);
+                        App.Charts.squares(child, [], {animate: false, x: 6, y: 7, stop: 31, size: 20});
                     }
                 }
 
@@ -196,7 +203,7 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
 
         }
     )
-}
+};
 
 function canvasEvents() {
     // And for a doughnut chart

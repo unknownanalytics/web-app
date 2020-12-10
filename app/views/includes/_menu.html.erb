@@ -1,20 +1,16 @@
 <nav class="menu">
-
   <% unless current_domain.nil? %>
-    <%= current_domain.name %>
+    Domain :<span class="has-text-weight-bold"> <%= current_domain.name %></span>
     <% if current_domain.domain_setting.origins.nil? && current_user.own_domain(current_domain) %>
       <br/>
       <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
         <span class="has-text-danger">Configure origins !</span>
       <% end %>
     <% end %>
-    <hr/>
-    <p class="menu-label">
-      <%= t('dashboard.menu.analytics') %>
-    </p>
-    <ul class="menu-list">
+
+    <ul class="menu-list mt-1">
       <li>
-        <%= link_to(dashboard_path, class: current_menu_item_class?(dashboard_path)) do %>
+        <%= link_to(dashboard_path, class: current_menu_item_class?(dashboard_path) + ' ' + current_menu_item_class?('/')) do %>
           <% cache('icon-dashboard') do %>
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-dashboard'} %>
           <% end -%>
@@ -42,7 +38,11 @@
             <%= t('dashboard.menu.geo_scattering') %>
           <% end %>
         <% else %>
-          <span class="tag tag-warning"> <%= t('dashboard.menu.geo_scattering') %>
+          <span>
+            <% cache('icon-globe') do %>
+            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-globe'} %>
+          <% end -%>
+            <%= t('dashboard.menu.geo_scattering') %>
             <small>(disabled)</small></span>
         <% end %>
       </li>
@@ -53,7 +53,7 @@
           <% cache('icon-cloud-download') do %>
             <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cloud-download'} %>
           <% end -%>
-          <%= t('dashboard.menu.export') %>
+          <%= t('dashboard.menu.reports_export') %>
         <% end %>
       </li>
       <li>
@@ -96,10 +96,15 @@
 
   <% unless current_domain.nil? %>
     <% if current_user.own_domain(current_domain) %>
-      <p class="menu-label">
+      <p class="menu-label collapse-button">
         <%= t('dashboard.menu.domain_settings') %>
+
+        <% cache('icon-up-down') do %>
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svg_class => "icon-up"} %>
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svg_class => "icon-down"} %>
+        <% end %>
       </p>
-      <ul class="menu-list">
+      <ul class="menu-list  collapsible-list">
         <li>
           <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
             <% cache('icon-cog') do %>
@@ -121,8 +126,8 @@
       <p class="menu-label  collapse-button">
         <%= t('dashboard.menu.team_settings') %>
         <% cache('icon-up-down') do %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svgClass => "icon-up"} %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svgClass => "icon-down"} %>
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svg_class => "icon-up"} %>
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svg_class => "icon-down"} %>
         <% end %>
       </p>
 
@@ -163,6 +168,7 @@
     <ul>
       <li>
         <%= form_tag('/dashboard/set-current-domain') do %>
+
           <label><%= t('Change domain') %></label>
           <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id)) %>
           <%= submit_tag t('Select') %>
@@ -191,8 +197,8 @@
   <p class="menu-label collapse-button">
     <%= t('dashboard.menu.account_settings') %>
     <% cache('icon-up-down') do %>
-      <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svgClass => "icon-up"} %>
-      <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svgClass => "icon-down"} %>
+      <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svg_class => "icon-up"} %>
+      <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svg_class => "icon-down"} %>
     <% end %>
   </p>
 

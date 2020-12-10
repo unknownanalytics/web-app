@@ -1,0 +1,196 @@
+<div class="section">
+  <div class="container">
+    <div class="content">
+      <h1>API</h1>
+    </div>
+    <div>
+      <p>The Unk Web API is an interface for querying collected data and operate domains actions.</p>
+      <p>What can you do with the Web API?</p>
+      <ul>
+        <li><a href="#basics">Web API basics</a></li>
+        <li><a href="#operations">Operations</a></li>
+      </ul>
+      <a name="basics"></a>
+      <h2 id="slack-web-api__basics"><strong>Basics </strong></h2>
+      <p>The Web API is a collection of <a href="/methods">HTTP REST-style methods</a>, all with URLs in the form
+        <code>https://unknownanalytics.com/api/RESSOURCES/</code>.</p>
+      <p>Use HTTPS, SSL, and TLS v1.2 or above when calling all ressources.
+        <a href="#ssl">Learn more about our SSL and TLS requirements</a>.</p>
+      <p>Each method has a series of arguments informing the execution of your intentions.</p>
+      <p>Pass arguments as:</p>
+      <ul>
+        <li>GET querystring parameters</li>
+        <li>POST parameters presented as <code>application/json</code></li>
+      </ul>
+      <a name="operations"></a>
+      <table class="table table-bordered">
+        <tbody>
+        <tr>
+          <th>Operation</th>
+          <th class="hide_on_mobile">Description</th>
+        </tr>
+        <tr>
+          <td class="align_top"><a href="#operation_export">export</a>
+            <div class="is-hidden-tablet small">Approve an app for installation on a workspace.</div>
+          </td>
+          <td class="is-hidden-mobile">Approve an app for installation on a workspace.</td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <small>Domains</small>
+          </td>
+        </tr>
+        <tr>
+          <td class="align_top"><a href="operation_create_domain" class="bold block">create domain</a>
+            <div class="is-hidden-tablet small">Create a new domain</div>
+          </td>
+          <td class="his-hidden-mobile">Create a new domain.</td>
+        </tr>
+        <tr>
+          <td class="align_top">
+            <a href="/methods/admin.conversations.archive" class="bold block">admin.conversations.archive</a>
+            <div class="is-hidden-tablet small">Archive a public or private channel.</div>
+          </td>
+          <td class="his-hidden-mobile">Archive a public or private channel.</td>
+        </tr>
+        <tr>
+          <td class="align_top">
+            <a href="/methods/admin.conversations.convertToPrivate" class="bold block">admin.conversations.convertToPrivate</a>
+            <div class="is-hidden-tablet small">Convert a public channel to a private channel.</div>
+          </td>
+          <td class="his-hidden-mobile">Convert a public channel to a private channel.</td>
+        </tr>
+        <tr>
+          <td class="align_top">
+            <a href="/methods/admin.conversations.create" class="bold block">admin.conversations.create</a>
+            <div class="is-hidden-tablet small">Create a public or private channel-based conversation.</div>
+          </td>
+          <td class="his-hidden-mobile">Create a public or private channel-based conversation.</td>
+        </tr>
+        <tr>
+          <td class="align_top">
+            <a href="/methods/admin.conversations.delete" class="bold block">admin.conversations.delete</a>
+            <div class="is-hidden-tablet small">Delete a public or private channel.</div>
+          </td>
+          <td class="his-hidden-mobile">Delete a public or private channel.</td>
+        </tr>
+        <tr>
+          <td class="align_top">
+            <a href="/methods/admin.conversations.disconnectShared" class="bold block">admin.conversations.disconnectShared</a>
+            <div class="is-hidden-tablet small">Disconnect a connected channel from one or more workspaces.</div>
+          </td>
+          <td class="his-hidden-mobile">Disconnect a connected channel from one or more workspaces.</td>
+        </tr>
+        <tr>
+          <td class="align_top">
+            <a href="/methods/admin.conversations.getConversationPrefs" class="bold block">admin.conversations.getConversationPrefs</a>
+            <div class="is-hidden-tablet small">Get conversation preferences for a public or private channel.</div>
+          </td>
+          <td class="his-hidden-mobile">Get conversation preferences for a public or private channel.</td>
+        </tr>
+        <tr>
+          <td class="align_top">
+            <a href="/methods/admin.conversations.getCustomRetention" class="bold block">admin.conversations.getCustomRetention</a>
+            <div class="is-hidden-tablet small">This API endpoint can be used by any admin to get a channel's retention
+              policy.
+            </div>
+          </td>
+          <td class="his-hidden-mobile">This API endpoint can be used by any admin to get a channel's retention
+            policy.
+          </td>
+        </tr>
+        <tr>
+          <td class="align_top">
+            <a href="/methods/admin.conversations.getTeams" class="bold block">admin.conversations.getTeams</a>
+            <div class="is-hidden-tablet small">Get all the workspaces a given public or private channel is connected to
+              within this Enterprise org.
+            </div>
+          </td>
+          <td class="his-hidden-mobile">Get all the workspaces a given public or private channel is connected to
+            within this Enterprise org.
+          </td>
+        </tr>
+        <tr>
+          <td class="align_top">
+            <a href="/methods/admin.conversations.invite" class="bold block">admin.conversations.invite</a>
+            <div class="is-hidden-tablet small">Invite a user to a public or private channel.</div>
+          </td>
+          <td class="his-hidden-mobile">Invite a user to a public or private channel.</td>
+        </tr>
+        <tr>
+          <td class="align_top">
+            <a href="/methods/admin.conversations.removeCustomRetention" class="bold block">admin.conversations.removeCustomRetention</a>
+            <div class="is-hidden-tablet small">This API endpoint can be used by any admin to remove a channel's
+              retention
+              policy.
+            </div>
+          </td>
+          <td class="his-hidden-mobile">This API endpoint can be used by any admin to remove a channel's
+            retention policy.
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content">
+      <p>Bulma has <strong>two</strong> variable files divided into <strong>4</strong> sections:</p>
+
+      <ol>
+        <li>
+          <strong>Initial variables</strong>: where you define variables by <strong>literal value</strong>, like:
+          <ul>
+            <li><strong>colors</strong>: <code>$blue: hsl(217, 71%, 53%)</code></li>
+            <li><strong>font sizes</strong>: <code>$size-1: 3rem</code></li>
+            <li><strong>dimensions</strong>: <code>$gap: 32px</code></li>
+            <li><strong>other values</strong>: <code>$easing: ease-out</code> or <code>$radius-large: 6px</code></li>
+          </ul>
+        </li>
+        <li>
+          <strong>Derived variables</strong> where variables are <strong>calculated</strong> from the values set in the
+          previous file. For example, you can have:
+          <ul>
+            <li>
+              <strong>Primary colors</strong> derived from the initial variables:
+              <ul>
+                <li><code>$primary: $turquoise</code></li>
+                <li><code>$link: $blue</code></li>
+                <li><code>$info: $cyan</code></li>
+                <li><code>$success: $green</code></li>
+                <li><code>$warning: $yellow</code></li>
+                <li><code>$danger: $red</code></li>
+                <li><code>$dark: $grey-darker</code></li>
+                <li><code>$text: $grey-dark</code></li>
+              </ul>
+            </li>
+            <li><code>$background: $white-ter</code>: a general background color</li>
+            <li><code>$link: $blue</code>: the links use the primary color</li>
+            <li><code>$family-primary: $family-sans-serif</code>: the primary font family is the sans-serif one</li>
+            <li>
+              <strong>Lists and maps</strong> which are collections of already defined variables:
+              <ul>
+                <li>
+                  <code>$colors: mergeColorMaps(("white": ($white, $black), "black": ($black, $white), "light": ($light,
+                    $light-invert), "dark": ($dark, $dark-invert), "primary": ($primary, $primary-invert,
+                    $primary-light, $primary-dark), "link": ($link, $link-invert, $link-light, $link-dark), "info":
+                    ($info, $info-invert, $info-light, $info-dark), "success": ($success, $success-invert,
+                    $success-light, $success-dark), "warning": ($warning, $warning-invert, $warning-light,
+                    $warning-dark), "danger": ($danger, $danger-invert, $danger-light, $danger-dark)),
+                    $custom-colors)</code></li>
+                <li><code>$shades: mergeColorMaps(("black-bis": $black-bis, "black-ter": $black-ter, "grey-darker":
+                  $grey-darker, "grey-dark": $grey-dark, "grey": $grey, "grey-light": $grey-light, "grey-lighter":
+                  $grey-lighter, "white-ter": $white-ter, "white-bis": $white-bis), $custom-shades)</code></li>
+                <li><code>$sizes: $size-1 $size-2 $size-3 $size-4 $size-5 $size-6 $size-7</code></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ol>
+
+      <p>
+        To <strong>override</strong> any of these variables, just set them <em>before</em> importing Bulma.
+      </p>
+    </div>
+
+  </div>
+</div>

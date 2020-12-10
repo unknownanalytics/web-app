@@ -1,9 +1,0 @@
-<select <%= "@change=#{event}" %>>
-  <option value="week"><%= t('This week') %>
-    :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
-    - <%= Date.today.strftime("%d %B") %></option>
-  <option selected="selected" value="month"><%= t('This month') %>
-    :  <%= Date.today.strftime("%B") %></option>
-
-  <option value="today"><%= t('today') %> <%= Date.today.strftime("%B, %Y") %></option>
-</select>

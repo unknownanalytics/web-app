@@ -9,7 +9,7 @@
   <span><%= flash[:contact_error] %></span>
   <div class="container">
     <h3 class="title"><%= t('welcome.contact_us') %></h3>
-    <%= form_tag(contact_us_path, local: true) do %>
+    <%= form_tag(contact_path, local: true) do %>
       <div class="field">
         <label class="label">E-mail</label>
         <div class="field-body">

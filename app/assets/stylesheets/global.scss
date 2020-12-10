@@ -6,10 +6,6 @@ body {
   font-family: 'Rubik', sans-serif;
 }
 
-.is-flex-grow-1 {
-  flex-grow: 1;
-}
-
 [v-cloak] > * {
   display: none !important;
 }
@@ -39,9 +35,13 @@ a.action {
   font-size: .8rem;
   font-family: monospace;
   .attr-name {
-    color : #00b89c;
+    color: #00b89c;
   }
   .attr-value {
-    color : #d9aa40;
+    color: #d9aa40;
   }
+}
+
+.w-100 {
+  width: 100%;
 }

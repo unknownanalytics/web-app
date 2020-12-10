@@ -1,40 +1,33 @@
 <script type="text/x-template" id="app_dashboard_geo_scattering_template">
-
-  <div class="panel">
-    <div class="panel-heading">
-      Geo partition
-
-      <select @change="onChangePeriodLocationViews($event)">
-        <option value="week"><%= t('This week') %>
-          :  <%= Date.today.weeks_ago(1).strftime("%d %B") %>
-          - <%= Date.today.strftime("%d %B") %></option>
-        <option selected="selected" value="month"><%= t('This month') %>
-          :  <%= Date.today.strftime("%B") %></option>
-
-        <option value="today"><%= t('today') %> <%= Date.today.strftime("%d, %B, %Y") %></option>
-      </select>
-
-
-      <div class="is-pulled-right">
-        <select>
-          <option selected="selected">Daily</option>
-          <option>Weekly</option>
-          <option>Monthly</option>
-        </select>
-      </div>
-
-      <div class="is-pulled-right">
-        <select>
-          <option selected="selected">Referals</option>
-          <option>Pages</option>
-          <option>Devices</option>
-          <option>Geo</option>
-        </select>
-      </div>
-    </div>
+  <div>
     <div>
-      <%= render 'includes/map_world.svg' %>
+      <span class="title is-size-5"> Geo partition </span>
+      <div class="is-pulled-right">
+        <div class="field is-horizontal">
+          <div class="field-body">
+            <%= render :partial => 'includes/select_period_inputs', :locals => {
+                :startEvent => 'onChangeStartDate($event)',
+                :endEvent => 'onChangeEndDate($event)',
+            } %>
+            <div class="field-label is-normal">
+              <label class="label" for="filter_by">by</label>
+            </div>
+
+            <div class="field">
+              <p class="control">
+                <select id="filter_by" class="select is-small">
+                  <option selected="selected">Referrals</option>
+                  <option>Pages</option>
+                  <option>Devices</option>
+                </select>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+    <%= render 'includes/map_world.svg' %>
   </div>
+
 </script>
 

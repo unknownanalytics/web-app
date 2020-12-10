@@ -2,7 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "colors";
-
 @mixin small-tag {
   small {
     .tag {
@@ -17,7 +16,7 @@
 
 #overview_global_view_container {
   .box {
-    background: #F5F5F5;
+    background: $glight;
     .heading {
       font-weight: bold;
       letter-spacing: 2px;
@@ -30,15 +29,10 @@
   }
 }
 
-.panel-heading {
-  border: none;
-  background: none;
-  border-radius: 0;
-}
 
 #overview_container {
   .panel-heading {
-    background-color: none;
+    background-color: $glight;
     border: none;
     @include small-tag;
     align-items: center;

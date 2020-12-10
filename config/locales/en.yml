@@ -50,4 +50,10 @@ en:
   domains:
     domain_settings:
       track_geo: "Track geo"
+  dashboard:
+    menu:
+      geo_scattering: "Geo"
+      reports_export: "Reports"
+    overview:
+      geo_activate_text: "You can activate the geo tracking in"
 

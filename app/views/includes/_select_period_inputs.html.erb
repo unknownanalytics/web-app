@@ -1,0 +1,28 @@
+<% format = "%Y-%m-%d" %>
+<div class="field-label is-normal">
+  <label class="label">from</label>
+</div>
+<div class="field">
+  <p class="control">
+    <input
+      <%= "@change=#{startEvent}" %>
+      type="date"
+      class="input is-small"
+      value="<%= Date.today.weeks_ago(1).strftime(format) %>"
+      min="<%= Date.today.years_ago(1).strftime(format) %>" max="<%= Date.today.strftime(format) %>">
+  </p>
+</div>
+<div class="field-label is-normal">
+  <label class="label">to</label>
+</div>
+<div class="field">
+  <p class="control">
+    <input
+      <%= "@change=#{endEvent}" %>
+      type="date"
+      class="input is-small"
+      value="<%= Date.today.weeks_ago(1).strftime(format) %>"
+      min="<%= Date.today.years_ago(1).strftime(format) %>" max="<%= Date.today.strftime(format) %>">
+
+  </p>
+</div>

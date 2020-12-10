@@ -4,7 +4,7 @@ App.Routes['/dashboard/stats/geo'] = function () {
         template: '#app_dashboard_geo_scattering_template',
         mounted() {
             this.init();
-            this.onChangePeriodLocationViews({});
+            this.updateData();
         },
         data: function () {
             return {
@@ -14,7 +14,9 @@ App.Routes['/dashboard/stats/geo'] = function () {
                 stats: {
                     pages: 0,
                     pagesCount: 10,
-                }
+                },
+                startDate: null,
+                endDate: null
             }
         },
         methods: {
@@ -63,8 +65,9 @@ App.Routes['/dashboard/stats/geo'] = function () {
              *
              * @param response
              */
-            updateData(response) {
+            render(response) {
                 let info = response.data.info;
+                console.log(info);
                 let max = _.max(_.map(info, e => e.c));
                 let min = _.min(_.map(info, e => e.c));
                 let range = max - min;
@@ -110,12 +113,21 @@ App.Routes['/dashboard/stats/geo'] = function () {
             },
             /**
              *
-             * @param $event
+             * @param start
+             * @param date
+             * @param filter
              */
-            onChangePeriodLocationViews($event) {
+            updateData(start, date, filter) {
                 App.Api.get(App.API_ROUTES.DASHBOARD_STATS_GEO_DETAILS, {
-                    interval: ($event && $event.target) ? $event.target.value : null
-                }, {success: this.updateData});
+                    from: this.startDate,
+                    to: this.endDate,
+                }, {success: this.render});
+            },
+            onChangeStartDate(event) {
+                this.startDate = event && event.target.value;
+            },
+            onChangeEndDate(event) {
+                this.endDate = event && event.target.value;
             }
         }
     })

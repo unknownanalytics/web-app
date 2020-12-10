@@ -6,12 +6,13 @@ App.Routes['/dashboard/stats/pages'] = function () {
             this.loadServerData({});
             this._attachActions();
         },
-        data: function () {
+        data() {
             return {
                 axes: {
                     browsers: [],
-                    pages: [],
-                    utms: []
+                    utms: [],
+                    origins: [],
+                    pages: []
                 }
             }
         },
@@ -23,13 +24,11 @@ App.Routes['/dashboard/stats/pages'] = function () {
              * @param options
              */
             loadServerData(options) {
-                App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_SUMMARY, {}, {success: this.onLoadServerData});
+                App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS, {}, {success: this.onLoadServerData});
+                App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_SUMMARY, {}, {success: this.onLoadSummary});
             },
-            /**
-             * Fired when path is changed
-             */
-            changeFilterPath(item) {
-                console.log(item)
+            onSelectedPage(page) {
+                console.log(page)
             },
             /**
              *
@@ -37,35 +36,36 @@ App.Routes['/dashboard/stats/pages'] = function () {
              */
             onLoadServerData(response) {
                 let data = response.data;
+                this.drawViewsLine(data.views);
+
+                this.drawViewDaily();
+            },
+            /**
+             *
+             * @param response
+             */
+            onLoadSummary(response) {
+                let data = response.data;
                 // draw origings
                 let keysOrigins = _.map(data.origins, e => e.origin);
                 let valuesOrigins = _.map(data.origins, e => e.count);
                 this.drawPie(valuesOrigins, keysOrigins, 'origins');
-
 
                 // draw utms
                 let keysUtms = _.map(data.utms, e => e.utm_source);
                 let valuesUtms = _.map(data.utms, e => e.count);
                 this.drawPie(valuesUtms, keysUtms, 'utms');
 
-
                 // draw utms
                 let keysBrowsers = _.map(data.browsers, e => e.browser);
                 let valuesBrowsers = _.map(data.browsers, e => e.count);
                 this.drawPie(valuesBrowsers, keysBrowsers, 'browsers');
-
-                this.drawViewsLine(data.views);
-
-                this.drawCampaings();
-
-
                 this.axes = data;
             },
             /**
              *
              */
             drawPie(values, labels, type) {
-
                 console.log("values : " + values);
                 console.log("labels  : " + labels);
                 var data = {
@@ -117,7 +117,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                 }));
                 let option = {
                     title: {
-                        text: 'Views last '
+                        text: 'views'
                     },
                     tooltip: {
                         trigger: 'axis'
@@ -156,7 +156,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                         }
                     },
                     series: {
-                        name: 'Beijing AQI',
+                        name: 'Page views',
                         type: 'line',
                         data: data.map(function (item) {
                             return item[1];
@@ -173,7 +173,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                 myChart.setOption(option);
 
             },
-            drawCampaings() {
+            drawViewDaily() {
                 //app.title = '单轴散点图';
 
                 var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',

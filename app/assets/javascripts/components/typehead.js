@@ -5,35 +5,37 @@
             '<input type="text"\n' +
             '           :placeholder="placeholder || \'...\'"\n' +
             '           autocomplete="off"\n' +
+            '           style="width: 100%"' +
             '           v-model="query"\n' +
             '           @keydown.down="down"\n' +
             '           @keydown.up="up"\n' +
             '           @keydown.enter="hit"\n' +
             '           @keydown.esc="reset"\n' +
             '           @blur="reset"\n' +
-            '           @input="update"/>\n' +
+            '           @input="input"/>\n' +
             '<!-- the list -->\n' +
-            '    <ul v-show="hasItems">\n' +
-            '      <!-- for vue@1.0 use: ($item, item) -->\n' +
-            '      <li v-for="(item, $index) in filteredList" :class="activeClass($index)" @mousedown="hit(item)" @mousemove="setActive($index)">\n' +
-            '        <span v-text="item[displayProperty]"></span>\n' +
+            '      <ul  v-show="hasItems" class="typehead-list">\n' +
+            '      <li v-for="(item, index) in filteredList" :class="\'entry \' + activeClass(index)" ' +
+            '       @mousedown="hit(item)" ' +
+            '       @mousemove="setActive(index)">\n' +
+            '        <span v-bind:class="{ active: navIndex === index }" v-html="format(item)"></span>\n' +
             '      </li>\n' +
             '    </ul>' +
-            '</div>',
+            '</div>'
+        ,
 
-        props: ['list', 'displayProperty', 'placeholder'],
+        props: ['list', 'property', 'placeholder'],
         data() {
             return {
                 filteredList: [],
                 query: '',
-                current: -1,
+                navIndex: -1,
                 loading: false,
                 selectFirst: false,
-                queryParamName: 'q'
+                hidden: true
             }
         },
         mounted() {
-            this.filteredList = this.list;
 
         },
         computed: {
@@ -51,58 +53,6 @@
         },
 
         methods: {
-            update() {
-                this.cancel();
-                let query = this.query;
-                if (!query) {
-                    return this.reset()
-                }
-                this.filteredList = this.list.filter(e => e[this.displayProperty] && e[this.displayProperty].toLowerCase().indexOf(query.toLowerCase()) > -1);
-                console.log(this.filteredList);
-                /*if (this.minChars && this.query.length < this.minChars) {
-                    return
-                }
-
-                this.loading = true */
-                // for http
-                /*
-                this.fetch().then((response) => {
-                    if (response && this.query) {
-                        let data = response.data
-                        data = this.prepareResponseData ? this.prepareResponseData(data) : data
-                        this.filteredList = this.limit ? data.slice(0, this.limit) : data
-                        this.current = -1
-                        this.loading = false
-
-                        if (this.selectFirst) {
-                            this.down()
-                        }
-                    }
-                })
-            },
-
-            fetch() {
-                if (!this.$http) {
-                    return util.warn('You need to provide a HTTP client', this)
-                }
-
-                if (!this.src) {
-                    return util.warn('You need to set the `src` property', this)
-                }
-
-                const src = this.queryParamName
-                    ? this.src
-                    : this.src + this.query
-
-                const params = this.queryParamName
-                    ? Object.assign({[this.queryParamName]: this.query}, this.data)
-                    : this.data
-
-                let cancel = new Promise((resolve) => this.cancel = resolve)
-                let request = this.$http.get(src, {params})
-
-                return Promise.race([cancel, request])*/
-            },
 
             cancel() {
                 // used to 'cancel' previous searches
@@ -115,42 +65,58 @@
             },
 
             setActive(item, index) {
-                this.current = index;
+                this.navIndex = index;
             },
 
             activeClass(index) {
                 return {
-                    active: this.current === index
+                    active: this.navIndex === index
                 }
             },
 
             hit() {
-                if (this.current !== -1) {
-                    this.onHit(this.filteredList[this.current])
+                if (this.navIndex !== -1) {
+                    this.$emit('selected', this.filteredList[this.navIndex]);
                 }
             },
 
             up() {
-                if (this.current > 0) {
-                    this.current--
-                } else if (this.current === -1) {
-                    this.current = this.filteredList.length - 1
+                if (this.navIndex > 0) {
+                    this.navIndex--
+                } else if (this.navIndex === -1) {
+                    this.navIndex = this.filteredList.length - 1
                 } else {
-                    this.current = -1
+                    this.navIndex = -1
                 }
             },
 
             down() {
-                if (this.current < this.filteredList.length - 1) {
-                    this.current++
+                if (this.navIndex < this.filteredList.length - 1) {
+                    this.navIndex++
                 } else {
-                    this.current = -1
+                    this.navIndex = -1
                 }
             },
-
-            onHit(item) {
-                this.$emit('seleced', item);
-               // console.warn('You need to implement the `onHit` method', this)
+            input() {
+                let query = this.query;
+                this.searchValueRegx = new RegExp(query);
+                this.navIndex = -1;
+                this.filteredList = (query.length && this.list.filter(e => this._getComparator(e).toLowerCase().indexOf(query) > -1)) || [];
+            },
+            enter() {
+                //  alert(this.suggestionList[this.navIndex])
+            },
+            format(e) {
+                return this._getComparator(e).replace(this.searchValueRegx, '<span class="match">' + this.searchValueRegx.source + '</span>')
+            },
+            esc() {
+                this.filteredList = [];
+                this.hidden = true;
+                this.navIndex = -1;
+            },
+            _getComparator(e) {
+                let property = this.property;
+                return property ? e[property] : e
             }
         }
     })

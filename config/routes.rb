@@ -60,11 +60,11 @@ Rails.application.routes.draw do
     end
 
     namespace :api do
-      get '/summary' => 'summary#index'
-      # page
-      get '/pages' => 'pages#index'
+      get '/overview' => 'overview#index'
+      get '/overview/summary' => 'overview#summary'
       get '/pages/summary' => 'pages#summary'
-      get '/pages/details' => 'pages#views_details'
+      get '/pages/views' => 'pages#views'
+      get 'pages/:page_id/views' => 'pages#page_views_details'
       get '/devices' => 'devices#index'
       get '/events' => 'events#index'
       get '/errors' => 'errors#index'
@@ -84,13 +84,13 @@ Rails.application.routes.draw do
   root 'welcome#pages', as: 'home_path'
 
 
-
   post '/contact' => 'contact#contact_us'
   get '/contact/' => 'contact#index'
 
-
+  namespace :api do
+    post 'track' => 'track#track'
+  end
   ## track main path
-  get 'track' => 'api#track'
 
 
   get "/:page" => "welcome#pages", :as => 'public_pages'

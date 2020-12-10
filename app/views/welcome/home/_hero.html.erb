@@ -3,7 +3,7 @@
     <div class="container">
       <div class="columns is-desktop">
         <div class="column">
-          <h1 class="title h1">
+          <h1 class="title is-size-3">
             <%= t('welcome.hero') %>
           </h1>
           <p class="subtitle">
@@ -11,22 +11,17 @@
           </p>
           <div class="buttons">
             <div>
-              <% if ENV["UNK_APP_IS_BILLABLE"] %>
-                <%= link_to(new_user_session_path, class: "button  is-primary is-rounded is-link register-button") do %>
-                  <strong> <%= t('welcome.start_free_trial') %></strong>
-                <% end %>
-                <%= link_to('#demo', class: "button is-rounded") do %>
-                  <strong> <%= t('welcome.watch_demo') %></strong>
-                  <br/>
-                <% end %>
 
-                <br/>
-                <small>no credit card required</small>
-              <% else %>
-                <%= link_to(new_user_session_path, class: "button  is-primary is-rounded is-link register-button") do %>
-                  <strong> <%= t('welcome.free_in_beta_version') %></strong>
-                <% end %>
+              <%= link_to(new_user_session_path, class: "button  is-primary is-rounded is-link register-button") do %>
+                <strong> <%= t('welcome.start_free_trial') %></strong>
               <% end %>
+              <%= link_to('#demo', class: "button is-rounded") do %>
+                <strong> <%= t('welcome.watch_demo') %></strong>
+                <br/>
+              <% end %>
+
+              <br/>
+              <small class="ml-1 is-size-7">no credit card required</small>
             </div>
           </div>
         </div>
@@ -55,11 +50,11 @@
 
           <div id="box_2" class="box">
             <h1>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user', :cssClass => ''} %>
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user', :css_class => ''} %>
 
               <%= t('Heatmaps ') %>
             </h1>
-            <svg width="150" height="150" viewBox="0 0 200 800" xmlns="http://www.w3.org/2000/svg">
+            <svg width="150" height="100" viewBox="0 0 200 600" xmlns="http://www.w3.org/2000/svg">
               <linearGradient id="shape_gradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0" stop-color="#ffbe88"></stop>
                 <stop offset="0.5" stop-color="#ffa4bc"></stop>
@@ -88,8 +83,8 @@
 
           <div id="box_3" class="box">
             <h1>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-bolt', :cssClass => ''} %>
-              <%= t('Events ') %>&nbsp;<!--<div class="views-number-animation tag">9999</div>-->
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-bolt', :css_class => ''} %>
+              <%= t('Performance') %>&nbsp;<!--<div class="views-number-animation tag">9999</div>-->
             </h1>
             <div id="hero_events_chart">
 
@@ -97,7 +92,7 @@
           </div>
           <div id="box_4" class="box">
             <h1>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-bolt', :cssClass => ''} %>
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-bolt', :css_class => ''} %>
               <%= t('Campaigns') %>&nbsp;<!--<div class="views-number-animation tag">9999</div>-->
             </h1>
             <div id="hero_campaigns">
@@ -107,7 +102,7 @@
 
           <div id="box_5" class="box">
             <h1>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user', :cssClass => ''} %>
+              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user', :css_class => ''} %>
               <%= t('Devices ') %>
             </h1>
             <svg viewBox="-1 -1 2 2" width="200" height="120">

@@ -1,22 +1,13 @@
-class Api::ApiController < ApplicationController
-  before_action :check_domain
+class Api::TrackController < Api::ApiController
+  before_action :check_api_key
+  before_action :check_and_set_domain
+  protect_from_forgery unless: -> {request.format.json?}
 
   def track
     create_page_if_not_exist
   end
 
-  def check_domain
-    pub_key = ApiKey.joins(:domain).where({pub_key => params[:site]})
-    if pub_key
-      set_domain(pub_key.domain)
-    end
-  end
-
-  def set_domain(domain)
-    self.domain = domain
-  end
-
-  private
+  protected
 
   def create_page_if_not_exist
     self.Page.find_or_create_by({:domain_id => self.domain, :full_url => original})
@@ -25,6 +16,34 @@ class Api::ApiController < ApplicationController
   def create_page_view
 
   end
+
+  def create_page_view_location
+    record = $maxmind.lookup('1.1.1.1')
+  end
+
+
+  def set_domain(domain)
+    self.domain = domain
+  end
+
+  def check_api_key
+    unless self.get_key
+      reply_json({:error => "no key"}, :bad_request)
+    end
+  end
+
+  def get_key
+    params[:site_key]
+  end
+
+  def check_and_set_domain
+    pub_key = ApiKey.joins(:domain).where({:public_key => self.get_key})
+    unless pub_key
+      return reply_json({:error => "No key"}, :bad_request)
+    end
+    set_domain(pub_key.domain)
+  end
+
 end
 
 =begin

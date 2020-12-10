@@ -9,4 +9,17 @@ document.addEventListener("turbolinks:load", function (event) {
     if (App.Routes[path]) {
         App.Routes[path]();
     }
+    new Vue({
+        el: '#navbar_header_form',
+        data: function () {
+            return {
+                commands: ['top', 'but', 'kie', 'toot', 'toyoata'],
+            }
+        },
+        methods: {
+            changeFilterPath(item) {
+                alert(item)
+            }
+        }
+    })
 });

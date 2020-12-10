@@ -5,60 +5,38 @@
   }
 </style>
 <footer class="welcome-footer">
+  <br/>
   <div class="container">
     <div class="columns">
-      <% if Rails.env.development? %>
-        <div class="column content">
-          <h2>Features</h2>
-          <a class="is-link">Page views</a><br/>
-          <a class="is-link">Events</a><br/>
-          <a class="is-link">Errors</a><br/>
-          <a class="is-link">Heat map</a><br/>
-          <a class="is-link">Data export </a><br/>
-          <a class="is-link">Geo Tracking</a><br/>
-          <a class="is-link">Realtime notification * </a><br/>
 
-        </div>
-        <div class="column content">
-          <h2>Resources</h2>
-          <a class="is-link">Getting started</a><br/>
-          <a class="is-link"><%= link_to t("User guides"), public_pages_path(:page => 'user-guide') %></a><br/>
-          <a class="is-link"><%= link_to t("Faq"), public_pages_path(:page => 'faq') %></a></a><br/>
-          <a class="is-link">Api</a><br/>
-          <a class="is-link"><%= link_to t("Open source"), public_pages_path(:page => 'open-source') %></a><br/>
-        </div>
-
-
-        <div class="column content">
-          <h2>Legal </h2>
-          <a class="is-link">Cookie Policy</a><br/>
-          <a class="is-link"><%= link_to t("Privacy Policy"), public_pages_path(:page => 'privacy-policy') %></a></a>
-          <br/>
-          <%= link_to('About us', '/team') %><br/>
-          <a class="is-link">Values</a><br/>
-          <a class="is-link">Open startup</a>
-        </div>
-
-
-        <div class="column content">
-          <h2>Social </h2>
-          <a class="is-link" href="blog.unknownAnalytics.com">Blog</a><br/>
-          <a class="is-link">Twitter</a><br/>
-          <a class="is-link">Linkedin</a><br/>
-          <a class="is-link">Github</a><br/>
-          <a class="is-link">Contact</a><br/>
-        </div>
-        </div>
-        <hr/>
-
-        <div id="news_letter" class="has-text-centered">
-          <a class="title is-6">Join our newsletter</a><br/>
-          <p>Sign up for our newsletter to get news revies each week.</p>
-          <input type="text" class="input">
-        </div>
-      <% end %>
+      <div class="column content">
+        <h2>Features</h2>
+        <a class="is-link">Beta usage </a><br/>
+        <a class="is-link">Template</a><br/>
+        <a class="is-link"><%= link_to t("Privacy Policy"), public_pages_path(:page => 'privacy-policy') %></a><br/>
+        <%= link_to('About us', '/team') %><br/>
+        <%= link_to(contact_path) do %>
+          Contact us
+        <% end %>
 
       </div>
+      <div class="column content">
+        <h2>Resources</h2>
+        <a class="is-link">Getting started</a><br/>
+        <a class="is-link"><%= link_to t("User guides"), public_pages_path(:page => 'user-guide') %></a><br/>
+        <a class="is-link"><%= link_to t("FAQ"), public_pages_path(:page => 'faq') %></a></a><br/>
+        <a class="is-link"><%= link_to t("Api"), public_pages_path(:page => 'api') %></a></a><br/>
+      </div>
+
+      <div class="column content">
+        <h2>More </h2>
+        <a class="is-link"><%= link_to t("Open source"), public_pages_path(:page => 'open-source') %></a><br/>
+        <a class="is-link" href="https://blog.unknownAnalytics.com">Blog</a><br/>
+        <a class="is-link" href="https://blog.unknownAnalytics.com">@unk by Lines</a><br/>
+        <a class="is-link" href="https://gitlab.com/unknown-inc">Gitlab</a><br/>
+      </div>
+    </div>
+  </div>
 </footer>
 <div class="column content is-small" id="unk_footer">
   <div class="column content is-small has-text-centered">

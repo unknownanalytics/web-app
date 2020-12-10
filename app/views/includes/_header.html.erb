@@ -6,30 +6,11 @@
           <%= render "includes/logo" %>
         </a>
         <form id="navbar_header_form" class="navbar-item">
-          <div id="navbar_header_form_container">
-            <div class="control has-icons-left has-icons-right">
-              <input class="input"
-                     id="navbar_header_form_search"
-                     autocomplete="off"
-                     type="text"
-                     placeholder="Search"
-                     @input="input($event)"
-                     v-on:keyup.esc="esc"
-                     v-on:keyup.up="up"
-                     v-on:keyup.enter="enter"
-                     v-on:keyup.down="down"
-              >
-              <span class="icon is-left">
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-search'} %>
-  </span>
-            </div>
-
-            <div id="autocomplete"
-                 v-if="!hidden && suggestionList.length">
-              <div class="entry" v-for="(i, index) in suggestionList">
-                <span v-bind:class="{ active: navIndex === index }" v-html="format(i)"></span>
-              </div>
-            </div>
+          <div class="mt-4">
+            <app-v-typehead :list="commands"
+                            placeholder="Shortcut"
+                            v-on:selected="changeFilterPath($event)">
+            </app-v-typehead>
           </div>
         </form>
       </div>
@@ -38,6 +19,7 @@
       <div class="navbar-item">
         <% if current_domain.present? %>
           <span class="tag  is-info"><%= current_domain.name %></span>
+
         <% end %>
       </div>
 

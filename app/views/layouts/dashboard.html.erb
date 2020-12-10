@@ -13,57 +13,57 @@
     height: 100vh;
     flex-direction: column;
   }
+
+  #main_dashboard {
+    width: 100%;
+  }
 </style>
 <%= extends :application do %>
 
   <%= render "includes/header" %>
 
-  <div class="container">
-    <div>
-      <div class="columns is-marginless">
-        <aside class="column is-2">
-          <%= render "includes/menu" %>
-        </aside>
-        <div class="column is-10">
-          <div class="is-12 main-container">
-            <% if current_domain.nil? %>
+  <div class="container" id="main_dashboard">
+    <div class="columns is-marginless">
+      <aside class="column is-2">
+        <%= render "includes/menu" %>
+      </aside>
+      <div class="column is-10">
+        <div class="is-12 main-container">
+          <% if current_domain.nil? %>
 
-              <h1 class="title is-4">Select or create a new domain</h1>
+            <h1 class="title is-4">Select or create a new domain</h1>
 
-              <% if @my_domains.size > 0 %>
-                <%= form_tag('/dashboard/set-current-domain') do %>
-                  <div class="field is-grouped">
-                    <div class="control select">
-                      <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id), {include_blank: "#{t("domains.select_from_your_domains")} #{@my_domains.size} domains"}) %>
-                    </div>
-                    <div class="control">
-                      <%= submit_tag t('Select', class: 'button is-link'), {:class => 'button default'} %>
-                    </div>
+            <% if @my_domains.size > 0 %>
+              <%= form_tag('/dashboard/set-current-domain') do %>
+                <div class="field is-grouped">
+                  <div class="control select">
+                    <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id), {include_blank: "#{t("domains.select_from_your_domains")} #{@my_domains.size} domains"}) %>
                   </div>
-                <% end -%>
-                <div class="control">
-                  <%= link_to(dashboard_domains_path, {:class => 'is-light is-link'}) do %>
-                    <span><%= t('domain.create_new_domain') %></span>
-                  <% end %>
+                  <div class="control">
+                    <%= submit_tag t('Select', class: 'button is-link'), {:class => 'button default'} %>
+                  </div>
                 </div>
               <% end -%>
-            <% end %>
-
-
-
-            <%= yield %>
-
-          </div>
-          <% cache('dashboard/vue-templates/index') do %>
-            <%= render 'dashboard/vue-templates/index' %>
+              <div class="control">
+                <%= link_to(dashboard_domains_path, {:class => 'is-light is-link'}) do %>
+                  <span><%= t('domain.create_new_domain') %></span>
+                <% end %>
+              </div>
+            <% end -%>
           <% end %>
 
 
+
+          <%= yield %>
+
         </div>
+        <% cache('dashboard/vue-templates/index') do %>
+          <%= render 'dashboard/vue-templates/index' %>
+        <% end %>
+
+
       </div>
     </div>
-
-
   </div>
 
   <%= render "includes/footer_logged_in" %>
