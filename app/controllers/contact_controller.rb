@@ -1,6 +1,6 @@
 class ContactController < ApplicationController
   def index
-
+    @subject = params[:subject]
   end
 
   def contact_us

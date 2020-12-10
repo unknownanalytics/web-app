@@ -29,17 +29,12 @@
       <div class="column has-text-right">
         <ul>
           <li>
-            <%= link_to('/contact?subject=support') do %>
-              <%= t('Support') %>
-            <% end %>
+
+            <%= link_to t('Support'), contact_path(subject: "[Support]") %>
             ·
-            <%= link_to('/contact?subject=help') do %>
-              <%= t('Help') %>
-            <% end %>
+            <%= link_to t('Help'), contact_path(subject: "[Help]") %>
             ·
-            <%= link_to('/contact?subject=feedback') do %>
-              <%= t('Feedback') %>
-            <% end %>
+            <%= link_to t('Feedback'), contact_path(subject: "[Feedback]") %>
           </li>
         </ul>
       </div>
