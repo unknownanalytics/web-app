@@ -62,6 +62,32 @@
         <hr/>
         <div id="main_months_chart" style="width: 100%;height:400px;min-width:1000px"></div>
       </div>
+
+      <div class="column is-6">
+        <div class="box box-no-shadow">
+          <div class="heading">Vos consultations cette semaine
+            <span class="title subtitle is-pulled-right"></span>
+          </div>
+          <div class="bar-charts">
+            <% Date::ABBR_DAYNAMES.rotate.each_with_index do |day, index| %>
+              <div>
+                <label class="has-text-grey is-size-7">
+                  <%= t('date.abbr_day_names')[index].capitalize %>
+                </label>
+                <div class="bar">
+                  <% (1..rand(1..10)).each do |n| %>
+                    <% if index > 0 %>
+                      <div class="bar-item" style="background:#<%= "%06x" % rand(0..0xffffff) %>"></div>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
+
+            <% end %>
+          </div>
+        </div>
+      </div>
+
       <hr/>
       <h4 class="is-size-5  has-text-weight-bold">Summary
         <small class="is-size-7">Partitions</small>

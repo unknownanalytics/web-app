@@ -16,3 +16,18 @@
  *= require_tree ./vendor
  *= require_self
  */
+
+@font-face {
+    font-family: sofiapro-light;
+    src: url("/fonts/sofiapro-light.otf") format("opentype");
+}
+
+@font-face {
+    font-family: sofiapro;
+    src: url("/fonts/Sofia Pro Regular.otf") format("opentype");
+}
+
+html *, body * {
+    font-family: sofiapro !important;
+}
+

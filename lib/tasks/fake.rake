@@ -48,4 +48,8 @@ namespace :fake do
     end
     desc 'updated origins finished'
   end
+
+  task pdf: :environment do
+    ReportWorker.perform_async
+  end
 end

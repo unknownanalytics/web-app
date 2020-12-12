@@ -1,0 +1,69 @@
+<% unless intervals.nil? %>
+  <!-- build events collection -->
+  <% events = intervals.map {|entry| {:id => entry[:id], :range => entry[:range], :color => gen_event_color(entry)}} %>
+<% end %>
+<div class="columns calendar is-multiline">
+  <% range.each do |entry| %>
+    <div class="column is-4 has-text-centered">
+      <% previous_month_end = entry.ago(1.month).end_of_month %>
+      <% row = 0 %>
+      <table class="month">
+        <thead>
+        <tr>
+          <td colspan="7">
+            <div class="month-name"> <%= entry.strftime("%B %Y") %></div>
+          </td>
+        </tr>
+        <tr class="week">
+          <% Date::ABBR_DAYNAMES.rotate.each_with_index do |day, index| %>
+            <td class="day-week">
+              <%= t('date.abbr_day_names')[index].capitalize %>
+          <% end %>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- if it not start with monday -->
+        <% if entry.beginning_of_month.wday != 1 %>
+          <tr>
+            <% (previous_month_end.day - (previous_month_end.wday - 1)..previous_month_end.day).each do |day| %>
+              <td class="out-of-month">
+                <% row = row + 1 %>
+              </td>
+            <% end %>
+        <% end %>
+
+        <% (entry.beginning_of_month.day..entry.end_of_month.day).each do |day| %>
+          <!-- last month ended at 6-->
+          <% if row % 7 == 0 %>
+            <tr>
+          <% end %>
+          <td>
+            <%= day %>
+            <% unless events.nil? %>
+              <% current_day = DateTime.new(entry.year, entry.mon, day) %>
+              <% if in_holiday?(current_day, events) %>
+                <% get_classes(current_day, events).each do |e| %>
+                  <div class="in-event" style="background:#<%= e[:color] %>"></div>
+                <% end %>
+              <% end %>
+            <% end %>
+            <% row = row + 1 %>
+          </td>
+          <!-- if we end the current week -->
+          <% if row % 7 == 0 %>
+            </tr>
+            <tr>
+          <% end %>
+        <% end %>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  <% end %>
+</div>
+
+
+
+<% holidays = @holidays.map {|e| {:id => e.id, :range => (e.start_at..e.end_at)}} %>
+<%= render :partial => 'partials/calendar', :locals => {range: @range, intervals: holidays} %>

@@ -1,7 +1,4 @@
-.menu-list a.is-active {
-  background-color: transparent;
-  color: white;
-}
+@import "components/colors";
 
 .inline-menu-button {
   font-size: 19px;
@@ -61,8 +58,9 @@
 
 nav.menu {
   .menu-label {
-    color: #111111;
-    font-weight: 600;
+    .icon {
+      --secondary: #7a7a7a;
+    }
   }
   li {
     a, > span {
@@ -78,9 +76,18 @@ nav.menu {
         margin-right: 3px;
       }
       &.is-active {
+        background: black;
+        border-radius: 0;
+        color: white;
         .icon {
           --primary: white;
           --secondary: rgba(171, 179, 190, 0.93);
+        }
+        &::after {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: $blueshine;
         }
       }
     }

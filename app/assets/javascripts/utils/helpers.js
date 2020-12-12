@@ -74,7 +74,7 @@ App.Helpers = {
         let date = d.getDate();
         let month = d.getMonth() + 1; //Months are zero based
         let year = d.getFullYear();
-        return [year, checkLength(month), checkLength(date)].join(sep);
+        return [checkLength(date), checkLength(month), year].join(sep);
     },
     /**
      * sep => separator
@@ -96,7 +96,6 @@ App.Helpers = {
             }
             return dates;
         };
-
         // Usage
         return buildArray(startDate, endDate);
 

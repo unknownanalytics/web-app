@@ -55,7 +55,10 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                  * @param event
                  */
                 onChangePeriodTopPagesViews(event) {
-                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS, {interval: (event && event.target) ? event.target.value : null}, {
+                    App.Api.get(App.API_ROUTES.DASHBOARD_OVERVIEW_TOP_VIEWS, {
+                        axe: 'all',
+                        interval: (event && event.target) ? event.target.value : null
+                    }, {
                         success: (function (response) {
                             this.updateTopPagesViews(response)
                         }).bind(this)
@@ -80,10 +83,9 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                  * @param response
                  */
                 updateTopPagesViews(response) {
-                    var data = response.data;
                     // And for a doughnut chart
                     var ctx = document.getElementById('canvas_views').getContext('2d');
-                    data = data.page_views;
+                    var data = response.data.views;
                     let sortedKeys = _.sortBy(data, 'vcount');
                     // clear it if exists
                     if (this.topPageViewsChart) {
@@ -158,47 +160,16 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                     });
                 },
 
+
                 /**
                  * Map
                  */
                 updateMapView() {
-                    // And for a doughnut chart
-                    let map = document.getElementById('map');
-                    if (map) {
-                        // check if
-                        let data = this.overview.geo;
-                        // get max code
-                        let max = _.max(_.map(data, e => e.c));
-                        let countByCountries = _.groupBy(data, 'iso');
-                        let countries = App.Helpers.getSVGCountriesCodes();
-                        let gradientColors = JSON.parse(map.dataset['gradientColor']);
-                        let countrySvgShape;
-                        countries.forEach(function (code) {
-                            countrySvgShape = map.querySelector('#' + code);
-                            if (countrySvgShape) {
-                                let c = countByCountries[code] && countByCountries[code][0].c;
-                                if (c) {
-                                    countrySvgShape.style.fill = c ? App.Charts.getGradient(c / max, gradientColors) : 'white';
-                                    countrySvgShape.$ukC = c;
-                                    countrySvgShape.addEventListener('mouseover', () => {
-                                        console.log(this.$ukC)
-                                    });
-                                }
-                            }
-                        })
-                    }
+
                 },
                 updateHeatmap() {
-                    let container = document.getElementById('months');
-                    let child;
-                    for (let i = 0; i < 6; i++) {
-                        child = document.createElement('div');
-                        child.classList.add('month-entry');
-                        container.append(child);
-                        App.Charts.squares(child, [], {animate: false, x: 6, y: 7, stop: 31, size: 20});
-                    }
-                }
 
+                }
             }
 
         }

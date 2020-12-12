@@ -1,4 +1,5 @@
 class UserMailer < ApplicationMailer
+  default template_path: "mailers/#{self.name.underscore}"
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
@@ -20,5 +21,9 @@ class UserMailer < ApplicationMailer
   def new_account_message(user)
     @greeting = user.email
     mail(to: user.email, subject: 'Welcome to Unk')
+  end
+
+  def test
+    mail to: "fathallah.houssem@gmail.com"
   end
 end

@@ -1,6 +1,6 @@
 <nav class="menu">
   <% unless current_domain.nil? %>
-    Domain :<span class="has-text-weight-bold"> <%= current_domain.name %></span>
+<!--    Domain :<span class="has-text-weight-bold"> <%#= current_domain.name %></span>-->
     <% if current_domain.domain_setting.origins.nil? && current_user.own_domain(current_domain) %>
       <br/>
       <%= link_to(settings_dashboard_domain_path(current_domain)) do %>

@@ -13,7 +13,8 @@ App.Routes['/dashboard/stats/pages'] = function () {
                     utms: [],
                     origins: [],
                     pages: []
-                }
+                },
+                page: null
             }
         },
         methods: {
@@ -24,11 +25,17 @@ App.Routes['/dashboard/stats/pages'] = function () {
              * @param options
              */
             loadServerData(options) {
-                App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS, {}, {success: this.onLoadServerData});
-                App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_SUMMARY, {}, {success: this.onLoadSummary});
+                let params = this.page ? {page_id: this.page.id} : {};
+                App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_SUMMARY, params, {success: this.onLoadSummary});
+                App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS, params, {success: this.onLoadServerData});
             },
+            /**
+             *
+             * @param page
+             */
             onSelectedPage(page) {
-                console.log(page)
+                this.page = page;
+                this.loadServerData();
             },
             /**
              *
@@ -91,7 +98,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
              * @param viewsByDay
              */
             drawViewsLine(viewsByDay) {
-                viewsByDay = _.groupBy(viewsByDay, 'date');
+                viewsByDay = _.groupBy(viewsByDay, 'day');
                 let end = new Date();
                 let start = new Date();
                 start.setFullYear(end.getFullYear() - 1);

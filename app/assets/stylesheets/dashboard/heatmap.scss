@@ -1,11 +1,15 @@
 // Place all the styles related to the dashboard/stats controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-.month-entry {
-  display: inline-block;
-  margin-right: 20px;
-  text-align: center;
-  svg {
-    margin: auto;
+.heatmap-months-container {
+  justify-content: space-between;
+  display: flex;
+  .month-entry {
+    display: inline-block;
+    margin-right: 20px;
+    text-align: center;
+    svg {
+      margin: auto;
+    }
   }
 }

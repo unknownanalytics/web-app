@@ -1,7 +1,7 @@
-<script type="text/x-template" id="app_dashboard_geo_scattering_template">
+<script type="text/x-template" id="app_dashboard_geo_vue_template">
   <div>
     <div>
-      <span class="title is-size-5"> Geo partition </span>
+      <span class="title is-size-5"> Geo </span>
       <div class="is-pulled-right">
         <div class="field is-horizontal">
           <div class="field-body">
@@ -26,7 +26,7 @@
         </div>
       </div>
     </div>
-    <%= render 'includes/map_world.svg' %>
+    <app-v-choropleth-chart :data="data" :show-circle-legend="true"></app-v-choropleth-chart>
   </div>
 
 </script>

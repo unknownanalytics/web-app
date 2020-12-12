@@ -1,0 +1,24 @@
+.bar-charts {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: space-between;
+  /* padding: 1rem; */
+  width: 100%;
+  .bar {
+
+    height: 300px;
+    width: 2px;
+    border-radius: 4px;
+    margin: 15px auto;
+    background-color: #92a3b37d;
+    .bar-item {
+      width: 7px;
+      border-radius: 4px;
+      height: 24px;
+      margin-top: 3px;
+      left: -2px;
+      position: relative;
+    }
+  }
+}

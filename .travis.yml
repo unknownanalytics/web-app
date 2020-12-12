@@ -1,0 +1,9 @@
+language: ruby
+
+rvm:
+install: bundle install
+
+script: bundle exec rake travis
+
+notifications:
+  email: false

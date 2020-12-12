@@ -1,9 +1,10 @@
 <style>
 
-  #overview_map_content_container > .panel {
+  #overview_map_content_container > .box {
     overflow: hidden;
   }
 
+  /* fix geo  */
   #overview_map_content_container #map_world_svg {
     stroke-linejoin: round;
     stroke: #000;
@@ -81,8 +82,8 @@
 
     <div class="columns is-multiline">
       <div class="column is-6" id="overview_page_views_content_container">
-        <div class="panel">
-          <p class="panel-heading">
+        <div class="box">
+          <p class="heading">
             <%= t('Page views') %>
 
             <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodTopPagesViews($event)'} %>
@@ -102,8 +103,8 @@
         </div>
       </div>
       <div class="column is-6" id="overview_devices_content_container">
-        <div class="panel">
-          <p class="panel-heading">
+        <div class="box">
+          <p class="heading">
             <%= t('Devices') %>
 
             <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodDevicesViews($event)'} %>
@@ -125,8 +126,8 @@
       </div>
 
       <div class="column is-6" id="overview_events_content_container">
-        <div class="panel">
-          <p class="panel-heading">
+        <div class="box">
+          <p class="heading">
             <%= t('Events') %>
 
             <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
@@ -140,14 +141,34 @@
           <div class="panel-block">
             <canvas id="canvas_events" width="400" height="250"></canvas>
           </div>
+          <div class="level">
+            <div class="level-item">
+              <div class="">
+                <div class="heading">Positive</div>
+                <div class="title is-5">1790</div>
+              </div>
+            </div>
+            <div class="level-item">
+              <div class="">
+                <div class="heading">Negative</div>
+                <div class="title is-5">310</div>
+              </div>
+            </div>
+            <div class="level-item">
+              <div class="">
+                <div class="heading">Pos/Neg %</div>
+                <div class="title is-5">85.2% / 14,7%</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="column is-6" id="overview_map_content_container">
-        <div class="panel">
-          <p class="panel-heading">
+        <div class="box">
+          <p class="heading">
             <%= t('Geo partition') %>
-            <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
             <% if current_domain && current_domain.domain_setting.track_geo %>
+              <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
               <%= link_to(dashboard_stats_geo_path, {class: 'is-pulled-right  icon-container'}) do %>
                 <% cache('icon-external-window') do %>
                   <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
@@ -160,36 +181,23 @@
             <% end %>
 
           </p>
-          <% colors = %w( #ff7007 #ffa4bc #ffbe88 #0D2B3E #cccccc ) %>
-          <div class="panel-block is-flex-grow-1 is-flex  is-align-items-center is-justify-content-center">
-            <% if current_domain && current_domain.domain_setting.track_geo %>
-              <div id="map" class="w-100" data-gradient-color="<%= colors %>">
-                <%= render 'includes/map_world.svg' %>
-                <%= render :partial => 'includes/gradient.line', :locals => {:colors => colors} %>
-              </div>
-            <% else %>
-              <div class="">
-                <%= t('dashboard.overview.geo_activate_text') %> <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
-                  <%= t('dashboard.menu.configuration') %>
-                <% end -%>
-              </div>
+          <div class="panel-block px-0 is-block">
+            <% if current_domain %>
+              <% if current_domain.domain_setting.track_geo %>
+                <app-v-choropleth-chart v-if="overview.geo" :data="overview.geo"></app-v-choropleth-chart>
+              <% else %>
+                <div class="">
+                  <%= t('dashboard.overview.geo_activate_text') %> <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
+                    <%= t('dashboard.menu.configuration') %>
+                  <% end -%>
+                </div>
+              <% end %>
             <% end %>
           </div>
         </div>
       </div>
     </div>
-    <div class="level">
-      <div class="level-left">
-        <div class="level-item">
-          <div class="title is-4">Heatmap
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="months">
-
-    </div>
+    <app-v-heatmap-chart></app-v-heatmap-chart>
 
   </div>
 </script>

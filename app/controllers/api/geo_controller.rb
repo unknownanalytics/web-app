@@ -6,13 +6,15 @@ class Api::GeoController < Api::ApiController
     column_name = 'country_iso_2'
     # select country_iso_2, count(country_iso_2) from page_view_locations group by country_iso_2 ;
     r = PageViewLocation
-            .select("Count(#{table_name}.#{column_name}) as c,  #{table_name}.#{column_name} as iso")
+            .select("Count(#{table_name}.#{column_name}) as val,  #{table_name}.#{column_name} as iso")
             .group(:iso)
             .joins(:page => :domain)
-            .where("#{table_name}" => {:created_at => period_range})
             .where(:pages => {:domain => current_domain})
+    #.where("#{table_name}" => {:created_at => period_range})
 
-    reply_json ({info: r, interval: period_range})
+    #template = render_to_string partial: 'reports/svgs/sample.line' , , t: template
+
+    reply_json ({geo: r.as_json(except: :id), interval: period_range})
   end
 
   def index_with_pages

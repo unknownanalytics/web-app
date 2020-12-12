@@ -28,27 +28,37 @@ class Api::PagesController < Api::ApiController
                })
   end
 
+
   def views
     period_range = get_date_range
-    limit = params[:limit] || 10
+    page_id = params[:page_id]
     pages = Page
-                .joins(:domain)
+
+
+    sql_select = "distinct TO_CHAR(date_trunc('day', page_views.created_at), 'DD-MM-YYYY') as day, count(*)"
+    sql_group = "1"
+
+    if page_id
+      pages = pages.where(:id => page_id)
+    end
+    pages = pages.joins(:domain)
                 .where(:domains => {:id => current_domain.id})
                 .joins(:page_views)
                 .where(:page_views => {:created_at => period_range})
-                .select("pages.id, pages.full_url, count(page_views.page_id) as vcount")
-                .group("pages.id")
-                .limit(limit)
-                .order("vcount DESC")
+                .select(sql_select)
+                .group(sql_group)
+                .order("1 DESC")
 
+=begin
     pages_top_views = pages.map do |record|
       record.attributes.merge(
-          :vcount => record.vcount
+          :date => record.day
       )
     end
+=end
 
     reply_json({
-                   views: pages_top_views,
+                   views: pages,
                    interval: period_range
                })
 

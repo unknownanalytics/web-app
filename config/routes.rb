@@ -5,6 +5,17 @@ Rails.application.routes.draw do
   namespace :hooks do
     post '/screenshot' => 'heatmaps#screenshot'
   end
+  # collector resources !!!!!
+  post 'collect' => 'api/sdk/v1/collect#index'
+
+  namespace :api do
+    post 'ping' => 'ping#ping'
+    namespace :ext do
+      namespace :v1 do
+        get 'views' => 'views#index'
+      end
+    end
+  end
 
   devise_for :users, path: 'accounts'
 
@@ -61,7 +72,7 @@ Rails.application.routes.draw do
 
     namespace :api do
       get '/overview' => 'overview#index'
-      get '/overview/summary' => 'overview#summary'
+      get '/overview/top_pages' => 'overview#top_pages'
       get '/pages/summary' => 'pages#summary'
       get '/pages/views' => 'pages#views'
       get 'pages/:page_id/views' => 'pages#page_views_details'
@@ -87,17 +98,10 @@ Rails.application.routes.draw do
   post '/contact' => 'contact#contact_us'
   get '/contact/' => 'contact#index'
 
-  namespace :api do
-    post 'ping' => 'ping#ping'
-    namespace :ext do
-      namespace :v1 do
-        get 'views' => 'views#index'
-      end
-    end
-  end
-  ## track main path
 
+  mount Sidekiq::Web => '/sidekiq'
 
   get "/:page" => "welcome#pages", :as => 'public_pages'
+
 
 end

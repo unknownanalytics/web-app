@@ -1,49 +1,92 @@
-class Api::HitController < Api::ApiController
-  before_action :check_api_key
+class Api::Sdk::V1::CollectController < Api::ApiController
+  before_action :set_access_control_headers
+  before_action :parse_body
+  before_action :check_params
+  before_action :set_key
   before_action :check_and_set_domain
+  before_action :check_allowed_origins
   protect_from_forgery unless: -> {request.format.json?}
+  after_action -> {request.session_options[:skip] = true}
 
-  def track
-    create_page_if_not_exist
+  @api_key
+  @body
+  @domain
+  @page
+
+  def index
+    url = @body["url"]
+    @page = Page.where(:domain_id => @domain, :full_url => url, :url => url).first_or_create!
+    create_page_view
+=begin
+
+    if domain.domain_setting.track_geo
+      create_page_view_location(page)
+    end
+=end
+    reply_json({:ok => true})
+  end
+
+
+  def create_page_view
+    PageView.create!(:page => @page)
+  end
+
+  def create_page_view_location(page)
+    record = $maxmind.lookup(request.remote_ip)
+    country_iso_2 = Null
+    if record.found?
+      country_iso_2 = record.country.iso_code
+    end
+    PageViewLocation.create!({:domain_id => @domain, :page => page, :country_iso_2 => country_iso_2})
   end
 
   protected
 
-  def create_page_if_not_exist
-    self.Page.find_or_create_by({:domain_id => self.domain, :full_url => original})
+  def set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'
   end
 
-  def create_page_view
-
-  end
-
-  def create_page_view_location
-    record = $maxmind.lookup('1.1.1.1')
-  end
-
-
-  def set_domain(domain)
-    self.domain = domain
-  end
-
-  def check_api_key
-    unless self.get_key
-      reply_json({:error => "no key"}, :bad_request)
-    end
-  end
-
-  def get_key
-    params[:site_key]
-  end
 
   def check_and_set_domain
-    pub_key = ApiKey.joins(:domain).where({:public_key => self.get_key})
+    pub_key = ApiKey.where({:public_key => @api_key}).includes(domain: :domain_setting).first
     unless pub_key
-      return reply_json({:error => "No key"}, :bad_request)
+      return reply_json({:error => "Verify key"}, :bad_request)
     end
-    set_domain(pub_key.domain)
+    @domain = pub_key.domain
   end
 
+  def check_allowed_origins
+    referer = request.referer
+    origin = request.origin
+    allowed_origin = @domain.domain_setting.origins.split(',')
+    # check with trail stash
+    #
+    allow = allowed_origin.include?(origin) or
+        allowed_origin.include?(referer) or
+        allowed_origin.include?(origin.delete_suffix('/')) or
+        allowed_origin.include?(referer.delete_suffix('/'))
+    unless allow
+      reply_json({:error => "Not origin allowed"}, :bad_request)
+    end
+
+  end
+
+  def check_params
+    %w(token url).each do |k|
+      unless @body.has_key?(k)
+        reply_json({:error => "Invalid params"}, :bad_request)
+        break
+      end
+    end
+  end
+
+  def parse_body
+    @body = JSON.parse(request.raw_post)
+  end
+
+  def set_key
+    @api_key = @body["token"]
+  end
 end
 
 =begin

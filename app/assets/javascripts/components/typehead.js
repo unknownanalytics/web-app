@@ -61,10 +61,9 @@
             reset() {
                 this.filteredList = [];
                 this.query = '';
-                this.loading = false;
             },
 
-            setActive(item, index) {
+            setActive(index) {
                 this.navIndex = index;
             },
 

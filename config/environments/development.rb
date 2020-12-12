@@ -39,7 +39,6 @@ Rails.application.configure do
     smtp_uri = URI('smtp://fake:fake@fake:90')
   end
 
-
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       address: smtp_uri.host,
