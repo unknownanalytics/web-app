@@ -6,21 +6,19 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 //
                 let domainMeta = document.head.querySelector("[name~=app-domain][content]");
                 if (domainMeta) {
-                    canvasEvents();
                     App.Api.get(App.API_ROUTES.DASHBOARD_OVERVIEW, {},
                         {
                             success:
                                 (function (response) {
                                     this.stats = response.data.stats;
                                     this.overview = response.data.overview;
-                                    this.updateMapView();
                                 }).bind(this)
                         }
                     );
                     //
                     this.onChangePeriodTopPagesViews();
                     this.onChangePeriodDevicesViews();
-                    this.updateHeatmap();
+                    this.onChangePeriodViews();
 
                 }
                 else {
@@ -43,10 +41,24 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                     },
                     overview: {
                         devices: [],
-                        geo: [],
                         heatmaps: [],
-                        utms: []
+                        utms: [],
+                        geo: []
+                    },
+                    top_pages: {
+                        data: []
+                    },
+                    views: {
+                        selection: {
+                            type: 'line'
+                        },
+                        chart: null
                     }
+                }
+            },
+            watch: {
+                'views.selection.type': function () {
+                    this.updatePagesViewStyle()
                 }
             },
             methods: {
@@ -66,15 +78,29 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 },
                 /**
                  * Devices view
-                 * @param event
+                 * @param $event
                  */
-                onChangePeriodDevicesViews(event) {
+                onChangePeriodDevicesViews($event) {
                     App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS_DEVICES, {
                         type: 'devices',
-                        interval: (event && event.target) ? event.target.value : null
+                        interval: ($event && $event.target) ? $event.target.value : null
                     }, {
                         success: (function (response) {
                             this.updateDevicesViews(response)
+                        }).bind(this)
+                    })
+                },
+                /**
+                 * Devices view
+                 * @param $event
+                 */
+                onChangePeriodViews($event) {
+                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS, {
+                        type: 'devices',
+                        interval: ($event && $event.target) ? $event.target.value : null
+                    }, {
+                        success: (function (response) {
+                            this.updatePagesViews(response.data.views)
                         }).bind(this)
                     })
                 },
@@ -83,36 +109,7 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                  * @param response
                  */
                 updateTopPagesViews(response) {
-                    // And for a doughnut chart
-                    var ctx = document.getElementById('canvas_views').getContext('2d');
-                    var data = response.data.views;
-                    let sortedKeys = _.sortBy(data, 'vcount');
-                    // clear it if exists
-                    if (this.topPageViewsChart) {
-                        this.topPageViewsChart.destroy();
-                    }
-                    this.topPageViewsChart = new Chart(ctx, {
-                        type: 'horizontalBar',
-                        data: {
-                            labels: data.map(e => e.full_url),
-                            datasets: [{
-                                label: '# top Pages',
-                                data: data.map(e => e.vcount),
-                                backgroundColor: ['#ff7007', '#ffa4bc', '#ffbe88', '#0D2B3E', '#cccccc'],
-                                borderColor: [
-                                    '#ff7007', '#ffa4bc', '#ffbe88', '#0D2B3E', '#cccccc'
-                                ],
-                                borderWidth: 1
-                            }]
-                        },
-                        options: {
-                            scales: {
-                                yAxes: [{
-                                    ticks: {mirror: true}
-                                }]
-                            }
-                        }
-                    });
+                    this.top_pages.data = _.sortBy(response.data.views, 'vcount').reverse();
                 },
                 /**
                  * Update data on devices partition chart
@@ -139,12 +136,7 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                             datasets: [{
                                 label: '# Devices',
                                 data: keys.map(key => Math.round((data[key] / data.total) * 100)),
-                                backgroundColor: [
-                                    '#ff7007',
-                                    '#ffa4bc',
-                                    '#ffbe88',
-                                    'gray'
-                                ],
+                                backgroundColor: Object.values(App.Helpers.PALETTE_COLORS),
                             }]
                         },
                         options: {
@@ -159,22 +151,142 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                         }
                     });
                 },
+                updatePagesViews(data) {
 
+                    function createChart(data) {
+                        let ctx = document.getElementById('canvas_views').getContext('2d');
+                        let colorHelper = Chart.helpers.color;
+                        let color = App.Helpers.PALETTE_COLORS.black;
 
-                /**
-                 * Map
-                 */
-                updateMapView() {
+                        let cfg = {
+                            data: {
+                                datasets: [{
+                                    label: 'All views',
+                                    backgroundColor: colorHelper(color).alpha(0.5).rgbString(),
+                                    borderColor: color,
+                                    data: data,
+                                    type: 'line',
+                                    pointRadius: 0,
+                                    fill: false,
+                                    lineTension: 0,
+                                    borderWidth: 2
+                                }]
+                            },
+                            options: {
+                                animation: {
+                                    duration: 0
+                                },
+                                scales: {
+                                    xAxes: [{
+                                        type: 'time',
+                                        distribution: 'series',
+                                        offset: true,
+                                        ticks: {
+                                            major: {
+                                                enabled: true,
+                                                fontStyle: 'bold'
+                                            },
+                                            source: 'data',
+                                            autoSkip: true,
+                                            autoSkipPadding: 75,
+                                            maxRotation: 0,
+                                            sampleSize: 100
+                                        },
+                                        afterBuildTicks: function (scale, ticks) {
+                                            var majorUnit = scale._majorUnit;
+                                            var firstTick = ticks[0];
+                                            var i, ilen, val, tick, currMajor, lastMajor;
+                                            val = moment(firstTick.value);
+                                            if ((majorUnit === 'minute' && val.second() === 0)
+                                                || (majorUnit === 'hour' && val.minute() === 0)
+                                                || (majorUnit === 'day' && val.hour() === 9)
+                                                || (majorUnit === 'month' && val.date() <= 3 && val.isoWeekday() === 1)
+                                                || (majorUnit === 'year' && val.month() === 0)) {
+                                                firstTick.major = true;
+                                            } else {
+                                                firstTick.major = false;
+                                            }
+                                            lastMajor = val.get(majorUnit);
 
+                                            for (i = 1, ilen = ticks.length; i < ilen; i++) {
+                                                tick = ticks[i];
+
+                                                val = moment(tick.value);
+                                                currMajor = val.get(majorUnit);
+                                                tick.major = currMajor !== lastMajor;
+                                                lastMajor = currMajor;
+                                            }
+                                            return ticks;
+                                        }
+                                    }],
+                                    yAxes: [{
+                                        gridLines: {
+                                            drawBorder: false
+                                        },
+                                        scaleLabel: {
+                                            display: true,
+                                            labelString: 'Views count($)'
+                                        }
+                                    }]
+                                }, tooltips: {
+                                    intersect: false,
+                                    mode: 'index',
+                                    callbacks: {
+                                        label: function (tooltipItem, myData) {
+                                            var label = myData.datasets[tooltipItem.datasetIndex].label || '';
+                                            if (label) {
+                                                label += ': ';
+                                            }
+                                            label += parseFloat(tooltipItem.value).toFixed(2);
+                                            return label;
+                                        }
+                                    }
+                                }
+                            }
+                        };
+
+                        return new Chart(ctx, cfg);
+                    }
+
+                    // format
+                    data = data.map(e => {
+                        return {
+                            t: moment(e.t),
+                            y: e.v,
+                        }
+                    });
+
+                    if (!this.views.chart) {
+                        this.views.chart = createChart(data);
+                    }
+                    else {
+                        this._getDataSet().data = data;
+                        this.views.chart.update();
+                    }
                 },
-                updateHeatmap() {
-
+                updatePagesViewStyle() {
+                    this._getDataSet().type = this.views.selection.type;
+                    this.views.chart.update();
+                },
+                _getDataSet() {
+                    let chart = this.views.chart;
+                    return chart.config.data.datasets[0];
                 }
             }
 
         }
     )
 };
+
+function canvasEvents() {
+    // And for a doughnut chart
+    let canvas = document.getElementById('canvas_events');
+    if (canvas) {
+        var ctx = canvas.getContext('2d');
+
+
+    }
+}
 
 function canvasEvents() {
     // And for a doughnut chart

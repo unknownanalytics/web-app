@@ -2,7 +2,26 @@
   <div>
     <div>
       <h4 class="is-size-5 has-text-weight-bold">Last 6 months</h4>
-
+      <div class="level">
+        <div class="level-item">
+          <div class="">
+            <div class="heading">Positive</div>
+            <div class="title is-5">1790</div>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="">
+            <div class="heading">Negative</div>
+            <div class="title is-5">310</div>
+          </div>
+        </div>
+        <div class="level-item">
+          <div class="">
+            <div class="heading">Pos/Neg %</div>
+            <div class="title is-5">85.2% / 14,7%</div>
+          </div>
+        </div>
+      </div>
       <div>
         <div class="columns mb-2" id="page_filter_menu">
           <div class="column is-one-quarter">
@@ -50,20 +69,21 @@
       <div>
         <h4 class="is-size-5  has-text-weight-bold">Daily
           <small class="is-size-7"> [ by weeks in the last 6 months ]</small>
-          <select @change="changeWeekView($event)">
-            <option>Weeks</option>
-            <%= get_range_of_weeks_n_months_ago(6).each do |week| %>
-              <option value="<%= week %>">
+          <select @change="onChangeHeatFilter($event)" v-model="heat.range">
+            <%= get_range_of_weeks_n_months_ago(6).each_with_index do |week, index| %>
+              <option
+                <% if index == 0 %>selected="selected"
+                <% end %> value="<%= week %>">
                 <%= week %>
               </option>
             <% end %>
           </select>
         </h4>
         <hr/>
-        <div id="main_months_chart" style="width: 100%;height:400px;min-width:1000px"></div>
+        <div id="main_week_chart" style="width: 100%;height:400px;min-width:1000px"></div>
       </div>
 
-      <div class="column is-6">
+      <!--<div class="column is-6">
         <div class="box box-no-shadow">
           <div class="heading">Vos consultations cette semaine
             <span class="title subtitle is-pulled-right"></span>
@@ -87,23 +107,14 @@
           </div>
         </div>
       </div>
-
+      -->
       <hr/>
       <h4 class="is-size-5  has-text-weight-bold">Summary
         <small class="is-size-7">Partitions</small>
       </h4>
       <div class="columns has-text-centered">
-        <div class="column">
-          <label>Utms</label>
-          <canvas id="canvas_pages_utms"></canvas>
-        </div>
-        <div class="column">
-          <label>Origins</label>
-          <canvas id="canvas_pages_origins"></canvas>
-        </div>
-        <div class="column">
-          <label>Browsers</label>
-          <canvas id="canvas_pages_browsers"></canvas>
+        <div id="canvas_pages_partition" style="width: 100%;height:200px;">
+
         </div>
       </div>
 

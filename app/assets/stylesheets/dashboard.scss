@@ -2,43 +2,29 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "components/colors";
-@mixin small-tag {
-  small {
-    .tag {
-      font-size: 8px !important;
-    }
-  }
-}
+@import "components/mixins";
 
 #dashboard_navbar {
   border-bottom: 3px solid hsla(227, 38%, 84%, 0.26);
 }
 
-#overview_global_view_container {
-  .box {
-    background: $glight;
-    .heading {
-      font-weight: bold;
-      letter-spacing: 2px;
-      @include small-tag;
-    }
-    &, .title {
-      color: $secondary-icon;
-    }
-
-  }
-}
-
-
 #overview_container {
-  .panel-heading {
-    background-color: $glight;
+  .heading {
     border: none;
     @include small-tag;
     align-items: center;
-    font-size: 18px !important;
     a {
       font-size: 14px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $primary;
+      .icon {
+        width: 20px;
+        height: 20px;
+        --primary: #{$primary};
+        --secondary: #{$primary};
+      }
     }
   }
   select {

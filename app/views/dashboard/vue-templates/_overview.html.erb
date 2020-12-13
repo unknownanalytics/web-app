@@ -84,7 +84,7 @@
       <div class="column is-6" id="overview_page_views_content_container">
         <div class="box">
           <p class="heading">
-            <%= t('Page views') %>
+            <%= t('Top Page views') %>
 
             <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodTopPagesViews($event)'} %>
 
@@ -97,11 +97,49 @@
             <% end %>
 
           </p>
-          <div class="panel-block">
+          <div class="panel-block px-0 is-block">
+            <table class="table w-100">
+              <thead>
+              <tr>
+                <td>Page</td>
+                <td>Views</td>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="e in top_pages.data">
+                <td>{{e.full_url || e.url}}</td>
+                <td>{{e.vcount}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="column is-6" id="overview_events_content_container">
+        <div class="box">
+          <p class="heading">
+            <%= t('Views') %>
+
+            <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodViews($event)'} %>
+            <select v-model="views.selection.type">
+              <option value="line" selected="selected">line</option>
+              <option value="bar">bar</option>
+            </select>
+            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right  icon-container'}) do %>
+              <% cache('icon-external-window') do %>
+                <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+              <% end %>
+              <%= t('details') %>
+            <% end %>
+          </p>
+          <div class="panel-block px-0 is-block">
             <canvas id="canvas_views" width="400" height="250"></canvas>
           </div>
         </div>
       </div>
+
       <div class="column is-6" id="overview_devices_content_container">
         <div class="box">
           <p class="heading">
@@ -119,50 +157,12 @@
             <% end %>
 
           </p>
-          <div class="panel-block">
+          <div class="panel-block px-0 is-block">
             <canvas id="canvas_devices" width="400" height="250"></canvas>
           </div>
         </div>
       </div>
 
-      <div class="column is-6" id="overview_events_content_container">
-        <div class="box">
-          <p class="heading">
-            <%= t('Events') %>
-
-            <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
-            <%= link_to(dashboard_stats_geo_path, {class: 'is-pulled-right  icon-container'}) do %>
-              <% cache('icon-external-window') do %>
-                <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
-              <% end %>
-              <%= t('details') %>
-            <% end %>
-          </p>
-          <div class="panel-block">
-            <canvas id="canvas_events" width="400" height="250"></canvas>
-          </div>
-          <div class="level">
-            <div class="level-item">
-              <div class="">
-                <div class="heading">Positive</div>
-                <div class="title is-5">1790</div>
-              </div>
-            </div>
-            <div class="level-item">
-              <div class="">
-                <div class="heading">Negative</div>
-                <div class="title is-5">310</div>
-              </div>
-            </div>
-            <div class="level-item">
-              <div class="">
-                <div class="heading">Pos/Neg %</div>
-                <div class="title is-5">85.2% / 14,7%</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="column is-6" id="overview_map_content_container">
         <div class="box">
           <p class="heading">

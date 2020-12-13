@@ -35,12 +35,13 @@ class Api::PagesController < Api::ApiController
     pages = Page
 
 
-    sql_select = "distinct TO_CHAR(date_trunc('day', page_views.created_at), 'DD-MM-YYYY') as day, count(*)"
+    sql_select = "distinct TO_CHAR(date_trunc('day', page_views.created_at), 'YYYY-MM-DD') as t, count(*) as v"
     sql_group = "1"
 
     if page_id
       pages = pages.where(:id => page_id)
     end
+
     pages = pages.joins(:domain)
                 .where(:domains => {:id => current_domain.id})
                 .joins(:page_views)
@@ -48,6 +49,7 @@ class Api::PagesController < Api::ApiController
                 .select(sql_select)
                 .group(sql_group)
                 .order("1 DESC")
+# TODO add period
 
 =begin
     pages_top_views = pages.map do |record|
@@ -58,33 +60,45 @@ class Api::PagesController < Api::ApiController
 =end
 
     reply_json({
-                   views: pages,
+                   views: pages.as_json(except: :id),
                    interval: period_range
                })
 
   end
 
-  def weekly_views
+  def heatmap
     period_range = get_date_range
-    limit = params[:limit] || 10
+    page_id = params[:page_id]
+    by = params[:by]
+    formats = {
+        "week" => "IYYY-IW",
+        "day" => "YYYY-MM-DD",
+        "month" => "YYYY-MM",
+        "hour" => "YYYY-MM-DD HH24-ID"
+    }
+
+    unless formats.keys.include?(by)
+      return reply_json({ok: false}, :bad_request)
+    end
     pages = Page
-                .joins(:domain)
+
+    sql_select = "distinct TO_CHAR(date_trunc('#{by}', page_views.created_at), '#{formats[by]}') as t, count(*) as v"
+    sql_group = "1"
+
+    if page_id
+      pages = pages.where(:id => page_id)
+    end
+
+    pages = pages.joins(:domain)
                 .where(:domains => {:id => current_domain.id})
                 .joins(:page_views)
                 .where(:page_views => {:created_at => period_range})
-                .select("pages.id, pages.full_url, count(page_views.page_id) as vcount")
-                .group("pages.id")
-                .limit(limit)
-                .order("vcount DESC")
-
-    pages_top_views = pages.map do |record|
-      record.attributes.merge(
-          :vcount => record.vcount
-      )
-    end
+                .select(sql_select)
+                .group(sql_group)
+                .order("1 DESC")
 
     reply_json({
-                   views: pages_top_views,
+                   views: pages.as_json(except: :id),
                    interval: period_range
                })
 

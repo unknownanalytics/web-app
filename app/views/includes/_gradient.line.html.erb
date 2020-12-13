@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="<%= width ||= 500 %>" height="10" viewBox="0 0 <%= width %> 10">
+<svg xmlns="http://www.w3.org/2000/svg"
+     id="geo_gradient"
+     width="<%= width ||= 500 %>" height="10" viewBox="0 0 <%= width %> 10">
   <defs>
     <!-- https://stackoverflow.com/questions/21638169/svg-line-with-gradient-stroke-wont-display-straight/34687362-->
     <linearGradient id="gradient" gradientUnits="userSpaceOnUse">
@@ -8,5 +10,4 @@
     </linearGradient>
   </defs>
   <line x1="0" y1="0" y2="0" x2="100%" stroke="url(#gradient)" stroke-width="10" fill="none"/>
-  <text>1</text>
 </svg>

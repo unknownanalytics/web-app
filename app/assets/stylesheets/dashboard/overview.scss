@@ -1,3 +1,5 @@
+@import "components/colors";
+@import "components/mixins";
 #overview_container {
   .panel {
     min-height: 386px;
@@ -5,3 +7,16 @@
     flex-direction: column;
   }
 }
+#overview_global_view_container {
+   .box {
+     .heading {
+       font-weight: bold;
+       letter-spacing: 2px;
+       @include small-tag;
+     }
+     &, .title {
+       color: $secondary-icon;
+     }
+
+   }
+ }
