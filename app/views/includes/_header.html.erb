@@ -1,42 +1,44 @@
-<nav class="navbar" id="dashboard_navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="container">
-    <div class="navbar-menu">
-      <div class="navbar-start">
-        <a class="navbar-item" href="<%= root_path %>">
-          <%= render "includes/logo" %>
-        </a>
-        <form id="navbar_header_form" class="navbar-item">
-          <div class="mt-4">
-            <app-v-typehead :list="commands"
-                            placeholder="Shortcut"
-                            v-on:selected="changeFilterPath($event)">
-            </app-v-typehead>
-          </div>
-        </form>
-      </div>
+    <div class="navbar-brand">
+      <a class="navbar-item" href="<%= root_path %>">
+        <%= render "includes/logo" %>
+      </a>
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
     </div>
     <div class="navbar-end">
+
       <div class="navbar-item">
-        <% if current_domain.present? %>
-          <span class="tag  is-black"><%= current_domain.name %></span>
-
-        <% end %>
+        <%= render 'includes/header/features_dropdown_navbar' %>
       </div>
 
-
-      <%= link_to('/documentation', class: "navbar-item") do %>
-        Documentation
-      <% end %>
-      <div class="navbar-item has-dropdown is-hoverable">
-        <div class="navbar-link top-header-notifications has-notifications">
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-notification'} %>
-        </div>
-        <div class="navbar-dropdown">
-        </div>
+      <div class="navbar-item">
+        <%= link_to t('Principles'), (user_signed_in? ? home_auth_path_path : '/') + "#principles", class: "title is-6" %>
       </div>
-      <%= render "includes/header/top_right_settings" %>
-
+      <div class="navbar-item">
+        <%= link_to t('Pricing'), (user_signed_in? ? home_auth_path_path : '/') + "#pricing", class: "title is-6" %>
+      </div>
+      <div class="navbar-item">
+        <%= link_to t("Integration"), (user_signed_in? ? home_auth_path_path : '/') + "#sdk_integration", class: "title is-6" %>
+      </div>
     </div>
-
+    <div class="navbar-item">
+      <% if user_signed_in? %>
+        <%= link_to "Dashboard", dashboard_path, class: "has-text-weight-bold" %>
+      <% else %>
+        <div class="buttons">
+          <%= link_to(new_user_registration_path, class: "button is-primary register-button") do %>
+            <strong> <%= t('Sign up') %></strong>
+          <% end %>
+          <%= link_to(new_user_session_path, class: "button is-light") do %>
+            <strong> <%= t('Log in') %></strong>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </nav>

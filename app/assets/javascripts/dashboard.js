@@ -9,6 +9,7 @@ document.addEventListener("turbolinks:load", function (event) {
     if (App.Routes[path]) {
         App.Routes[path]();
     }
+    // main search element
     new Vue({
         el: '#navbar_header_form',
         data: function () {

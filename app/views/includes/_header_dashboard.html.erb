@@ -1,0 +1,42 @@
+<nav class="navbar" id="dashboard_navbar" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="<%= root_path %>">
+          <%= render "includes/logo" %>
+        </a>
+        <form id="navbar_header_form" class="navbar-item">
+          <div class="mt-4">
+            <app-v-typehead :list="commands"
+                            placeholder="Shortcut"
+                            v-on:selected="changeFilterPath($event)">
+            </app-v-typehead>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <% if current_domain.present? %>
+          <span class="tag  is-black"><%= current_domain.name %></span>
+
+        <% end %>
+      </div>
+
+
+      <%= link_to('/guide', class: "navbar-item") do %>
+        Guide
+      <% end %>
+      <div class="navbar-item has-dropdown is-hoverable">
+        <div class="navbar-link top-header-notifications has-notifications">
+          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-notification'} %>
+        </div>
+        <div class="navbar-dropdown">
+        </div>
+      </div>
+      <%= render "includes/header/top_right_settings" %>
+
+    </div>
+
+  </div>
+</nav>

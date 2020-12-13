@@ -6,26 +6,36 @@
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
 
-  <link href="https://fonts.googleapis.com/css?family=Rubik:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
-
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
 <body>
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="container">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="<%= root_path %>">
-        <%= render "includes/logo" %>
-      </a>
+
+<div class="devise-container">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="container">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="<%= root_path %>">
+          <%= render "includes/logo" %>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="devise-content">
+    <div class="devise-inner-content">
+      <% if (alerted = alert) %>
+        <p id="alert"><%= alerted %></p>
+      <% end %>
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg %>
+      <% end %>
+      <%= yield %>
     </div>
   </div>
-</nav>
-<div class="devise-container">
-  <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg %>
+  <% cache("welcome/home/footer") do %>
+    <%= render "welcome/home/footer" %>
   <% end %>
-  <%= yield %>
+
 </div>
 
 </body>

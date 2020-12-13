@@ -256,7 +256,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                     }],
                     series: [{
                         type: 'pie',
-                        radius: '25%',
+                        radius: '40%',
                         center: ['50%', '50%'],
                         data: dataOrigins,
                         animation: false,
@@ -271,7 +271,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                         bottom: 0
                     }, {
                         type: 'pie',
-                        radius: '25%',
+                        radius: '40%',
                         center: ['50%', '50%'],
                         data: dataUtms,
                         animation: false,
@@ -286,7 +286,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                         bottom: 0
                     }, {
                         type: 'pie',
-                        radius: '25%',
+                        radius: '40%',
                         center: ['50%', '50%'],
                         data: dataBrowsers,
                         animation: false,

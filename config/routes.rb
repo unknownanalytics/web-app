@@ -77,10 +77,12 @@ Rails.application.routes.draw do
       get '/pages/views' => 'pages#views'
       get '/pages/heatmap' => 'pages#heatmap'
       get 'pages/:page_id/views' => 'pages#page_views_details'
+      get '/geo' => 'geo#index'
       get '/devices' => 'devices#index'
+      # TODO
       get '/events' => 'events#index'
       get '/errors' => 'errors#index'
-      get '/geo' => 'geo#index'
+      # clicks and events
       get '/heatmaps' => 'heatmaps#index'
       get '/export' => 'export#index'
     end
@@ -90,8 +92,13 @@ Rails.application.routes.draw do
 
 
   authenticated :user do
+    scope :welcome do
+      root 'welcome#pages', as: 'home_auth_path'
+    end
     root 'dashboard/stats#index'
   end
+
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#pages', as: 'home_path'
 
