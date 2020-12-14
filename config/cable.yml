@@ -1,19 +1,17 @@
-development:
-  adapter: redis
+default: &default
+  # For details on connection pooling, see Rails configuration guide
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
   url: <%= ENV.fetch("UNK_ANA_REDIS_URI") %>
-  channel_prefix: <%= ENV.fetch("UNK_ANA_REDIS_CHANNEL_PREFIX") %>
+  channel_prefix: <%= ENV.fetch("UNK_ANA_REDIS_CHANNEL_PREFIX") { "unk_" + Rails.env } %>
+
+development:
+  <<: *default
 
 test:
-  adapter: redis
-  url: <%= ENV.fetch("UNK_ANA_REDIS_URI") %>
-  channel_prefix:  <%= ENV.fetch("UNK_ANA_REDIS_CHANNEL_PREFIX") %>
+  <<: *default
 
 staging:
-  adapter: redis
-  url: <%= ENV.fetch("UNK_ANA_REDIS_URI")%>
-  channel_prefix:  <%= ENV.fetch("UNK_ANA_REDIS_CHANNEL_PREFIX") %>
+  <<: *default
 
 production:
-  adapter: redis
-  url: <%= ENV.fetch("UNK_ANA_REDIS_URI")%>
-  channel_prefix: <%= ENV.fetch("UNK_ANA_REDIS_CHANNEL_PREFIX") %>
+  <<: *default

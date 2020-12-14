@@ -15,7 +15,19 @@ class Api::Sdk::V1::CollectController < Api::ApiController
 
   def index
     url = @body["url"]
-    @page = Page.where(:domain_id => @domain, :full_url => url, :url => url).first_or_create!
+    uri = URI(url)
+    uri.scheme
+#=> "http"
+    uri.host
+#=> "foo.com"
+    uri.path
+#=> "/posts"
+    uri.query
+#=> "id=30&limit=5"
+    uri.fragment
+#=> "time=1305298413"
+    @page = Page.where(:domain_id => @domain, :url => url).first_or_create!
+    @page.update!(fragment = uri.fragment, path = uri.path, query = uri.query, host = uri.host)
     create_page_view
 =begin
 

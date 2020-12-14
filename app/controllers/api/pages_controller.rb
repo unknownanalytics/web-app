@@ -14,11 +14,13 @@ class Api::PagesController < Api::ApiController
                    .where(:pages => {:domain => current_domain})
 
 
-    # browser
+    # origins
     origins = PageView.select('count(case when origin is null then 1 ELSE 1 end), page_views.origin')
                   .group(:origin)
                   .joins(:page => :domain)
                   .where(:pages => {:domain => current_domain})
+
+
 
     reply_json({
                    pages: pages,

@@ -40,20 +40,11 @@
             <%= t('Pages Views') %>
           </div>
           <div class="title is-5  has-text-weight-normal">
-            <span>{{stats.viewsCount}}</span>
+            <span>{{stats.views}}</span>
             <div class="is-pulled-right">
               <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-target', :css_class => 'accent'} %>
             </div>
 
-          </div>
-        </div>
-      </div>
-      <div class="column">
-        <div class="box">
-          <div class="heading has-text-weight-semibold"><%= t('Devices') %>
-          </div>
-          <div class="title is-5  has-text-weight-normal">
-            <span>{{stats.eventsCount}}</span>
           </div>
         </div>
       </div>
@@ -63,16 +54,26 @@
           <div class="heading has-text-weight-semibold"><%= t('Campaigns') %>
           </div>
           <div class="title is-5  has-text-weight-normal">
-            <span>-</span>
+            <span>{{stats.campaigns}}</span>
           </div>
         </div>
       </div>
 
       <div class="column">
         <div class="box">
-          <div class="heading has-text-weight-semibold"><%= t('Referral') %></div>
+          <div class="heading has-text-weight-semibold"><%= t('Referers') %></div>
           <div class="title is-5  has-text-weight-normal">
-            <span>{{stats.sessionsCount}}</span>
+            <span>{{stats.referers}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="column">
+        <div class="box">
+          <div class="heading has-text-weight-semibold"><%= t('Devices') %>
+          </div>
+          <div class="title is-5  has-text-weight-normal">
+            <span>{{stats.devices}}</span>
           </div>
         </div>
       </div>

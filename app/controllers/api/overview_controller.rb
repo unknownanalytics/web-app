@@ -3,6 +3,32 @@ class Api::OverviewController < Api::ApiController
     period_range = get_date_range
     # countries
 
+
+    # browser
+    campaigns = PageView.select('count(distinct utm_campaign)')
+                    .where.not(:utm_campaign => nil)
+                    .joins(:page => :domain)
+                    .where(:pages => {:domain => current_domain})
+
+    campaigns = campaigns.as_json(except: :id)[0]['count']
+
+    # referers
+    referers = PageView.select('count(distinct referer)')
+                   .where.not(:referer => nil)
+                   .joins(:page => :domain)
+                   .where(:pages => {:domain => current_domain})
+
+    referers = referers.as_json(except: :id)[0]['count']
+
+
+    # browser
+    browsers = PageView.select('count(distinct browser)')
+                    .where.not(:browser => nil)
+                    .joins(:page => :domain)
+                    .where(:pages => {:domain => current_domain})
+
+    browsers = browsers.as_json(except: :id)[0]['count']
+
     if current_domain.domain_setting.track_geo
       page_view_locations = 'page_view_locations'
       geo = PageViewLocation
@@ -20,16 +46,17 @@ class Api::OverviewController < Api::ApiController
                      geo: geo
                  })
     end
+
     reply_json({
                    interval: period_range,
                    overview: {
-                       geo: geo,
+                       # geo: geo,
                    },
                    stats: {
-                       viewsCount: current_domain.page_views.count,
-                       sessionsCount: 300,
-                       eventsCount: 23,
-                       issuesCount: 233
+                       views: current_domain.page_views.count,
+                       referers: referers,
+                       campaigns: campaigns,
+                       devices: browsers
                    }
                })
   end

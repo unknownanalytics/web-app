@@ -9,6 +9,7 @@ class CreatePageViews < ActiveRecord::Migration[5.2]
       t.boolean :is_desktop, default: false
       t.integer :width_resolution
       t.integer :height_resolution
+      t.string :referer
       t.string :query
       t.references :page, foreign_key: true, null: false, index: true
 

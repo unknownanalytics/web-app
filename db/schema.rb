@@ -2,11 +2,11 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
     t.bigint "admin_id"
     t.bigint "sender_id"
     t.bigint "domain_id"
-    t.boolean "validated"
+    t.boolean "validated", default: false
     t.datetime "validated_at"
     t.datetime "leaved_at"
     t.datetime "created_at", null: false
@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
     t.index ["sender_id"], name: "index_admins_domains_on_sender_id"
   end
 
-  create_table "api_keys", id: :bigint, default: -> { "nextval('apikeys_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "api_keys", force: :cascade do |t|
     t.string "public_key"
     t.datetime "expires"
     t.bigint "domain_id"
@@ -39,14 +39,15 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
     t.string "alias"
     t.string "private_key"
     t.boolean "is_test", default: false
-    t.index ["domain_id"], name: "index_apikeys_on_domain_id"
-    t.index ["public_key"], name: "index_apikeys_on_value"
-    t.index ["user_id"], name: "index_apikeys_on_user_id"
+    t.index ["domain_id"], name: "index_api_keys_on_domain_id"
+    t.index ["public_key"], name: "index_api_keys_on_public_key"
+    t.index ["user_id"], name: "index_api_keys_on_user_id"
   end
 
   create_table "contacts", force: :cascade do |t|
     t.string "email"
     t.string "subject"
+    t.string "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -57,7 +58,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
     t.bigint "domain_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["domain_id"], name: "index_domain_settings_on_domain_id"
+    t.index ["domain_id"], name: "index_domain_settings_on_domain_id", unique: true
   end
 
   create_table "domains", force: :cascade do |t|
@@ -65,11 +66,11 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_domains_on_name"
+    t.index ["name"], name: "index_domains_on_name", unique: true
     t.index ["user_id"], name: "index_domains_on_user_id"
   end
 
-  create_table "page_errors", id: :bigint, default: -> { "nextval('errors_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "page_errors", force: :cascade do |t|
     t.bigint "page_id", null: false
     t.jsonb "metadata"
     t.string "user_agent"
@@ -81,10 +82,10 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_test", default: false
-    t.index ["page_id"], name: "index_errors_on_page_id"
+    t.index ["page_id"], name: "index_page_errors_on_page_id"
   end
 
-  create_table "page_events", id: :bigint, default: -> { "nextval('events_id_seq'::regclass)" }, force: :cascade do |t|
+  create_table "page_events", force: :cascade do |t|
     t.bigint "page_id", null: false
     t.jsonb "metadata"
     t.string "user_agent"
@@ -97,7 +98,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_test", default: false
-    t.index ["page_id"], name: "index_events_on_page_id"
+    t.index ["page_id"], name: "index_page_events_on_page_id"
   end
 
   create_table "page_url_screenshots", force: :cascade do |t|
@@ -116,8 +117,8 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
   end
 
   create_table "page_view_locations", force: :cascade do |t|
-    t.string "country_iso_2"
-    t.string "country_iso_3"
+    t.string "country_iso_2", limit: 2
+    t.string "country_iso_3", limit: 3
     t.string "city_name"
     t.string "uuid"
     t.float "lat"
@@ -126,7 +127,10 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_test", default: false
+    t.index ["city_name"], name: "index_page_view_locations_on_city_name"
+    t.index ["country_iso_2"], name: "index_page_view_locations_on_country_iso_2"
     t.index ["page_id"], name: "index_page_view_locations_on_page_id"
+    t.index ["uuid"], name: "index_page_view_locations_on_uuid"
   end
 
   create_table "page_views", force: :cascade do |t|
@@ -138,6 +142,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
     t.boolean "is_desktop", default: false
     t.integer "width_resolution"
     t.integer "height_resolution"
+    t.string "referer"
     t.string "query"
     t.bigint "page_id", null: false
     t.datetime "created_at", null: false
@@ -158,7 +163,8 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
     t.string "path"
     t.string "host"
     t.string "fragment"
-    t.string "parameters"
+    t.jsonb "metadata"
+    t.string "query"
     t.integer "page_views_count", default: 0
     t.bigint "domain_id", null: false
     t.datetime "created_at", null: false
