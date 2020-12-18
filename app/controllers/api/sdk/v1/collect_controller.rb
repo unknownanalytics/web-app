@@ -29,12 +29,10 @@ class Api::Sdk::V1::CollectController < Api::ApiController
     @page = Page.where(:domain_id => @domain, :url => url).first_or_create!
     @page.update!(fragment = uri.fragment, path = uri.path, query = uri.query, host = uri.host)
     create_page_view
-=begin
-
     if domain.domain_setting.track_geo
       create_page_view_location(page)
     end
-=end
+
     reply_json({:ok => true})
   end
 
@@ -45,11 +43,11 @@ class Api::Sdk::V1::CollectController < Api::ApiController
 
   def create_page_view_location(page)
     record = $maxmind.lookup(request.remote_ip)
-    country_iso_2 = Null
     if record.found?
       country_iso_2 = record.country.iso_code
+      PageViewLocation.create!({:domain_id => @domain, :page => page, :country_iso_2 => country_iso_2})
     end
-    PageViewLocation.create!({:domain_id => @domain, :page => page, :country_iso_2 => country_iso_2})
+
   end
 
   protected

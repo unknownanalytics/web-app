@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   post 'collect' => 'api/sdk/v1/collect#index'
 
   namespace :api do
-    post 'ping' => 'ping#ping'
     namespace :ext do
       namespace :v1 do
         get 'views' => 'views#index'
