@@ -15,9 +15,7 @@
         <a class="is-link">Template</a><br/>
         <a class="is-link"><%= link_to t("Privacy Policy"), public_pages_path(:page => 'privacy-policy') %></a><br/>
         <%= link_to 'About us', '/team' %><br/>
-        <%= link_to(contact_path) do %>
-          Contact us
-        <% end %>
+        <%= link_to 'Contact us', contact_path %>
 
       </div>
       <div class="column content">

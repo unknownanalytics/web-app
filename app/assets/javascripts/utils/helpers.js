@@ -8,7 +8,6 @@ App.Helpers = {
         redlight: "#ff6f5e",
         pinklight: "#726aff",
         gray: "#ff3a1a",
-        orangelight: "#ffbe88",
         orange: "#FDB45C",
         bluelight: "#48B3FF",
         yelow: "#ebfa55",

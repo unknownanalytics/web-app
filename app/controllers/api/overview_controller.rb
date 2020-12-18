@@ -23,9 +23,9 @@ class Api::OverviewController < Api::ApiController
 
     # browser
     browsers = PageView.select('count(distinct browser)')
-                    .where.not(:browser => nil)
-                    .joins(:page => :domain)
-                    .where(:pages => {:domain => current_domain})
+                   .where.not(:browser => nil)
+                   .joins(:page => :domain)
+                   .where(:pages => {:domain => current_domain})
 
     browsers = browsers.as_json(except: :id)[0]['count']
 
@@ -41,16 +41,12 @@ class Api::OverviewController < Api::ApiController
       geo = geo.as_json(except: :id)
     else
       geo = null
-      reply_json({
-                     interval: period_range,
-                     geo: geo
-                 })
     end
 
     reply_json({
                    interval: period_range,
                    overview: {
-                       # geo: geo,
+                       geo: geo,
                    },
                    stats: {
                        views: current_domain.page_views.count,

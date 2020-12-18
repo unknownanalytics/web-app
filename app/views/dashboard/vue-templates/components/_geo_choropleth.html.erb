@@ -1,0 +1,42 @@
+<% colors = %w(#03a9f4ad #ffeda0 #feb24c #f03b20) %>
+<script type="text/x-template" id="app_component_map_choropleth_template">
+  <div class="map-container w-100" data-gradient-color="<%= colors %>">
+    <%= render 'includes/map_world.svg' %>
+    <div class="is-flex">
+      <div class="is-flex-grow-1">
+
+        <div style="display: none;">
+          <!-- you should keep the same viewbox as the main map -->
+          <g v-if="renderStyle == 'bubble'" :transform="'translate(' + legendTranslateX + ', 860)'" id="legend_to_clone">
+            <g>
+              <g v-for="i in [0, 1, 2, 3, 4, 5]" v-bind:transform="'translate( 0,' + (i/5) * 50 + ')'">
+                <circle class="swatch" fill="transparent" v-bind:r="10 + ((i/5) * 50)"></circle>
+                <line v-bind:x1="0" v-bind:y1="(10 + ((i/5) * 50))" style="stroke:black;stroke-width:1"
+                      v-bind:y2="(10 + ((i/5) * 50))" x2="110"></line>
+                <text class="label" v-bind:transform="'translate(110,' + (10 + ((i/5) * 50)) + ')'"
+                      style="fill: black;stroke: none;font-size: 18px;">
+                  {{minValue + ((range * i) / 5) }}
+                </text>
+              </g>
+            </g>
+          </g>
+        </div>
+
+        <div v-show="renderStyle == 'choropleth'">
+          {{minValue }}  <%= render :partial => 'includes/gradient.line', :locals => {:colors => colors} %> {{minValue + range }}
+        </div>
+      </div>
+
+      <div class="is-pulled-right is-flex ">
+        <input type="radio" id="one" class="mt-1 mr-1" value="choropleth" v-model="renderStyle">
+        <label for="one" class="is-size-7">Choropleth</label>
+        <br>
+        <input type="radio" id="two" class="mt-1 mx-1" value="bubble" v-model="renderStyle">
+        <label for="two" class="is-size-7">Bubble</label>
+        <br>
+      </div>
+    </div>
+
+  </div>
+  </div>
+</script>

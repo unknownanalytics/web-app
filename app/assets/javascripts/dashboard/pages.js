@@ -193,7 +193,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                         type: 'scatter',
                         data: [],
                         symbolSize: function (dataItem) {
-                            console.log(Math.min(100, dataItem[1]));
+                            //console.log(Math.min(100, dataItem[1]));
                             return Math.min(100, dataItem[1]);
                         }
                     });

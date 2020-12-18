@@ -55,6 +55,7 @@ App.Charts = {
     _createCanvasGradient(id, colors) {
         if (colors && colors.length > 1) {
             var c = document.createElement("canvas");
+            c.style.display = 'none';
             let width = 300;
             let height = 2;
             c.width = width;

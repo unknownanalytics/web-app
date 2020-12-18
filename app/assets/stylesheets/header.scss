@@ -10,7 +10,8 @@ $blue: #A5B3BB;
       --primary: #e3dfdb;
       --secondary: #7a7a7a;
     }
-
+    /* TODO */
+    /*
     &.has-notifications {
       // http://www.javascriptkit.com/dhtmltutors/css3-animation-swing.shtml
       @-webkit-keyframes swinging {
@@ -42,7 +43,7 @@ $blue: #A5B3BB;
         animation: swinging .5s ease-in-out forwards infinite;
         --secondary: red;
       }
-    }
+    }*/
   }
   &:not(.is-arrowless)::after {
     border-color: #A5B3BB !important;

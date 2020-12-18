@@ -1,33 +1,6 @@
 <script type="text/x-template" id="app_dashboard_heatmaps_template">
   <div>
-
-    <h1>Heatmpas last 6 months</h1>
-
-    <div id="months">
-
-    </div>
-
-    <h1>Latest 6 months </h1>
-    <div id="container" class="has-text-centered">
-      <div class="is-flex is-spaced">
-        <label>Events</label>
-        <span class="tag is-black">click</span>
-        <span class="tag is-dark">scroll</span>
-        <span class="tag is-light">move</span>
-        <span class="tag is-white">White</span>
-        <span class="tag is-primary">Primary</span>
-        <span class="tag is-link">Link</span>
-        <span class="tag is-info">Info</span>
-        <span class="tag is-success">Success</span>
-        <span class="tag is-warning">Warning</span>
-        <span class="tag is-danger">Danger</span>
-        <div class="is-pulled-right">
-          <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodTopPagesViews($event)'} %>
-
-        </div>
-      </div>
-
-    </div>
+    <app-v-soon title="Heatmaps" content="This feature helps you identify where and how users navigate and scroll inside a web page."></app-v-soon>
   </div>
 </script>
 

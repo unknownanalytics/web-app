@@ -50,7 +50,9 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                     },
                     views: {
                         selection: {
-                            type: 'line'
+                            type: '#000',
+                            color : 'black',
+                            colors :Object.values(App.Helpers.PALETTE_COLORS)
                         },
                         chart: null
                     }
@@ -103,6 +105,9 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                             this.updatePagesViews(response.data.views)
                         }).bind(this)
                     })
+                },
+                onChangePeriodLocationViews($event) {
+
                 },
                 /**
                  * Update data on top page views
@@ -266,6 +271,13 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 },
                 updatePagesViewStyle() {
                     this._getDataSet().type = this.views.selection.type;
+                    this.views.chart.update();
+                },
+                updatePagesViewColorStyle(color) {
+                    let dataset = this._getDataSet();
+                    dataset.backgroundColor = Chart.helpers.color(color).alpha(0.5).rgbString();
+                    this.views.selection.color = color ;
+                    dataset.borderColor = color;
                     this.views.chart.update();
                 },
                 _getDataSet() {

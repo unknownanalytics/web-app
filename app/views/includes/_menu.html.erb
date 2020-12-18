@@ -1,6 +1,6 @@
 <nav class="menu">
   <% unless current_domain.nil? %>
-<!--    Domain :<span class="has-text-weight-bold"> <%#= current_domain.name %></span>-->
+    <!--    Domain :<span class="has-text-weight-bold"> <%#= current_domain.name %></span>-->
     <% if current_domain.domain_setting.origins.nil? && current_user.own_domain(current_domain) %>
       <br/>
       <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
@@ -194,29 +194,37 @@
     <% end %>
   <% end %>
   <hr/>
+
+  <!--
   <p class="menu-label collapse-button">
-    <%= t('dashboard.menu.account_settings') %>
-    <% cache('icon-up-down') do %>
-      <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svg_class => "icon-up"} %>
-      <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svg_class => "icon-down"} %>
-    <% end %>
+    <%#= t('dashboard.menu.account_settings') %>
+    <%# cache('icon-up-down') do %>
+      <%#= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svg_class => "icon-up"} %>
+      <%#= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svg_class => "icon-down"} %>
+    <%# end %>
   </p>
 
   <ul class="menu-list collapsible-list">
     <li>
-      <%= link_to(subscription_path, class: current_menu_item_class?(subscription_path)) do %>
-        <%= t('dashboard.menu.rate_usage') %>
-      <% end %>
-    <li><a><%= t('dashboard.menu.advanced') %></a></li>
+      <%#= link_to(subscription_path, class: current_menu_item_class?(subscription_path)) do %>
+        <%#= t('dashboard.menu.rate_usage') %>
+      <%# end %>
+    <li><a><%#= t('dashboard.menu.advanced') %></a></li>
     <li>
-      <% if current_plan.nil? %>
-        <%= link_to("Subscribe", dashboard_account_plan_subscribe_url) %>
-      <% else %>
+      <%# if current_plan.nil? %>
+        <%#= link_to("Subscribe", dashboard_account_plan_subscribe_url) %>
+      <%# else %>
         10 days to ends
-      <% end %>
-    </li>
+      <%# end %>
+    </li>-->
   </ul>
   <span>
     <small class="font-size-tiny"><%= current_user.email %></small>
   </span>
+  <div class=" has-background-warning p-2 mt-2 b-4 is-size-7">
+    <span>
+      Please note, this is an early stage release, you may find errors or bugs. Please feel free
+      to <%= link_to 'report', contact_path(subject: "[BUG]") %> any error.
+    </span>
+  </div>
 </nav>

@@ -4,6 +4,10 @@
     overflow: hidden;
   }
 
+  #overview_container .panel-block {
+    border-bottom: none;
+  }
+
   /* fix geo  */
   #overview_map_content_container #map_world_svg {
     stroke-linejoin: round;
@@ -12,6 +16,16 @@
     height: 300px;
     width: 2000px;
     transform: translateX(-793px);
+  }
+
+  .color-selector {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 4px;
+    margin-top: 5px;
+    cursor: pointer;
   }
 </style>
 
@@ -85,7 +99,7 @@
       <div class="column is-6" id="overview_page_views_content_container">
         <div class="box">
           <p class="heading">
-            <%= t('Top Page views') %>
+            <%= t('Top Pages views') %>
 
             <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodTopPagesViews($event)'} %>
 
@@ -137,6 +151,16 @@
           </p>
           <div class="panel-block px-0 is-block">
             <canvas id="canvas_views" width="400" height="250"></canvas>
+
+            <div class="d-flex has-text-centered mt-3">
+              <div v-for="color in views.selection.colors" class="color-selector"
+                   @click="updatePagesViewColorStyle(color)"
+                   v-bind:class="{'active': color===views.selection.color}" :style="{'backgroundColor': color}">
+
+              </div>
+            </div>
+          </div>
+          <div>
           </div>
         </div>
       </div>
@@ -198,7 +222,6 @@
         </div>
       </div>
     </div>
-    <app-v-heatmap-chart></app-v-heatmap-chart>
-
+    <!-- <app-v-heatmap-chart></app-v-heatmap-chart>-->
   </div>
 </script>

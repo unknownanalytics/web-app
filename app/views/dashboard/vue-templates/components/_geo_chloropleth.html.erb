@@ -1,7 +1,0 @@
-<% colors = %w( #ff7007 #ffa4bc #ffbe88 #0D2B3E #cccccc ) %>
-<script type="text/x-template" id="app_component_map_chloropleth_template">
-  <div  class="map-container w-100" data-gradient-color="<%= colors %>">
-    <%= render 'includes/map_world.svg' %>
-    <%= render :partial => 'includes/gradient.line', :locals => {:colors => colors} %>
-  </div>
-</script>
