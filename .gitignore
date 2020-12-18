@@ -6,6 +6,7 @@
 node_modules/
 dist/
 .idea/
+package-lock.json
 
 # Ignore bundler config.
 /.bundle
@@ -36,3 +37,5 @@ dist/
 !/tmp/.keep
 !/tmp/pids
 !/tmp/pids/.keep
+
+
