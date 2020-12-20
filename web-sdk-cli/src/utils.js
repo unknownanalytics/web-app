@@ -58,7 +58,6 @@ class Sender {
 		for (let key in headers) {
 			xhr.setRequestHeader(key, headers[key]);
 		}
-
 		// Avoid the preflight request
 		//xhr.setRequestHeader('Authorization', config.token);
 		if (!headers['Content-type']) {
@@ -77,15 +76,9 @@ class Sender {
 				try {
 					let response = JSON.parse(xhr.responseText);
 					if (xhr.status === 200 && response.status === 'OK') {
-						if (args.onSuccess) {
-							args.onSuccess(response);
-						}
-						console.log('successful');
+						 args.onSuccess && args.onSuccess(response);
 					} else {
-						if (args.onError) {
-							args.onError(response);
-						}
-						console.error('failed to execute ');
+						args.onError && args.onError(response);
 					}
 				} catch (e) {
 					console.log(xhr.status)
