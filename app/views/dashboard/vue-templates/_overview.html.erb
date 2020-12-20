@@ -39,14 +39,33 @@
         </div>
       </div>
       <div class="level-right">
+
         <div class="level-item">
+
           <button type="button" class="button is-small">
             <%= Date.today.strftime("%B, %Y") %>
           </button>
         </div>
+        <div class="level-item">
+
+          <%= form_tag('/api/export/pdf', :html => {multipart: true}, :class => 'm-0', local: true) do %>
+            <input type="hidden" name="views" :value="JSON.stringify(top_pages.data)">
+            <input type="hidden" name="stats" :value="JSON.stringify(stats)">
+            <input type="hidden" name="geo_img" :value="export_images.world_img">
+            <input type="hidden" name="views_img" :value="export_images.views_img">
+            <input type="hidden" name="devices_img" :value="export_images.devices_img">
+            <button type="submit" class="button is-small is-success">
+              Export to PDF
+            </button>
+          <% end %>
+
+        </div>
       </div>
     </div>
 
+    <img :src="export_images.world_img"/>
+    <!--   <img :src="export_images.views_img"/>
+ -->
     <div class="columns is-multiline" id="overview_global_view_container" v-cloak>
       <div class="column">
         <div class="box">
@@ -56,7 +75,9 @@
           <div class="title is-5  has-text-weight-normal">
             <span>{{stats.views}}</span>
             <div class="is-pulled-right">
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-target', :css_class => 'accent'} %>
+              <% cache('icon-target') do %>
+                <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-target', :css_class => 'accent'} %>
+              <% end %>
             </div>
 
           </div>
@@ -122,7 +143,10 @@
               </thead>
               <tbody>
               <tr v-for="e in top_pages.data">
-                <td>{{e.full_url || e.url}}</td>
+                <td>
+                  <span v-if="e.full_url || e.url">{{e.full_url || e.url}}</span>
+                  <span v-else class="has-text-grey-dark">Home page</span>
+                </td>
                 <td>{{e.vcount}}</td>
               </tr>
               </tbody>

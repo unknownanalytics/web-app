@@ -84,6 +84,7 @@ Rails.application.routes.draw do
       # clicks and events
       get '/heatmaps' => 'heatmaps#index'
       get '/export' => 'export#index'
+      post '/export/pdf' => 'export#as_pdf'
     end
 
     get '/subscription' => 'dashboard/subscription#index'

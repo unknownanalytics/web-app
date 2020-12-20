@@ -73,4 +73,8 @@ gem 'devise'
 gem 'sidekiq'
 
 gem 'act-fluent-logger-rails'
+
 gem 'lograge'
+
+
+gem 'wicked_pdf'

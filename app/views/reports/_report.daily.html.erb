@@ -1,0 +1,113 @@
+<html>
+<head></head>
+<style>
+  .uppercase {
+    text-transform: uppercase;
+  }
+
+  .semibold {
+    font-weight: 600 !important;
+  }
+
+</style>
+<body>
+<div>
+  <table style="width: 100%">
+    <tr>
+      <td style="width: 25%">
+        <div class="uppercase semibold">
+          <span>Pages Views</span>
+        </div>
+        <div class="title is-5  has-text-weight-normal"><span><%= @stats['views'] %></span></div>
+      </td>
+      <td style="width: 25%">
+        <div class="uppercase semibold">
+          <span>Campaigns</span>
+        </div>
+        <div class="title is-5  has-text-weight-normal"><span><%= @stats['campaigns'] %></span></div>
+      </td>
+      <td style="width: 25%">
+        <div class="uppercase semibold">
+          <span>Referers</span>
+        </div>
+        <div class="title is-5  has-text-weight-normal"><span><%= @stats['referers'] %></span></div>
+      </td>
+      <td style="width: 25%">
+        <div class="uppercase semibold">
+          <span>Devices</span>
+        </div>
+        <div class="title is-5  has-text-weight-normal"><span><%= @stats['devices'] %></span></div>
+      </td>
+    </tr>
+  </table>
+  <table>
+    <tbody>
+    <tr>
+      <td>
+        <div class="semibold">
+          <span>Top ten pages</span>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <table>
+          <thead>
+          <tr>
+            <td>Page Views</td>
+          </tr>
+          </thead>
+          <tbody>
+          <% @views.each do |entry| %>
+            <tr>
+              <td>
+                <span><%= entry['full_url'] || 'Home page' %> </span>
+              </td>
+              <td><%= entry['vcount'] %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </td>
+
+    </tr>
+
+    <tr>
+      <td>
+        <div class="semibold">
+          <span>Views</span>
+        </div>
+      </td>
+      <td>
+        <img style="width: 500px;height: auto" src="<%= @views_img %>"/>
+      </td>
+    </tr>
+    <tr>
+
+      <td>
+        <div class="semibold">
+          <span>Devices </span>
+        </div>
+      </td>
+      <td>
+        <img style="width: 500px;height: auto" src="<%= @devices_img %>"/>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="semibold">
+          <span>Geo </span>
+        </div>
+      </td>
+      <td >
+        <img style="width: 800px" src="<%= @geo_img %>"/>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+</body>
+
+</html>

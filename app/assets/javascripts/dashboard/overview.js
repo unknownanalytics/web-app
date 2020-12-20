@@ -23,10 +23,10 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 }
                 else {
                     this.stats = {
-                        viewsCount: 'no data',
-                        sessionsCount: 'no data',
-                        eventsCount: 'no data',
-                        issuesCount: 'no data'
+                        views: 'no data',
+                        campaigns: 'no data',
+                        referers: 'no data',
+                        devices: 'no data'
                     };
                     this.$el.classList.add('no-data');
                 }
@@ -34,10 +34,10 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
             data: function () {
                 return {
                     stats: {
-                        viewsCount: 0,
-                        sessionsCount: 0,
-                        eventsCount: 0,
-                        issuesCount: 0
+                        views: 0,
+                        campaigns: 0,
+                        referers: 0,
+                        devices: 0
                     },
                     overview: {
                         devices: [],
@@ -51,16 +51,31 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                     views: {
                         selection: {
                             type: '#000',
-                            color : 'black',
-                            colors :Object.values(App.Helpers.PALETTE_COLORS)
+                            color: 'black',
+                            colors: Object.values(App.Helpers.PALETTE_COLORS)
                         },
                         chart: null
+                    },
+                    export_images: {
+                        'world_img': null,
+                        'views_img': null,
+                        'devices_img': null,
                     }
                 }
             },
             watch: {
                 'views.selection.type': function () {
                     this.updatePagesViewStyle()
+                },
+                'overview': function () {
+                    setTimeout(() => {
+                        this.generateImagesForExports();
+                    }, 1200)
+                },
+                'views': function () {
+                    setTimeout(() => {
+                        this.generateImagesForExports();
+                    }, 1200)
                 }
             },
             methods: {
@@ -265,25 +280,48 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                         this.views.chart = createChart(data);
                     }
                     else {
-                        this._getDataSet().data = data;
+                        this._getViewsChartDataSet().data = data;
                         this.views.chart.update();
                     }
                 },
+                /**
+                 *
+                 */
                 updatePagesViewStyle() {
-                    this._getDataSet().type = this.views.selection.type;
+                    this._getViewsChartDataSet().type = this.views.selection.type;
                     this.views.chart.update();
                 },
+                /**
+                 *
+                 * @param color
+                 */
                 updatePagesViewColorStyle(color) {
-                    let dataset = this._getDataSet();
+                    let dataset = this._getViewsChartDataSet();
                     dataset.backgroundColor = Chart.helpers.color(color).alpha(0.5).rgbString();
-                    this.views.selection.color = color ;
+                    this.views.selection.color = color;
                     dataset.borderColor = color;
                     this.views.chart.update();
                 },
-                _getDataSet() {
+                /**
+                 *
+                 * @returns {{label, data, backgroundColor}|{label, backgroundColor, borderColor, data, type, pointRadius, fill, lineTension, borderWidth}|{label, data, backgroundColor, borderColor, borderWidth}|{label: string, data: number[], backgroundColor: any[]}|{label: string, backgroundColor: *, borderColor: string, data: *, type: string, pointRadius: number, fill: boolean, lineTension: number, borderWidth: number}|{label: string, data: *[], backgroundColor: string[], borderColor: string[], borderWidth: number}|*}
+                 * @private
+                 */
+                _getViewsChartDataSet() {
                     let chart = this.views.chart;
                     return chart.config.data.datasets[0];
-                }
+                },
+                /**
+                 *
+                 */
+                generateImagesForExports() {
+                    App.Helpers.svgToImage("#map_world_svg", (err, res, ori) => {
+                        this.export_images.world_img = res;
+                    });
+                    let views_img = App.Helpers.canvasToImage('#canvas_views');
+                    let devices_img = App.Helpers.canvasToImage('#canvas_devices');
+                    Object.assign(this.export_images, {views_img, devices_img})
+                },
             }
 
         }
