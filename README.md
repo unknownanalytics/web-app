@@ -24,9 +24,11 @@ Simple analytics to protect user privacy and get only essentials metrics.
 
 * Ruby version
 
-    - ruby-2.6.6 
+    - ruby-2.7.0 
     - Rails 6.0.2
     - pg
+
+* Install libq-dev (native lib tool for pg) 
 
 * Configuration
 
