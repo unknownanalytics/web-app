@@ -5,9 +5,9 @@ class ContactController < ApplicationController
 
   def contact_us
     contact = Contact.new(contact_form)
-    if contact.save
+    if contact.save!
       flash[:success] = "You message has been saved, we will be in touch soon !"
-      BusinessMailer.new_contact(contact.email, contact.subject).deliver_now
+      CompanyMailer.new_contact(contact.email, contact.subject).deliver_now
     else
       flash[:contact_error] = contact.errors
     end

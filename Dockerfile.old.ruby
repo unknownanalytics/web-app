@@ -1,17 +1,6 @@
-FROM ruby:2.6.6-alpine
+FROM ruby:2.6.6
 
-RUN apk update \
-    && apk upgrade --no-cache  \
-    && apk --update --no-cache add build-base \
-    && apk add postgresql-dev  \
-    # replace 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-    && apk add tzdata \
-    && apk add nodejs \
-    && apk add bash \
-# standard ruby image
-# RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
-# clean apk
-RUN rm -rf /var/lib/apk/*
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 # Set an environment variable where the Rails app is installed to inside of Docker image
 ENV RAILS_ROOT /var/www/unk-web-app
 
@@ -28,9 +17,8 @@ RUN gem install bundler:2.1.4
 ENV BUNDLER_VERSION  2.1.4
 #set the version in Gemfile
 # RUN bundle install --jobs 20 --retry 5 --without development test
-
-RUN bundle config without 'development test'
-RUN bundle install --jobs 20 --retry 5
+RUN bundle config set without 'development test'
+RUN bundle install --jobs 20 --retry 5 without development test
 # Adding project files
 COPY . .
 

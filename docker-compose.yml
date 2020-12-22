@@ -3,46 +3,61 @@ services:
   db:
     image: postgres:10.1
     volumes:
-    - ./tmp/db:\\Program Files\\PostgreSQL\\10\\data
+    - data-bg:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: ${UNK_ANA_PG_PASSWORD}
       POSTGRES_USER: ${UNK_ANA_PG_USER}
+      POSTGRES_DB: ${UNK_ANA_PG_DB}
     container_name: unk-postgres
     env_file:
-    - ./docker/.env
-  redis:
-    image: 'redis:5-alpine'
-    command: redis-server
-    container_name: unk-redis
+      - ./docker/.env
     ports:
-    - '6379:6379'
-      #volumes:
-    #'redis:/data'
-  #  web:
-  #    build: .
-  #    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-  #    image: unk-webapp:${TAG-stable}
-  #    container_name: web-app
-  #    env_file:
-  #    - ./docker/.env
-  #    volumes:
-  #    - .:/myapp
-  #    ports:
-  #    - "3000:3000"
-  #    depends_on:
-  #    - db
-  #    - redis
-  sidekiq:
-    build: .
-    command: bundle exec sidekiq
-    entrypoint: []
-    container_name: unk-sidekiq
-    image: unk-sidekiq:${TAG-stable}
-    env_file:
-    - ./docker/.env
-    volumes:
-    - '.:/myapp'
-    - '/myapp/tmp' # don't mount tmp directory
-    depends_on:
-    - db
-    - redis
+      - 5432:5431
+#  redis:
+#    image: 'redis:5-alpine'
+#    command: redis-server
+#    container_name: unk-redis
+#    ports:
+#    - '6379:6379'
+#    volumes:
+#    - ${UNK_ANA_REDIS_DATA}:/data
+#    env_file:
+#    - ./docker/.env
+#
+#  web:
+#    build: .
+#    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+#    image: unk-webapp:${TAG-stable}
+#    container_name: web-app
+#    env_file:
+#    - ./docker/.env
+#    volumes:
+#    - .:/unk-app
+#    - '/unk-app/tmp' # don't mount tmp directory
+#    ports:
+#    - "3000:3000"
+#    depends_on:
+#    - db
+#    - redis
+#  sidekiq:
+#    build: .
+#    command: bundle exec sidekiq
+#    entrypoint: []
+#    container_name: unk-sidekiq
+#    image: unk-sidekiq:${TAG-stable}
+#    env_file:
+#    - ./docker/.env
+#    volumes:
+#    - '.:/unk-app'
+#    - '/unk-app/tmp' # don't mount tmp directory
+#    depends_on:
+#    - db
+#    - redis
+volumes:
+  data-bg:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: ${UNK_ANA_PG_DATA}
+

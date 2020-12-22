@@ -8,6 +8,8 @@ dist/
 .idea/
 package-lock.json
 
+.cmd_docker_compose
+
 # Ignore bundler config.
 /.bundle
 

@@ -1,5 +1,5 @@
-class BusinessMailer < ApplicationMailer
-  default from: 'business@unknownanlytics.com'
+class CompanyMailer < ApplicationMailer
+  default from: 'contact@unknownanlytics.com'
   default template_path: "mailers/#{self.name.underscore}"
 
   def new_contact(email, request_text)
