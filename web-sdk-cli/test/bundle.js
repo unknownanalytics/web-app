@@ -61,7 +61,6 @@
 			for (let key in headers) {
 				xhr.setRequestHeader(key, headers[key]);
 			}
-
 			// Avoid the preflight request
 			//xhr.setRequestHeader('Authorization', config.token);
 			if (!headers['Content-type']) {
@@ -80,15 +79,9 @@
 					try {
 						let response = JSON.parse(xhr.responseText);
 						if (xhr.status === 200 && response.status === 'OK') {
-							if (args.onSuccess) {
-								args.onSuccess(response);
-							}
-							console.log('successful');
+							 args.onSuccess && args.onSuccess(response);
 						} else {
-							if (args.onError) {
-								args.onError(response);
-							}
-							console.error('failed to execute ');
+							args.onError && args.onError(response);
 						}
 					} catch (e) {
 						console.log(xhr.status);
@@ -313,7 +306,7 @@
 	 * @type {{agent: string, ui: {w: number, h: number}}}
 	 */
 	let config = {
-		apiURL: 'http://localhost:3002/collect',
+		apiURL: 'http://127.0.0.1:8082/collect',
 		version: 'beta',
 		wsURL: 'PUSH_URL',
 		token: null

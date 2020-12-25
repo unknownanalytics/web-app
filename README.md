@@ -13,7 +13,7 @@ Simple analytics to protect user privacy and get only essentials metrics.
 
 * Ruby version
 
-    - ruby-2.7.0
+    - ruby-2.7.2
     - Rails 6.0.2
     - pg
 
