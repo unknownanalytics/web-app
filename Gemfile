@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
-git_source(:github) {|repo| "https://github.com/#{repo}.git"}
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.0'
+ruby '2.7.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '>=6.0.2'
@@ -34,14 +34,13 @@ gem 'redis', '~> 4.0'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '= 1.4.1', require: false
+gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'whenever', require: false
 
 #gem 'rails_admin', '~> 2.0'
 
 gem 'stripe'
-
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -53,7 +52,6 @@ group :development, :test do
   gem 'rack-mini-profiler', require: false
 end
 
-
 group :test do
   # Adds support for Capybara system testing and selenium driver
   # gem 'capybara', '>= 2.15'
@@ -61,7 +59,6 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
 end
-
 
 gem 'maxminddb'
 gem 'highline'
@@ -73,10 +70,10 @@ gem 'devise'
 
 gem 'sidekiq'
 
-gem 'act-fluent-logger-rails'
+# TODO
+# gem 'act-fluent-logger-rails'
 
 gem 'lograge'
-
 
 gem 'wicked_pdf'
 

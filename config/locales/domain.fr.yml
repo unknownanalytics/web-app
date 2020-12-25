@@ -29,9 +29,9 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
+fr:
   domain:
-    success_created_domain: Domain was successfully created.
+    success_created_domain: Domaine crée avec succès.
     team:
       errors:
         invitaion_user_not_found: No user with the current email
@@ -42,11 +42,11 @@ en:
         sent: an invitation has just been sent to
         input_place_holder: Email admin account
     form:
-      placeholder: "Domain name: Please Note this is not the origin name, origins will be configured later after domain creation"
-      domain_name: Domain name
+      placeholder: "Domain name: Please Note this is not the origin, origins will be configured later once created"
+      domain_name: Nom de domaine
     origins: Origins
     api:
-      create_new_api_key_for: "Create a new api fro"
+      create_new_api_key_for: "Créer une nouvelle clé api pour "
   domains:
     settings_origins_placeholder: "example-origin.com,example-origin-2.com"
     create_new_domain: "Create a new domain"

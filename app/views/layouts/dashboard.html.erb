@@ -44,12 +44,14 @@
                   </div>
                 </div>
               <% end -%>
-              <div class="control">
-                <%= link_to(dashboard_domains_path, {:class => 'is-light is-link'}) do %>
-                  <span><%= t('domain.create_new_domain') %></span>
-                <% end %>
-              </div>
             <% end -%>
+
+            <div class="control">
+              <%= link_to(dashboard_domains_path, {:class => 'is-light is-link'}) do %>
+                <span><%= t('domain.create_new_domain') %></span>
+              <% end %>
+            </div>
+
           <% end %>
 
 

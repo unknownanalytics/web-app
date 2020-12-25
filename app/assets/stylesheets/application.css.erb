@@ -17,14 +17,16 @@
  *= require_self
  */
 
+
+/* Font is part of rails default pipeline, so use it without prefix */
 @font-face {
     font-family: sofiapro-light;
-    src: url("/fonts/sofiapro-light.otf") format("opentype");
+    src: url("<%= asset_path 'sofiapro-light.otf'  %>") format("opentype");
 }
 
 @font-face {
     font-family: sofiapro;
-    src: url("/fonts/Sofia Pro Regular.otf") format("opentype");
+    src: url("<%=  asset_path 'Sofia Pro Regular.otf' %>") format("opentype");
 }
 
 html *, body * {

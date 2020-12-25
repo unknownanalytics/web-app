@@ -4,7 +4,7 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
-  config.secret_key_base =  ENV['UNK_ANA_SECRET_KEY_BASE']
+  config.secret_key_base = ENV['UNK_ANA_SECRET_KEY_BASE']
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -46,10 +46,11 @@ Rails.application.configure do
   # Mount Action Cable outside main process or domain
   # config.action_cable.mount_path = nil
   config.action_cable.url = ENV['UNK_ANA_CABLE_URL']
-  config.action_cable.allowed_request_origins = ['http://unknownAnalytics.com',  /http:\/\/unknownAnalytics.*/,  /http:\/\/localhost.*/]
+  config.action_cable.allowed_request_origins = ['http://unknownAnalytics.com', /http:\/\/unknownAnalytics.*/, /http:\/\/localhost.*/,  /http:\/\/127.0.0.1.*/]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  # TODO, disable this in server
+  config.force_ssl = false
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
@@ -94,19 +95,28 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = {:host => "http://www.unknownanalytics.com"}
-
+  config.action_mailer.default_url_options = { :host => "http://www.unknownanalytics.com" }
 
   smtp_uri = URI(ENV['UNK_ANA_SMTP_URI'])
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-      address: smtp_uri.host,
-      port: smtp_uri.port,
-      authentication: ENV['UNK_ANA_SMTP_AUTH_METHOD'],
-      user_name: CGI.unescape(smtp_uri.user),
-      password: CGI.unescape(smtp_uri.password),
-      enable_starttls_auto: true
+    address: smtp_uri.host,
+    port: smtp_uri.port,
+    authentication: ENV['UNK_ANA_SMTP_AUTH_METHOD'],
+    user_name: CGI.unescape(smtp_uri.user),
+    password: CGI.unescape(smtp_uri.password),
+    enable_starttls_auto: true
   }
+  "" "
+  #TODO fluentd
+  config.log_level = :info
+  config.logger = ActFluentLoggerRails::Logger.
+    new(log_tags: {
+      ip: :ip,
+      ua: :user_agent,
+      uid: ->(request) { request.session[:uid] }
+    })
+  " ""
 
 end

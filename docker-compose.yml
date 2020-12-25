@@ -1,44 +1,44 @@
 version: "3.8"
 services:
   db:
-    image: postgres:10.1
+    image: postgres:10
     volumes:
-    - data-bg:/var/lib/postgresql/data
+      - data-bg:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: ${UNK_ANA_PG_PASSWORD}
       POSTGRES_USER: ${UNK_ANA_PG_USER}
       POSTGRES_DB: ${UNK_ANA_PG_DB}
     container_name: unk-postgres
     env_file:
-      - ./docker/.env
+      - ./.env
     ports:
       - 5432:5431
-#  redis:
-#    image: 'redis:5-alpine'
-#    command: redis-server
-#    container_name: unk-redis
-#    ports:
-#    - '6379:6379'
-#    volumes:
-#    - ${UNK_ANA_REDIS_DATA}:/data
-#    env_file:
-#    - ./docker/.env
-#
-#  web:
-#    build: .
-#    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-#    image: unk-webapp:${TAG-stable}
-#    container_name: web-app
-#    env_file:
-#    - ./docker/.env
-#    volumes:
-#    - .:/unk-app
-#    - '/unk-app/tmp' # don't mount tmp directory
-#    ports:
-#    - "3000:3000"
-#    depends_on:
-#    - db
-#    - redis
+  redis:
+    image: 'redis:5-alpine'
+    command: redis-server
+    container_name: unk-redis
+    ports:
+      - '6379:6379'
+    volumes:
+      - ${UNK_ANA_REDIS_DATA}:/data
+    env_file:
+      - ./.env
+    #
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    image: unk-webapp:${TAG-stable}
+    container_name: unk-web-app
+    env_file:
+      - ./.env
+    volumes:
+      - .:/unk-app # LOCAL FOLDER NAME
+      - '/unk-app/tmp' # DO NOT MOUNT TMP FOLDER
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
 #  sidekiq:
 #    build: .
 #    command: bundle exec sidekiq

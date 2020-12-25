@@ -40,7 +40,7 @@ module Dashboard
       @domain.user = current_user
       respond_to do |format|
         if @domain.save
-          format.html {redirect_to dashboard_domains_path, notice: t('Domain was successfully created.')}
+          format.html {redirect_to dashboard_domains_path, notice: t('domain.success_created_domain')}
           format.json {render :show, status: :created, location: @domain}
         else
           format.html {render :new}

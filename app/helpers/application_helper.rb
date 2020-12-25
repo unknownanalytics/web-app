@@ -11,7 +11,7 @@ module ApplicationHelper
     # Capture the content to be placed inside the extended layout
     @view_flow.get(:layout).replace capture(&block)
 
-    render file: layout
+    render template: layout
   end
 
   def default_page_title

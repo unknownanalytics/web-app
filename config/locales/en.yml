@@ -56,4 +56,10 @@ en:
       reports_export: "Reports"
     overview:
       geo_activate_text: "You can activate the geo tracking in"
+  common :
+    alias : Alias
+    destroy : Destroy
+    create: "Create"
+    update: "Update"
+    back_to_list: "Back to list"
 

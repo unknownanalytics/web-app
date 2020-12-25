@@ -57,7 +57,7 @@ server {
 
         # serve static (compiled) assets directly if they exist (for rails production)
         location ~ ^/(assets|images|javascripts|stylesheets|swfs|system)/   {
-                root /var/www/unk-ana-assets_production;
+                root /var/www/unk-ana-assets;
                 try_files $uri @puma_unk ;
                 access_log off;
                 gzip_static on;       # to serve pre-gzipped version

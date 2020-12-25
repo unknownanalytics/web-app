@@ -7,6 +7,11 @@ if [ -f /unk-app/tmp/pids/server.pid ]; then
   rm /unk-app/tmp/pids/server.pid
 fi
 
+### migrate db
 bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:setup
+
+### generate assets
+bundle exec rake assets:precompile
+
 
 exec bundle exec "$@"

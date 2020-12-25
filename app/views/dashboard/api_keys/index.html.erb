@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1><%= t('Create a new api key for ') %> <%= current_domain.name %>
+<h1><%= t('domain.api.create_new_api_key_for') %> <%= current_domain.name %>
 
 </h1>
 
@@ -11,8 +11,8 @@
 <table class="table is-fullwidth">
   <thead>
   <tr>
-    <th><%= t('alias') %></th>
-    <th><%= t('public key') %></th>
+    <th><%= t('common.alias') %></th>
+    <th><%= t('domain_apis.public_key') %></th>
     <th>  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-dots-horizontal'} %></th>
   </tr>
   </thead>
@@ -25,7 +25,7 @@
       <!--<td><%= link_to 'Show', dashboard_domain_api_key_path(api_key.domain, api_key) %></td>-->
       <td>
         <%= link_to(dashboard_domain_api_key_path(api_key.domain, api_key), method: :delete, data: {confirm: 'Are you sure?'}) do %>
-          <%= t('Destroy') %>
+          <%= t('common.destroy') %>
           <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-trash'} %>
         <% end %>
       </td>

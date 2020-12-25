@@ -29,26 +29,7 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-fr:
-  hello: "Hello world"
-  create: "Créer"
-  change: "Changer"
-  welcome:
-    hero: "Analysez votre site web sans nuire à la confidentialité de vos clients"
-    how_we_make_money: "Comment on gagne de l'argent ?"
-    start_free_trial: "Start free trial"
-    watch_demo: "Watch demo"
-    contact_us: "Contact us"
-    need_custom_plan: "Startup, ONG, need custom plan ?"
-    free_in_beta_version: "Profiter de la version Beta gratuitement"
-    start_now: "Commencez"
-    hero_subtitle: "Get clean, in depth analytics in anonymous mode"
-  domains:
-    domain_settings:
-      track_geo: "Suive géographique"
-  common:
-    alias: Alias
-    destroy: Supprimer
-    create: "Créer"
-    update: "Mettre à jour"
-    back_to_list: "Retour à la liste"
+en:
+  domain_apis:
+    public_key: Public key
+    help_text: "Alias to api_key, prod_.."

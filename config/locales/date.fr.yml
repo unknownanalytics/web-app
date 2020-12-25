@@ -217,3 +217,7 @@ fr:
       long: "%A %d %B %Y %Hh%M"
       short: "%d %b %Hh%M"
     pm: pm
+  Domain was successfully created: "Votre domaine a été crée."
+  domain:
+    api:
+      create_new_api_key_for: "Créer une nouvelle clé api pour"
