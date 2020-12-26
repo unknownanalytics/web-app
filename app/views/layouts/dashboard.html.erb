@@ -8,48 +8,74 @@
 <% end %>
 
 <style>
-  body {
-    display: flex;
-    height: 100vh;
-    flex-direction: column;
-  }
+    body {
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+    }
 
-  #main_dashboard {
-    width: 100%;
-  }
+    #main_dashboard {
+        width: 100%;
+    }
 </style>
 <%= extends :application do %>
 
-  <%= render "includes/header_dashboard" %>
+  <%= render "shared/header_dashboard" %>
 
   <div class="container" id="main_dashboard">
+    <% if current_user.own_domain(current_domain) %>
+      <% if (current_domain.domain_setting.origins.nil? || current_domain.domain_setting.origins.empty?)  && !current_page?(settings_dashboard_domain_path(current_domain)) %>
+        <br/>
+        <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
+          <div class="has-background-danger has-text-white pl-2 has-text-centered"> You should configure origins for
+            this domain so we can collect pages data.
+          </div>
+        <% end %>
+      <% end %>
+      <% if current_domain.api_keys.length == 0 && !current_page?(dashboard_domain_api_keys_path(current_domain))%>
+        <br/>
+        <%= link_to(dashboard_domain_api_keys_path(current_domain)) do %>
+          <div class="has-background-danger has-text-white pl-2 has-text-centered">
+            No api keys for current domain .
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
     <div class="columns is-marginless">
       <aside class="column is-2">
-        <%= render "includes/menu" %>
+        <%= render "shared/menu" %>
       </aside>
       <div class="column is-10">
         <div class="is-12 main-container">
-          <% if current_domain.nil? %>
+          <% if current_domain.nil? && !current_page?('/dashboard/domains') %>
 
             <h1 class="title is-4">Select or create a new domain</h1>
+            <div class="is-flex">
 
-            <% if @my_domains.size > 0 %>
-              <%= form_tag('/dashboard/set-current-domain') do %>
-                <div class="field is-grouped">
-                  <div class="control select">
-                    <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id), {include_blank: "#{t("domains.select_from_your_domains")} #{@my_domains.size} domains"}) %>
-                  </div>
-                  <div class="control">
-                    <%= submit_tag t('Select', class: 'button is-link'), {:class => 'button default'} %>
-                  </div>
+              <% if @my_domains.size > 0 %>
+                <div>
+
+
+                  <%= form_tag('/dashboard/set-current-domain') do %>
+                    <div class="field is-grouped">
+                      <div class="control select">
+                        <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id), { include_blank: "#{t("domains.select_from_your_domains")} #{@my_domains.size} domains" }) %>
+                      </div>
+                      <div class="control">
+                        <%= submit_tag t('Select', class: 'button is-link'), { :class => 'button default' } %>
+                      </div>
+                    </div>
+                  <% end -%>
                 </div>
               <% end -%>
-            <% end -%>
 
-            <div class="control">
-              <%= link_to(dashboard_domains_path, {:class => 'is-light is-link'}) do %>
-                <span><%= t('domain.create_new_domain') %></span>
-              <% end %>
+              <div class="pl-3 py-2">
+                <%= link_to(dashboard_domains_path, { :class => 'is-light is-link' }) do %>
+                  <span><%= t('domain.create_new_domain') %></span>
+                <% end %>
+              </div>
+
+
             </div>
 
           <% end %>
@@ -68,7 +94,7 @@
     </div>
   </div>
 
-  <%= render "includes/footer_logged_in" %>
+  <%= render "shared/footer_logged_in" %>
 
   <!-- TODO, serve this from our cdn -->
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

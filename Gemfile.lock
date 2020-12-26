@@ -1,9 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    act-fluent-logger-rails (0.0.4)
-      fluent-logger
-      rails
     actioncable (6.1.0)
       actionpack (= 6.1.0)
       activesupport (= 6.1.0)
@@ -69,6 +66,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.5.1)
       msgpack (~> 1.0)
+    browser (5.2.0)
     builder (3.2.4)
     bullet (6.1.2)
       activesupport (>= 3.0.0)
@@ -95,8 +93,6 @@ GEM
       i18n (>= 1.6, < 2)
     ffi (1.14.2)
     ffi (1.14.2-x64-mingw32)
-    fluent-logger (0.9.0)
-      msgpack (>= 1.0.0, < 2)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     highline (2.0.3)
@@ -221,6 +217,10 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    webdrivers (4.4.1)
+      nokogiri (~> 1.6)
+      rubyzip (>= 1.3.0)
+      selenium-webdriver (>= 3.0, < 4.0)
     websocket-driver (0.7.3)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -236,8 +236,8 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  act-fluent-logger-rails
   bootsnap (>= 1.4.2)
+  browser
   bullet
   byebug
   chromedriver-helper
@@ -254,13 +254,13 @@ DEPENDENCIES
   rails (>= 6.0.2)
   redis (~> 4.0)
   sass-rails (~> 5.0)
-  selenium-webdriver
   sidekiq
   stripe
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+  webdrivers
   whenever
   wicked_pdf
   wkhtmltopdf-binary

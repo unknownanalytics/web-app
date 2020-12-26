@@ -66,6 +66,7 @@ Rails.application.configure do
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
+  # https://stackoverflow.com/questions/16744279/rails-development-server-is-slow-and-takes-a-long-time-to-load-a-simple-page
   config.assets.debug = true
 
   # Suppress logger output for asset requests.

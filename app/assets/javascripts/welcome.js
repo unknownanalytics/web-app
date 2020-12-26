@@ -3,7 +3,7 @@
 //# You can use CoffeeScript in this file: http://coffeescript.org/
 document.addEventListener("turbolinks:load", function (event) {
     var dropdowns = document.querySelectorAll('.header-dropdown');
-    if (dropdowns.length){
+    if (dropdowns.length) {
 
         let closeAll = function () {
             dropdowns.forEach(entry => {
@@ -27,7 +27,7 @@ document.addEventListener("turbolinks:load", function (event) {
             paths[index].style.fill = "red"; //Set stroke colour
             paths[index].style.zoom = 10; //Set stroke colour
         }, 1000);
-
+        // empty chart before
         App.Charts.bars('hero_events_chart', [1, 1, 2, 4, 2, 5, 2, 4, 2, 1, 6, 5, 1, 1, 2, 4, 2, 5, 2, 4, 2, 1, 6, 5]);
         //App.Charts.squares('features_heatmap');
         App.Charts.bubble('hero_campaigns', [1, 2, 1, 2, 4, 2, 5, 2, 4, 2, 1, 6, 5]);

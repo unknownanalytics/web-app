@@ -28,7 +28,7 @@
         <div class="column">
           <div id="box_1" class="box">
             <h1>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-target'} %>
+              <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-target'} %>
               <%= t('PageViews ') %>
               <!-- &nbsp;<div class="views-number-animation tag">7777</div> -->
             </h1>
@@ -50,7 +50,7 @@
 
           <div id="box_2" class="box">
             <h1>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user', :css_class => ''} %>
+              <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-user', :css_class => ''} %>
 
               <%= t('Heatmaps ') %>
             </h1>
@@ -83,7 +83,7 @@
 
           <div id="box_3" class="box">
             <h1>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-bolt', :css_class => ''} %>
+              <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-bolt', :css_class => ''} %>
               <%= t('Performance') %>&nbsp;<!--<div class="views-number-animation tag">9999</div>-->
             </h1>
             <div id="hero_events_chart">
@@ -92,7 +92,7 @@
           </div>
           <div id="box_4" class="box">
             <h1>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-bolt', :css_class => ''} %>
+              <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-bolt', :css_class => ''} %>
               <%= t('Campaigns') %>&nbsp;<!--<div class="views-number-animation tag">9999</div>-->
             </h1>
             <div id="hero_campaigns">
@@ -102,7 +102,7 @@
 
           <div id="box_5" class="box">
             <h1>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user', :css_class => ''} %>
+              <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-user', :css_class => ''} %>
               <%= t('Devices ') %>
             </h1>
             <svg viewBox="-1 -1 2 2" width="200" height="120">
@@ -124,7 +124,7 @@
         </div>
       </div>
       <div id="map_hero" class="welcome-map-dots">
-        <%= render 'includes/map_dots.svg' %>
+        <%= render 'shared/map_dots' %>
       </div>
     </div>
   </div>

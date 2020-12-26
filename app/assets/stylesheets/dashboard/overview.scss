@@ -1,22 +1,92 @@
 @import "components/colors";
 @import "components/mixins";
+
 #overview_container {
+  &.no-data {
+    .panel-block {
+      display: none !important;
+    }
+    .no-data-content {
+      display: initial;
+    }
+  }
+
+  .no-data-content {
+    display: none;
+    text-align: center;
+  }
+
   .panel {
     min-height: 386px;
     display: flex;
     flex-direction: column;
   }
-}
-#overview_global_view_container {
-   .box {
-     .heading {
-       font-weight: bold;
-       letter-spacing: 2px;
-       @include small-tag;
-     }
-     &, .title {
-       color: $secondary-icon;
-     }
 
-   }
- }
+  .panel-block {
+    border-bottom: none;
+  }
+
+  .heading {
+    border: none;
+    @include small-tag;
+    align-items: center;
+
+    a {
+      font-size: 14px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $primary;
+
+      .icon {
+        width: 20px;
+        height: 20px;
+        --primary: #{$primary};
+        --secondary: #{$primary};
+      }
+    }
+  }
+
+  select {
+    max-width: 180px;
+  }
+}
+
+
+#overview_map_content_container > .box {
+  overflow: hidden;
+}
+
+/* fix geo  */
+#overview_map_content_container #map_world_svg {
+  stroke-linejoin: round;
+  stroke: #000;
+  fill: none;
+  height: 300px;
+  width: 2000px;
+  transform: translateX(-793px);
+}
+
+.color-selector {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 4px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+#overview_global_view_container {
+  .box {
+    .heading {
+      font-weight: bold;
+      letter-spacing: 2px;
+      @include small-tag;
+    }
+
+    &, .title {
+      color: $secondary-icon;
+    }
+  }
+}

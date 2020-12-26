@@ -2,8 +2,8 @@
   <%= stylesheet_link_tag 'welcome', media: 'all', 'data-turbolinks-track': 'reload' %>
 <% end %>
 
-<% cache('includes/header') do %>
-  <%= render 'includes/header' %>
+<% cache('shared/header') do %>
+  <%= render 'shared/header' %>
 <% end %>
 
 <% cache(@page) do %>

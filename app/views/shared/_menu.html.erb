@@ -1,18 +1,10 @@
 <nav class="menu">
   <% unless current_domain.nil? %>
-    <!--    Domain :<span class="has-text-weight-bold"> <%#= current_domain.name %></span>-->
-    <% if current_domain.domain_setting.origins.nil? && current_user.own_domain(current_domain) %>
-      <br/>
-      <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
-        <span class="has-text-danger">Configure origins !</span>
-      <% end %>
-    <% end %>
-
     <ul class="menu-list mt-1">
       <li>
         <%= link_to(dashboard_path, class: current_menu_item_class?(dashboard_path) + ' ' + current_menu_item_class?('/')) do %>
           <% cache('icon-dashboard') do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-dashboard'} %>
+            <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-dashboard' } %>
           <% end -%>
           <%= t('dashboard.menu.overview') %>
         <% end %>
@@ -21,7 +13,7 @@
 
         <%= link_to(dashboard_stats_pages_path, class: current_menu_item_class?(dashboard_stats_pages_path)) do %>
           <% cache('icon-monitor') do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-monitor'} %>
+            <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-monitor' } %>
           <% end -%>
           <%= t('dashboard.menu.pages_views') %>
         <% end %>
@@ -33,17 +25,19 @@
         <% if current_domain.domain_setting.track_geo %>
           <%= link_to(dashboard_stats_geo_path, class: current_menu_item_class?(dashboard_stats_geo_path)) do %>
             <% cache('icon-globe') do %>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-globe'} %>
+              <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-globe' } %>
             <% end -%>
             <%= t('dashboard.menu.geo_scattering') %>
           <% end %>
         <% else %>
-          <span>
+          <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
             <% cache('icon-globe') do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-globe'} %>
-          <% end -%>
+            <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-globe' } %>
+           <% end -%>
             <%= t('dashboard.menu.geo_scattering') %>
-            <small>(disabled)</small></span>
+            <small> (disabled)</small></span>
+
+          <% end -%>
         <% end %>
       </li>
 
@@ -51,7 +45,7 @@
       <li>
         <%= link_to(dashboard_stats_export_path, class: current_menu_item_class?(dashboard_stats_export_path)) do %>
           <% cache('icon-cloud-download') do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cloud-download'} %>
+            <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-cloud-download' } %>
           <% end -%>
           <%= t('dashboard.menu.reports_export') %>
         <% end %>
@@ -59,7 +53,7 @@
       <li>
         <%= link_to(dashboard_stats_heatmaps_path, class: current_menu_item_class?(dashboard_stats_heatmaps_path)) do %>
           <% cache('icon-thermostat-full') do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-thermostat-full'} %>
+            <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-thermostat-full' } %>
           <% end -%>
           <%= t('dashboard.menu.heatmaps') %> <span class="tag tag-danger">soon</span>
         <% end %>
@@ -67,7 +61,7 @@
       <li>
         <%= link_to(dashboard_stats_events_path, class: current_menu_item_class?(dashboard_stats_events_path)) do %>
           <% cache('icon-volume-up') do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-volume-up'} %>
+            <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-volume-up' } %>
           <% end -%>
           <%= t('dashboard.menu.events') %> <span class="tag tag-danger">soon</span>
         <% end %>
@@ -76,7 +70,7 @@
       <li>
         <%= link_to(dashboard_stats_errors_path, class: 'disabled ' + current_menu_item_class?(dashboard_stats_errors_path)) do %>
           <% cache('icon-bug') do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-bug'} %>
+            <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-bug' } %>
           <% end -%>
           <%= t('dashboard.menu.errors') %> <span class="tag tag-danger">soon</span>
         <% end %>
@@ -84,7 +78,7 @@
       <!--<li>
         <%= link_to(dashboard_stats_events_path, class: current_menu_item_class?(dashboard_stats_events_path), id: 'dashboard_stats_session_recording_path') do %>
           <% cache('icon-videocam') do %>
-            <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-videocam'} %>
+            <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-videocam' } %>
           <% end -%>
           <%= t('dashboard.menu.sessions') %>
           <div class="tag tag-danger">soon</div>
@@ -97,18 +91,17 @@
   <% unless current_domain.nil? %>
     <% if current_user.own_domain(current_domain) %>
       <p class="menu-label collapse-button">
-        <%= t('dashboard.menu.domain_settings') %>
-
+        <%= t('dashboard.menu.configuration') %>
         <% cache('icon-up-down') do %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svg_class => "icon-up"} %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svg_class => "icon-down"} %>
+          <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-cheveron-down', :svg_class => "icon-up" } %>
+          <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-cheveron-up', :svg_class => "icon-down" } %>
         <% end %>
       </p>
       <ul class="menu-list  collapsible-list">
         <li>
           <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
             <% cache('icon-cog') do %>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cog'} %>
+              <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-cog' } %>
             <% end -%>
             <%= t('dashboard.menu.configuration') %>
           <% end -%>
@@ -116,7 +109,7 @@
           <%= link_to(dashboard_domain_api_keys_path(current_domain), class: current_menu_item_class?(dashboard_domain_api_keys_path(current_domain))) do %>
 
             <% cache('icon-key') do %>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-key'} %>
+              <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-key' } %>
             <% end -%>
             <%= t('dashboard.menu.api_keys') %>
           <% end -%>
@@ -126,8 +119,8 @@
       <p class="menu-label  collapse-button">
         <%= t('dashboard.menu.team_settings') %>
         <% cache('icon-up-down') do %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svg_class => "icon-up"} %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svg_class => "icon-down"} %>
+          <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-cheveron-down', :svg_class => "icon-up" } %>
+          <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-cheveron-up', :svg_class => "icon-down" } %>
         <% end %>
       </p>
 
@@ -135,7 +128,7 @@
         <li>
           <%= link_to(dashboard_team_domain_path(current_domain), class: current_menu_item_class?(dashboard_team_domain_path(current_domain))) do %>
             <% cache('icon-user-group') do %>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user-group'} %>
+              <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-user-group' } %>
             <% end %>
             <%= t('dashboard.menu.members') %>
           <% end %>
@@ -143,7 +136,7 @@
         <li>
           <%= link_to(new_dashboard_team_domain_path(current_domain), class: current_menu_item_class?(new_dashboard_team_domain_path(current_domain))) do %>
             <% cache('icon-user-add') do %>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user-add'} %>
+              <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-user-add' } %>
             <% end %>
             <%= t('dashboard.menu.add_member') %>
           <% end %>
@@ -152,7 +145,7 @@
 
           <%= link_to(sent_invitations_dashboard_team_domain_path(current_domain), class: current_menu_item_class?(sent_invitations_dashboard_team_domain_path(current_domain))) do %>
             <% cache('icon-external-window') do %>
-              <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+              <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-external-window' } %>
             <% end %>
             <%= t('dashboard.menu.sent_invitations') %>
           <% end %>
@@ -186,7 +179,7 @@
   </p>
   <%= link_to(dashboard_domains_received_invitations_path, class: 'icon-container ' + current_menu_item_class?(dashboard_domains_received_invitations_path)) do %>
     <% cache('icon-external-window') do %>
-      <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+      <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-external-window' } %>
     <% end %>
     <%= t('dashboard.menu.invitations') %>
     <% if admin_received_invitations_count > 0 %>
@@ -199,8 +192,8 @@
   <p class="menu-label collapse-button">
     <%#= t('dashboard.menu.account_settings') %>
     <%# cache('icon-up-down') do %>
-      <%#= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-down', :svg_class => "icon-up"} %>
-      <%#= render :partial => 'includes/icon', :locals => {:icon => 'icon-cheveron-up', :svg_class => "icon-down"} %>
+      <%#= render :partial => 'shared/icon', :locals => {:icon => 'icon-cheveron-down', :svg_class => "icon-up"} %>
+      <%#= render :partial => 'shared/icon', :locals => {:icon => 'icon-cheveron-up', :svg_class => "icon-down"} %>
     <%# end %>
   </p>
 

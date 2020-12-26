@@ -52,3 +52,6 @@ fr:
     create: "Créer"
     update: "Mettre à jour"
     back_to_list: "Retour à la liste"
+  dashboard:
+    menu:
+      configuration: "Configuration"

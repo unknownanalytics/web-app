@@ -54,6 +54,7 @@ en:
     menu:
       geo_scattering: "Geo"
       reports_export: "Reports"
+      configuration: "Settings"
     overview:
       geo_activate_text: "You can activate the geo tracking in"
   common :

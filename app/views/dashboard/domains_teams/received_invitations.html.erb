@@ -7,7 +7,7 @@
   <tr>
     <th><%= t('Sender') %></th>
     <th><%= t('Domain') %></th>
-    <th colspan="2">  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-dots-horizontal'} %></th>
+    <th colspan="2">  <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-dots-horizontal'} %></th>
   </tr>
   </thead>
 
@@ -24,13 +24,13 @@
       <td>
         <%= link_to(dashboard_accept_admin_invitation_path(invitation.domain), method: :post, data: {confirm: 'Are you sure?'}, class: 'action') do %>
           <%= t('Accept') %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-user'} %>
+          <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-user'} %>
         <% end %>
       </td>
       <td>
         <%= link_to(dashboard_decline_admin_invitation_path(invitation.domain), method: :delete, data: {confirm: 'Are you sure?'}, class: 'action') do %>
           <%= t('Decline') %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-trash'} %>
+          <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-trash'} %>
         <% end %>
       </td>
 

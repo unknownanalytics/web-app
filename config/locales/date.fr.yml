@@ -221,3 +221,4 @@ fr:
   domain:
     api:
       create_new_api_key_for: "Créer une nouvelle clé api pour"
+    domain_not_selected: "Aucun domaine est sélectionné"

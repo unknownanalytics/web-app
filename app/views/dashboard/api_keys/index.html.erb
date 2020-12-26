@@ -13,7 +13,7 @@
   <tr>
     <th><%= t('common.alias') %></th>
     <th><%= t('domain_apis.public_key') %></th>
-    <th>  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-dots-horizontal'} %></th>
+    <th>  <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-dots-horizontal'} %></th>
   </tr>
   </thead>
 
@@ -26,7 +26,7 @@
       <td>
         <%= link_to(dashboard_domain_api_key_path(api_key.domain, api_key), method: :delete, data: {confirm: 'Are you sure?'}) do %>
           <%= t('common.destroy') %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-trash'} %>
+          <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-trash'} %>
         <% end %>
       </td>
     </tr>

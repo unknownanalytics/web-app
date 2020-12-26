@@ -3,31 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "components/colors";
 @import "components/mixins";
+@import "components/footer";
 
 #dashboard_navbar {
   border-bottom: 3px solid hsla(227, 38%, 84%, 0.26);
-}
-
-#overview_container {
-  .heading {
-    border: none;
-    @include small-tag;
-    align-items: center;
-    a {
-      font-size: 14px !important;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: $primary;
-      .icon {
-        width: 20px;
-        height: 20px;
-        --primary: #{$primary};
-        --secondary: #{$primary};
-      }
-    }
-  }
-  select {
-    max-width: 180px;
-  }
 }

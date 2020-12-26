@@ -3,7 +3,7 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
             el: document.getElementsByTagName('main')[0],
             template: '#app_dashboard_overview_template',
             mounted() {
-                //
+                // Get domain
                 let domainMeta = document.head.querySelector("[name~=app-domain][content]");
                 if (domainMeta) {
                     App.Api.get(App.API_ROUTES.DASHBOARD_OVERVIEW, {},
@@ -15,13 +15,11 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                                 }).bind(this)
                         }
                     );
-                    //
                     this.onChangePeriodTopPagesViews();
                     this.onChangePeriodDevicesViews();
                     this.onChangePeriodViews();
 
-                }
-                else {
+                } else {
                     this.stats = {
                         views: 'no data',
                         campaigns: 'no data',
@@ -278,8 +276,7 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
 
                     if (!this.views.chart) {
                         this.views.chart = createChart(data);
-                    }
-                    else {
+                    } else {
                         this._getViewsChartDataSet().data = data;
                         this.views.chart.update();
                     }

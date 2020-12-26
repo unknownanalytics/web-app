@@ -6,7 +6,7 @@
   <thead>
   <tr>
     <th><%= t('Admin') %></th>
-    <th>  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-dots-horizontal'} %></th>
+    <th>  <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-dots-horizontal'} %></th>
   </tr>
   </thead>
 
@@ -20,7 +20,7 @@
       <td>
         <%= link_to(delete_member_dashboard_team_domain_path(current_domain, invitation.admin), method: :delete, data: {confirm: 'Are you sure?'}, class: 'action') do %>
           <%= t('Destroy') %>
-          <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-trash'} %>
+          <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-trash'} %>
         <% end %>
       </td>
     </tr>

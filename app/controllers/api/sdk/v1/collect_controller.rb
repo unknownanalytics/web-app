@@ -1,12 +1,14 @@
+require "browser"
+
 class Api::Sdk::V1::CollectController < Api::ApiController
   before_action :set_access_control_headers
   before_action :parse_body
-  before_action :check_params
+  before_action :check_api_key_exists
   before_action :set_key
   before_action :check_and_set_domain
   before_action :check_allowed_origins
-  protect_from_forgery unless: -> {request.format.json?}
-  after_action -> {request.session_options[:skip] = true}
+  protect_from_forgery unless: -> { request.format.json? }
+  after_action -> { request.session_options[:skip] = true }
 
   @api_key
   @body
@@ -14,40 +16,64 @@ class Api::Sdk::V1::CollectController < Api::ApiController
   @page
 
   def index
-    url = @body["url"]
-    uri = URI(url)
-    uri.scheme
-#=> "http"
-    uri.host
-#=> "foo.com"
-    uri.path
-#=> "/posts"
-    uri.query
-#=> "id=30&limit=5"
-    uri.fragment
-#=> "time=1305298413"
-    @page = Page.where(:domain_id => @domain, :url => url).first_or_create!
-    @page.update!(fragment = uri.fragment, path = uri.path, query = uri.query, host = uri.host)
-    create_page_view
-    if domain.domain_setting.track_geo
-      create_page_view_location(page)
+    begin
+      url = @body["url"]
+      uri = URI(url)
+      uri.scheme
+      #=> "http"
+      uri.host
+      #=> "foo.com"
+      uri.path
+      #=> "/posts"
+      uri.query
+      #=> "id=30&limit=5"
+      uri.fragment
+      #=> "time=1305298413"
+      @page = Page.where(:domain_id => @domain, :url => url).first_or_create!
+      @page.update!(fragment = uri.fragment, path = uri.path, query = uri.query, host = uri.host)
+      create_page_view
+      if domain.domain_setting.track_geo
+        create_page_view_location(page)
+      end
+      reply_json({ :ok => true })
+    rescue StandardError => err
+      reply_json({ :ok => false })
     end
 
-    reply_json({:ok => true})
   end
 
-
   def create_page_view
-    PageView.create!(:page => @page)
+    begin
+      utm = @body['utm']
+      url = URI(@body['url'])
+      browser_info = @body['browser']
+      browser = Browser.new(request.user_agent, accept_language: "en-us")
+      PageView.create!(:page => @page,
+                       :utm_source => utm['src'],
+                       :utm_medium => utm['medium'],
+                       :utm_campaign => utm['name'],
+                       :utm_content => utm['content'],
+                       :is_mobile => browser.device.mobile?,
+                       :is_desktop => browser.device.mobile?,
+                       :is_tablet => browser.device.tablet?,
+                       :utm_term => utm['term'],
+                       :query => url.query,
+                       :referer => request.referer,
+                       :origin => request.origin,
+                       :width_resolution => browser_info['ww'],
+                       :height_resolution => browser_info['hw'])
+
+    rescue StandardError => err
+      reply_json({ :ok => false })
+    end
   end
 
   def create_page_view_location(page)
     record = $maxmind.lookup(request.remote_ip)
     if record.found?
       country_iso_2 = record.country.iso_code
-      PageViewLocation.create!({:domain_id => @domain, :page => page, :country_iso_2 => country_iso_2})
+      PageViewLocation.create!({ :domain_id => @domain, :page => page, :country_iso_2 => country_iso_2 })
     end
-
   end
 
   protected
@@ -56,11 +82,10 @@ class Api::Sdk::V1::CollectController < Api::ApiController
     headers['Access-Control-Allow-Origin'] = '*'
   end
 
-
   def check_and_set_domain
-    pub_key = ApiKey.where({:public_key => @api_key}).includes(domain: :domain_setting).first
+    pub_key = ApiKey.where({ :public_key => @api_key }).includes(domain: :domain_setting).first
     unless pub_key
-      return reply_json({:error => "Verify key"}, :bad_request)
+      return reply_json({ :error => "Verify key" }, :bad_request)
     end
     @domain = pub_key.domain
   end
@@ -72,19 +97,19 @@ class Api::Sdk::V1::CollectController < Api::ApiController
     # check with trail stash
     #
     allow = allowed_origin.include?(origin) or
-        allowed_origin.include?(referer) or
-        allowed_origin.include?(origin.delete_suffix('/')) or
-        allowed_origin.include?(referer.delete_suffix('/'))
+      allowed_origin.include?(referer) or
+      allowed_origin.include?(origin.delete_suffix('/')) or
+      allowed_origin.include?(referer.delete_suffix('/'))
     unless allow
-      reply_json({:error => "Not origin allowed"}, :bad_request)
+      reply_json({ :error => "Not an origin allowed" }, :bad_request)
     end
 
   end
 
-  def check_params
+  def check_api_key_exists
     %w(token url).each do |k|
       unless @body.has_key?(k)
-        reply_json({:error => "Invalid params"}, :bad_request)
+        reply_json({ :error => "Invalid params" }, :bad_request)
         break
       end
     end

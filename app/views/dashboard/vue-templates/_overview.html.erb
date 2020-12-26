@@ -1,34 +1,3 @@
-<style>
-
-  #overview_map_content_container > .box {
-    overflow: hidden;
-  }
-
-  #overview_container .panel-block {
-    border-bottom: none;
-  }
-
-  /* fix geo  */
-  #overview_map_content_container #map_world_svg {
-    stroke-linejoin: round;
-    stroke: #000;
-    fill: none;
-    height: 300px;
-    width: 2000px;
-    transform: translateX(-793px);
-  }
-
-  .color-selector {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 4px;
-    margin-top: 5px;
-    cursor: pointer;
-  }
-</style>
-
 <script type="text/x-template" id="app_dashboard_overview_template">
   <div id="overview_container">
     <div class="level">
@@ -54,7 +23,9 @@
             <input type="hidden" name="geo_img" :value="export_images.world_img">
             <input type="hidden" name="views_img" :value="export_images.views_img">
             <input type="hidden" name="devices_img" :value="export_images.devices_img">
-            <button type="submit" class="button is-small is-success">
+
+            <button type="submit" class="button is-small is-success"
+                    <% if current_domain.nil? %>disabled="disabled"<%end %>>
               Export to PDF
             </button>
           <% end %>
@@ -66,7 +37,7 @@
        <img :src="export_images.world_img"/>
         <img :src="export_images.views_img"/>
     -->
-    <div class="columns is-multiline" id="overview_global_view_container" v-cloak>
+    <div class="columns is-multiline"  id="overview_global_view_container" v-cloak>
       <div class="column">
         <div class="box">
           <div class="heading has-text-weight-semibold">
@@ -76,7 +47,7 @@
             <span>{{stats.views}}</span>
             <div class="is-pulled-right">
               <% cache('icon-target') do %>
-                <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-target', :css_class => 'accent'} %>
+                <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-target', :css_class => 'accent'} %>
               <% end %>
             </div>
 
@@ -115,19 +86,18 @@
 
 
     </div>
-
     <div class="columns is-multiline">
       <div class="column is-6" id="overview_page_views_content_container">
         <div class="box">
           <p class="heading">
             <%= t('Top Pages views') %>
 
-            <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodTopPagesViews($event)'} %>
+            <%= render :partial => 'shared/select_period_general', :locals => {:event => 'onChangePeriodTopPagesViews($event)'} %>
 
 
             <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right icon-container'}) do %>
               <% cache('icon-external-window') do %>
-                <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+                <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-external-window'} %>
               <% end %>
               <%= t('details') %>
             <% end %>
@@ -152,6 +122,9 @@
               </tbody>
             </table>
           </div>
+          <div class="no-data-content" >
+            Empty
+          </div>
         </div>
       </div>
 
@@ -161,14 +134,14 @@
           <p class="heading">
             <%= t('Views') %>
 
-            <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodViews($event)'} %>
+            <%= render :partial => 'shared/select_period_general', :locals => {:event => 'onChangePeriodViews($event)'} %>
             <select v-model="views.selection.type">
               <option value="line" selected="selected">line</option>
               <option value="bar">bar</option>
             </select>
             <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right  icon-container'}) do %>
               <% cache('icon-external-window') do %>
-                <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+                <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-external-window'} %>
               <% end %>
               <%= t('details') %>
             <% end %>
@@ -184,6 +157,9 @@
               </div>
             </div>
           </div>
+          <div class="no-data-content" >
+            Empty
+          </div>
           <div>
           </div>
         </div>
@@ -194,13 +170,13 @@
           <p class="heading">
             <%= t('Devices') %>
 
-            <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodDevicesViews($event)'} %>
+            <%= render :partial => 'shared/select_period_general', :locals => {:event => 'onChangePeriodDevicesViews($event)'} %>
 
 
 
             <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right  icon-container'}) do %>
               <% cache('icon-external-window') do %>
-                <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+                <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-external-window'} %>
               <% end %>
               <%= t('details') %>
             <% end %>
@@ -208,6 +184,9 @@
           </p>
           <div class="panel-block px-0 is-block">
             <canvas id="canvas_devices" width="400" height="250"></canvas>
+          </div>
+          <div class="no-data-content" >
+            Empty
           </div>
         </div>
       </div>
@@ -217,10 +196,10 @@
           <p class="heading">
             <%= t('Geo partition') %>
             <% if current_domain && current_domain.domain_setting.track_geo %>
-              <%= render :partial => 'includes/select_period_general', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
+              <%= render :partial => 'shared/select_period_general', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
               <%= link_to(dashboard_stats_geo_path, {class: 'is-pulled-right  icon-container'}) do %>
                 <% cache('icon-external-window') do %>
-                  <%= render :partial => 'includes/icon', :locals => {:icon => 'icon-external-window'} %>
+                  <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-external-window'} %>
                 <% end %>
                 <%= t('details') %>
               <% end %>
@@ -228,14 +207,13 @@
               <span class="tag tag-warning"> <%= t('dashboard.menu.geo_scattering') %>
                 <small>(disabled)</small></span>
             <% end %>
-
           </p>
           <div class="panel-block px-0 is-block">
             <% if current_domain %>
               <% if current_domain.domain_setting.track_geo %>
                 <app-v-choropleth-chart v-if="overview.geo" :data="overview.geo"></app-v-choropleth-chart>
               <% else %>
-                <div class="">
+                <div>
                   <%= t('dashboard.overview.geo_activate_text') %> <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
                     <%= t('dashboard.menu.configuration') %>
                   <% end -%>
@@ -243,9 +221,15 @@
               <% end %>
             <% end %>
           </div>
+          <div class="no-data-content" >
+           Empty
+          </div>
         </div>
       </div>
     </div>
     <!-- <app-v-heatmap-chart></app-v-heatmap-chart>-->
+    <div class="no-data-content" >
+      <%= t('domain.domain_not_selected') %>
+    </div>
   </div>
 </script>

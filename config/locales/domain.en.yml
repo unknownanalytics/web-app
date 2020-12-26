@@ -47,6 +47,7 @@ en:
     origins: Origins
     api:
       create_new_api_key_for: "Create a new api fro"
+    domain_not_selected: "No domain selected please create or select a domain"
   domains:
     settings_origins_placeholder: "example-origin.com,example-origin-2.com"
     create_new_domain: "Create a new domain"

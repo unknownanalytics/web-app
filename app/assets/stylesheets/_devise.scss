@@ -1,20 +1,27 @@
+@import "components/colors";
+
 
 .devise-container {
   height: 100vh;
+
   &, .devise-content {
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
+
   .devise-content {
     flex-grow: 1;
     align-items: center;
     justify-content: space-around;
+
     .devise-inner-content {
-      max-width: 390px;
+      box-shadow: 5px 10px $primary-end-gradient;
+      max-width: 600px;
       border-radius: 10px;
       border: solid 1px;
       padding: 15px;
+
       h2 {
         font-size: 30px;
         text-align: center;
@@ -22,11 +29,41 @@
         display: block;
         margin-bottom: 20px;
       }
+
       form {
         margin: auto;
+
         .field {
           display: flex;
           justify-content: space-between;
+
+          .field_with_errors {
+            background: transparent;
+            border-bottom: solid 2px red;
+          }
+        }
+
+        .actions {
+          text-align: center;
+        }
+
+        input[type=submit] {
+          border: none;
+          padding: 5px;
+          border-radius: 2px;
+          background: $primary;
+          color: white;
+        }
+      }
+    }
+  }
+
+
+  .error_explanation {
+    ul {
+      li {
+        ::marker {
+          background: red;
         }
       }
     }
