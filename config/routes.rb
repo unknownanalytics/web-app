@@ -74,7 +74,7 @@ Rails.application.routes.draw do
       get '/overview/top_pages' => 'overview#top_pages'
       get '/pages/summary' => 'pages#summary'
       get '/pages/views' => 'pages#views'
-      get '/pages/heatmap' => 'pages#heatmap'
+      get '/pages/weekly_by_days' => 'pages#weekly_by_days'
       get 'pages/:page_id/views' => 'pages#page_views_details'
       get '/geo' => 'geo#index'
       get '/devices' => 'devices#index'

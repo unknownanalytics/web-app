@@ -27,10 +27,10 @@ class Api::ApiController < ApplicationController
     elsif interval === 'week'
       start = stop - back.week
     elsif interval === 'month'
-      start = stop - back.week
+      start = stop - back.month
     else
       # monthly
-      start = stop.years_ago(2)
+      start = stop.years_ago(1)
     end
 
 

@@ -8,9 +8,11 @@
       <div class="field">
         <label class="label">Allowed origins</label>
         <div class="control">
-          <%= text_field(:domain_setting, :origins, {class: "input", placeholder: t("domains.settings_origins_placeholder")}) %>
+          <%= text_field(:domain_setting, :origins, { class: "input", placeholder: t("domains.settings_origins_placeholder") }) %>
         </div>
-        <label class="help">The list of allowed origins separated by comma <code>,</code>. Example domain-1,domain-2</label>
+        <label class="help">The list of allowed origins separated by comma <code>,</code>. Example domain-1,domain-2.
+          Without including schema </label>
+        <label class="help">Unk analytics does not allow http access. Only https is accepted  </label>
       </div>
     </div>
   </div>
@@ -26,7 +28,7 @@
       <div class="field">
         <label class="label">Tracking geo</label>
         <div class="control">
-          <%= check_box('domain_setting', "track_geo", {checked: @domain_setting.track_geo}) %>
+          <%= check_box('domain_setting', "track_geo", { checked: @domain_setting.track_geo }) %>
           Track geo
         </div>
       </div>

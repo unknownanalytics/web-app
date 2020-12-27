@@ -283,7 +283,7 @@
 			if (!(location.hostname === 'localhost' || location.origin.startsWith('https'))) {
 				return console.error('only https is allowed');
 			}
-			let data = Object.assign({}, {full_url: href}, {utm: Utils.utm(href)});
+			let data = Object.assign({}, {url: href}, {utm: Utils.utm(href)});
 			this.push(data);
 		}
 

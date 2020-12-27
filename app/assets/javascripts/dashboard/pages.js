@@ -3,7 +3,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
         el: App.Helpers.getDashboardMainContainer(),
         template: '#app_dashboard_pages_views_template',
         mounted() {
-            this.onSelectedPage();
+            this.reloadAll();
         },
         data() {
             return {
@@ -13,29 +13,52 @@ App.Routes['/dashboard/stats/pages'] = function () {
                     origins: [],
                     pages: []
                 },
-                page: null,
-                heat: {
+
+                weekDay: {
                     range: null
+                },
+                viewsSettings: {
+                    page: null,
+                    utm: null,
+                    browser: null,
+                    origin: null,
                 }
             }
         },
         methods: {
+            _getDefaultFilterParams() {
+                let page = this.viewsSettings.page;
+                return page ? {page_id: page.id} : {};
+            },
+            /**
+             *
+             */
+            clearCurrentPage() {
+                this.viewsSettings.page = null;
+                this.reloadAll();
+            },
             /**
              *
              * @param page
              */
             onSelectedPage(page) {
-                this.page = page;
+                this.viewsSettings.page = page;
+                this.reloadAll();
+            },
+            /**
+             *
+             */
+            reloadAll() {
                 this.loadSummaryData({});
                 this.onChangePageViewsFilter();
-                this.onChangeHeatFilter();
+                this.onChangeWeekDayFilter();
             },
             /**
              *
              * @param options
              */
             loadSummaryData(options) {
-                let params = this.page ? {page_id: this.page.id} : {};
+                let params = this._getDefaultFilterParams();
                 App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_SUMMARY, params, {success: this.onLoadSummary});
             },
             /**
@@ -43,21 +66,34 @@ App.Routes['/dashboard/stats/pages'] = function () {
              * @param $event
              */
             onChangePageViewsFilter($event) {
-                let params = this.page ? {page_id: this.page.id} : {};
+                let params = this._getDefaultFilterParams();
+                let settings = this.viewsSettings;
+                if (settings.browser) {
+                    params.browser = settings.browser;
+                }
+                if (settings.utm) {
+                    params.utm = settings.utm;
+                }
+                if (settings.origin) {
+                    params.origin = settings.origin;
+                }
+                console.log(this.viewsSettings);
                 App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS, params, {success: this.drawViewsLine});
             },
             /**
              *
              * @param $event
              */
-            onChangeHeatFilter($event) {
-                let params = this.page ? {page_id: this.page.id} : {};
-                App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS_HEATS, {
+            onChangeWeekDayFilter($event) {
+                let params = this._getDefaultFilterParams();
+                params = Object.assign({}, params, {
                     interval: 'day',
                     by: 'hour',
-                    start: '2020-12-13',
+                    start: this.weekDay.range ? this.weekDay.range : moment().format('YYYY-MM-DD'),
+                    // back by 7 days
                     'back': '7'
-                }, {success: this.drawViewDaily});
+                });
+                App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS_WEEKLY_BY_DAYS, params, {success: this.drawViewDaily});
             },
             /**
              *
@@ -220,13 +256,6 @@ App.Routes['/dashboard/stats/pages'] = function () {
                     }
                 });
 
-                let dataUtms = data.utms.map(e => {
-                    return {
-                        name: e.utm_source || "?",
-                        value: e.count
-                    }
-                });
-
 
                 let dataBrowsers = data.browsers.map(e => {
                     return {
@@ -235,11 +264,19 @@ App.Routes['/dashboard/stats/pages'] = function () {
                     }
                 });
 
+
+                let dataUtms = data.utms.map(e => {
+                    return {
+                        name: e.utm_source || "?",
+                        value: e.count
+                    }
+                });
+
                 let option = {
                     title: [{
                         text: ''
                     }, {
-                        subtext: 'Origin',
+                        subtext: 'Origins',
                         left: '16.67%',
                         top: '75%',
                         textAlign: 'center'
@@ -273,7 +310,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                         type: 'pie',
                         radius: '40%',
                         center: ['50%', '50%'],
-                        data: dataUtms,
+                        data: dataBrowsers,
                         animation: false,
                         label: {
                             position: 'outer',
@@ -288,7 +325,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                         type: 'pie',
                         radius: '40%',
                         center: ['50%', '50%'],
-                        data: dataBrowsers,
+                        data: dataUtms,
                         animation: false,
                         label: {
                             position: 'outer',
