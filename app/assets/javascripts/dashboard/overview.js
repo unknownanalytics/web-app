@@ -11,13 +11,13 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                             success:
                                 (function (response) {
                                     this.stats = response.data.stats;
-                                    this.overview = response.data.overview;
                                 }).bind(this)
                         }
                     );
                     this.onChangePeriodTopPagesViews();
                     this.onChangePeriodDevicesViews();
                     this.onChangePeriodViews();
+                    this.onChangePeriodLocationViews();
 
                 } else {
                     this.stats = {
@@ -41,11 +41,11 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                         devices: [],
                         heatmaps: [],
                         utms: [],
-                        geo: []
                     },
                     top_pages: {
                         data: []
                     },
+                    geo: [],
                     views: {
                         selection: {
                             type: '#000',
@@ -77,50 +77,64 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 }
             },
             methods: {
+                _getSelectOption($event) {
+                    let interval = ($event && $event.target) ? $event.target.value : 'year';
+                    return {
+                        interval: interval,
+                        back: interval === 'day' ? 0 : 1,
+                    }
+                },
                 /**
                  * Top Page views
-                 * @param event
+                 * @param $event
                  */
-                onChangePeriodTopPagesViews(event) {
-                    App.Api.get(App.API_ROUTES.DASHBOARD_OVERVIEW_TOP_VIEWS, {
-                        axe: 'all',
-                        interval: (event && event.target) ? event.target.value : null
-                    }, {
-                        success: (function (response) {
-                            this.updateTopPagesViews(response)
-                        }).bind(this)
-                    })
+                onChangePeriodTopPagesViews($event) {
+
+                    App.Api.get(App.API_ROUTES.DASHBOARD_OVERVIEW_TOP_VIEWS,
+                        Object.assign({
+                            axe: 'all',
+                        }, this._getSelectOption($event))
+                        , {
+                            success: (function (response) {
+                                this.updateTopPagesViews(response)
+                            }).bind(this)
+                        })
                 },
                 /**
                  * Devices view
                  * @param $event
                  */
                 onChangePeriodDevicesViews($event) {
-                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS_DEVICES, {
-                        type: 'devices',
-                        interval: ($event && $event.target) ? $event.target.value : null
-                    }, {
-                        success: (function (response) {
-                            this.updateDevicesViews(response)
-                        }).bind(this)
-                    })
+                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS_DEVICES,
+                        Object.assign({
+                            axe: 'devices',
+                        }, this._getSelectOption($event)), {
+                            success: (function (response) {
+                                this.updateDevicesViews(response)
+                            }).bind(this)
+                        })
                 },
                 /**
                  * Devices view
                  * @param $event
                  */
                 onChangePeriodViews($event) {
-                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS, {
-                        type: 'devices',
-                        interval: ($event && $event.target) ? $event.target.value : null
-                    }, {
+                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS, this._getSelectOption($event), {
                         success: (function (response) {
                             this.updatePagesViews(response.data.views)
                         }).bind(this)
                     })
                 },
+                /**
+                 *
+                 * @param $event
+                 */
                 onChangePeriodLocationViews($event) {
-
+                    App.Api.get(App.API_ROUTES.DASHBOARD_STATS_GEO_DETAILS, this._getSelectOption($event), {
+                        success: (function (response) {
+                            this.geo = response.data.geo;
+                        }).bind(this)
+                    })
                 },
                 /**
                  * Update data on top page views

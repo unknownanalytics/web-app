@@ -4,6 +4,14 @@ class CompanyMailer < ApplicationMailer
 
   def new_contact(email, request_text)
     @request_text = request_text
-    mail(to: email, subject: 'Greeting from Unk')
+    mail(to: email, subject: 'Hello from Unk')
   end
+
+  def new_contact_notify_admin(email, request_text)
+    @request_text = request_text
+    @email = email
+    @admin = ENV['UNK_CONTACT_ADMIN'] || "fathallah.houssem@gmail.com"
+    mail(to: @admin, subject: '[UNK]New Contact ')
+  end
+
 end

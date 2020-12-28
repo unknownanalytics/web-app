@@ -18,6 +18,7 @@
         mounted() {
             this.adjustDesktopSVGSize();
             this.adjustLegendSVGSize();
+            this.update();
         },
         watch: {
 
@@ -32,9 +33,6 @@
         computed: {},
 
         methods: {
-            setIndicators() {
-
-            },
             /**
              * adjust the svg size
              */
@@ -45,8 +43,7 @@
                 if (vp.w > 1280) {
                     viewBox = '500 0 900 1000';
                     width = '100%';
-                }
-                else {
+                } else {
                     viewBox = '500 0 900 1150';
                     width = 900;
                 }
@@ -70,21 +67,24 @@
                 this.cleanBubble();
                 if (this.renderStyle === CHOROPLETH) {
                     this.renderChoropleth();
-                }
-                else {
-
+                } else {
                     this.renderBubble();
                 }
             },
             getSvg() {
                 return this.$el.querySelector('svg');
             },
+            /**
+             *
+             */
             renderChoropleth() {
                 let map = this.$el;
                 // check if
                 let data = this.data;
                 // get max code
-                let max = _.max(_.map(data, e => e.val));
+                let max = _.max(_.map(data, e => e.v));
+                let min = _.min(_.map(data, e => e.v));
+                let interval = max - min ;
                 let countByCountries = _.groupBy(data, 'iso');
                 let countries = App.Helpers.getSVGCountriesCodes();
                 let gradientColors = JSON.parse(map.dataset['gradientColor']);
@@ -93,9 +93,9 @@
                 countries.forEach(function (code) {
                     countrySvgShape = map.querySelector('#' + code);
                     if (countrySvgShape) {
-                        let val = countByCountries[code] && countByCountries[code][0].val;
+                        let val = countByCountries[code] && countByCountries[code][0].v;
                         if (val) {
-                            countrySvgShape.style.fill = val ? App.Charts.getGradient(val / max, gradientColors) : 'white';
+                            countrySvgShape.style.fill = val ? App.Charts.getGradient(Math.max(((val * 0.9) - min), .9) / interval, gradientColors) : 'white';
                             countrySvgShape.$ukC = val;
                             countrySvgShape.addEventListener('mouseover', ((event) => {
                                 console.log(event.currentTarget.$ukC)
@@ -122,8 +122,8 @@
              */
             renderBubble() {
                 let info = this.data;
-                let max = _.max(_.map(info, e => e.val));
-                let min = _.min(_.map(info, e => e.val));
+                let max = _.max(_.map(info, e => e.v));
+                let min = _.min(_.map(info, e => e.v));
                 let range = max - min;
                 //console.log('max ', max, 'min ', min, 'diff ', range);
                 // remove old circles
@@ -138,7 +138,7 @@
                         let b = dom.getBBox();
                         let cx = b.x + b.width / 2,
                             cy = b.y + b.height / 2;
-                        let r = 10 + ((el.val - min) / range) * 50;
+                        let r = 10 + ((el.v - min) / range) * 50;
                         circle = App.Charts.createSVGCircle({
                             r: 0,
                             cx: cx,
@@ -152,8 +152,7 @@
                         circle.dataset['val'] = r;
                         svg.appendChild(circle);
                         circle.classList.add(BUBBLE_CLASS);
-                    }
-                    else {
+                    } else {
                         // console.log(cId);
                     }
                 });

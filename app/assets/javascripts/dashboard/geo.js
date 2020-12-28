@@ -19,11 +19,8 @@ App.Routes['/dashboard/stats/geo'] = function () {
         methods: {
             /**
              *
-             * @param start
-             * @param date
-             * @param filter
              */
-            updateData(start, date, filter) {
+            updateData() {
                 App.Api.get(App.API_ROUTES.DASHBOARD_STATS_GEO_DETAILS, {
                     from: this.startDate,
                     to: this.endDate,
@@ -35,9 +32,11 @@ App.Routes['/dashboard/stats/geo'] = function () {
             },
             onChangeStartDate(event) {
                 this.startDate = event && event.target.value;
+                this.updateData()
             },
             onChangeEndDate(event) {
                 this.endDate = event && event.target.value;
+                this.updateData()
             }
         }
     })

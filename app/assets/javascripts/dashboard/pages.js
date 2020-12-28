@@ -7,7 +7,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
         },
         data() {
             return {
-                axes: {
+                data: {
                     browsers: [],
                     utms: [],
                     origins: [],
@@ -15,7 +15,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                 },
 
                 weekDay: {
-                    range: null
+                    startRange: moment().startOf('isoWeek').format('YYYY-MM-DD')
                 },
                 viewsSettings: {
                     page: null,
@@ -87,11 +87,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
             onChangeWeekDayFilter($event) {
                 let params = this._getDefaultFilterParams();
                 params = Object.assign({}, params, {
-                    interval: 'day',
-                    by: 'hour',
-                    start: this.weekDay.range ? this.weekDay.range : moment().format('YYYY-MM-DD'),
-                    // back by 7 days
-                    'back': '7'
+                    start: this.weekDay.startRange
                 });
                 App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS_WEEKLY_BY_DAYS, params, {success: this.drawViewDaily});
             },
@@ -122,9 +118,6 @@ App.Routes['/dashboard/stats/pages'] = function () {
                         color: palette[key]
                     }
                 });
-                console.log(pieces.map(e => {
-                    return {yAxis: e.lte}
-                }));
                 let option = {
                     title: {
                         text: 'views'
@@ -146,10 +139,15 @@ App.Routes['/dashboard/stats/pages'] = function () {
                         left: 'center',
                         feature: {
                             dataZoom: {
-                                yAxisIndex: 'none'
+                                yAxisIndex: 'none',
+                                show: false
                             },
-                            restore: {},
-                            saveAsImage: {}
+                            restore: {
+                                title: 'Restore'
+                            },
+                            saveAsImage: {
+                                title: 'Download image'
+                            }
                         }
                     },
                     dataZoom: [{
@@ -190,8 +188,9 @@ App.Routes['/dashboard/stats/pages'] = function () {
                     '7a', '8a', '9a', '10a', '11a',
                     '12p', '1p', '2p', '3p', '4p', '5p',
                     '6p', '7p', '8p', '9p', '10p', '11p'];
+                // MONDAY, Tuesday , wed, thur ... sunday
                 var days = ['Sunday', 'Saturday', 'Friday', 'Thursday',
-                    'Wednesday', 'Tuesday', 'Monday'];
+                    'Wednesday', 'Tuesday', 'Monday'].reverse();
 
                 data = App.Helpers.formatAsDailyHours(data);
 
@@ -200,6 +199,21 @@ App.Routes['/dashboard/stats/pages'] = function () {
                 var option = {
                     tooltip: {
                         position: 'top'
+                    },
+                    toolbox: {
+                        left: 'center',
+                        feature: {
+                            dataZoom: {
+                                yAxisIndex: 'none',
+                                show: false
+                            },
+                            restore: {
+                                show: false,
+                            },
+                            saveAsImage: {
+                                title: 'Download image'
+                            }
+                        }
                     },
                     title: [],
                     singleAxis: [],
@@ -246,12 +260,10 @@ App.Routes['/dashboard/stats/pages'] = function () {
              */
             onLoadSummary(response) {
                 let data = response.data;
-                //let data = response.data;
                 let myChart = echarts.init(document.getElementById('canvas_pages_partition'));
-
                 let dataOrigins = data.origins.map(e => {
                     return {
-                        name: e.origin || "?",
+                        name: App.Helpers.formatOrigin(e.origin),
                         value: e.count
                     }
                 });
@@ -267,7 +279,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
 
                 let dataUtms = data.utms.map(e => {
                     return {
-                        name: e.utm_source || "?",
+                        name: e.utm_campaign || "?",
                         value: e.count
                     }
                 });
@@ -340,7 +352,7 @@ App.Routes['/dashboard/stats/pages'] = function () {
                 };
                 myChart.setOption(option);
 
-                this.axes = response.data;
+                this.data = response.data;
             },
 
         }

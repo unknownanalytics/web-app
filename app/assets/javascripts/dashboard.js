@@ -10,11 +10,13 @@ document.addEventListener("turbolinks:load", function (event) {
         App.Routes[path]();
     }
     // main search element
+    // TODO
+    /*
     new Vue({
         el: '#navbar_header_form',
         data: function () {
             return {
-                commands: ['top', 'but', 'kie', 'toot', 'toyoata'],
+                commands: ['top vue', 'but', 'kie', 'toot', 'toyoata'],
             }
         },
         methods: {
@@ -22,5 +24,5 @@ document.addEventListener("turbolinks:load", function (event) {
                 alert(item)
             }
         }
-    })
+    })*/
 });

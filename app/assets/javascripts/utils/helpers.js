@@ -83,6 +83,8 @@ const Helpers = {
      * sep => separator
      */
     formatAsDailyHours(data) {
+        // Sunday 7 => 6
+        // Monday 1
         // "YYYY-MM-DD HH24-ID"
         let dayAndHour;
         let dictDaysAndHours = {};
@@ -90,6 +92,7 @@ const Helpers = {
         data.forEach(e => {
             dayAndHour = e.t.split(' ')[1];
             let day = Helpers.int(dayAndHour.split('-')[1]);
+            day = day - 1;
             let hour = Helpers.int(dayAndHour.split('-')[0]);
             if (!dictDaysAndHours[day]) {
                 dictDaysAndHours[day] = {}
@@ -97,19 +100,25 @@ const Helpers = {
             dictDaysAndHours[day][hour] = e.v;
         });
 
-        let result = [], day, val;
+        let result = [], day, val, current;
 
         for (let i = 0; i < 7; i++) {
             day = [];
+            current = dictDaysAndHours[i];
             for (let j = 0; j < 24; j++) {
-                val = dictDaysAndHours[i] ? (dictDaysAndHours[i][j] ? dictDaysAndHours[i][j] : 0) : 0;
+                val = current ? (current[j] ? current[j] : 0) : 0;
+                if (val > 0) {
+                    console.log('XXXXXXXXXXXXXXXX');
+                    console.log(val);
+                }
                 result.push([i, j, val])
             }
         }
+        console.log(result);
         return result;
         /* [[d, t, value],
             [0, 1, 1], .....
-            [1, 0, 7] .... ];*/
+            [1, 0, 4] .... ];*/
 
 
     },
@@ -117,7 +126,6 @@ const Helpers = {
      * sep => separator
      */
     getRangeDate(startDate, endDate, sep) {
-
         // Returns an array of dates between the two dates
         let buildArray = function (startDate, endDate) {
             let dates = [],
@@ -188,8 +196,7 @@ const Helpers = {
                 //document.removeChild(canvas);
                 cb(null, result, image.src)
             }
-        }
-        else {
+        } else {
             cb("empty el");
         }
 
@@ -263,7 +270,13 @@ const Helpers = {
      */
     serializeSVGAsBase64(el) {
         return window.btoa(this.serializeSVG(el));
-    }
+    },
 
+    formatOrigin(origin) {
+        if (!origin) {
+            return '?'
+        }
+        return URL ? new URL(origin).host : origin;
+    }
 };
 App.Helpers = Helpers;

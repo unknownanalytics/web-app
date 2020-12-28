@@ -73,9 +73,16 @@ class Api::PagesController < Api::ApiController
   end
 
   def weekly_by_days
-    period_range = get_date_range
+    start = params[:start]
+    if start
+      start = Date.parse(start)
+    else
+      start = Date.today.beginning_of_week
+    end
+
+    period_range = start.beginning_of_day..(start + 6.days).end_of_day
     page_id = params[:page_id]
-    by = params[:by]
+    by = params[:by] || 'hour'
     formats = {
       "week" => "IYYY-IW",
       "day" => "YYYY-MM-DD",
@@ -86,6 +93,7 @@ class Api::PagesController < Api::ApiController
     unless formats.keys.include?(by)
       return reply_json({ ok: false }, :bad_request)
     end
+
     pages = Page
 
     sql_select = "distinct TO_CHAR(date_trunc('#{by}', page_views.created_at), '#{formats[by]}') as t, count(*) as v"

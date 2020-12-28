@@ -29,25 +29,10 @@ class Api::OverviewController < Api::ApiController
 
     browsers = browsers.as_json(except: :id)[0]['count']
 
-    if current_domain.domain_setting.track_geo
-      page_view_locations = 'page_view_locations'
-      geo = PageViewLocation
-                .select("count(#{page_view_locations}.country_iso_2) as val , #{page_view_locations}.country_iso_2 as iso")
-                .group("#{page_view_locations}.country_iso_2")
-                .joins(:page => :domain)
-                .where(:pages => {:domain => current_domain})
 
-
-      geo = geo.as_json(except: :id)
-    else
-      geo = null
-    end
 
     reply_json({
                    interval: period_range,
-                   overview: {
-                       geo: geo,
-                   },
                    stats: {
                        views: current_domain.page_views.count,
                        referers: referers,
@@ -65,7 +50,7 @@ class Api::OverviewController < Api::ApiController
                 .where(:domains => {:id => current_domain.id})
                 .joins(:page_views)
                 .where(:page_views => {:created_at => period_range})
-                .select("pages.id, pages.full_url, count(page_views.page_id) as vcount")
+                .select("pages.id, pages.url, count(page_views.page_id) as vcount")
                 .group("pages.id")
                 .limit(limit)
                 .order("vcount DESC")

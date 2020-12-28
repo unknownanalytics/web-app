@@ -92,7 +92,7 @@
           <p class="heading">
             <%= t('Top Pages views') %>
 
-            <%= render :partial => 'shared/select_period_general', :locals => {:event => 'onChangePeriodTopPagesViews($event)'} %>
+            <%= render :partial => 'shared/select_period_generic', :locals => {:event => 'onChangePeriodTopPagesViews($event)'} %>
 
 
             <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right icon-container'}) do %>
@@ -114,7 +114,9 @@
               <tbody>
               <tr v-for="e in top_pages.data">
                 <td>
-                  <span v-if="e.full_url || e.url">{{e.full_url || e.url}}</span>
+                  <span v-if="e.url">{{e.url }}
+                   <span v-if="e.url === '/'" class="has-text-primary">Home page</span>
+                  </span>
                   <span v-else class="has-text-grey-dark">Home page</span>
                 </td>
                 <td>{{e.vcount}}</td>
@@ -134,7 +136,7 @@
           <p class="heading">
             <%= t('Views') %>
 
-            <%= render :partial => 'shared/select_period_general', :locals => {:event => 'onChangePeriodViews($event)'} %>
+            <%= render :partial => 'shared/select_period_generic', :locals => {:event => 'onChangePeriodViews($event)'} %>
             <select v-model="views.selection.type">
               <option value="line" selected="selected">line</option>
               <option value="bar">bar</option>
@@ -170,7 +172,7 @@
           <p class="heading">
             <%= t('Devices') %>
 
-            <%= render :partial => 'shared/select_period_general', :locals => {:event => 'onChangePeriodDevicesViews($event)'} %>
+            <%= render :partial => 'shared/select_period_generic', :locals => {:event => 'onChangePeriodDevicesViews($event)'} %>
 
 
 
@@ -196,7 +198,7 @@
           <p class="heading">
             <%= t('Geo partition') %>
             <% if current_domain && current_domain.domain_setting.track_geo %>
-              <%= render :partial => 'shared/select_period_general', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
+              <%= render :partial => 'shared/select_period_generic', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
               <%= link_to(dashboard_stats_geo_path, {class: 'is-pulled-right  icon-container'}) do %>
                 <% cache('icon-external-window') do %>
                   <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-external-window'} %>
@@ -211,7 +213,7 @@
           <div class="panel-block px-0 is-block">
             <% if current_domain %>
               <% if current_domain.domain_setting.track_geo %>
-                <app-v-choropleth-chart v-if="overview.geo" :data="overview.geo"></app-v-choropleth-chart>
+                <app-v-choropleth-chart v-if="geo" :data="geo"></app-v-choropleth-chart>
               <% else %>
                 <div>
                   <%= t('dashboard.overview.geo_activate_text') %> <%= link_to(settings_dashboard_domain_path(current_domain)) do %>

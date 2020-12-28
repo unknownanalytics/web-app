@@ -4,7 +4,7 @@
       <h4 class="is-size-5 has-text-weight-bold">Page Views </h4>
       <div v-if="viewsSettings.page" class="is-flex py-2">
           <span class="has-background-warning-light is-flex  is-align-items-center">
-            {{viewsSettings.page.url}}
+            {{viewsSettings.page.url}}d
           </span>
         <button @click="clearCurrentPage()" class="button is-small ml-2 has-background-danger-dark has-text-white cursor-pointer reset-page">Clear</button>
       </div>
@@ -32,17 +32,28 @@
         <div class="columns mb-2" id="page_filter_menu">
           <div class="column is-one-quarter">
             <div>
-              <app-v-typehead :list="axes.pages"
+              <app-v-typehead :list="data.pages"
                               :property="'url'"
                               v-on:selected="onSelectedPage($event)"
-                              :placeholder="'Filter ' + axes.pages.length  + ' pages' ">
+                              :placeholder="'Filter ' + data.pages.length  + ' pages' ">
               </app-v-typehead>
             </div>
           </div>
+
+
+          <div class="column is-one-quarter">
+            <select @change="onChangePageViewsFilter($event)" v-model="viewsSettings.origin">
+              <option value="null">By Origin</option>
+              <option v-if="entry.origin !== null" v-for="entry in data.origins">
+                {{ entry.origin }}
+              </option>
+            </select>
+          </div>
+
           <div class="column is-one-quarter">
             <select @change="onChangePageViewsFilter($event)" v-model="viewsSettings.utm">
-              <option value="null">By utm source</option>
-              <option v-if="entry.utm_campaign !== null" v-for="entry in axes.utms">
+              <option value="null">By utm campaign</option>
+              <option v-if="entry.utm_campaign !== null" v-for="entry in data.utms">
                 {{ entry.utm_campaign }}
               </option>
             </select>
@@ -51,17 +62,8 @@
           <div class="column is-one-quarter">
             <select @change="onChangePageViewsFilter($event)" v-model="viewsSettings.browser">
               <option value="null">By browser</option>
-              <option v-if="entry.browser !== null" v-for="entry in axes.browsers">
+              <option v-if="entry.browser !== null" v-for="entry in data.browsers">
                 {{ entry.browser }}
-              </option>
-            </select>
-          </div>
-
-          <div class="column is-one-quarter">
-            <select @change="onChangePageViewsFilter($event)" v-model="viewsSettings.origin">
-              <option value="null">By Origin</option>
-              <option v-if="entry.origin !== null" v-for="entry in axes.origins">
-                {{ entry.origin }}
               </option>
             </select>
           </div>
@@ -75,11 +77,11 @@
       <div>
         <h4 class="is-size-5  has-text-weight-bold">Daily
           <small class="is-size-7"> [ by weeks in the last 6 months ]</small>
-          <select @change="onChangeWeekDayFilter($event)" v-model="weekDay.range">
-            <%= get_range_of_weeks_n_months_ago(6).each_with_index do |week, index| %>
+          <select @change="onChangeWeekDayFilter($event)" v-model="weekDay.startRange">
+            <%= get_range_of_weeks_n_months_ago(6).reverse.each_with_index do |week, index| %>
               <option
                 <% if index == 0 %>selected="selected"
-                <% end %> value="<%= week %>">
+                <% end %> value="<%= week.begin %>">
                 <%= week %>
               </option>
             <% end %>

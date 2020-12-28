@@ -34,6 +34,6 @@ class User < ApplicationRecord
   end
 
   def own_domain(domain)
-    domain.user_id == self.id
+    domain.user_id == self.id if domain
   end
 end
