@@ -13,5 +13,7 @@ bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:setup
 ### generate assets
 bundle exec rake assets:precompile
 
+### Build sdk js and put it inside public/assets
+bundle exec rake assets:sdk
 
 exec bundle exec "$@"

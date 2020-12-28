@@ -77,7 +77,6 @@ create `/var/www/unk-ana-assets` folder, we will use it later to serve assets
 
 See ngnix folder to copy configuration files.
 
-
 ### Container images & docker compose
 
 Note, that for building image we only need the minimum of env variables.

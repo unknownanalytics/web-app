@@ -31,9 +31,12 @@ ENV BUNDLER_VERSION  2.1.4
 
 RUN bundle config without 'development test'
 RUN bundle install --jobs 20 --retry 5
+
+
 # Adding project files
 COPY . .
-
+# install sdk files
+RUN npm i
 # Set env
 ENV UNK_APP_IS_BILLABLE=false
 # Set env

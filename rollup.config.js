@@ -17,7 +17,6 @@ let version = process.env.SDK_VERSION || 'beta';
 apiHost = apiHost.replace(/#/g, ':');
 
 
-let dist = production && ('public/sdk/' + `sdk-${version}`) + '.js';
 /**
  *
  */
@@ -25,7 +24,7 @@ export default {
     input: 'web-sdk-cli/src/main.js',
     format: 'iife',
     output: {
-        file: production ? dist : 'web-sdk-cli/test/bundle.js',
+        file: production ? 'public/assets/sdk.js' : 'web-sdk-cli/test/bundle.js',
         format: 'iife', // immediately-invoked function expression — suitable for <script> tags
         sourcemap: !production,
     },

@@ -26,6 +26,7 @@ class PageViewManager {
         this.options = options;
         this.sender = sender;
         this.lastLocation = null;
+        // override default function and add custom event change
         var eventName = 'unkChange';
         window.addEventListener(eventName, this.onPopChange.bind(this));
         /* override pushState */
@@ -54,7 +55,7 @@ class PageViewManager {
      *
      */
     onPopChange(event) {
-        console.log('######## onPopChange event##############"');
+        // console.log('######## onPopChange event##############"');
         let location = document.location;
         if (this.lastLocation !== location.href) {
             let href = location.href;
