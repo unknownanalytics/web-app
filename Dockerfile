@@ -36,6 +36,7 @@ RUN bundle install --jobs 20 --retry 5
 # Adding project files
 COPY . .
 # install sdk files
+RUN apk add --update npm
 RUN npm i
 # Set env
 ENV UNK_APP_IS_BILLABLE=false
