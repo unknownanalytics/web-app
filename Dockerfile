@@ -7,6 +7,7 @@ RUN apk update \
     # replace 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
     && apk add tzdata \
     && apk add nodejs \
+    && apk add npm \
     && apk add bash \
 # standard ruby image
 # RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
@@ -36,7 +37,7 @@ RUN bundle install --jobs 20 --retry 5
 # Adding project files
 COPY . .
 # install sdk files
-RUN apk add --update npm
+
 RUN npm i
 # Set env
 ENV UNK_APP_IS_BILLABLE=false
