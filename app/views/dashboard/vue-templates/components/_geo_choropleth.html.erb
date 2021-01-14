@@ -32,13 +32,13 @@
           </g>
         </div>
         <div>
-          <div v-show="renderStyle == 'choropleth' && range > 1">
+          <div v-show="renderStyle == 'choropleth' && range > 1" style="position: absolute; top:-10px;left: 24px;">
             {{minValue }}  <%= render :partial => 'shared/gradient.line', :locals => { :colors => colors } %> {{minValue
             +
             range }}
           </div>
 
-          <div v-show="renderStyle == 'choropleth' && range == 1"  style="position: absolute; top:-50px;left: 24px;">
+          <div v-show="renderStyle == 'choropleth' && range == 1" style="position: absolute; top:-50px;left: 24px;">
             <div style="background: #03a9f4ad; display: inline-block;width: 16px;height: 16px"></div>
             {{minValue }}
 
