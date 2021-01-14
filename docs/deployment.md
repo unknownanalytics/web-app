@@ -43,9 +43,12 @@ Once the container is up and running, you should copy the latest generated asset
 mode, rails does not serve static files (unless you enable it). It's always suitable to serve it using nginx or any
 other dedicated server.
 
-So if we will serve static file from /var/www/unk-ana-assets_staging/assets, we will copy assets from `/var/www/unk-web-app` (see Dockerfile)
+So if we will serve static file from /var/www/unk-ana-assets_production/assets, we will copy assets from `/var/www/unk-web-app` (see Dockerfile)
 
-`docker cp <id_container|container_name>:/var/www/unk-web-app/public/assets /var/www/<path_to_your_assets>`
+`rm -rf /var/www/unk-ana-assets_production/`
+
+
+`docker cp <id_container|container_name>:/var/www/unk-web-app/public/assets /var/www/unk-ana-assets_production/`
 
 Replace the `<id_container|container_name>` by the container id or the container name
 For this configuration you can use
