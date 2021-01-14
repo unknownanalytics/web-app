@@ -7,7 +7,7 @@
 ### Assets folder
 
 ##### Create the assets folder
-create `/var/www/unk-ana-assets` folder, we will use it later to serve assets
+create `/var/www/unk_ana-assets` folder, we will use it later to serve assets
 
 ### Configure nginx
 
@@ -43,19 +43,19 @@ Once the container is up and running, you should copy the latest generated asset
 mode, rails does not serve static files (unless you enable it). It's always suitable to serve it using nginx or any
 other dedicated server.
 
-So if we will serve static file from /var/www/unk-ana-assets_production/assets, we will copy assets from `/var/www/unk-web-app` (see Dockerfile)
+So if we will serve static file from /var/www/unk_ana-assets/assets, we will copy assets from `/var/www/unk-web-app` (see Dockerfile)
 
-`rm -rf /var/www/unk-ana-assets_production/`
+`rm -rf /var/www/unk_ana-assets/`
 
 
-`docker cp <id_container|container_name>:/var/www/unk-web-app/public/assets /var/www/unk-ana-assets_production/`
+`docker cp <id_container|container_name>:/var/www/unk-web-app/public/assets /var/www/unk_ana-assets/`
 
 Replace the `<id_container|container_name>` by the container id or the container name
 For this configuration you can use
 
-`sudo rm -rf /var/www/unk-ana-assets/assets && \
-sudo mkdir -p /var/www/unk-ana-assets && \
-sudo docker cp unk-web-app:/var/www/unk-web-app/public/assets /var/www/unk-ana-assets/assets`
+`sudo rm -rf /var/www/unk_ana-assets/assets && \
+sudo mkdir -p /var/www/unk_ana-assets && \
+sudo docker cp unk-web-app:/var/www/unk-web-app/public/assets /var/www/unk_ana-assets/assets`
 
 * Docker on windows.
 ### 
