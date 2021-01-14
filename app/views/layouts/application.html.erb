@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'unsafe-eval' 'self' https://cdn.jsdelivr.net  ;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; script-src 'nonce-7f26c' 'unsafe-eval' 'self' https://cdn.jsdelivr.net  ;">
 
   <% unless current_domain.nil? %>
     <meta name="app-domain" content="<%= current_domain.id %>">
@@ -46,7 +46,7 @@
 <%= yield :custom_js_assets %>
 
 <script src="https://www.unknownanalytics.com/sdk.js"></script>
-<script>
+<script nonce="7f26c">
     unkAnalytics("ua_d1UNqUqbS2LcmY0vsZ-vMw");
 </script>
 
