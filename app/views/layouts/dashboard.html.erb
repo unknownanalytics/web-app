@@ -23,8 +23,9 @@
   <%= render "shared/header_dashboard" %>
 
   <div class="container" id="main_dashboard">
+
     <% if current_user.own_domain(current_domain) %>
-      <% if (current_domain.domain_setting.origins.nil? || current_domain.domain_setting.origins.empty?)  && !current_page?(settings_dashboard_domain_path(current_domain)) %>
+      <% if (current_domain.domain_setting.origins.nil? || current_domain.domain_setting.origins.empty?) && !current_page?(settings_dashboard_domain_path(current_domain)) %>
         <br/>
         <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
           <div class="has-background-danger has-text-white pl-2 has-text-centered"> You should configure origins for
@@ -32,7 +33,7 @@
           </div>
         <% end %>
       <% end %>
-      <% if current_domain.api_keys.length == 0 && !current_page?(dashboard_domain_api_keys_path(current_domain))%>
+      <% if current_domain.api_keys.length == 0 && !current_page?(dashboard_domain_api_keys_path(current_domain)) %>
         <br/>
         <%= link_to(dashboard_domain_api_keys_path(current_domain)) do %>
           <div class="has-background-danger has-text-white pl-2 has-text-centered">
@@ -41,46 +42,39 @@
         <% end %>
       <% end %>
     <% end %>
+
     <div class="columns is-marginless">
       <aside class="column is-2">
         <%= render "shared/menu" %>
       </aside>
       <div class="column is-10">
-        <div class="is-12 main-container">
-          <% if current_domain.nil? && !current_page?('/dashboard/domains') %>
-
+        <div class="is-12 py-2 main-container">
+          <%= %>
+          <% if current_domain.nil? && !(controller_path.split('/').first === 'dashboard' && controller_name == 'domains') %>
             <h1 class="title is-4">Select or create a new domain</h1>
             <div class="is-flex">
-
               <% if @my_domains.size > 0 %>
-                <div>
-
-
+                <div class="pr-2">
                   <%= form_tag('/dashboard/set-current-domain') do %>
                     <div class="field is-grouped">
-                      <div class="control select">
+                      <div class="control select is-small">
                         <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id), { include_blank: "#{t("domains.select_from_your_domains")} #{@my_domains.size} domains" }) %>
                       </div>
                       <div class="control">
-                        <%= submit_tag t('Select', class: 'button is-link'), { :class => 'button default' } %>
+                        <%= submit_tag t('Select', class: 'button is-link'), { :class => 'button default is-small' } %>
                       </div>
+                      &nbsp; or &nbsp;
                     </div>
                   <% end -%>
                 </div>
               <% end -%>
-
-              <div class="pl-3 py-2">
-                <%= link_to(dashboard_domains_path, { :class => 'is-light is-link' }) do %>
+              <div class="">
+                <%= link_to(dashboard_domains_path, { :class => 'is-light is-link is-small' }) do %>
                   <span><%= t('domain.create_new_domain') %></span>
                 <% end %>
               </div>
-
-
             </div>
-
           <% end %>
-
-
 
           <%= yield %>
 

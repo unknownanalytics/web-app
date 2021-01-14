@@ -1,5 +1,5 @@
 <script type="text/x-template" id="app_dashboard_overview_template">
-  <div id="overview_container">
+  <div id="overview_container"  <% if current_domain.nil? %>class="no-domain-selected"<%end %>>
     <div class="level">
       <div class="level-left">
         <div class="level-item">
@@ -229,9 +229,6 @@
         </div>
       </div>
     </div>
-    <!-- <app-v-heatmap-chart></app-v-heatmap-chart>-->
-    <div class="no-data-content" >
-      <%= t('domain.domain_not_selected') %>
-    </div>
+
   </div>
 </script>

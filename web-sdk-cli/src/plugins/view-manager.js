@@ -10,7 +10,8 @@ class PageViewManager {
     sender: Sender = null;
     options: null;
     */
-
+    // instance singleton
+    static manager;
 
     /**
      *
@@ -23,6 +24,7 @@ class PageViewManager {
      * @param sender
      */
     constructor(options, sender) {
+        console.log('######## Create new instance ##############"');
         this.options = options;
         this.sender = sender;
         this.lastLocation = null;
@@ -66,6 +68,13 @@ class PageViewManager {
             this.push(data);
         }
         this.lastLocation = location.href;
+    }
+
+    static createManager(options, sender) {
+        if (!PageViewManager.manager) {
+            PageViewManager.manager = new PageViewManager(options, sender);
+        }
+        return PageViewManager.manager;
     }
 
     /**

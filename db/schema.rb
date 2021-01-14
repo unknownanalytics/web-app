@@ -159,7 +159,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_073225) do
 
   create_table "pages", force: :cascade do |t|
     t.string "url", null: false
-    t.string "full_url", null: false
+    t.string "full_url"
     t.string "path"
     t.string "host"
     t.string "fragment"

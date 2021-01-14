@@ -1,8 +1,7 @@
 module Dashboard
   class DomainsController < Dashboard::DashboardController
-    before_action :verify_current_domain_selected, except: [:index, :new, :create]
-    before_action :verify_current_user_own_current_domain, except: [:index, :new, :create]
-
+    before_action :set_domain, only: [:edit, :update, :settings, :destroy]
+    before_action :verify_own_domain, only: [:edit, :update, :settings, :destroy]
 
     # GET /domains
     # GET /domains.json
@@ -13,7 +12,7 @@ module Dashboard
 
     # GET /settings
     def settings
-      @domain_setting = DomainSetting.where(domain_id: current_domain.id).first_or_create
+      @domain_setting = DomainSetting.where(domain_id: @domain.id).first_or_create
       unless request.get?
         @domain_setting.update(domain_setting_params)
       end
@@ -40,11 +39,11 @@ module Dashboard
       @domain.user = current_user
       respond_to do |format|
         if @domain.save
-          format.html {redirect_to dashboard_domains_path, notice: t('domain.success_created_domain')}
-          format.json {render :show, status: :created, location: @domain}
+          format.html { redirect_to dashboard_domains_path, :flash => { :success => t('domain.success_created_domain') } }
+          format.json { render :show, status: :created, location: @domain }
         else
-          format.html {render :new}
-          format.json {render json: @domain.errors, status: :unprocessable_entity}
+          format.html { render :new }
+          format.json { render json: @domain.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -54,11 +53,11 @@ module Dashboard
     def update
       respond_to do |format|
         if @domain.update(domain_params)
-          format.html {redirect_to @domain, notice: 'Domain was successfully updated.'}
-          format.json {render :show, status: :ok, location: @domain}
+          format.html { redirect_to dashboard_domains_path, :flash => { :success => 'Domain was successfully updated.' } }
+          format.json { render :show, status: :ok, location: @domain }
         else
-          format.html {render :edit}
-          format.json {render json: @domain.errors, status: :unprocessable_entity}
+          format.html { render :edit }
+          format.json { render json: @domain.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -67,9 +66,10 @@ module Dashboard
     # DELETE /domains/1.json
     def destroy
       @domain.destroy
+      # destroy all related info
       respond_to do |format|
-        format.html {redirect_to dashboard_domains_url, notice: 'Domain was successfully destroyed.'}
-        format.json {head :no_content}
+        format.html { redirect_to dashboard_domains_url, :flash => { :success => 'Domain was successfully destroyed.' } }
+        format.json { head :no_content }
       end
     end
 
@@ -78,6 +78,12 @@ module Dashboard
     # Use callbacks to share common setup or constraints between actions.
     def set_domain
       @domain = Domain.find(params[:id])
+    end
+
+    def verify_own_domain
+      unless current_user.own_domain(@domain)
+        render_error
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,26 +1,22 @@
 class Domain < ApplicationRecord
   belongs_to :user
 
-  has_one :domain_setting
+  has_one :domain_setting, :dependent => :destroy
 
   validates_uniqueness_of :name, scope: :user_id
   validates_presence_of :name
   before_create :build_domain_settings
 
-
-  has_many :api_keys
-
+  has_many :api_keys, :dependent => :destroy
 
   has_many :admins_domains
   has_many :admins, through: :admins_domains
 
+  has_many :pages, :dependent => :destroy
 
+  has_many :page_views, through: :pages, :dependent => :destroy
 
-  has_many :pages
-
-  has_many :page_views, through: :pages
-
-  has_many :page_view_locations, through: :pages
+  has_many :page_view_locations, through: :pages, :dependent => :destroy
 
   private
 

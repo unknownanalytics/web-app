@@ -226,6 +226,7 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                                         },
                                         afterBuildTicks: function (scale, ticks) {
                                             var majorUnit = scale._majorUnit;
+                                            if (!ticks) return;
                                             var firstTick = ticks[0];
                                             var i, ilen, val, tick, currMajor, lastMajor;
                                             val = moment(firstTick.value);

@@ -10,7 +10,8 @@ namespace :fake do
   referrals = %w(yahoo google facebook twitter linkedin another)
   desc "Fake page views"
   task page_views: :environment do
-    pages = Page.where(:domain_id => 4).all
+    domain = Domain.first
+    pages = Page.where(:domain_id => domain.id).all
     created_range = (Date.today.days_ago(2)..Date.today).to_a
     30000.times do
       is_mobile = rand(2) == 1 ? true : false
@@ -24,6 +25,20 @@ namespace :fake do
           created_at: Time.at(rand(30.days.ago.to_f..Time.now.to_f))
       )
       print "Page created with #{pv.id} parent  #{pv.page_id} \n"
+    end
+    desc 'created pages finished'
+  end
+  task page_view_geo_minim: :environment do
+    coutries = %w(FR IT ES TN)
+    domain = Domain.first
+    page = Page.first_or_create(domain_id: domain.id, url: '/')
+    PageViewLocation.where(page_id: page.id).destroy_all
+    50.times do
+      pv = PageViewLocation.create(
+        page_id: page.id,
+        country_iso_2: coutries[rand(coutries.length)]
+      )
+      print "Page location created with #{pv.id}  parent  #{pv.page_id} \n"
     end
     desc 'created pages finished'
   end

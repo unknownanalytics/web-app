@@ -2,6 +2,9 @@
 @import "components/mixins";
 
 #overview_container {
+  &.no-domain-selected {
+    opacity: 0.5;
+  }
   &.no-data {
     .panel-block {
       display: none !important;
@@ -10,10 +13,8 @@
       display: initial;
     }
   }
-
   .no-data-content {
     display: none;
-    text-align: center;
   }
 
   .panel {

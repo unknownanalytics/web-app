@@ -1,5 +1,7 @@
 class Dashboard::DashboardController < ApplicationController
   include ApplicationHelper
+  rescue_from ApplicationHelper::DomainSessionError, :with => :go_dashboard
+
   layout 'dashboard'
   # OR use a helper
   before_action :load_domains
@@ -10,7 +12,7 @@ class Dashboard::DashboardController < ApplicationController
 
   def load_domains
     @my_domains = current_user.own_domains.where.not(:name => blank?).all
-    confirmed_domains = current_user.domains.joins(:admins_domains).where(:admins_domains => {:validated => true})
+    confirmed_domains = current_user.domains.joins(:admins_domains).where(:admins_domains => { :validated => true })
     @my_domains = @my_domains + confirmed_domains
   end
 
@@ -28,10 +30,21 @@ class Dashboard::DashboardController < ApplicationController
     end
   end
 
-
   def verify_current_domain_selected
     if current_domain.nil?
       redirect_to dashboard_path, notice: "You should select a domain"
+    end
+  end
+
+  def go_dashboard
+    redirect_to dashboard_path, notice: "Domain no more exists"
+  end
+
+  def render_error
+    respond_to do |format|
+      format.html { render file: Rails.public_path.join('404.html'), :status => :not_found }
+      format.xml { head :not_found }
+      format.any { head :not_found }
     end
   end
 
@@ -39,27 +52,8 @@ class Dashboard::DashboardController < ApplicationController
   def verify_current_user_own_current_domain
     ## Add domain
     unless current_user && current_domain && current_user.own_domain(current_domain)
-      respond_to do |format|
-        format.html {render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found}
-        format.xml {head :not_found}
-        format.any {head :not_found}
-      end
+      render_error
     end
   end
-
-  # Only owner
-  def verify_current_user_is_domain_for_domain
-    ## Add domain
-    unless current_user && current_domain && current_user.own_domain(current_domain)
-      respond_to do |format|
-        format.html {render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found}
-        format.xml {head :not_found}
-        format.any {head :not_found}
-      end
-    end
-  end
-
-  private
-
 
 end

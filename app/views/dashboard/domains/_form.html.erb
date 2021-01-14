@@ -27,10 +27,10 @@
     <div class="actions">
       <div class="field is-grouped">
         <div class="control">
-          <%= form.submit domain.new_record? ? t('common.create') : t('common.update'), :class => "button is-primary" %>
+          <%= form.submit domain.new_record? ? t('common.create') : t('common.update'), :class => "button is-small is-primary" %>
         </div>
         <div class="control">
-          <button class="button is-text">Cancel</button>
+          <%= link_to t('Cancel'), url_for(request.referrer || request.headers["HTTP_REFERER"]), class: "button  is-small no-underline" %>
         </div>
       </div>
     </div>

@@ -1,4 +1,6 @@
 module ApplicationHelper
+  # Domain specific errors
+  class DomainSessionError < StandardError; end
 
   # From https://github.com/rwz/nestive/blob/master/lib/nestive/layout_helper.rb
   def extends(layout, &block)
@@ -25,8 +27,11 @@ module ApplicationHelper
 
   def current_domain
     @current_domain ||= Domain.find(session[:domain_id]) if session[:domain_id]
+  rescue ActiveRecord::RecordNotFound
+    flash[:notice] = "Wrong post it"
+    session[:domain_id] = nil
+    raise DomainSessionError
   end
-
 
   def current_plan
     @current_plan ||= StripeSubscriptionHistory.find_by_stripe_customer_id(StripeCustomer.find_by_account_id(current_user.id))

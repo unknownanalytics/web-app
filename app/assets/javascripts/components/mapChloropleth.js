@@ -2,7 +2,8 @@
     const CHOROPLETH = 'choropleth';
     const BUBBLE = 'bubble';
     const BUBBLE_CLASS = 'circle-in-map';
-    const LEGEND_ID = 'bubble_legend';
+    const BUBBLE_LEGEND_ID = 'bubble_legend';
+    const BUBBLE_DEFAULT_RADIUS = 50;
     // Define a new component called button-counter
     Vue.component('app-v-choropleth-chart', {
         template: '#app_component_map_choropleth_template',
@@ -12,7 +13,8 @@
                 range: 0,
                 minValue: 0,
                 renderStyle: BUBBLE,
-                legendTranslateX: 0
+                legendTranslateX: 0,
+                defaultRadius: BUBBLE_DEFAULT_RADIUS
             }
         },
         mounted() {
@@ -84,18 +86,22 @@
                 // get max code
                 let max = _.max(_.map(data, e => e.v));
                 let min = _.min(_.map(data, e => e.v));
-                let interval = max - min ;
+                let range = max - min;
+                range = range || 1;
                 let countByCountries = _.groupBy(data, 'iso');
                 let countries = App.Helpers.getSVGCountriesCodes();
                 let gradientColors = JSON.parse(map.dataset['gradientColor']);
                 let countrySvgShape;
+                let color = function (value) {
+                    return range > 1 ? App.Charts.getGradient(Math.max(((value * 0.9) - min), .9) / range, gradientColors) : gradientColors[0];
+                }
                 // TODO, optimize and clean
                 countries.forEach(function (code) {
                     countrySvgShape = map.querySelector('#' + code);
                     if (countrySvgShape) {
                         let val = countByCountries[code] && countByCountries[code][0].v;
                         if (val) {
-                            countrySvgShape.style.fill = val ? App.Charts.getGradient(Math.max(((val * 0.9) - min), .9) / interval, gradientColors) : 'white';
+                            countrySvgShape.style.fill = val ? color(val) : 'white';
                             countrySvgShape.$ukC = val;
                             countrySvgShape.addEventListener('mouseover', ((event) => {
                                 console.log(event.currentTarget.$ukC)
@@ -125,12 +131,16 @@
                 let max = _.max(_.map(info, e => e.v));
                 let min = _.min(_.map(info, e => e.v));
                 let range = max - min;
+                range = range || 1;
                 //console.log('max ', max, 'min ', min, 'diff ', range);
                 // remove old circles
                 this.minValue = min;
                 this.range = range;
+
                 //
                 let svg = this.getSvg();
+                // single countries
+                let defaultRadius = range > 1 ? 10 : BUBBLE_DEFAULT_RADIUS;
                 let circle;
                 _.each(info, el => {
                     let dom = svg.getElementById(el.iso);
@@ -138,7 +148,7 @@
                         let b = dom.getBBox();
                         let cx = b.x + b.width / 2,
                             cy = b.y + b.height / 2;
-                        let r = 10 + ((el.v - min) / range) * 50;
+                        let r = defaultRadius + ((el.v - min) / range) * 50;
                         circle = App.Charts.createSVGCircle({
                             r: 0,
                             cx: cx,
@@ -164,16 +174,37 @@
                     })
                 }, 0);
                 // clone bubble
+                // vue will calculate all cicrle
                 setTimeout(() => {
                     this._cloneLegend()
                 })
             },
             _cloneLegend() {
                 let svg = this.getSvg();
-                let calculated = document.querySelector('#legend_to_clone');
-                let clone = calculated.cloneNode(true);
-                clone.setAttribute('id', LEGEND_ID);
-                svg.append(clone);
+                let range = this.range;
+                let id;
+                if (range > 1) {
+                    id = '#bubble_multi_circles_legend_to_clone';
+                } else {
+                    id = '#bubble_one_circle_legend_to_clone';
+                    // center the text
+                    setTimeout(() => {
+                        let legend = document.querySelector('#' + BUBBLE_LEGEND_ID);
+                        if (legend) {
+                            let text = legend.querySelector('text');
+                            let width = text.getBBox().width;
+                            console.log('translate( ' + (25 - width / 2) + ', 80)');
+                            // 25, center x
+                            text.setAttribute('transform', 'translate( ' + (25 - width / 2) + ', 10)');
+                        }
+                    })
+                }
+                let calculated = document.querySelector(id);
+                if (calculated) {
+                    let clone = calculated.cloneNode(true);
+                    clone.setAttribute('id', BUBBLE_LEGEND_ID);
+                    svg.append(clone);
+                }
             },
             /**
              *
@@ -189,7 +220,7 @@
             },
             _clearBubbleLegend: function () {
                 let svg = this.getSvg();
-                let look = svg.querySelector('#' + LEGEND_ID);
+                let look = svg.querySelector('#' + BUBBLE_LEGEND_ID);
                 if (look) {
                     svg.removeChild(look);
                 }
