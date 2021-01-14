@@ -67,7 +67,7 @@ class Api::Sdk::V1::CollectController < Api::ApiController
     record = $maxmind.lookup(request.remote_ip)
     if record.found?
       country_iso_2 = record.country.iso_code
-      PageViewLocation.create!({ :domain_id => @domain, :page => @page, :country_iso_2 => country_iso_2 })
+      PageViewLocation.create!({:page => @page, :country_iso_2 => country_iso_2 })
     end
   end
 
