@@ -1,10 +1,6 @@
 @import "components/colors";
 
 .inline-menu-button {
-  font-size: 19px;
-  padding: 2px !important;
-  position: relative;
-  top: 2px;
   width: 29px;
   text-align: center;
   border: solid 1.5px;
@@ -13,6 +9,7 @@
   justify-content: center;
   display: inline-flex !important;
   align-items: center;
+  padding-left: 0 !important;
 }
 
 .collapse-button {

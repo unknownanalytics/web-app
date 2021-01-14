@@ -165,7 +165,7 @@
           <label><%= t('Change domain') %></label>
           <%= select_tag(:domain_id, options_from_collection_for_select(@my_domains, 'id', 'name', current_domain.nil? ? nil : current_domain.id)) %>
           <%= submit_tag t('Select') %>
-          <%= link_to(new_dashboard_domain_path, class: 'inline-menu-button') do %>
+          <%= link_to(new_dashboard_domain_path, class: 'inline-menu-button') do%>
             +
           <% end %>
         <% end -%>
