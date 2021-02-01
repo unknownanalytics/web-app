@@ -1,13 +1,17 @@
-<% colors = %w(#03a9f4ad #ffeda0 #feb24c #f03b20) %>
 <script type="text/x-template" id="app_component_map_choropleth_template">
-  <div class="map-container w-100" data-gradient-color="<%= colors %>">
+  <div class="map-container w-100 is-relative" data-gradient-color="<%= %w(#00a1c9 #00c4c1 #69e1a8 #cef88f #fcea73 #f7bf47 #f09227 #e66118 #d7191c) %>">
+    <span id="tooltip" style="background: #c88719; color : white;position: absolute;
+      top: 0;
+      right: 0; padding: 2px 3px">
+
+    </span>
     <%= render 'shared/map_world.svg' %>
     <div class="is-flex">
       <div class="is-flex-grow-1 is-relative">
 
         <div style="display: none;" v-if="range > 1 && renderStyle == 'bubble'">
           <!-- you should keep the same viewbox as the main map -->
-          <g :transform="'translate(' + legendTranslateX + ', 860)'" id="bubble_multi_circles_legend_to_clone">
+          <g :transform="'translate(300, 860)'" id="bubble_multi_circles_legend_to_clone">
             <g>
               <g v-for="i in [0, 1, 2, 3, 4, 5]" v-bind:transform="'translate( 0,' + (i/5) * 50 + ')'">
                 <circle fill="transparent" v-bind:r="10 + ((i/5) * 50)"></circle>
@@ -31,18 +35,21 @@
             </text>
           </g>
         </div>
-        <div>
-          <div v-show="renderStyle == 'choropleth' && range > 1" style="position: absolute; top:-10px;left: 24px;">
-            {{minValue }}  <%= render :partial => 'shared/gradient.line', :locals => { :colors => colors } %> {{minValue
-            +
-            range }}
-          </div>
-
-          <div v-show="renderStyle == 'choropleth' && range == 1" style="position: absolute; top:-50px;left: 24px;">
-            <div style="background: #03a9f4ad; display: inline-block;width: 16px;height: 16px"></div>
-            {{minValue }}
-
-          </div>
+        <div v-if="renderStyle == 'choropleth' && gradientColors && gradientColors.length" style="display: none">
+          <g id="line_legend_to_clone" :transform="'translate(200, 980)'">
+            <g v-show="range > 1">
+              <text x="10" class="label" y="0" style="font-size: 40px"> {{minValue }}</text>
+              <rect x="50" y="-30" width="600" height="30" fill="url(#line_gradient_legend)"></rect>
+              <text x="670" class="label" y="0" style="font-size: 40px"> {{minValue
+                +
+                range }}
+              </text>
+            </g>
+            <g v-show="range == 1">
+              <rect x="0" y="-50" width="20" height="20"></rect>
+              <text x="40" class="label" y="-30" style="font-size: 40px"> {{minValue }}</text>
+            </g>
+          </g>
         </div>
 
         <div class="is-pulled-right is-flex ">

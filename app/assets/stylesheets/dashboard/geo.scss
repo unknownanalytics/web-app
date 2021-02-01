@@ -6,8 +6,10 @@
   fill-opacity: 0.5;
   //transition: stroke-dashoffset 2s ease-in;
   transition: r 1.5s ease-in;
+
   &:hover {
     stroke-opacity: 1;
-    fill-opacity: 1;
+    stroke: rebeccapurple;
+    fill-opacity: 0;
   }
 }

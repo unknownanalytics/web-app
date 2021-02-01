@@ -1,5 +1,5 @@
 <script type="text/x-template" id="app_dashboard_geo_vue_template">
-  <div>
+  <div class="is-flex-grow-1 is-flex  is-flex-direction-column">
     <div>
       <span class="title is-size-5"> Geo </span>
       <div class="is-pulled-right">
@@ -26,7 +26,12 @@
         </div>
       </div>
     </div>
-    <app-v-choropleth-chart :data="data"></app-v-choropleth-chart>
+    <div class="is-flex-grow-1 is-flex is-align-items-center">
+
+      <app-v-choropleth-chart :data="data"></app-v-choropleth-chart>
+
+    </div>
+
   </div>
 
 </script>

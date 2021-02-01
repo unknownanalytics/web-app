@@ -48,7 +48,7 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                     geo: [],
                     views: {
                         selection: {
-                            type: '#000',
+                            type: 'line',
                             color: 'black',
                             colors: Object.values(App.Helpers.PALETTE_COLORS)
                         },
@@ -65,10 +65,8 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 'views.selection.type': function () {
                     this.updatePagesViewStyle()
                 },
-                'overview': function () {
-                    setTimeout(() => {
-                        this.generateImagesForExports();
-                    }, 1200)
+                'geo': function () {
+                    this.updateGeoStyle();
                 },
                 'views': function () {
                     setTimeout(() => {
@@ -89,7 +87,6 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                  * @param $event
                  */
                 onChangePeriodTopPagesViews($event) {
-
                     App.Api.get(App.API_ROUTES.DASHBOARD_OVERVIEW_TOP_VIEWS,
                         Object.assign({
                             axe: 'all',
@@ -148,10 +145,10 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                  * @param response
                  */
                 updateDevicesViews(response) {
-                    var TABLET = 'tablet';
-                    var DESKTOP = 'desktop';
-                    var MOBILE = 'mobile';
-                    var UNKNOWN = 'unknown';
+                    let TABLET = 'tablet';
+                    let DESKTOP = 'desktop';
+                    let MOBILE = 'mobile';
+                    let UNKNOWN = 'unknown';
 
                     let data = response.data;
                     data = data.page_views[0];
@@ -258,7 +255,7 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                                         },
                                         scaleLabel: {
                                             display: true,
-                                            labelString: 'Views count($)'
+                                            labelString: 'Views count'
                                         }
                                     }]
                                 }, tooltips: {
@@ -326,12 +323,23 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 /**
                  *
                  */
+                updateGeoStyle() {
+                    setTimeout(() => {
+                        this.generateImagesForExports();
+                    }, 1200)
+                },
+                /**
+                 *
+                 */
                 generateImagesForExports() {
+                    // svg to canvas
                     App.Helpers.svgToImage("#map_world_svg", (err, res, ori) => {
                         this.export_images.world_img = res;
                     });
+                    // canvas to image
                     let views_img = App.Helpers.canvasToImage('#canvas_views');
                     let devices_img = App.Helpers.canvasToImage('#canvas_devices');
+                    // assign
                     Object.assign(this.export_images, {views_img, devices_img})
                 },
             }

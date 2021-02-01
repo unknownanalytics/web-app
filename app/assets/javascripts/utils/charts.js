@@ -120,7 +120,7 @@ App.Charts = {
      * @private
      */
     getGradient(value, colorsRange, options) {
-        console.log(value);
+        //console.log(value);
         let key = JSON.stringify(colorsRange);
         let storedCtxGradients = App.Charts.__declaredCtxGradients;
         if (!storedCtxGradients[key]) {

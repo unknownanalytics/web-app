@@ -1,5 +1,7 @@
 <script type="text/x-template" id="app_dashboard_overview_template">
-  <div id="overview_container"  <% if current_domain.nil? %>class="no-domain-selected"<%end %>>
+  <div id="overview_container"
+       <% if current_domain.nil? %>class="no-domain-selected"
+       <% end %>>
     <div class="level">
       <div class="level-left">
         <div class="level-item">
@@ -17,7 +19,7 @@
         </div>
         <div class="level-item">
 
-          <%= form_tag('/api/export/pdf', :html => {multipart: true}, :class => 'm-0', local: true) do %>
+          <%= form_tag('/api/export/pdf', :html => { multipart: true }, :class => 'm-0', local: true) do %>
             <input type="hidden" name="views" :value="JSON.stringify(top_pages.data)">
             <input type="hidden" name="stats" :value="JSON.stringify(stats)">
             <input type="hidden" name="geo_img" :value="export_images.world_img">
@@ -25,19 +27,24 @@
             <input type="hidden" name="devices_img" :value="export_images.devices_img">
 
             <button type="submit" class="button is-small is-success"
-                    <% if current_domain.nil? %>disabled="disabled"<%end %>>
+                    <% if current_domain.nil? %>disabled="disabled"
+                    <% end %>>
               Export to PDF
             </button>
+
           <% end %>
 
         </div>
       </div>
     </div>
+
+
     <!--
        <img :src="export_images.world_img"/>
+            <img :src="export_images.views_img"/>
         <img :src="export_images.views_img"/>
     -->
-    <div class="columns is-multiline"  id="overview_global_view_container" v-cloak>
+    <div class="columns is-multiline" id="overview_global_view_container" v-cloak>
       <div class="column">
         <div class="box">
           <div class="heading has-text-weight-semibold">
@@ -47,7 +54,7 @@
             <span>{{stats.views}}</span>
             <div class="is-pulled-right">
               <% cache('icon-target') do %>
-                <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-target', :css_class => 'accent'} %>
+                <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-target', :css_class => 'accent' } %>
               <% end %>
             </div>
 
@@ -92,12 +99,12 @@
           <p class="heading">
             <%= t('Top Pages views') %>
 
-            <%= render :partial => 'shared/select_period_generic', :locals => {:event => 'onChangePeriodTopPagesViews($event)'} %>
+            <%= render :partial => 'shared/select_period_generic', :locals => { :event => 'onChangePeriodTopPagesViews($event)' } %>
 
 
-            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right icon-container'}) do %>
+            <%= link_to(dashboard_stats_pages_path, { class: 'is-pulled-right icon-container' }) do %>
               <% cache('icon-external-window') do %>
-                <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-external-window'} %>
+                <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-external-window' } %>
               <% end %>
               <%= t('details') %>
             <% end %>
@@ -124,7 +131,7 @@
               </tbody>
             </table>
           </div>
-          <div class="no-data-content" >
+          <div class="no-data-content">
             Empty
           </div>
         </div>
@@ -136,14 +143,14 @@
           <p class="heading">
             <%= t('Views') %>
 
-            <%= render :partial => 'shared/select_period_generic', :locals => {:event => 'onChangePeriodViews($event)'} %>
+            <%= render :partial => 'shared/select_period_generic', :locals => { :event => 'onChangePeriodViews($event)' } %>
             <select v-model="views.selection.type">
               <option value="line" selected="selected">line</option>
               <option value="bar">bar</option>
             </select>
-            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right  icon-container'}) do %>
+            <%= link_to(dashboard_stats_pages_path, { class: 'is-pulled-right  icon-container' }) do %>
               <% cache('icon-external-window') do %>
-                <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-external-window'} %>
+                <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-external-window' } %>
               <% end %>
               <%= t('details') %>
             <% end %>
@@ -154,12 +161,13 @@
             <div class="d-flex has-text-centered mt-3">
               <div v-for="color in views.selection.colors" class="color-selector"
                    @click="updatePagesViewColorStyle(color)"
-                   v-bind:class="{'active': color===views.selection.color}" :style="{'backgroundColor': color}">
+                   v-bind:class="{'active': color===views.selection.color}"
+                   :style="{'backgroundColor': color}">
 
               </div>
             </div>
           </div>
-          <div class="no-data-content" >
+          <div class="no-data-content">
             Empty
           </div>
           <div>
@@ -172,13 +180,13 @@
           <p class="heading">
             <%= t('Devices') %>
 
-            <%= render :partial => 'shared/select_period_generic', :locals => {:event => 'onChangePeriodDevicesViews($event)'} %>
+            <%= render :partial => 'shared/select_period_generic', :locals => { :event => 'onChangePeriodDevicesViews($event)' } %>
 
 
 
-            <%= link_to(dashboard_stats_pages_path, {class: 'is-pulled-right  icon-container'}) do %>
+            <%= link_to(dashboard_stats_pages_path, { class: 'is-pulled-right  icon-container' }) do %>
               <% cache('icon-external-window') do %>
-                <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-external-window'} %>
+                <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-external-window' } %>
               <% end %>
               <%= t('details') %>
             <% end %>
@@ -187,7 +195,7 @@
           <div class="panel-block px-0 is-block">
             <canvas id="canvas_devices" width="400" height="250"></canvas>
           </div>
-          <div class="no-data-content" >
+          <div class="no-data-content">
             Empty
           </div>
         </div>
@@ -198,10 +206,10 @@
           <p class="heading">
             <%= t('Geo partition') %>
             <% if current_domain && current_domain.domain_setting.track_geo %>
-              <%= render :partial => 'shared/select_period_generic', :locals => {:event => 'onChangePeriodLocationViews($event)'} %>
-              <%= link_to(dashboard_stats_geo_path, {class: 'is-pulled-right  icon-container'}) do %>
+              <%= render :partial => 'shared/select_period_generic', :locals => { :event => 'onChangePeriodLocationViews($event)' } %>
+              <%= link_to(dashboard_stats_geo_path, { class: 'is-pulled-right  icon-container' }) do %>
                 <% cache('icon-external-window') do %>
-                  <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-external-window'} %>
+                  <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-external-window' } %>
                 <% end %>
                 <%= t('details') %>
               <% end %>
@@ -213,7 +221,8 @@
           <div class="panel-block px-0 is-block">
             <% if current_domain %>
               <% if current_domain.domain_setting.track_geo %>
-                <app-v-choropleth-chart v-if="geo" :data="geo"></app-v-choropleth-chart>
+                <app-v-choropleth-chart v-if="geo" :data="geo"
+                                        v-on:update-style="updateGeoStyle()"></app-v-choropleth-chart>
               <% else %>
                 <div>
                   <%= t('dashboard.overview.geo_activate_text') %> <%= link_to(settings_dashboard_domain_path(current_domain)) do %>
@@ -223,8 +232,8 @@
               <% end %>
             <% end %>
           </div>
-          <div class="no-data-content" >
-           Empty
+          <div class="no-data-content">
+            Empty
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@
     const BUBBLE = 'bubble';
     const BUBBLE_CLASS = 'circle-in-map';
     const BUBBLE_LEGEND_ID = 'bubble_legend';
+    const CHOROPLETH_LEGEND_ID = 'choropleth_legend';
     const BUBBLE_DEFAULT_RADIUS = 50;
     // Define a new component called button-counter
     Vue.component('app-v-choropleth-chart', {
@@ -12,14 +13,15 @@
             return {
                 range: 0,
                 minValue: 0,
-                renderStyle: BUBBLE,
+                renderStyle: CHOROPLETH,
                 legendTranslateX: 0,
-                defaultRadius: BUBBLE_DEFAULT_RADIUS
+                defaultRadius: BUBBLE_DEFAULT_RADIUS,
+                gradientColors: []
             }
         },
         mounted() {
+            this.gradientColors = JSON.parse(this.$el.dataset['gradientColor']);
             this.adjustDesktopSVGSize();
-            this.adjustLegendSVGSize();
             this.update();
         },
         watch: {
@@ -40,27 +42,11 @@
              */
             adjustDesktopSVGSize() {
                 this.svg = this.$el.querySelector('svg');
-                let vp = App.Helpers.getViewPort();
-                let viewBox, width;
-                if (vp.w > 1280) {
-                    viewBox = '500 0 900 1000';
-                    width = '100%';
-                } else {
-                    viewBox = '500 0 900 1150';
-                    width = 900;
-                }
-                this.svg.setAttribute('viewBox', viewBox);
-                this.svg.setAttribute('width', width);
-
-            },
-            /**
-             * adjust the svg size
-             */
-            adjustLegendSVGSize() {
                 let width = this.$el.clientWidth;
+                //
                 if (width < 600) {
-                    this.legendTranslateX = '350';
-                    this.$el.querySelector('#geo_linear_gradient').style.width = '200px';
+                    this.svg.setAttribute('viewBox', '200 0 1600 1000');
+                    this.svg.setAttribute('height', '300');
                 }
 
             },
@@ -72,9 +58,35 @@
                 } else {
                     this.renderBubble();
                 }
+                this.$emit('update-style', this.renderStyle);
             },
             getSvg() {
                 return this.$el.querySelector('svg');
+            },
+            getTooltip() {
+                return this.$el.querySelector('#tooltip');
+            },
+            _showTooltip(el) {
+                if (!el) {
+                    return;
+                }
+                var                  // get the borders of the path - see this question: http://stackoverflow.com/q/10643426/863110
+                    bb = el.getBoundingClientRect();
+                let tooltip = this.getTooltip();
+                tooltip.style.display = 'initial';
+                tooltip.innerHTML = el.dataset['name'] + '  ' + el.dataset.val;
+                /*tooltip.style.top = bb.top - (bb.height / 2) + 'px';
+                tooltip.style.left = bb.left - (bb.width / 2) + 'px';
+
+                */// when mouse leave hide the tooltip
+
+                el.addEventListener('mouseleave', ((event) => {
+                    tooltip.style.display = 'none';
+                }));
+
+            },
+            _hideTooltip(el) {
+
             },
             /**
              *
@@ -88,27 +100,51 @@
                 let min = _.min(_.map(data, e => e.v));
                 let range = max - min;
                 range = range || 1;
+                this.minValue = min;
+                this.range = range;
                 let countByCountries = _.groupBy(data, 'iso');
                 let countries = App.Helpers.getSVGCountriesCodes();
-                let gradientColors = JSON.parse(map.dataset['gradientColor']);
+                let gradientColors = this.gradientColors;
                 let countrySvgShape;
                 let color = function (value) {
                     return range > 1 ? App.Charts.getGradient(Math.max(((value * 0.9) - min), .9) / range, gradientColors) : gradientColors[0];
                 }
                 // TODO, optimize and clean
-                countries.forEach(function (code) {
+                countries.forEach((code) => {
                     countrySvgShape = map.querySelector('#' + code);
                     if (countrySvgShape) {
                         let val = countByCountries[code] && countByCountries[code][0].v;
                         if (val) {
                             countrySvgShape.style.fill = val ? color(val) : 'white';
-                            countrySvgShape.$ukC = val;
-                            countrySvgShape.addEventListener('mouseover', ((event) => {
-                                console.log(event.currentTarget.$ukC)
-                            }));
+                            this.attachValuesToDom(countrySvgShape, val)
                         }
                     }
                 })
+                // clone bubble
+                // vue will calculate all cicrle
+                setTimeout(() => {
+                    this._cloneChoroplethLegend()
+                })
+            },
+            attachValuesToDom(dom, val) {
+                dom.dataset['val'] = val;
+                dom.addEventListener('mouseover', ((event) => {
+                    this._showTooltip(event.currentTarget);
+                }));
+            },
+            /**
+             *
+             * @private
+             */
+            _cloneChoroplethLegend() {
+                let svg = this.getSvg();
+                let id = '#line_legend_to_clone';
+                let calculated = document.querySelector(id);
+                if (calculated) {
+                    let clone = calculated.cloneNode(true);
+                    clone.setAttribute('id', CHOROPLETH_LEGEND_ID);
+                    svg.append(clone);
+                }
             },
             cleanCholorpleth() {
                 let map = this.$el;
@@ -121,10 +157,17 @@
 
                     }
                 })
+                this._clearCholorplethLegend();
+            },
+            _clearCholorplethLegend: function () {
+                let svg = this.getSvg();
+                let look = svg.querySelector('#' + CHOROPLETH_LEGEND_ID);
+                if (look) {
+                    svg.removeChild(look);
+                }
             },
             /**
              *
-             * @param
              */
             renderBubble() {
                 let info = this.data;
@@ -154,14 +197,16 @@
                             cx: cx,
                             cy: cy,
                             fill: 'red',
-                            'stroke-width': 20,
+                            'stroke-width': 10,
                             stroke: 'transparent',
                             'stroke-dasharray': '1000',
                             'stroke-dashoffset': '1000'
                         });
-                        circle.dataset['val'] = r;
+                        circle.dataset['radius'] = r;
                         svg.appendChild(circle);
                         circle.classList.add(BUBBLE_CLASS);
+                        circle.dataset['name'] = dom.dataset['name'];
+                        this.attachValuesToDom(circle, el.v);
                     } else {
                         // console.log(cId);
                     }
@@ -170,16 +215,16 @@
                 setTimeout(() => {
                     _.each(svg.getElementsByClassName(BUBBLE_CLASS), c => {
                         c.setAttribute('stroke-dashoffset', 0);
-                        c.setAttribute('r', parseInt(c.dataset.val));
+                        c.setAttribute('r', parseInt(c.dataset.radius));
                     })
                 }, 0);
                 // clone bubble
                 // vue will calculate all cicrle
                 setTimeout(() => {
-                    this._cloneLegend()
+                    this._cloneBubbleLegend()
                 })
             },
-            _cloneLegend() {
+            _cloneBubbleLegend() {
                 let svg = this.getSvg();
                 let range = this.range;
                 let id;
@@ -193,7 +238,7 @@
                         if (legend) {
                             let text = legend.querySelector('text');
                             let width = text.getBBox().width;
-                            console.log('translate( ' + (25 - width / 2) + ', 80)');
+                            // console.log('translate( ' + (25 - width / 2) + ', 80)');
                             // 25, center x
                             text.setAttribute('transform', 'translate( ' + (25 - width / 2) + ', 10)');
                         }

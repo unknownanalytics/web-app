@@ -184,7 +184,6 @@ const Helpers = {
             let canvas = Helpers.createElement('canvas');
             //let bgasUrl = Helpers.serializeSVG(svgElement);
             const image = new Image();
-            //console.log(el);
             image.src = App.Helpers.getSvgBackgroundUrl(el);
             image.onload = function () {
                 canvas.width = image.width;
@@ -193,8 +192,10 @@ const Helpers = {
                 // Draw the image
                 ctx.drawImage(image, 0, 0);
                 let result = canvas.toDataURL();
-                //document.removeChild(canvas);
                 cb(null, result, image.src)
+            }
+            image.onerror = function (err) {
+                console.log(err);
             }
         } else {
             cb("empty el");
@@ -204,13 +205,17 @@ const Helpers = {
     /**
      *
      * @param el
-     * @returns {string}
+     * @returns {string | HTMLElement}
      */
     getSvgBackgroundUrl(el) {
         let svgElement = Helpers.getElement(el);
         if (svgElement) {
+            let unsafe = svgElement.outerHTML;
             svgElement.setAttribute('width', svgElement.clientWidth);
-            return "data:image/svg+xml;utf8," + svgElement.outerHTML;
+            let blob = new Blob([unsafe], {type: 'image/svg+xml;charset=utf-8'});
+            let URL = window.URL || window.webkitURL || window;
+            return URL.createObjectURL(blob)
+            // return "data:image/svg+xml;utf8," + unsafe;
         }
 
     },

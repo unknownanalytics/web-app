@@ -11,7 +11,7 @@ Simple analytics to protect user privacy and get only essentials metrics.
 
 ## Local dev requirement
 
-* Ruby version
+* Version 
 
     - ruby-2.7.2
     - Rails 6.0.2
@@ -46,19 +46,16 @@ file.
 
 `UNK_ANA_DEFAULT_PAGE_TITLE=<your browser app title>` // will be displayed in title and emails
 
-`UNK_ANA_STRIPE_API_KEY=<stripe_key>`  // This is not mandatory, you can keep it empty for now as payment is not
-configured.
+`UNK_ANA_STRIPE_API_KEY=<stripe_key>`  // This is not mandatory, you can keep it empty for now as payment is not configured.
 
 `UNK_ANA_APP_HOST=<your_app_host>` // your host
 
 `UNK_ANA_REDIS_URI=redis://<host>:<port>` // Redis uri
 
-`UNK_ANA_REDIS_CHANNEL_PREFIX=<channel_prefix>` // Redis channel prefix. This is useful because when we use the same
-redis db for multiples purposes, we need to separate app channels from other channels.
+`UNK_ANA_REDIS_CHANNEL_PREFIX=<channel_prefix>` // Redis channel prefix. This is useful because when we use the same redis db for multiples purposes, we need to separate app channels from other channels.
 
 `UNK_ANA_SMTP_URI=smtp://<user>:<pass>@<host>` // SMTP uri
 
 `UNK_ANA_SMTP_AUTH_METHOD=<smtp_method>` // cram_md5 or plain ..
 
 `UNK_ANA_SCREENSHOT_SECRET_KEY=<your_secret>` // secret_12345_change_me
-
