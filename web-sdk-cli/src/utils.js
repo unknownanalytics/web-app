@@ -105,7 +105,7 @@ class Sender {
      * @param args
      */
     _sendRequest(args) {
-        console.log(args);
+        Logger.log(args);
         args = args || {};
         if (!args.method) {
             args.method = 'GET';
