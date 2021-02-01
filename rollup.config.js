@@ -16,6 +16,7 @@ let version = process.env.SDK_VERSION || require('./package.json').version || 'b
 // remove the # used to escape the
 apiHost = apiHost.replace(/#/g, ':');
 
+console.log("SDK for " + apiHost);
 
 /**
  *

@@ -7,7 +7,7 @@ import PageViewManager from './plugins/view-manager';
 import {Logger, Sender} from './utils' ;
 
 
-/**
+/**e
  *
  * @type {{agent: string, ui: {w: number, h: number}}}
  */
@@ -23,7 +23,6 @@ let config = {
  * @param options
  */
 window.unkAnalytics = function (token, options) {
-    // console.log("%c unk " + window.unkAnalyticsInitilaized, "background:black; color:white");
     if (!window.unkInitilaized) {
         options = options || {};
         config.token = token;

@@ -65,13 +65,11 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 'views.selection.type': function () {
                     this.updatePagesViewStyle()
                 },
-                'geo': function () {
-                    this.updateGeoStyle();
+                'export_images': function () {
+                    this.generateImagesForExports();
                 },
                 'views': function () {
-                    setTimeout(() => {
-                        this.generateImagesForExports();
-                    }, 1200)
+                    this.generateImagesForExports()
                 }
             },
             methods: {
@@ -107,7 +105,8 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                             axe: 'devices',
                         }, this._getSelectOption($event)), {
                             success: (function (response) {
-                                this.updateDevicesViews(response)
+                                this.updateDevicesViews(response);
+                                this.resetExportImages();
                             }).bind(this)
                         })
                 },
@@ -118,7 +117,8 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 onChangePeriodViews($event) {
                     App.Api.get(App.API_ROUTES.DASHBOARD_STATS_PAGES_VIEWS, this._getSelectOption($event), {
                         success: (function (response) {
-                            this.updatePagesViews(response.data.views)
+                            this.updatePagesViews(response.data.views);
+                            this.resetExportImages();
                         }).bind(this)
                     })
                 },
@@ -208,19 +208,16 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                                 scales: {
                                     xAxes: [{
                                         type: 'time',
+                                        unit: 'day',
                                         distribution: 'series',
                                         offset: true,
-                                        ticks: {
-                                            major: {
-                                                enabled: true,
-                                                fontStyle: 'bold'
+                                        time: {
+                                            unit: 'day',
+                                            unitStepSize: 1,
+                                            displayFormats: {
+                                                'day': 'MMM DD'
                                             },
-                                            source: 'data',
-                                            autoSkip: true,
-                                            autoSkipPadding: 75,
-                                            maxRotation: 0,
-                                            sampleSize: 100
-                                        },
+                                        }/*,
                                         afterBuildTicks: function (scale, ticks) {
                                             var majorUnit = scale._majorUnit;
                                             if (!ticks) return;
@@ -237,21 +234,23 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                                                 firstTick.major = false;
                                             }
                                             lastMajor = val.get(majorUnit);
-
                                             for (i = 1, ilen = ticks.length; i < ilen; i++) {
                                                 tick = ticks[i];
-
                                                 val = moment(tick.value);
                                                 currMajor = val.get(majorUnit);
                                                 tick.major = currMajor !== lastMajor;
                                                 lastMajor = currMajor;
                                             }
                                             return ticks;
-                                        }
+                                        }*/
                                     }],
                                     yAxes: [{
                                         gridLines: {
                                             drawBorder: false
+                                        },
+                                        ticks: {
+                                            // Include a dollar sign in the ticks
+                                            precision: 0,
                                         },
                                         scaleLabel: {
                                             display: true,
@@ -267,7 +266,8 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                                             if (label) {
                                                 label += ': ';
                                             }
-                                            label += parseFloat(tooltipItem.value).toFixed(2);
+                                            label += parseInt(tooltipItem.value, 10);
+                                            console.log(label);
                                             return label;
                                         }
                                     }
@@ -292,14 +292,18 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                         this._getViewsChartDataSet().data = data;
                         this.views.chart.update();
                     }
-                },
+                }
+
+                ,
                 /**
                  *
                  */
                 updatePagesViewStyle() {
                     this._getViewsChartDataSet().type = this.views.selection.type;
                     this.views.chart.update();
-                },
+                    this.resetExportImages();
+                }
+                ,
                 /**
                  *
                  * @param color
@@ -310,7 +314,9 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                     this.views.selection.color = color;
                     dataset.borderColor = color;
                     this.views.chart.update();
-                },
+                    this.resetExportImages();
+                }
+                ,
                 /**
                  *
                  * @returns {{label, data, backgroundColor}|{label, backgroundColor, borderColor, data, type, pointRadius, fill, lineTension, borderWidth}|{label, data, backgroundColor, borderColor, borderWidth}|{label: string, data: number[], backgroundColor: any[]}|{label: string, backgroundColor: *, borderColor: string, data: *, type: string, pointRadius: number, fill: boolean, lineTension: number, borderWidth: number}|{label: string, data: *[], backgroundColor: string[], borderColor: string[], borderWidth: number}|*}
@@ -319,29 +325,37 @@ App.Routes['/dashboard'] = App.Routes['/'] = App.Routes[''] = function () {
                 _getViewsChartDataSet() {
                     let chart = this.views.chart;
                     return chart.config.data.datasets[0];
-                },
+                }
+                ,
                 /**
                  *
                  */
                 updateGeoStyle() {
-                    setTimeout(() => {
-                        this.generateImagesForExports();
-                    }, 1200)
-                },
+                    this.resetExportImages();
+                }
+                ,
+                resetExportImages() {
+                    this.generateImagesForExports();
+                }
+                ,
                 /**
                  *
                  */
                 generateImagesForExports() {
-                    // svg to canvas
-                    App.Helpers.svgToImage("#map_world_svg", (err, res, ori) => {
-                        this.export_images.world_img = res;
-                    });
-                    // canvas to image
-                    let views_img = App.Helpers.canvasToImage('#canvas_views');
-                    let devices_img = App.Helpers.canvasToImage('#canvas_devices');
-                    // assign
-                    Object.assign(this.export_images, {views_img, devices_img})
-                },
+                    App.Helpers.log("generate images")
+                    setTimeout(() => {
+                        // svg to canvas
+                        App.Helpers.svgToImage("#map_world_svg", (err, res, ori) => {
+                            this.export_images.world_img = res;
+                        });
+                        // canvas to image
+                        let views_img = App.Helpers.canvasToImage('#canvas_views');
+                        let devices_img = App.Helpers.canvasToImage('#canvas_devices');
+                        // assign
+                        this.export_images = Object.assign(this.export_images, {views_img, devices_img})
+                    }, 1200)
+                }
+                ,
             }
 
         }

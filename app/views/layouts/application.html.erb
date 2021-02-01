@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; script-src 'nonce-7f26c' 'unsafe-eval' 'self' https://cdn.jsdelivr.net  ;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' <%if Rails.env.development?%> http://localhost:3000/ <% end %>; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; script-src 'nonce-7f26c' 'unsafe-eval'  'self'  https://cdn.jsdelivr.net  ;">
 
   <% unless current_domain.nil? %>
     <meta name="app-domain" content="<%= current_domain.id %>">
@@ -47,15 +47,15 @@
 <% if Rails.env.development? %>
   <script src="/assets/sdk-test.js"></script>
   <script nonce="7f26c">
-      var debug = true;
       window.unk_debug = true;
   </script>
 <% else %>
   <script src="https://www.unknownanalytics.com/sdk.js"></script>
 <% end %>
+
 <script nonce="7f26c">
-    var debug = false;
-    unkAnalytics("ua_d1UNqUqbS2LcmY0vsZ-vMw", {debug: debug});
+    var apikey = '<%=  Rails.env.production? ? "ua_d1UNqUqbS2LcmY0vsZ-vMw" : 'ua_DT2kUINNsOtlRr4FLXwTzw'  %>';
+    unkAnalytics(apikey, {debug: <%= !Rails.env.development?%>});
 </script>
 <!---->
 </body>
