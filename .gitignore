@@ -41,3 +41,6 @@ package-lock.json
 !/tmp/pids/.keep
 
 
+public/assets/sdk-test*
+web-sdk-cli/assets/sdk-test*
+
