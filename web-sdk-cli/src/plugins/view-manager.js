@@ -11,7 +11,7 @@ class PageViewManager {
     options: null;
     */
     // instance singleton
-    static manager;
+    static manager = null;
 
     /**
      *
@@ -24,7 +24,7 @@ class PageViewManager {
      * @param sender
      */
     constructor(options, sender) {
-        console.log('######## Create new instance ##############"');
+      //  console.log('######## Create new instance ##############"');
         this.options = options;
         this.sender = sender;
         this.lastLocation = null;

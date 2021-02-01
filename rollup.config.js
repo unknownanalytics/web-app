@@ -3,7 +3,7 @@ import resolve from 'rollup-plugin-node-resolve';
 import globals from 'rollup-plugin-node-globals';
 
 import commonjs from 'rollup-plugin-commonjs';
-
+import babel from "rollup-plugin-babel";
 import json from 'rollup-plugin-json';
 import replace from 'rollup-plugin-replace';
 
@@ -53,6 +53,18 @@ export default {
             // namedExports: { './module.js': ['foo', 'bar' ] }  // Default: undefined
         }),
         json(),
+        babel({
+            runtimeHelpers: true,
+            exclude: "node_modules/**",
+            plugins: [
+                [
+                    "@babel/plugin-proposal-class-properties",
+                    {
+                        "loose": true
+                    }
+                ]
+            ]
+        }),
         globals,
         production && terser() // minify, but only in production
     ]
