@@ -11,7 +11,7 @@ class CompanyMailer < ApplicationMailer
     @request_text = request_text
     @email = email
     @admin = ENV['UNK_CONTACT_ADMIN'] || "fathallah.houssem@gmail.com"
-    mail(to: @admin, subject: '[UNK]New Contact ')
+    mail(to: @admin, subject: '[UNK] New Contact')
   end
 
 end
