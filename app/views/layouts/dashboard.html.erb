@@ -10,7 +10,8 @@
 <style>
     body {
         display: flex;
-        height: 100vh;²
+        height: 100vh;
+        ²
         flex-direction: column;
     }
 
@@ -85,6 +86,8 @@
         <% cache('dashboard/vue-templates/index') do %>
           <%= render 'dashboard/vue-templates/index' %>
         <% end %>
+        <!-- do not cache this template, it uses session domain -->
+        <%= render 'dashboard/vue-templates/overview' %>
       </div>
     </div>
   </div>

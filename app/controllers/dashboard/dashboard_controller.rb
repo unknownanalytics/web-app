@@ -26,7 +26,7 @@ class Dashboard::DashboardController < ApplicationController
       redirect_to dashboard_path, :notice => "Please select a domain"
     else
       session[:domain_id] = domain.id
-      redirect_to dashboard_path, :notice => "Changed to domain name #{domain.name}"
+      redirect_to dashboard_path, :notice => "Changed to domain #{domain.name}"
     end
   end
 
