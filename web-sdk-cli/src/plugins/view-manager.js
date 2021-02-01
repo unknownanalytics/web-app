@@ -1,4 +1,4 @@
-import {Utils} from "../utils";
+import {Logger, Utils, Sender} from "../utils";
 
 const VIEW = 'view';
 
@@ -24,7 +24,7 @@ class PageViewManager {
      * @param sender
      */
     constructor(options, sender) {
-      //  console.log('######## Create new instance ##############"');
+        Logger.log('######## constructor ##############"');
         this.options = options;
         this.sender = sender;
         this.lastLocation = null;
@@ -57,7 +57,7 @@ class PageViewManager {
      *
      */
     onPopChange(event) {
-        // console.log('######## onPopChange event##############"');
+        Logger.log('######## onPopChange event##############"');
         let location = document.location;
         if (this.lastLocation !== location.href) {
             let href = location.href;

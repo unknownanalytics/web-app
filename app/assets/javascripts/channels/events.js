@@ -4,9 +4,9 @@ App.cable = ActionCable.createConsumer();
 
 App.messages = App.cable.subscriptions.create('WebNotificationsChannel', {
     received: function (data) {
-        console.log(data);
+       App.Helpers.log(data);
     },
     connected : function (data) {
-        console.log(data)
+        App.Helpers.log(data);
     }
 });

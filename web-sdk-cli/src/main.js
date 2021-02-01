@@ -4,7 +4,7 @@
 import PageViewManager from './plugins/view-manager';
 //import EventManager from './plugins/event-manger';
 //import ErrorManager from './plugins/error-manger';
-import {Sender} from './utils' ;
+import {Logger, Sender} from './utils' ;
 
 
 /**
@@ -23,9 +23,16 @@ let config = {
  * @param options
  */
 window.unkAnalytics = function (token, options) {
-    config.token = token;
-    let sender = new Sender(config);
-    PageViewManager.createManager(options, sender);
+    // console.log("%c unk " + window.unkAnalyticsInitilaized, "background:black; color:white");
+    if (!window.unkInitilaized) {
+        options = options || {};
+        config.token = token;
+        config.debug = options.debug;
+        Logger.setup(options);
+        let sender = new Sender(config, options);
+        PageViewManager.createManager(options, sender);
+        window.unkInitilaized = true;
+    }
     //new EventManager(options, sender);
     //new ErrorManager(options, sender);
 };

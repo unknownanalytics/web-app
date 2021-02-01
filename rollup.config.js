@@ -12,7 +12,7 @@ import replace from 'rollup-plugin-replace';
 const production = !process.env.ROLLUP_WATCH;
 
 let apiHost = process.env.SDK_API_HOST || 'http://localhost:3002/collect';
-let version = process.env.SDK_VERSION || 'beta';
+let version = process.env.SDK_VERSION || require('./package.json').version || 'beta';
 // remove the # used to escape the
 apiHost = apiHost.replace(/#/g, ':');
 
@@ -24,7 +24,7 @@ export default {
     input: 'web-sdk-cli/src/main.js',
     format: 'iife',
     output: {
-        file: production ? 'public/assets/sdk.js' : 'web-sdk-cli/test/bundle.js',
+        file: production ? 'public/assets/sdk.js' : 'public/assets/sdk-test.js',
         format: 'iife', // immediately-invoked function expression — suitable for <script> tags
         sourcemap: !production,
     },

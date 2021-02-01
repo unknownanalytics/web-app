@@ -44,10 +44,17 @@
 <%= yield %>
 
 <%= yield :custom_js_assets %>
-
-<script src="https://www.unknownanalytics.com/sdk.js"></script>
+<% if Rails.env.development? %>
+  <script src="/assets/sdk-test.js"></script>
+  <script nonce="7f26c">
+      var debug = true;
+      window.unk_debug = true;
+  </script>
+<% else %>
+  <script src="https://www.unknownanalytics.com/sdk.js"></script>
+<% end %>
 <script nonce="7f26c">
-    unkAnalytics("ua_d1UNqUqbS2LcmY0vsZ-vMw");
+    unkAnalytics("ua_d1UNqUqbS2LcmY0vsZ-vMw", {debug: debug || false});
 </script>
 <!---->
 </body>

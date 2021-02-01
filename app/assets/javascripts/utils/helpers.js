@@ -2,6 +2,12 @@ const Helpers = {
     int(val) {
         return parseInt(val, 10)
     },
+    log(info) {
+        if (window.unk_debug) {
+            console.log("%c unk:", 'background: orange');
+            console.log(info);
+        }
+    },
     PALETTE_COLORS: {
         green: "#46BFBD",
         blue: "#4699fd",
@@ -108,13 +114,13 @@ const Helpers = {
             for (let j = 0; j < 24; j++) {
                 val = current ? (current[j] ? current[j] : 0) : 0;
                 if (val > 0) {
-                    console.log('XXXXXXXXXXXXXXXX');
-                    console.log(val);
+                    Helpers.log('XXXXXXXXXXXXXXXX');
+                    Helpers.log(val);
                 }
                 result.push([i, j, val])
             }
         }
-        console.log(result);
+        Helpers.log(result);
         return result;
         /* [[d, t, value],
             [0, 1, 1], .....
@@ -195,7 +201,7 @@ const Helpers = {
                 cb(null, result, image.src)
             }
             image.onerror = function (err) {
-                console.log(err);
+                Helpers.log(err);
             }
         } else {
             cb("empty el");
