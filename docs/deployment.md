@@ -18,23 +18,23 @@ See ngnix folder to copy configuration files.
 Note, that for building image we only need the minimum of env variables.
 
 ##### Run docker compose
-
+### see full variable names in `.env` file  
 ```
-UNK_ANA_PG_USER=postgres 
-UNK_ANA_PG_PASSWORD=root \ 
-UNK_ANA_PG_DATA=/var/unk-data-pg \ 
-UNK_ANA_PG_DB=track-web_development \ 
-UNK_ANA_DATABASE_URI=postgres://postgres:root@localhost/track-web_development \ 
+UNK_ANA_PG_USER=<db_user> 
+UNK_ANA_PG_PASSWORD=<db_password> \ 
+UNK_ANA_PG_DATA=<postgres_data_folder> \ 
+UNK_ANA_PG_DB=<db_name> \ 
+UNK_ANA_REDIS_DATA=<redis_data_foler> \ 
 UNK_ANA_STRIPE_API_KEY=<your_stripe_key> \ 
 UNK_ANA_APP_HOST=<your_host_key> \ 
 UNK_ANA_SMTP_URI=<your_smtp_key>  \ 
 UNK_ANA_SMTP_AUTH_METHOD=<your_smtp_auth_method> \
-UNK_ANA_SCREENSHOT_SECRET_KEY=secret_12345_change_me \
-UNK_ANA_REDIS_CHANNEL_PREFIX=unk \
-UNK_ANA_SIDEKIQ_USER=GOTO \ 
-UNK_ANA_SIDEKIQ_PASSWORD=GOTO \ 
-UNK_ANA_WickedPdf_EXEC_PATH="C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe" \ 
-docker-compose --env-file ./.env up
+UNK_ANA_SCREENSHOT_SECRET_KEY=<secret_12345_change_me> \
+UNK_ANA_REDIS_CHANNEL_PREFIX=<unk> \
+UNK_ANA_SIDEKIQ_USER=<GOTO> \ 
+UNK_ANA_SIDEKIQ_PASSWORD=<GOTO> \ 
+UNK_ANA_WickedPdf_EXEC_PATH="C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe" \ !!! not this is for windows, remove it for ubuntu 
+docker-compose --env-file ./.env up --build
 ```
 
 #### Copy assets to nginx,
