@@ -1,10 +1,10 @@
-This is the code source for [unknownanalytics](unknownanalytics.com/). 
+This is the code source for ![logo](./app/assets/ico/apple-touch-icon.png) [unknownanalytics](unknownanalytics.com/) . 
 
 Minimalist website analytics that protect user privacy.
 
 # App architecture
 
-![Kiku](docs/assets/full-arch.png)
+![architecture](docs/assets/full-arch.png)
 
 
 ## Local dev requirement
