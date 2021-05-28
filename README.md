@@ -8,26 +8,31 @@ Simple analytics to protect user privacy and get only essentials metrics.
 
 ## Local dev requirement
 
-* Version 
-
+* Version
     - ruby-2.7.2
     - Rails 6.1.3
     - pg 10
     - redis
+  
+## Postgres 
 
 * Install libq-dev (native lib tool for pg). For alpine image we use `postgresql-dev` instead .
 
-* Configuration
+### Bundle installation 
 
   `bundle install`
 
-* Database creation
+### Database creation
 
-Create your database
+Create your database (develop only), please follow [deployment instruction](docs/deployment.md) for docker compose deployment
 
-* Database initialization
+* Database initialization (migration and so on)
 
-run `(bundle exec ) db migrate`
+run `UNK_ANA_DATABASE_URI=<postgres://postgres_user:pg_password@host/your_db_name> UNK_ANA_REDIS_URI=<redis://host> (bundle exec ) db migrate`
+
+* Run server (dev only). See [.env](.env) for full vars env list 
+
+`UNK_ANA_DATABASE_URI=<postgres://postgres_user:pg_password@host/db_name> UNK_ANA_REDIS_URI=<redis://host> UNK_ANA_SMTP_URI=<your_smtp_local> rails s`
 
 
 ### For deployment process, see [deployment](docs/deployment.md)
