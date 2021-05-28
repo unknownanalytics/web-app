@@ -4,21 +4,18 @@
 
 **You should keep the data in folder using volumes, so we create `/var/unk-data` and inside we create `pg` folder for pg and `redis` folder for redis**
 
-### Assets folder
-
-##### Create the assets folder
-create `/var/www/unk_ana-assets` folder, we will use it later to serve assets
-
 ### Configure nginx
 
-See ngnix folder to copy configuration files.
+See See [nginx file](../nginx/), folder to copy configuration files.
+
 
 ### Container images & docker compose
 
-Note, that for building image we only need the minimum of env variables.
+Note that for building image we only need the minimum of env variables. Some values are build in env file itself , example `UNK_ANA_DATABASE_URI`
 
-##### Run docker compose
-### see full variable names in `.env` file  
+### Docker compose
+
+###### see full variable names in [nginx file](../.env) file  
 ```
 UNK_ANA_PG_USER=<db_user> 
 UNK_ANA_PG_PASSWORD=<db_password> \ 
@@ -36,17 +33,24 @@ UNK_ANA_SIDEKIQ_PASSWORD=<GOTO> \
 UNK_ANA_WickedPdf_EXEC_PATH="C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe" \ !!! not this is for windows, remove it for ubuntu 
 docker-compose --env-file ./.env up --build
 ```
+* add `up -d --build` to run with deamon
 
+
+### Assets folder
+
+##### Create the assets folder
+
+create `/var/www/unk_ana-assets` folder, we will use it later to serve assets
+See [nginx file](../nginx/production), all assets are served by nginx.
 #### Copy assets to nginx,
 
 Once the container is up and running, you should copy the latest generated assets from docker. In production/staging
 mode, rails does not serve static files (unless you enable it). It's always suitable to serve it using nginx or any
 other dedicated server.
 
-So if we will serve static file from /var/www/unk_ana-assets/assets, we will copy assets from `/var/www/unk-web-app` (see Dockerfile)
+So if we will serve static file from `/var/www/unk_ana-assets/assets`, we will copy assets docker assets to `/var/www/unk-web-app` (see [nginx file](../Dockerfile) and [entrypoint](../docker/entrypoint.sh))
 
 `rm -rf /var/www/unk_ana-assets/`
-
 
 `docker cp <id_container|container_name>:/var/www/unk-web-app/public/assets /var/www/unk_ana-assets/`
 
@@ -57,8 +61,14 @@ For this configuration you can use
 sudo mkdir -p /var/www/unk_ana-assets && \
 sudo docker cp unk-web-app:/var/www/unk-web-app/public/assets /var/www/unk_ana-assets/assets`
 
-* Docker on windows.
-### 
+### SDK JS 
+
+The sdk js is built with rollup, see the `build` script in the [scripts list](../package.json), this will build the `sdk.js` and put it inside `assets` along with all other assets files.
+It should be copied to assets host directory and served by nginx.
+
+
+###  Docker on windows.
+
 
 There are some issues related to database volume on windows (permission denied). I try to setup but i ended installing
 ubuntu with wsl2 to avoid the issue. You can use direct address of docker on window is `host.docker.internal` for redis
