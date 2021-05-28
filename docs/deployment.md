@@ -6,7 +6,7 @@
 
 ### Configure nginx
 
-See See [nginx file](../nginx/), folder to copy configuration files.
+###### See [nginx](../nginx/) folder to copy configuration files.
 
 
 ### Container images & docker compose
