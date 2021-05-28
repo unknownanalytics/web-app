@@ -1,4 +1,4 @@
-![logo](./app/assets/ico/apple-touch-icon.png)
+![logo](./app/assets/ico/favicon-32x32.png)
 
 [unknownanalytics](unknownanalytics.com/) is a minimalist analytics tool that protect user privacy.
 
