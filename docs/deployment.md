@@ -15,7 +15,7 @@ Note that for building image we only need the minimum of env variables. Some val
 
 ### Docker compose
 
-###### see full variable names in [nginx file](../.env) file  
+###### see full variable names in [.env](../.env) file  
 ```
 UNK_ANA_PG_USER=<db_user> 
 UNK_ANA_PG_PASSWORD=<db_password> \ 
