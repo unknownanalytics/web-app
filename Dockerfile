@@ -44,7 +44,10 @@ ENV UNK_APP_IS_BILLABLE=false
 # Set env
 ENV DOCKER 1
 
-EXPOSE 3000
+ENV PORT=${PORT}
 
+EXPOSE $PORT
+
+RUN ["chmod", "+x", "./docker/entrypoint.sh"]
 ENTRYPOINT  ["./docker/entrypoint.sh"]
 CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
