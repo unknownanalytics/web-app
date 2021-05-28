@@ -1,6 +1,6 @@
 ![logo](./app/assets/ico/favicon-32x32.png)
 
-[unknownanalytics](unknownanalytics.com/) is a minimalist analytics tool that protect user privacy.
+[unknownanalytics](https://www.unknownanalytics.com/) is a minimalist analytics tool that protect user privacy.
 
 This is the code source of the web application including the web sdk.
 
