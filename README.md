@@ -1,5 +1,6 @@
-This is the web app module for [unknownanalytics](unknownanalytics.com/)
-Simple analytics to protect user privacy and get only essentials metrics.
+This is the code source for [unknownanalytics](unknownanalytics.com/). 
+
+Minimalist website analytics that protect user privacy.
 
 # App architecture
 
