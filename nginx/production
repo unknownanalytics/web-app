@@ -29,7 +29,7 @@ map $http_upgrade $connection_upgrade {
 
 
 upstream puma_unk {
-   server localhost:3000;
+   server localhost:3005;
 }
 
 server {

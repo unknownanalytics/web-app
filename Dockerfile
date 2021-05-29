@@ -50,4 +50,4 @@ EXPOSE $PORT
 
 RUN ["chmod", "+x", "./docker/entrypoint.sh"]
 ENTRYPOINT  ["./docker/entrypoint.sh"]
-CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+# CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
