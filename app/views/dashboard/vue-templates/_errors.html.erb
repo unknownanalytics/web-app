@@ -1,3 +1,40 @@
 <script type="text/x-template" id="app_dashboard_errors_template">
-  <app-v-soon title="Errors" content="This feature helps you identify errors in your web page ."></app-v-soon>
+
+  <div>
+    <div>
+
+      <div v-if="selectedPage" class="is-flex py-2">
+          <span class="has-background-warning-light is-flex  is-align-items-center">
+            {{selectedPage.url}}
+          </span>
+        <button @click="clearCurrentPage()" class="button is-small ml-2 has-background-danger-dark has-text-white cursor-pointer reset-page">Clear</button>
+      </div>
+      <div class="columns mb-2" id="page_filter_menu">
+        <div class="column is-one-quarter">
+          <app-v-typehead :list="data.pages"
+                          :property="'url'"
+                          v-on:selected="onSelectedPage($event)"
+                          :placeholder="'Filter ' + data.pages.length  + ' pages' ">
+          </app-v-typehead>
+        </div>
+        <div class="column">Daily
+          <small class="is-size-7"> [ by weeks in the last 6 months ]</small>
+          <select @change="onChangeWeekDayFilter($event)" v-model="weekDay.startRange">
+            <%= get_range_of_weeks_n_months_ago(6).reverse.each_with_index do |week, index| %>
+              <option
+                <% if index == 0 %>selected="selected"
+                <% end %> value="<%= week.begin %>">
+                <%= week %>
+              </option>
+            <% end %>
+          </select>
+        </div>
+
+
+      </div>
+    </div>
+    <div>
+      <h4>Errors</h4>
+    </div>
+  </div>
 </script>

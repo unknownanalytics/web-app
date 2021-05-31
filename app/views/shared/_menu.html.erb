@@ -50,6 +50,16 @@
           <%= t('dashboard.menu.reports_export') %>
         <% end %>
       </li>
+
+      <li>
+        <%= link_to(dashboard_stats_errors_path, class: current_menu_item_class?(dashboard_stats_errors_path)) do %>
+          <% cache('icon-bug') do %>
+            <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-bug' } %>
+          <% end -%>
+          <%= t('dashboard.menu.errors') %>
+        <% end %>
+      </li>
+
       <li>
         <%= link_to(dashboard_stats_heatmaps_path, class: current_menu_item_class?(dashboard_stats_heatmaps_path)) do %>
           <% cache('icon-thermostat-full') do %>
@@ -67,14 +77,6 @@
         <% end %>
       </li>
 
-      <li>
-        <%= link_to(dashboard_stats_errors_path, class: 'disabled ' + current_menu_item_class?(dashboard_stats_errors_path)) do %>
-          <% cache('icon-bug') do %>
-            <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-bug' } %>
-          <% end -%>
-          <%= t('dashboard.menu.errors') %> <span class="tag tag-danger">soon</span>
-        <% end %>
-      </li>
       <!--<li>
         <%= link_to(dashboard_stats_events_path, class: current_menu_item_class?(dashboard_stats_events_path), id: 'dashboard_stats_session_recording_path') do %>
           <% cache('icon-videocam') do %>

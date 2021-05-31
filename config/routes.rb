@@ -78,9 +78,12 @@ Rails.application.routes.draw do
       get 'pages/:page_id/views' => 'pages#page_views_details'
       get '/geo' => 'geo#index'
       get '/devices' => 'devices#index'
+
+      get '/errors' => 'errors#index'
+
+
       # TODO
       get '/events' => 'events#index'
-      get '/errors' => 'errors#index'
       # clicks and events
       get '/heatmaps' => 'heatmaps#index'
       get '/export' => 'export#index'

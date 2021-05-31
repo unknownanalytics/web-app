@@ -28,8 +28,11 @@ document.addEventListener("turbolinks:load", function (event) {
             paths[index].style.zoom = 10; //Set stroke colour
         }, 1000);
         // empty chart before
+        document.querySelector('#hero_events_chart').innerHTML = '';
         App.Charts.bars('hero_events_chart', [1, 1, 2, 4, 2, 5, 2, 4, 2, 1, 6, 5, 1, 1, 2, 4, 2, 5, 2, 4, 2, 1, 6, 5]);
         //App.Charts.squares('features_heatmap');
+        // empty div
+        document.querySelector('#hero_campaigns').innerHTML = '';
         App.Charts.bubble('hero_campaigns', [1, 2, 1, 2, 4, 2, 5, 2, 4, 2, 1, 6, 5]);
 
         let tabsWithContent = (function () {

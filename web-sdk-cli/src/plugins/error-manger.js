@@ -1,6 +1,6 @@
-import {Utils, Sender} from "../utils";
+import {Utils} from "../utils";
 
-const ERROR_EVENT = 'error';
+const END_POINT = 'error';
 
 export class ErrorManager {
     /*
@@ -8,6 +8,8 @@ export class ErrorManager {
     options: null;
     */
 
+    // instance singleton
+    static manager = null;
 
     /**
      *
@@ -41,35 +43,54 @@ export class ErrorManager {
      * @private
      */
     _configureEvent() {
-        // Listen to mousemove
-        window.onerror = (function (message, source, lineno, colno, error) {
-            let body = document.body,
-                html = document.documentElement;
-            let height = Math.max(body.scrollHeight, body.offsetHeight,
-                html.clientHeight, html.scrollHeight, html.offsetHeight);
-            let px = (event.clientX + document.documentElement.scrollLeft) / screen.width * 100;
-            let py = (event.clientY + document.documentElement.scrollTop) / height * 100;
-            this.pushToQuery({
-                px: px,
-                py: py,
-                at: Date.now(),
-                error: arguments[1]
-            });
-
-            console.log(message)
-        }).bind(this);
+        if (!(location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.origin.startsWith('https'))) {
+            return console.error('only https is allowed');
+        }
+        window.addEventListener("unhandledrejection", this._handleError.bind(this));
+      //  window.onunhandledrejection = this._handleError.bind(this)
+        window.onerror = this._handleError.bind(this);
     }
 
-    /**
-     * @param data {EventPosition}
+    /***
+     *
+     * @param msg
+     * @param url
+     * @param lineNo
+     * @param columnNo
+     * @param error
+     * @private
      */
-    pushToQuery(data) {
-        this.query.push(data);
-        this.querySize += JSON.stringify(data).length * 8;
-        if (this.querySize > 256000) {
-            this.push(this.query);
-            this.resetQuery();
+    _handleError(msg, url, lineNo, columnNo, error) {
+        console.warn('_handleError');
+        if (error){
+            error = error.toString();
         }
+        let string = msg.toLowerCase && msg.toLowerCase();
+        let info;
+        if (string) {
+            var substring = "script error";
+            if (string.indexOf(substring) > -1) {
+                info = {msg, file_url: url, lineNo, columnNo, error}
+            } else {
+                info = {msg, file_url: url, lineNo, columnNo, error};
+            }
+        } else {
+            let proto = msg.toString().replace(/\[object /ig, '')
+            proto = proto.replace(/]$/g, '')
+            info = {file_url: url, lineNo, columnNo, error: msg.reason.toString(), proto};
+        }
+        let data = Object.assign({}, {url: location.href}, {
+            info
+        });
+
+        this.push(data);
+    }
+
+    static createManager(options, sender) {
+        if (!ErrorManager.manager) {
+            ErrorManager.manager = new ErrorManager(options, sender);
+        }
+        return ErrorManager.manager;
     }
 
     /**

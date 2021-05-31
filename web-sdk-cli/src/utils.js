@@ -76,8 +76,14 @@ class Sender {
             xhr.setRequestHeader("Content-Type", "text/plain");
         }
         let data = args.data || null;
+        // add token if missed
         if (!data.token) {
             data.token = config.token;
+        }
+        // add endpoint if missed
+        let endpoint = args.endpoint || null;
+        if (!data.endpoint) {
+            data.endpoint = endpoint;
         }
         if (typeof (data) !== "string") {
             data = JSON.stringify(data);

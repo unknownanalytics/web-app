@@ -18,15 +18,24 @@ class Api::Sdk::V1::CollectController < Api::ApiController
   def index
     begin
       full_url = @body['url']
+      endpoint = @body['endpoint']
       uri = URI(full_url)
+      # create current page if not exists already
       @page = Page.where(:domain_id => @domain, :url => uri.path).first_or_create
       @page.update!(:fragment => uri.fragment, :path => uri.path, :full_url => full_url, :query => uri.query, :host => uri.host)
-      create_page_view
-      if @domain.domain_setting.track_geo
-        create_page_view_location
+
+      case endpoint
+      when "error"
+        create_page_error
+      when 'view'
+        create_page_view
+      else
+        create_page_view
       end
+
       puts "replying ok"
       reply_json({ :ok => true })
+
     rescue StandardError => err
       puts "StandardError"
       puts "################################################"
@@ -34,6 +43,25 @@ class Api::Sdk::V1::CollectController < Api::ApiController
       reply_json({ :ok => false })
     end
 
+  end
+
+  def create_page_error
+    puts '%%%%%'
+    puts @body['info']
+    begin
+      browser = Browser.new(request.user_agent, accept_language: "en-us")
+      PageError.create!(:page => @page,
+                       :is_mobile => browser.device.mobile?,
+                       :is_desktop => !(browser.device.mobile? || browser.device.tablet?),
+                       :is_tablet => browser.device.tablet?,
+                       :user_agent => browser.ua,
+                       :metadata => {
+                         :browser => browser.device.name,
+                         :info => @body['info']
+                       })
+    rescue StandardError => err
+      reply_json({ :ok => false })
+    end
   end
 
   def create_page_view
@@ -57,6 +85,10 @@ class Api::Sdk::V1::CollectController < Api::ApiController
                        :browser => browser.device.name,
                        :width_resolution => browser_info['ww'],
                        :height_resolution => browser_info['hw'])
+
+      if @domain.domain_setting.track_geo
+        create_page_view_location
+      end
 
     rescue StandardError => err
       reply_json({ :ok => false })

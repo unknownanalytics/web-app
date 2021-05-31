@@ -82,7 +82,7 @@ class PageViewManager {
      */
     push(body) {
         body = Object.assign({}, body, {browser: Utils.getBrowserParams()});
-        this.sender.push({data: body, type: VIEW})
+        this.sender.push({data: body, endpoint: VIEW})
     }
 }
 

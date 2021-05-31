@@ -11,7 +11,7 @@ import replace from 'rollup-plugin-replace';
 // `npm run dev` -> `production` is false
 const production = !process.env.ROLLUP_WATCH;
 
-let apiHost = process.env.SDK_API_HOST || 'http://localhost:3002/collect';
+let apiHost = process.env.SDK_API_HOST || 'http://localhost:3000/collect';
 let version = process.env.SDK_VERSION || require('./package.json').version || 'beta';
 // remove the # used to escape the
 apiHost = apiHost.replace(/#/g, ':');

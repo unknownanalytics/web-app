@@ -9,13 +9,22 @@
 
 <canvas width="500" height="500" id="canvas_kde" style="border:solid 1px red"></canvas>
 
-<script src="bundle.js"></script>
+<script src="http://localhost:3000/assets/sdk-test.js"></script>
 <div>
 
 </div>
 <script>
-	unkAnalytics('uk_x-4ZgCnX95hEWpcCuqd8Pw');
+	//unkAnalytics('ua_DT2kUINNsOtlRr4FLXwTzw', {debug : true });
+	unkAnalytics('ua_DT2kUINNsOtlRr4FLXwTzw');
 	// utm_source=google&utm_medium=organic&utm_campaign=organic
+
+
+    fetch('https://jsonplaceholder.typicode.cxom/todoxxxxs/1')
+        .then(response => response.json())
+        .then(json => console.log(json));
+
+    document.getElementById('canvas').click();
+    document.getElementById('canvasx').addEventListener('xxxx');
 </script>
 </body>
 

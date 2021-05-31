@@ -11,4 +11,6 @@ window.App.API_ROUTES = {
     DASHBOARD_STATS_GEO_DETAILS: "/api/geo",
     DASHBOARD_STATS_CAMPAIGNS: "/api/campaigns",
     DASHBOARD_STATS_PAGE_VIEWS: "/api/pages/:page_id/views",
+    DASHBOARD_ERRORS: "/api/errors",
+    DASHBOARD_ERRORS_PAGE: "/api/pages/:page_id/errors",
 };

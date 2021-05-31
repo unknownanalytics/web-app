@@ -2,8 +2,8 @@
  *
  */
 import PageViewManager from './plugins/view-manager';
+import ErrorManager from './plugins/error-manger';
 //import EventManager from './plugins/event-manger';
-//import ErrorManager from './plugins/error-manger';
 import {Logger, Sender} from './utils' ;
 
 
@@ -23,12 +23,14 @@ let config = {
  * @param options
  */
 window.unkAnalytics = function (token, options) {
+
     if (!window.unkInitilaized) {
         options = options || {};
         config.token = token;
         config.debug = options.debug;
         Logger.setup(options);
         let sender = new Sender(config, options);
+        ErrorManager.createManager(options, sender);
         PageViewManager.createManager(options, sender);
         window.unkInitilaized = true;
     }

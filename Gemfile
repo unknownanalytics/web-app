@@ -72,6 +72,8 @@ gem 'browser'
 
 gem 'sidekiq'
 
+gem 'invisible_captcha'
+
 # TODO
 # gem 'act-fluent-logger-rails'
 

@@ -98,6 +98,8 @@ GEM
     highline (2.0.3)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
+    invisible_captcha (2.0.0)
+      rails (>= 5.0)
     io-like (0.3.1)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
@@ -244,6 +246,7 @@ DEPENDENCIES
   duktape
   faker
   highline
+  invisible_captcha
   jbuilder (~> 2.5)
   lograge
   maxminddb

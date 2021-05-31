@@ -16,6 +16,7 @@
   <div class="container">
     <h3 class="title"><%= t('welcome.contact_us') %></h3>
     <%= form_tag(contact_path, local: true) do %>
+      <%= invisible_captcha %>
       <div class="field">
         <label class="label">E-mail</label>
         <div class="field-body">

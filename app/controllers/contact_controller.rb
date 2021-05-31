@@ -1,4 +1,6 @@
 class ContactController < ApplicationController
+  invisible_captcha only: [:contact_us]
+
   def index
     @subject = params[:subject]
   end
