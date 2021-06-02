@@ -1,4 +1,7 @@
 import {Utils} from "../utils";
+import VuePlugin from "./integrations/vue";
+import VueErrorHandler from "./integrations/vue";
+import DefaultHandler from "./integrations/vanilla";
 
 const END_POINT = 'error';
 
@@ -7,24 +10,9 @@ export class ErrorManager {
     sender: Sender = null;
     options: null;
     */
-
+    handlers = [];
     // instance singleton
     static manager = null;
-
-    /**
-     *
-     */
-    _initializeQuery() {
-        this.query = [];
-        this.querySize = 0;
-    }
-
-    /**
-     *
-     */
-    resetQuery() {
-        this._initializeQuery();
-    }
 
     /**
      *
@@ -34,56 +22,22 @@ export class ErrorManager {
     constructor(options, sender) {
         this.options = options;
         this.sender = sender;
-        this._initializeQuery();
-        this._configureEvent();
+        this._configureHandlers();
     }
 
     /**
      *
      * @private
      */
-    _configureEvent() {
-        if (!(location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.origin.startsWith('https'))) {
-            return console.error('only https is allowed');
+    _configureHandlers() {
+        let options = {callback: this.push.bind(this)};
+        // Vue
+        if (typeof (Vue) != "undefined") {
+            this.handlers.push(new VueErrorHandler(options));
         }
-        window.addEventListener("unhandledrejection", this._handleError.bind(this));
-      //  window.onunhandledrejection = this._handleError.bind(this)
-        window.onerror = this._handleError.bind(this);
-    }
+        // Vanilla
+        this.handlers.push(new DefaultHandler(options));
 
-    /***
-     *
-     * @param msg
-     * @param url
-     * @param lineNo
-     * @param columnNo
-     * @param error
-     * @private
-     */
-    _handleError(msg, url, lineNo, columnNo, error) {
-        console.warn('_handleError');
-        if (error){
-            error = error.toString();
-        }
-        let string = msg.toLowerCase && msg.toLowerCase();
-        let info;
-        if (string) {
-            var substring = "script error";
-            if (string.indexOf(substring) > -1) {
-                info = {msg, file_url: url, lineNo, columnNo, error}
-            } else {
-                info = {msg, file_url: url, lineNo, columnNo, error};
-            }
-        } else {
-            let proto = msg.toString().replace(/\[object /ig, '')
-            proto = proto.replace(/]$/g, '')
-            info = {file_url: url, lineNo, columnNo, error: msg.reason.toString(), proto};
-        }
-        let data = Object.assign({}, {url: location.href}, {
-            info
-        });
-
-        this.push(data);
     }
 
     static createManager(options, sender) {
@@ -96,8 +50,8 @@ export class ErrorManager {
     /**
      *
      */
-    push(body) {
-        body = Object.assign({}, body, {browser: Utils.getBrowserParams()});
+    push(info) {
+        let body = Object.assign({}, {browser: Utils.getBrowserParams(), url: location.href, info});
         this.sender.push({data: body, endpoint: END_POINT})
     }
 }

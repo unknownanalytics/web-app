@@ -24,7 +24,7 @@
       <td><%= api_key.public_key %></td>
       <!--<td><%= link_to 'Show', dashboard_domain_api_key_path(api_key.domain, api_key) %></td>-->
       <td>
-        <%= link_to(dashboard_domain_api_key_path(api_key.domain, api_key), method: :delete, data: {confirm: 'Are you sure?'}) do %>
+        <%= link_to(dashboard_domain_api_key_path(api_key.domain, api_key), method: :delete, data: {confirm: 'Are you sure?'}, class: "is-flex is-align-items-center") do %>
           <%= t('common.destroy') %>
           <%= render :partial => 'shared/icon', :locals => {:icon => 'icon-trash'} %>
         <% end %>

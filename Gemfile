@@ -67,12 +67,16 @@ gem 'highline'
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'devise'
-
+# remove the browser
 gem 'browser'
+gem 'device_detector'
+
 
 gem 'sidekiq'
 
 gem 'invisible_captcha'
+
+gem 'kaminari'
 
 # TODO
 # gem 'act-fluent-logger-rails'

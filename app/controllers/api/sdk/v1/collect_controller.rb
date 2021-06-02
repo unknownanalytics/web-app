@@ -49,16 +49,28 @@ class Api::Sdk::V1::CollectController < Api::ApiController
     puts '%%%%%'
     puts @body['info']
     begin
-      browser = Browser.new(request.user_agent, accept_language: "en-us")
+      browser = DeviceDetector.new(request.user_agent)
+      # puts '***************** browser.device ******************'
+      # puts browser.name # => 'Chrome'
+      # puts browser.full_version # => '30.0.1599.69'
+      # puts browser.os_name # => 'Windows'
+      # puts browser.os_full_version # => '8'
+      # # For many devices, you can also query the device name (usually the model name)
+      # puts browser.device_name # => 'iPhone 5'
+      # # Device types can be one of the following: desktop, smartphone, tablet, console,
+      # # portable media player, tv, car browser, camera
+      # puts browser.device_type # => 'smartphone'
       PageError.create!(:page => @page,
-                       :is_mobile => browser.device.mobile?,
-                       :is_desktop => !(browser.device.mobile? || browser.device.tablet?),
-                       :is_tablet => browser.device.tablet?,
-                       :user_agent => browser.ua,
-                       :metadata => {
-                         :browser => browser.device.name,
-                         :info => @body['info']
-                       })
+                        :is_mobile => browser.device_type === "smartphone",
+                        :is_desktop => browser.device_type === "desktop",
+                        :is_tablet => browser.device_type === "tablet",
+                        :user_agent => browser.device_name,
+                        :browser => browser.name,
+                        :metadata => {
+                          :os => browser.os_name,
+                          :device => browser.device_type,
+                          :info => @body['info']
+                        })
     rescue StandardError => err
       reply_json({ :ok => false })
     end
@@ -69,20 +81,31 @@ class Api::Sdk::V1::CollectController < Api::ApiController
       utm = @body['utm']
       url = URI(@body['url'])
       browser_info = @body['browser']
-      browser = Browser.new(request.user_agent, accept_language: "en-us")
+      browser = DeviceDetector.new(request.user_agent)
+      # puts '***************** browser.device ******************'
+      # puts browser.name # => 'Chrome'
+      # puts browser.full_version # => '30.0.1599.69'
+      # puts browser.os_name # => 'Windows'
+      # puts browser.os_full_version # => '8'
+      # # For many devices, you can also query the device name (usually the model name)
+      # puts browser.device_name # => 'iPhone 5'
+      # # Device types can be one of the following: desktop, smartphone, tablet, console,
+      # # portable media player, tv, car browser, camera
+      # puts browser.device_type # => 'smartphone'
       PageView.create!(:page => @page,
                        :utm_source => utm['src'],
                        :utm_medium => utm['medium'],
                        :utm_campaign => utm['name'],
                        :utm_content => utm['content'],
-                       :is_mobile => browser.device.mobile?,
-                       :is_desktop => !(browser.device.mobile? || browser.device.tablet?),
-                       :is_tablet => browser.device.tablet?,
+                       #  :platform => browser.platform.name,
+                       :is_mobile => browser.device_type === "smartphone",
+                       :is_desktop => browser.device_type === "desktop",
+                       :is_tablet => browser.device_type === "tablet",
                        :utm_term => utm['term'],
                        :query => url.query,
                        :referer => request.referer,
                        :origin => request.origin,
-                       :browser => browser.device.name,
+                       :browser => browser.name,
                        :width_resolution => browser_info['ww'],
                        :height_resolution => browser_info['hw'])
 

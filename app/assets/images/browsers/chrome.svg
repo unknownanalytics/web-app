@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-26.4 -44 228.8 264">
+  <defs>
+    <path id="reuse-2" fill="#0f9d58" d="M8 184h84l39-39v-29H61L8 24z"/>
+    <path id="reuse-1" fill="#db4437" d="M22 8v108h39l35-60h88V8z"/>
+    <path id="reuse-0" fill="#ffcd40" d="M96 56l35 60-39 68h92V56z"/>
+  </defs>
+  <defs>
+    <linearGradient id="f" x1="29.3" x2="81.8" y1="75" y2="44.4" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+    <linearGradient id="g" x1="110.9" x2="52.5" y1="164.5" y2="130.3" gradientUnits="userSpaceOnUse" xlink:href="#b"/>
+    <linearGradient id="j" x1="121.9" x2="136.6" y1="49.8" y2="114.1" gradientUnits="userSpaceOnUse" xlink:href="#c"/>
+    <linearGradient id="k" x1="121.9" x2="136.6" y1="49.8" y2="114.1" gradientUnits="userSpaceOnUse" xlink:href="#c"/>
+    <linearGradient id="n" x1="29.3" x2="81.8" y1="75" y2="44.4" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+    <linearGradient id="r" x1="110.9" x2="52.5" y1="164.5" y2="130.3" gradientUnits="userSpaceOnUse" xlink:href="#b"/>
+    <circle id="d" cx="96" cy="96" r="88"/>
+  </defs>
+  <clipPath id="e">
+    <use width="100%" height="100%" overflow="visible" xlink:href="#d"/>
+  </clipPath>
+  <g clip-path="url(#e)" transform="translate(-8 -8)">
+    <use xlink:href="#reuse-1"/>
+    <linearGradient id="a" x1="29.3" x2="81.8" y1="75" y2="44.4" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#A52714" stop-opacity=".6"/>
+      <stop offset=".7" stop-color="#A52714" stop-opacity="0"/>
+    </linearGradient>
+    <path fill="url(#f)" d="M22 8v108h39l35-60h88V8z"/>
+  </g>
+  <path fill="#3e2723" fill-opacity=".1" d="M62 116L22 47v1l39 68z" clip-path="url(#e)" transform="translate(-8 -8)"/>
+  <g clip-path="url(#e)" transform="translate(-8 -8)">
+    <use xlink:href="#reuse-2"/>
+    <linearGradient id="b" x1="110.9" x2="52.5" y1="164.5" y2="130.3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#055524" stop-opacity=".4"/>
+      <stop offset=".3" stop-color="#055524" stop-opacity="0"/>
+    </linearGradient>
+    <path fill="url(#g)" d="M8 184h84l39-39v-29H61L8 24z"/>
+  </g>
+  <path fill="#263238" fill-opacity=".1" d="M130 117h-1l-38 67h1l38-67z" clip-path="url(#e)" transform="translate(-8 -8)"/>
+  <g clip-path="url(#e)" transform="translate(-8 -8)">
+    <defs>
+      <path id="h" d="M8 184h84l39-39v-29H61L8 24z"/>
+    </defs>
+    <clipPath id="i">
+      <use width="100%" height="100%" overflow="visible" xlink:href="#h"/>
+    </clipPath>
+    <g clip-path="url(#i)">
+      <use xlink:href="#reuse-0"/>
+      <linearGradient id="c" x1="121.9" x2="136.6" y1="49.8" y2="114.1" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#EA6100" stop-opacity=".3"/>
+        <stop offset=".7" stop-color="#EA6100" stop-opacity="0"/>
+      </linearGradient>
+      <path fill="url(#j)" d="M96 56l35 60-39 68h92V56z"/>
+    </g>
+  </g>
+  <g clip-path="url(#e)" transform="translate(-8 -8)">
+    <use xlink:href="#reuse-0"/>
+    <path fill="url(#k)" d="M96 56l35 60-39 68h92V56z"/>
+  </g>
+  <g clip-path="url(#e)" transform="translate(-8 -8)">
+    <defs>
+      <path id="l" d="M96 56l35 60-39 68h92V56z"/>
+    </defs>
+    <clipPath id="m">
+      <use width="100%" height="100%" overflow="visible" xlink:href="#l"/>
+    </clipPath>
+    <g clip-path="url(#m)">
+      <use xlink:href="#reuse-1"/>
+      <path fill="url(#n)" d="M22 8v108h39l35-60h88V8z"/>
+    </g>
+  </g>
+  <radialGradient id="o" cx="668.2" cy="55.9" r="84.1" gradientTransform="translate(-576)" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#3E2723" stop-opacity=".2"/>
+    <stop offset="1" stop-color="#3E2723" stop-opacity="0"/>
+  </radialGradient>
+  <path fill="url(#o)" d="M96 56v21l78-21z" clip-path="url(#e)" transform="translate(-8 -8)"/>
+  <g clip-path="url(#e)" transform="translate(-8 -8)">
+    <defs>
+      <path id="p" d="M22 8v40l39 68 35-60h88V8z"/>
+    </defs>
+    <clipPath id="q">
+      <use width="100%" height="100%" overflow="visible" xlink:href="#p"/>
+    </clipPath>
+    <g clip-path="url(#q)">
+      <use xlink:href="#reuse-2"/>
+      <path fill="url(#r)" d="M8 184h84l39-39v-29H61L8 24z"/>
+    </g>
+  </g>
+  <radialGradient id="s" cx="597.9" cy="48.5" r="78" gradientTransform="translate(-576)" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#3E2723" stop-opacity=".2"/>
+    <stop offset="1" stop-color="#3E2723" stop-opacity="0"/>
+  </radialGradient>
+  <path fill="url(#s)" d="M22 48l57 58-18 10z" clip-path="url(#e)" transform="translate(-8 -8)"/>
+  <radialGradient id="t" cx="671.8" cy="96.1" r="87.9" gradientTransform="translate(-576)" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#263238" stop-opacity=".2"/>
+    <stop offset="1" stop-color="#263238" stop-opacity="0"/>
+  </radialGradient>
+  <path fill="url(#t)" d="M92 184l21-78 18 10z" clip-path="url(#e)" transform="translate(-8 -8)"/>
+  <g clip-path="url(#e)" transform="translate(-8 -8)">
+    <circle cx="96" cy="96" r="40" fill="#f1f1f1"/>
+    <circle cx="96" cy="96" r="32" fill="#4285f4"/>
+  </g>
+  <g clip-path="url(#e)" transform="translate(-8 -8)">
+    <path fill="#3e2723" fill-opacity=".2" d="M96 55c-22 0-40 18-40 40v1c0-22 18-40 40-40h88v-1z"/>
+    <path fill="#fff" fill-opacity=".1" d="M131 116a40 40 0 01-70 0L8 24v1l53 92a40 40 0 0070 0v-1z"/>
+    <path fill="#3e2723" d="M97 56a40 40 0 010 80 40 40 0 000-80z" opacity=".1"/>
+    <path fill="#fff" fill-opacity=".2" d="M131 117a40 40 0 004-32 40 40 0 01-4 31l-39 68h1l38-67z"/>
+  </g>
+  <g clip-path="url(#e)" transform="translate(-8 -8)">
+    <path fill="#fff" fill-opacity=".2" d="M96 9c48 0 88 39 88 88v-1A88 88 0 008 96v1C8 48 48 9 96 9z"/>
+    <path fill="#3e2723" fill-opacity=".1" d="M96 183c48 0 88-39 88-87A88 88 0 018 96c0 48 40 87 88 87z"/>
+  </g>
+  <radialGradient id="u" cx="34.3" cy="32" r="176.8" gradientTransform="translate(-8 -8)" gradientUnits="userSpaceOnUse">
+    <stop offset="0" stop-color="#fff" stop-opacity=".1"/>
+    <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </radialGradient>
+  <circle cx="88" cy="88" r="88" fill="url(#u)"/>
+</svg>

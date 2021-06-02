@@ -43,7 +43,7 @@
 
 <%= yield %>
 
-<%= yield :custom_js_assets %>
+
 <% if Rails.env.development? %>
   <script src="/assets/sdk-test.js"></script>
   <script nonce="7f26c">
@@ -55,8 +55,11 @@
 
 <script nonce="7f26c">
     var apikey = '<%=  Rails.env.production? ? "ua_d1UNqUqbS2LcmY0vsZ-vMw" : 'ua_DT2kUINNsOtlRr4FLXwTzw'  %>';
-    unkAnalytics(apikey, {debugw: <%= Rails.env.development?%>});
+    unkAnalytics(apikey, {debugx: <%= Rails.env.development?%>});
 </script>
+
+
+<%= yield :custom_js_assets %>
 <!---->
 </body>
 </html>

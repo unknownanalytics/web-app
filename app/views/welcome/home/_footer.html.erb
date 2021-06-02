@@ -10,27 +10,23 @@
     <div class="columns">
 
       <div class="column content">
-        <h2>Features</h2>
-        <a class="is-link">Beta usage </a><br/>
-        <a class="is-link">Template</a><br/>
+        <h4>Features</h4>
         <a class="is-link"><%= link_to t("Privacy Policy"), public_pages_path(:page => 'privacy-policy') %></a><br/>
         <%= link_to 'About us', '/team' %><br/>
         <%= link_to 'Contact us', contact_path %>
 
       </div>
       <div class="column content">
-        <h2>Resources</h2>
-        <a class="is-link">Getting started</a><br/>
-        <a class="is-link"><%= link_to t("User guides"), public_pages_path(:page => 'user-guide') %></a><br/>
+        <h4>Resources</h4>
+        <a class="is-link"><%= link_to t("Guide"), public_pages_path(:page => 'guide') %></a><br/>
         <a class="is-link"><%= link_to t("FAQ"), public_pages_path(:page => 'faq') %></a></a><br/>
         <a class="is-link"><%= link_to t("Api"), public_pages_path(:page => 'api') %></a></a><br/>
       </div>
 
       <div class="column content">
-        <h2>More </h2>
+        <h4>More </h4>
         <a class="is-link"><%= link_to t("Open source"), public_pages_path(:page => 'open-source') %></a><br/>
         <a class="is-link" href="https://blog.unknownAnalytics.com">Blog</a><br/>
-        <a class="is-link" href="https://blog.unknownAnalytics.com">@unk by Lines</a><br/>
         <a class="is-link" href="https://gitlab.com/unknown-inc">Gitlab</a><br/>
       </div>
     </div>

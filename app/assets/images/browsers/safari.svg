@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-9.9 -16.4 86 98.7">
+  <defs/>
+  <defs>
+    <linearGradient id="b">
+      <stop offset="0" stop-color="#06c2e7"/>
+      <stop offset=".3" stop-color="#0db8ec"/>
+      <stop offset=".5" stop-color="#12aef1"/>
+      <stop offset=".8" stop-color="#1f86f9"/>
+      <stop offset="1" stop-color="#107ddd"/>
+    </linearGradient>
+    <linearGradient id="a">
+      <stop offset="0" stop-color="#bdbdbd"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+    <linearGradient id="d" x1="413" x2="413" y1="237.6" y2="59.4" gradientTransform="translate(207 160) scale(.35154)" gradientUnits="userSpaceOnUse" xlink:href="#a"/>
+    <filter id="f" width="1" height="1" x="0" y="0" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="1"/>
+    </filter>
+    <filter id="c" width="1.1" height="1.1" x="0" y="0" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="3.6"/>
+    </filter>
+    <radialGradient id="e" cx="413.1" cy="136.8" r="82.1" fx="413.1" fy="136.8" gradientTransform="translate(195 156) scale(.38143)" gradientUnits="userSpaceOnUse" xlink:href="#b"/>
+  </defs>
+  <path d="M502 149a89 89 0 01-89 89 89 89 0 01-89-89 89 89 0 0189-90 89 89 0 0189 90z" filter="url(#c)" opacity=".5" paint-order="markers stroke fill" transform="matrix(.33865 0 0 .3261 -107 -14)"/>
+  <path fill="url(#d)" stroke="#cdcdcd" stroke-linecap="round" stroke-linejoin="round" stroke-width=".1" d="M383 212a31 31 0 01-31 31 31 31 0 01-31-31 31 31 0 0131-31 31 31 0 0131 31z" paint-order="markers stroke fill" transform="translate(-319 -181)"/>
+  <path fill="url(#e)" d="M381 212a29 29 0 01-29 29 29 29 0 01-29-29 29 29 0 0129-29 29 29 0 0129 29z" paint-order="markers stroke fill" transform="translate(-319 -181)"/>
+  <path fill="#f4f2f3" d="M33 4v5-5zm-3 0v3h1V5l-1-1zm6 0l-1 1v2h1V5 4zm-9 1l1 5h1l-1-5h-1zm12 0h-1l-1 5h1l1-5zM25 5l-1 1 1 2h1l-1-2V5zm16 0v1l-1 2h1l1-2V5h-1zM22 6v1l2 4v0l-1-4-1-1zm22 0v1l-2 4v0l2-4V6zM20 8h-1l1 2h1l-1-2zm27 0h-1l-1 2h1l1-2zM17 9v1l3 4v-1l-2-4h-1zm32 0l-3 4v1l3-4V9zm-34 2v1l1 1h1l-2-2zm36 0l-2 2h1l1-1v-1zm-38 2v1l3 3h1v-1l-4-3zm40 0l-4 3v1h1l3-3v-1zm-42 2v1l2 1v-1l-1-1h-1zm44 0l-2 1v1l2-1v-1zm-45 2l-1 1h1l4 3v-1l-4-2v-1zm46 0v1l-4 2v1l5-3-1-1zM8 20v1l2 1 1-1-2-1H8zm50 0h-1l-1 1h-1l1 1 2-1v-1zM7 23l5 2v-1l-4-1H7zm52 0l-5 1v1l5-2zM7 25l-1 1h1l2 1v-1l-2-1zm52 0l-2 1v1l2-1h1l-1-1zM6 28v1h5l-5-1zm54 0l-5 1h5v-1zM6 31v1h2l1-1H8zm52 0v1h2v-1zm-47 2l-5 1v1l5-1h1l-1-1zm44 0v1l5 1v-1l-5-1zM9 36l-2 1H6h3v-1zm48 0v1h2l-2-1zm-45 2l-5 1v1h1l4-1v-1zm42 0v1l5 1v-1l-5-1zm-44 3l-2 1 1 1 2-1v-1h-1zm46 0h-1l1 1 1 1h1v-1l-2-1zm-42 1l-4 2-1 1h1l4-2v-1zm38 0v1l4 2h1v-1l-5-2zm-39 4l-2 1 1 1 1-2zm40 0l2 2v-1l-2-1zm-36 0h-1l-3 3v1l4-4zm32 0l4 4v-1l-3-3h-1zm-29 3l-3 4v1l1-1 2-4zm26 0l3 4v0l-3-4zm-30 0v1l-1 1v1l2-2-1-1zm34 0l-1 1 2 2v-1l-1-1v-1zm-26 2l-2 5 2-4v-1zm18 0v1l2 4-2-5zm-21 1l-1 1-1 1v1h1l1-2v-1zm25 0l-1 1 1 2h1v-1l-1-1v-1zm-18 1l-1 5h1l1-5h-1zm10 0h-1l1 5h1l-1-5zm-5 0v5-5zm-8 2l-1 2h1l1-2h-1zm16 0h-1l1 2h1l-1-2zm-11 1v3l1-1v-2h-1zm6 0h-1v2l1 1v-3z" paint-order="markers stroke fill"/>
+  <path d="M469 101l-65 38-42 65 61-45z" filter="url(#f)" opacity=".4" paint-order="markers stroke fill" transform="translate(-112 -21) scale(.35154)"/>
+  <path fill="#ff5150" d="M36 35l-6-7 23-16z" paint-order="markers stroke fill"/>
+  <path fill="#f1f1f1" d="M36 35l-6-7-17 23z" paint-order="markers stroke fill"/>
+  <path d="M13 51l23-16 17-23z" opacity=".2"/>
+</svg>

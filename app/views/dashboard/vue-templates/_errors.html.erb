@@ -1,6 +1,14 @@
+<div id="icons_paths">
+  <span class="browser-icon" data-for="chrome" data-src='<%= image_url ('browsers/chrome.svg') %>'></span>
+  <span class="browser-icon" data-for="edge" data-src='<%= image_url ('browsers/edge.svg') %>'></span>
+  <span class="browser-icon" data-for="opera" data-src='<%= image_url ('browsers/opera.svg') %>'></span>
+  <span class="browser-icon" data-for="safari" data-src='<%= image_url ('browsers/safari.svg') %>'></span>
+  <span class="browser-icon" data-for="firefox" data-src='<%= image_url ('browsers/firefox.svg') %>'></span>
+</div>
 <script type="text/x-template" id="app_dashboard_errors_template">
-
   <div>
+    <h4>Errors</h4>
+
     <div>
 
       <div v-if="selectedPage" class="is-flex py-2">
@@ -9,32 +17,71 @@
           </span>
         <button @click="clearCurrentPage()" class="button is-small ml-2 has-background-danger-dark has-text-white cursor-pointer reset-page">Clear</button>
       </div>
-      <div class="columns mb-2" id="page_filter_menu">
+      <div class="columns mb-2 is-justify-content-space-between" id="page_filter_menu">
         <div class="column is-one-quarter">
-          <app-v-typehead :list="data.pages"
+          <app-v-typehead :list="pages"
                           :property="'url'"
                           v-on:selected="onSelectedPage($event)"
-                          :placeholder="'Filter ' + data.pages.length  + ' pages' ">
+                          :placeholder="'Filter ' + pages.length  + ' pages' ">
           </app-v-typehead>
         </div>
-        <div class="column">Daily
-          <small class="is-size-7"> [ by weeks in the last 6 months ]</small>
-          <select @change="onChangeWeekDayFilter($event)" v-model="weekDay.startRange">
-            <%= get_range_of_weeks_n_months_ago(6).reverse.each_with_index do |week, index| %>
-              <option
-                <% if index == 0 %>selected="selected"
-                <% end %> value="<%= week.begin %>">
-                <%= week %>
-              </option>
-            <% end %>
-          </select>
+        <div class="is-flex is-align-items-center">
+          <div class="field is-horizontal mb-0">
+            <div class="field-body">
+              <%= render :partial => 'shared/select_period_inputs', :locals => {
+                :startEvent => 'onChangeStartDate($event)',
+                :endEvent => 'onChangeEndDate($event)',
+              } %>
+            </div>
+          </div>
         </div>
-
-
       </div>
     </div>
     <div>
-      <h4>Errors</h4>
+      <div v-if="!selectedPage" class="has-text-info is-flex is-align-content-center">
+        <% cache('icon-search') do %>
+          <%= render :partial => 'shared/icon', :locals => { :icon => 'icon-search' } %>
+        <% end -%><span class="ml-2">Please select a page from the autocomplete !</span>
+      </div>
+
+      <div v-if="errors.length" class="panel-block px-0 is-block">
+        <table class="table w-100 middle">
+          <thead>
+          <tr>
+            <td>Error</td>
+            <td>Info</td>
+            <td>Type</td>
+            <td>Browser</td>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="e in errors">
+            <td>
+              {{e.metadata.info && e.metadata.info.msg}}
+            </td>
+            <td>
+              {{e.metadata.info}}
+            </td>
+            <td>
+              <span class="has-text-white has-background-danger px-2">{{e.type}}</span>
+            </td>
+            <td>
+              <img v-if="e.icon" :src="e.icon" style="width: 48px;height: 48px"/>
+              <span v-if="!e.icon">{{e.browser}}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div v-if="hasMorePages && selectedPage && !isLoading" class="has-text-info is-flex is-justify-content-center is-align-content-center">
+        <button @click="loadMore()">Load more</button>
+      </div>
+
+      <div v-if="isLoading" class="has-text-info is-flex is-justify-content-center is-align-content-center">
+        Loading data ...
+      </div>
+
     </div>
   </div>
 </script>

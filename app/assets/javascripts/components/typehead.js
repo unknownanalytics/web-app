@@ -76,6 +76,7 @@
             hit() {
                 if (this.navIndex !== -1) {
                     this.$emit('selected', this.filteredList[this.navIndex]);
+                    this._reset();
                 }
             },
 
@@ -109,6 +110,9 @@
                 return this._getComparator(e).replace(this.searchValueRegx, '<span class="match">' + this.searchValueRegx.source + '</span>')
             },
             esc() {
+                this._reset();
+            },
+            _reset() {
                 this.filteredList = [];
                 this.hidden = true;
                 this.navIndex = -1;

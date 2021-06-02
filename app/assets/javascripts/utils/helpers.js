@@ -114,7 +114,6 @@ const Helpers = {
             for (let j = 0; j < 24; j++) {
                 val = current ? (current[j] ? current[j] : 0) : 0;
                 if (val > 0) {
-                    Helpers.log('XXXXXXXXXXXXXXXX');
                     Helpers.log(val);
                 }
                 result.push([i, j, val])

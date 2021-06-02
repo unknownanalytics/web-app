@@ -24,7 +24,7 @@ This is the code source of the web application including the web sdk.
 
 `bundle install`
 
-### Database creation
+### Database 
 
 * Create your database (develop only), please follow [deployment instruction](docs/deployment.md) for docker compose
   deployment
@@ -33,9 +33,11 @@ This is the code source of the web application including the web sdk.
 
 run `UNK_ANA_DATABASE_URI=<postgres://postgres_user:pg_password@host/your_db_name> UNK_ANA_REDIS_URI=<redis://host> (bundle exec ) db migrate`
 
-### Local server
+### Local development
 
 Run server (dev only). See [.env](.env) for full vars env list
+
+The minimum required env are `UNK_ANA_DATABASE_URI`, `UNK_ANA_REDIS_URI`, `UNK_ANA_SMTP_URI`
 
 `UNK_ANA_DATABASE_URI=<postgres://postgres_user:pg_password@host/db_name> UNK_ANA_REDIS_URI=<redis://host> UNK_ANA_SMTP_URI=<your_smtp_local> rails s`
 
@@ -45,4 +47,12 @@ Run server (dev only). See [.env](.env) for full vars env list
 
 The sdk is build with rollup, inside [web-sdk-cli](./web-sdk-cli/src)
 
-* Services (job queues, cache servers, search engines, etc.)
+* Use `npm run watch` to live reload compile
+* Use `npm run build` to build the sdk. This is step is done automatically when docker-compose is mounted.
+* Use [index.html](web-sdk-cli/test/index.html) file to test the sdk.
+* Use `unkAnalytics('api_key', {debug : true });` for debugging
+
+### Services
+
+* TODO
+  (job queues, cache servers, search engines, etc.)

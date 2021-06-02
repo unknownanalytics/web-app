@@ -141,6 +141,9 @@ class Sender {
             this.wsInstance.send(data);
             return true;
         }*/
+        if (!(location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.origin.startsWith('https'))) {
+            return console.warn('Unk only works when https is allowed');
+        }
         args = args || {};
         args.method = 'POST';
         args.url = this.config.apiURL;
