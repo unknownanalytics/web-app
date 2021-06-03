@@ -1,12 +1,16 @@
 class WelcomeController < ApplicationController
   def pages
     @page = params[:page] || 'home'
+    if @page == 'welcome'
+      @page = 'home'
+    end
     if valid_page?
       render "welcome/page"
     else
       render file: "public/404.html", status: :not_found
     end
   end
+
   private
 
   def valid_page?

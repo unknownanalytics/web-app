@@ -50,6 +50,8 @@ class Api::Sdk::V1::CollectController < Api::ApiController
     puts @body['info']
     begin
       browser = DeviceDetector.new(request.user_agent)
+      puts '***************** browser.device ******************'
+      puts browser.name
       # puts '***************** browser.device ******************'
       # puts browser.name # => 'Chrome'
       # puts browser.full_version # => '30.0.1599.69'
