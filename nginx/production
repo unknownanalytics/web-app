@@ -44,6 +44,14 @@ server {
                 add_header ETag "";
                 break;
         }
+        location /sdk.js {
+          alias /var/www/unk-ana-assets/assets/sdk.js;
+          gzip_static on;       # to serve pre-gzipped version
+          add_header Cache-Control public;
+          add_header Last-Modified "";
+          add_header ETag "";
+          break;
+        }
 
         # send non-static file requests to the app server
 
@@ -58,6 +66,10 @@ server {
             proxy_set_header X-NginX-Proxy true;
             proxy_set_header X-Forwarded-Proto $scheme;
             proxy_pass http://puma_unk;
+        }
+
+        if ($host = 'unknownanalytics.com') {
+            return 301 https://www.unknownanalytics.com$request_uri;
         }
 
         listen [::]:443 ssl; # managed by Certbot
