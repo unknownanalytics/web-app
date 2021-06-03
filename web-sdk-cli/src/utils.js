@@ -29,11 +29,12 @@ class Sender {
 
     off() {
         this.isOff = true;
-        Logger.log("isoff");
+        Logger.log("turning unk off");
     }
 
     on() {
         this.isOff = false;
+        Logger.log("turning unk on");
     }
 
     /*

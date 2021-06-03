@@ -31,12 +31,11 @@ window.unkAnalytics = function (token, options) {
         let sender = new Sender(config, options);
         ErrorManager.createManager(options, sender);
         PageViewManager.createManager(options, sender);
-        window.unkInitilaized = true ;
-        window.unkAnalytics = {
-            version : config.version,
-            off : sender.off.bind(sender),
-            on : sender.on.bind(sender),
-        };
+        window.unkInitilaized = true;
+        // add attributes and shortcuts
+        window.unkAnalytics.version = config.version;
+        window.unkAnalytics.off = sender.off.bind(sender);
+        window.unkAnalytics.on = sender.on.bind(sender);
     }
     //new EventManager(options, sender);
 };

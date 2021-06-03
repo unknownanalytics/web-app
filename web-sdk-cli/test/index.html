@@ -11,13 +11,13 @@
 
 <script src="http://localhost:3000/assets/sdk-test.js"></script>
 <div>
-
+    <button onclick="on_off()">on/off unk</button>
+    <button onclick="fireerror()">fire error</button>
 </div>
 <script>
-    unk_debug = true;
-	//unkAnalytics('ua_DT2kUINNsOtlRr4FLXwTzw', {debug : true });
-	unkAnalytics('ua_DT2kUINNsOtlRr4FLXwTzw');
-	// utm_source=google&utm_medium=organic&utm_campaign=organic
+    //unkAnalytics('ua_DT2kUINNsOtlRr4FLXwTzw', {debug : true });
+    unkAnalytics('ua_DT2kUINNsOtlRr4FLXwTzw');
+    // utm_source=google&utm_medium=organic&utm_campaign=organic
 
     unkAnalytics.off();
 
@@ -27,6 +27,15 @@
 
     document.getElementById('canvas').click();
     document.getElementById('canvasx').addEventListener('xxxx');
+
+
+    var stateOn = false;
+
+    function on_off() {
+        stateOn ? unkAnalytics.off() : unkAnalytics.on();
+        stateOn = !stateOn;
+        console.log("stateOff ", stateOn)
+    }
 </script>
 </body>
 
