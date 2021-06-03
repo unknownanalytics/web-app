@@ -23,7 +23,6 @@ let config = {
  * @param options
  */
 window.unkAnalytics = function (token, options) {
-
     if (!window.unkInitilaized) {
         options = options || {};
         config.token = token;
@@ -32,9 +31,12 @@ window.unkAnalytics = function (token, options) {
         let sender = new Sender(config, options);
         ErrorManager.createManager(options, sender);
         PageViewManager.createManager(options, sender);
-        window.unkInitilaized = true;
+        window.unkInitilaized = true ;
+        window.unkAnalytics = {
+            version : config.version,
+            off : sender.off.bind(sender),
+            on : sender.on.bind(sender),
+        };
     }
     //new EventManager(options, sender);
-    //new ErrorManager(options, sender);
 };
-window.unkAnalytics.version = config.version;

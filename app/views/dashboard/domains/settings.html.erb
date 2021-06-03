@@ -11,7 +11,7 @@
           <%= text_field(:domain_setting, :origins, { class: "input", placeholder: t("domains.settings_origins_placeholder") }) %>
         </div>
         <label class="help">The list of allowed origins separated by comma <code>,</code>. Example domain-1,domain-2.
-          Without including schema </label>
+          Without including schema (without http:// or https://) </label>
         <label class="help">Unk analytics does not allow http access. Only https is accepted </label>
       </div>
     </div>

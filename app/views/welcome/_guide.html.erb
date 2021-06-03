@@ -1,90 +1,367 @@
-<div class="section">
+<style>
+    .underline {
+        text-decoration: underline;
+    }
+
+    .doc-sub-category {
+
+    }
+
+    .doc .title {
+        text-decoration: underline orange;
+    }
+</style>
+<div class="section doc">
   <div class="container">
-    <h3 class="title">
-      Getting started
-    </h3>
+    <div class="columns">
+      <div class="column is-one-fifth">
+        <ul class="doc-category">
+          <li>
+            <a class="subtitle" href="#doc_getting_started">Getting started</a>
+            <ul class="doc-sub-category pl-4 py-1">
+              <li>
+                <a href="#doc_create_domain">Create your domain</a>
+              </li>
+              <li>
+                <a href="#doc_select_or_create_domain">Domain selection</a>
+              </li>
+              <li>
+                <a href="#doc_configure_domain">Domain configuration</a>
+              </li>
+              <li>
+                <a href="#doc_configure_domain_origins"> Configure domain origins </a>
+              </li>
+              <li>
+                <a href="#doc_configure_domain_api_keys"> Configure domain api keys </a>
+              </li>
+              <li>
+                <a href="#doc_menu_settings"> Settings menu </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <br/>
+          </li>
+          <li>
+            <a class="subtitle" href="#doc_sdk_integration">SDK integration </a>
+            <ul class="doc-sub-category pl-4 py-1">
+              <li>
+                <a href="#doc_sdk_installation_js">Sdk JS installation</a>
+              </li>
+              <li>
+                <a href="#doc_sdk_installation_initialisation">Initialisation</a>
+              </li>
+              <li>
+                <a href="#doc_sdk_installation_issues">Known issues and uses cases</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <br/>
+          </li>
+          <li>
+            <a class="subtitle" href="#doc_dashboard_overview">Overview </a>
+            <ul class="doc-sub-category pl-4 py-1">
+              <li>
+                <a href="#doc_dashboard_overview_summary">Summary</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <br/>
+          </li>
+          <li>
+            <a class="subtitle" href="#doc_dashboard_page_views">Page views </a>
+            <ul class="doc-sub-category pl-4 py-1">
+              <li>
+                <a href="#doc_dashboard_page_views_global">Global view </a>
+              </li>
+              <li>
+                <a href="#doc_dashboard_page_views_by_page">View by page </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <br/>
+          </li>
+          <li>
+            <a class="subtitle" href="#doc_dashboard_geo">Geo </a>
+            <ul class="doc-sub-category pl-4 py-1">
+              <li>
+                <a href="#doc_dashboard_geo_bubble">Geo view Bubble</a>
+              </li>
+              <li>
+                <a href="#doc_dashboard_goe_choropleth">Geo view Choropleth</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <br/>
+          </li>
+          <li>
+            <a class="subtitle" href="#doc_dashboard_errors">Errors </a>
+            <ul class="doc-sub-category pl-4 py-1">
+              <li>
+                <a href="#doc_dashboard_errors">Errors  </a>
+              </li>
+            </ul>
+          </li>
 
-    <h3 class="title">
-      Page views
-    </h3>
+        </ul>
+      </div>
+      <div class="column">
+        <div>
+          <h3 class=" title" id="doc_getting_started">
+            Getting started
+          </h3>
+          <div>
+
+            This guide illustrate how you can configure your domain and set up different options so you can install unk
+            sdk.
+
+          </div>
+          <br/>
+          <h5 class="subtitle underline" id="doc_create_domain">
+            Create your domain
+          </h5>
+          <br/>
+          If you don't have any domain, the app will request you to create a new domain.
+          <br/>
+          <br/>
+          <%= image_tag("guide/create_domain.png") %>
+          <br/>
+          Following the link, you can create your new domain. Note that the domain field is not your
+          website hostname or address. It is just an alias so you can identify the correct domain to work with.
+          <br/>
+          <%= image_tag("guide/create_domain.0.png") %>
+          <br/>
+          <br/>
+          <h5 class="subtitle underline" id="doc_select_or_create_domain">
+            Domain selection
+          </h5>
+          <br/>
+          <b>
+            Note that you should select a domain to work with. If you have multiple domains, you can create or change
+            the current selection.
+          </b>
+          <br/>
+          <br/>
+          After the domain creation, you should be able to select a domain (1) from the options list or create another
+          new domain (2).
+          <br/>
+
+          <a href="#doc_menu_settings">See menu </a>
+          <br/>
+          <br/>
+
+          <%= image_tag("guide/create_domain.1.png") %>
+          <br/>
+          <br/>
+          If you select the domain to work with, the alias(name) of the domain will appears in top navigation bar.
+          <br/>
+          <br/>
+
+          <%= image_tag("guide/domain_selection.png") %>
+
+          <h5 class="subtitle underline" id="doc_configure_domain">
+            Domain configuration
+          </h5>
+          <br/>
+          The next step is to configure origins and api keys.
+          If the configuration is missed, the application will request to setup the missing parameters.
+          <br/>
+          <br/>
+          <%= image_tag("guide/domain_missing_settings.png") %>
+
+          <h5 class="subtitle underline" id="doc_configure_domain_origins">
+            Configure origins
+          </h5>
+          This field let you define what are the list of allowed origins of your website from where unk can collect
+          analytics.
+          If your install unk sdk.js for your website
+          <span class="has-background-info has-text-white">https://abc.com</span>, you should add
+          <span class="has-background-info has-text-white">abc.com</span> to the allowed origins field.
+          You can define more than one origin. You just need to separate the list by a comma
+          <span class="has-background-danger has-text-white">,</span>.
+          <br/>
+          <br/>
+          <%= image_tag("guide/settings.png") %>
+
+          <h5 class="subtitle underline" id="doc_configure_domain_api_keys">
+            Create api key
+          </h5>
+
+          An api key is an identifier for your domain. Mixed with defined origins, only allowed origins can collect
+          analytics from your website.
+          <br/>
+          <br/>
+          <%= image_tag("guide/api_keys.png") %>
+
+          <br/>
+
+          <h5 class="subtitle underline" id="doc_menu_settings">
+            Setting Menu
+          </h5>
+          The picture below shows the links to access different configurations for the current selected domain and the
+          list of other domains.
+          <div>
+
+            <ul class="is-4">
+              <li>* Change the current working domain you can select from all your domain in the select options (1).
+              </li>
+              <li>* Add new domain (2)</li>
+              <li>* Configure selected domain origins (3)</li>
+              <li>* Configure selected domain api key (4)</li>
+            </ul>
+          </div>
+          <br/>
+          <div class="has-text-centered">
+
+            <%= image_tag("guide/menu.png") %>
+
+          </div>
+        </div>
+
+        <br/>
+        <div>
+          <h3 class="title" id="doc_sdk_integration">
+            Sdk integration
+          </h3>
+          <br/>
+          This section describe how to install the js sdk on your website and initialize the analytics with your api
+          key.
+          <br/>
+          <h5 class="subtitle underline" id="doc_sdk_installation_js">
+            SDK js installation
+          </h5>
+          <br/>
+          First step is to install the js sdk by including this line in your html file. It's preferred to be in head
+          bloc but it works fine
+          in body also.
+          <br/>
+          <div>
+            <span class="code">&lt;script <span class="attr-name">src</span>="<span class="attr-value">https://www.unknownanalytics.com/sdk.js</span>"&gt;&lt;/script&gt;</span>
+
+          </div>
+          <br/>
+          <h5 class="subtitle underline" id="doc_sdk_installation_initialisation">
+            SDK js initialisation
+          </h5>
+          <br/>
+          The next step is to initialize the sdk using your api key and the instruction below.
+          <br/>
+          <div>
+            <span class="code"><span class="attr-value">unkAnalytics</span>(&lt;your_api_key&gt;);</span>
+          </div>
+          <br/>
+          <h5 class="subtitle underline" id="doc_sdk_installation_issues">
+            Known issues and uses cases
+          </h5>
+          <br/>
+          You may have some csp restrictions or configuration in your website
+          (<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">more</a>).
+          <span class="mt-1"></span>
+          in this case you may encounter another issue related to
+          <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/script-src">script-src</a>
+          and nonce.
+          If this is case, you can download and install the latest version of
+          <a href="https://www.unknownanalytics.com/sdk.js"> the sdk</a> and serve it from your server.
+          <br/>
+          If you still have an issue preventing the app from being installed
+          please <%= link_to t('contact us'), contact_path(subject: "[Support]") %> .
+        </div>
+
+        <br/>
+        <div>
+          <h3 class="title" id="doc_dashboard_overview">
+            Overview
+          </h3>
+          <br/>
+          This page display a summary of metrics related to domains.
 
 
-    <h3 class="title">
-      Geo tracking
-    </h3>
+          <br/>
+          <h5 class="subtitle underline" id="doc_dashboard_overview_summary">
+            Summary view
+          </h5>
+          <br/>
+          <%= image_tag("guide/overview.png") %>
+        </div>
+        <br/>
+        <div>
+          <h3 class="title" id="doc_dashboard_page_views">
+            Page views
+          </h3>
+          <br/>
+          This section describe how to install the js sdk on your website and initialize the analytics with your api
+          key.
+          <br/>
+          <br/>
+          <h5 class="subtitle underline" id="doc_dashboard_page_views_global">
+            Global view
+          </h5>
+          <br/>
+          <%= image_tag("guide/page_views.png") %>
+          <h5 class="subtitle underline" id="doc_dashboard_page_views_by_page">
+            Specific page view
+          </h5>
+          <br/>
+          Using the autocomplete input, you can filter to select a page for your pages list. here we selected the
+          <span class="has-background-info-light">/dashboard/stats/errors</span>
+          <br/>
+          <br/>
+          <%= image_tag("guide/page_views_by_page.png") %>
+        </div>
 
-    <h3 class="title">
-      Errors
-    </h3>
+        <div>
+          <h3 class="title" id="doc_dashboard_geo">
+            Geo
+          </h3>
+          <br/>
+          This feature is enabled in domain settings. By default it is disabled. See <a href="#doc_menu_settings"> menu</a>
+          <br/>
+          <br/>
+          <%= image_tag("guide/settings_geo.png") %>
+          <br/>
+          <h5 class="subtitle underline" id="doc_dashboard_geo_bubble">
+            Bubble view
+          </h5>
+          <br/>
+          <%= image_tag("guide/goe_bubble.png") %>
+          <h5 class="subtitle underline" id="doc_dashboard_goe_choropleth">
+            Choropleth view
+          </h5>
+          <br/>
+          <%= image_tag("guide/goe_choropleth.png") %>
+        </div>
 
-    <h3 class="title">
-      Export <span class="tag tag-danger"> Partial </span>
-    </h3>
+
+        <div>
+          <h3 class="title" id="doc_dashboard_errors">
+            Errors
+          </h3>
+          <br/>
+          <%= image_tag("guide/errors.png") %>
+
+        </div>
 
 
-    <h3 class="title">
-      Events <span class="tag tag-danger"> soon</span>
-    </h3>
+        <h3 class="title">
+          Export <span class="tag tag-danger"> Partial </span>
+        </h3>
 
 
-    <h3 class="title">
-      Heatmaps <span class="tag tag-danger"> soon</span>
-    </h3>
+        <h3 class="title">
+          Events <span class="tag tag-danger"> soon</span>
+        </h3>
 
-   <!-- <table class="table is-bordered">
-      <tbody>
-      <tr>
-        <td><code>=arrow($color)</code></td>
-        <td>Creates a CSS-only down arrow. Used for the dropdown select.</td>
-      </tr>
-      <tr>
-        <td><code>=block</code></td>
-        <td>Defines a margin-bottom of 1.5rem, except when the element is the last child. Used for almost all block
-          elements.
-        </td>
-      </tr>
-      <tr>
-        <td><code>=clearfix</code></td>
-        <td>Adds a clearfix at the end of the element. UExpensessed for the "is-clearfix" helper.</td>
-      </tr>
-      <tr>
-        <td><code>=center($size)</code></td>
-        <td>Positions an element in the exact center of its parent. Used for the spinner in a loading button.</td>
-      </tr>
-      <tr>
-        <td><code>=delete</code></td>
-        <td>Creates a CSS-only cross. Used for the delete element in modals, messages, tags...</td>
-      </tr>
-      <tr>
-        <td><code>=fa($size, $dimensions)</code></td>
-        <td>Sets the style of a Font Awesome icon container.</td>
-      </tr>
-      <tr>
-        <td><code>=hamburger($dimensions)</code></td>
-        <td>Creates a CSS-only hamburger menu with 3 bars. Used for the "nav-toggle".</td>
-      </tr>
-      <tr>
-        <td><code>=loader</code></td>
-        <td>Creates a CSS-only loading spinner. Used for the ".loader" element, and for input and button spinners.</td>
-      </tr>
-      <tr>
-        <td><code>=overflow-touch</code></td>
-        <td>Sets the style of a container so that it keeps momentum when scrolling on iOS devices.</td>
-      </tr>
-      <tr>
-        <td><code>=overlay($offset: 0)</code></td>
-        <td>Makes the element overlay its parent container, like the transparent modal background.</td>
-      </tr>
-      <tr>
-        <td><code>=placeholder</code></td>
-        <td>Sets the styles of an input placeholder.</td>
-      </tr>
-      <tr>
-        <td><code>=unselectable</code></td>
-        <td>Turns the element unselectable. Used for buttons to prevent selection when clicking.</td>
-      </tr>
-      </tbody>
-    </table>-->
+
+        <h3 class="title">
+          Heatmaps <span class="tag tag-danger"> soon</span>
+        </h3>
+      </div>
+    </div>
+
 
   </div>
 </div>

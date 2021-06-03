@@ -14,10 +14,12 @@
 
 </div>
 <script>
+    unk_debug = true;
 	//unkAnalytics('ua_DT2kUINNsOtlRr4FLXwTzw', {debug : true });
 	unkAnalytics('ua_DT2kUINNsOtlRr4FLXwTzw');
 	// utm_source=google&utm_medium=organic&utm_campaign=organic
 
+    unkAnalytics.off();
 
     fetch('https://jsonplaceholder.typicode.cxom/todoxxxxs/1')
         .then(response => response.json())

@@ -16,6 +16,7 @@ class Sender {
     /*
     wsInstance: WebSocket = null;
     config: {} = null;*/
+    isOff = false;
 
     constructor(config) {
         this.config = config;
@@ -24,6 +25,15 @@ class Sender {
         /*if (!this.wsInstance) {
                 this.wsInstance = this._initWS();
         }*/
+    }
+
+    off() {
+        this.isOff = true;
+        Logger.log("isoff");
+    }
+
+    on() {
+        this.isOff = false;
     }
 
     /*
@@ -141,6 +151,9 @@ class Sender {
             this.wsInstance.send(data);
             return true;
         }*/
+        if (this.isOff) {
+            return;
+        }
         if (!(location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.origin.startsWith('https'))) {
             return console.warn('Unk only works when https is allowed');
         }

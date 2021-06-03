@@ -28,19 +28,19 @@ a.action {
 }
 
 .code {
-  background-color: #131313b0;
+  background-color: rgba(217, 208, 208, 0.69);
   padding: 3px 11px;
   border-radius: 2px;
-  color: white;
+  color: blue;
   font-size: .8rem;
   font-family: monospace;
 
   .attr-name {
-    color: #00b89c;
+    color: blue;
   }
 
   .attr-value {
-    color: #d9aa40;
+    color: green;
   }
 }
 

@@ -1,6 +1,6 @@
 {
   "name": "unknown-js-lib",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "official js browser sdk for unk analytics",
   "main": "index.js",
   "directories": {
