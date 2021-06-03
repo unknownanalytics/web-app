@@ -169,8 +169,9 @@ class Api::Sdk::V1::CollectController < Api::ApiController
       allowed_origins.include?(referer) or
       allowed_origins.include?(origin.delete_suffix('/')) or
       allowed_origins.include?(referer.delete_suffix('/'))
+
     unless allow
-      reply_json({ :error => "Not an origin allowed" }, :bad_request)
+      reply_json({ :error => "Not an origin allowed", :origins => allowed_origins, :origin => request.origin, :referer => request.referer }, :bad_request)
     end
 
   end
