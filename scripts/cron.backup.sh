@@ -1,11 +1,11 @@
 #!/bin/sh
 DIRNAME=/home/work/.backups/unk
-# create folder if does'nt exist yet
+# create folder if doesn't exist yet
 if [ ! -d $DIRNAME ]
 then
         echo "backup folder does not exists yet. Creating backup folder"
         mkdir $DIRNAME
-        echo "buckup folder exists"
+        echo "backup folder exists"
 else
         echo "backup folder already exists"
 fi
