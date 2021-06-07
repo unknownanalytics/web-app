@@ -1,4 +1,5 @@
-
 en:
-  contact:
-    tell_us: Tell us your needs
+  admin:
+    sidebar:
+      users: "Users"
+      contacts: "Contacts"

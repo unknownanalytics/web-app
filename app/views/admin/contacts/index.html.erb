@@ -1,0 +1,34 @@
+Contacts : page number <%= @page %>
+<table class="table w-100 middle contacts">
+  <thead>
+  <tr>
+    <td>Email</td>
+    <td>Subject</td>
+    <td>Created</td>
+    <td></td>
+  </tr>
+  </thead>
+  <tbody>
+  <% @contacts.each do |c| %>
+    <tr class="
+<% unless c.is_read %>has-text-weight-bold
+    <% end %>">
+      <td>
+        <%= c.email %>
+      </td>
+      <td>
+        <%= c.subject %>
+      </td>
+      <td>
+        <%= c.created_at %>
+      </td>
+      <td>
+        <% unless c.is_read %>(new)<% end %>  <%= link_to 'read', admin_contact_path(c.id) %>
+      </td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+

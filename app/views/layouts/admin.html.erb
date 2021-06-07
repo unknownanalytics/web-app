@@ -1,0 +1,25 @@
+<style>
+    body {
+        display: flex;
+        height: 100vh;
+        flex-direction: column;
+    }
+</style>
+
+<% content_for :page_title do %>
+  Unk / Admin
+<% end %>
+<%= extends :application do %>
+  <div class="container" style="width: 100%">
+
+    <div class=" columns is-marginless" >
+      <aside class="column is-2">
+        <%= render "shared/admin_menu" %>
+      </aside>
+      <div class="column is-10">
+
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+<% end %>

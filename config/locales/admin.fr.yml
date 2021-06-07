@@ -1,0 +1,7 @@
+
+fr:
+  admin:
+    sidebar:
+      users: "Users"
+      contacts: "Contacts"
+      admin: "Admin"

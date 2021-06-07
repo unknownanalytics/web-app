@@ -29,9 +29,14 @@ This is the code source of the web application including the web sdk.
 * Create your database (develop only), please follow [deployment instruction](docs/deployment.md) for docker compose
   deployment
 
-* Database initialization (migration and so on)
+* Database initialization (migrations and so on)
 
-run `UNK_ANA_DATABASE_URI=<postgres://postgres_user:pg_password@host/your_db_name> UNK_ANA_REDIS_URI=<redis://host> (bundle exec ) db migrate`
+run `UNK_ANA_DATABASE_URI=<postgres://postgres_user:pg_password@host/your_db_name> UNK_ANA_REDIS_URI=<redis://host> (bundle exec) db migrate`
+
+* Generate migration
+
+run `UNK_ANA_DATABASE_URI=<postgres://postgres_user:pg_password@host/your_db_name> UNK_ANA_REDIS_URI=<redis://host> (bundle exec) rails g migration <add_new_attr>`
+
 
 ### Local development
 

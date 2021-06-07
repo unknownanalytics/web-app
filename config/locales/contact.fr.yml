@@ -3,3 +3,7 @@ fr:
   contact:
     tell_us: A votre écoute
   Errors: ""
+  dashboard:
+    admin:
+      menu:
+        users: "Users"

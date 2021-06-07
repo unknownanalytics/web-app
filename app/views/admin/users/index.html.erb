@@ -1,0 +1,19 @@
+Users : page number <%= @page %>
+<table class="table w-100 middle">
+  <thead>
+  <tr>
+    <td>Email</td>
+  </tr>
+  </thead>
+  <tbody>
+  <% @users.each do |u| %>
+    <tr>
+      <td>
+        <%= u.email %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   ### Internal routes for apps communications
   namespace :hooks do
     post '/screenshot' => 'heatmaps#screenshot'
@@ -24,6 +23,7 @@ Rails.application.routes.draw do
   end
 
   authenticate :user do
+    # dashboard
     namespace :dashboard do
       get '/' => 'stats#index'
       get '/notify' => 'notifications#notify'
@@ -31,8 +31,7 @@ Rails.application.routes.draw do
       post '/domains/accept-invitation/:domain_id' => 'domains_teams#accept_invitation', as: 'accept_admin_invitation'
       delete '/domains/decline-invitation/:domain_id' => 'domains_teams#decline_invitation', as: 'decline_admin_invitation'
 
-
-      # acccounts and subscribe
+      # accounts and subscribe
       get 'account/plan/current' => 'plan#current_plan'
       get 'account/plan/current/upgrade' => 'plan#upgrade'
       get 'account/plan/current/confirm-upgrade' => 'plan#upgrade'
@@ -68,7 +67,7 @@ Rails.application.routes.draw do
         resources :api_keys
       end
     end
-
+    # api
     namespace :api do
       get '/overview' => 'overview#index'
       get '/overview/top_pages' => 'overview#top_pages'
@@ -81,7 +80,6 @@ Rails.application.routes.draw do
 
       get '/errors' => 'errors#index'
 
-
       # TODO
       get '/events' => 'events#index'
       # clicks and events
@@ -90,9 +88,15 @@ Rails.application.routes.draw do
       post '/export/pdf' => 'export#as_pdf'
     end
 
+    # admin
+    namespace :admin do
+      get '/' => 'admin#index'
+      resources :users, only: [:index, :show]
+      resources :contacts, only: [:index, :show]
+    end
+
     get '/subscription' => 'dashboard/subscription#index'
   end
-
 
   authenticated :user do
     scope :welcome do
@@ -101,18 +105,14 @@ Rails.application.routes.draw do
     root 'dashboard/stats#index'
   end
 
-
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'welcome#pages', as: 'home_path'
-
 
   post '/contact' => 'contact#contact_us'
   get '/contact/' => 'contact#index'
 
-
   mount Sidekiq::Web => '/sidekiq'
 
   get "/:page" => "welcome#pages", :as => 'public_pages'
-
 
 end

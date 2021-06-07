@@ -1,0 +1,11 @@
+
+en:
+  contact:
+    tell_us: Tell us your needs
+  dashboard:
+    admin:
+      menu:
+        users: "Users"
+  admin:
+    sidebar:
+      admin: "Admin"
